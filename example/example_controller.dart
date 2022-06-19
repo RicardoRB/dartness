@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:dartness/binds/get.dart';
-import 'package:dartness/controller.dart';
+import 'package:dartness/bind/annotation/get.dart';
+import 'package:dartness/bind/annotation/controller.dart';
 
 @Controller("/example")
 class ExampleController {

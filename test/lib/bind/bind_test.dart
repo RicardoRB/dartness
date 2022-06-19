@@ -1,5 +1,5 @@
-import 'package:dartness/binds/bind.dart';
-import 'package:dartness/binds/get.dart';
+import 'package:dartness/bind/annotation/bind.dart';
+import 'package:dartness/bind/annotation/get.dart';
 import 'package:test/test.dart';
 
 void main() {

@@ -1,10 +1,10 @@
-import 'dart:convert';
 import 'dart:io';
 import 'dart:mirrors';
 
 import 'package:collection/collection.dart';
-import 'package:dartness/binds/get.dart';
-import 'package:dartness/controller.dart';
+import 'package:dartness/bind/annotation/bind.dart';
+import 'package:dartness/bind/annotation/controller.dart';
+import 'package:dartness/bind/default_bind_factory.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart';
 import 'package:shelf_router/shelf_router.dart';
@@ -55,41 +55,22 @@ class Dartness {
           "doesn't contain @${controllerMirror.reflectedType}");
     }
 
+    final ctlReflectee = controllerAnnotationMirror.reflectee as Controller;
+    final bindFactory = DefaultBindFactory();
     final methods = clazzDeclaration.declarations.values
         .where((value) => value is MethodMirror && value.isRegularMethod)
         .map((method) => method as MethodMirror);
     for (final method in methods) {
-      for (var metadata in method.metadata) {
-        if (metadata.type == reflectClass(Get)) {
-          _handleGet(
-              controllerAnnotationMirror, metadata, clazzDeclaration, method);
+      for (final metadata in method.metadata) {
+        if (metadata.type.isSubtypeOf(reflectClass(Bind))) {
+          final bind = metadata.reflectee as Bind;
+          final path = '${ctlReflectee.path}${bind.path}';
+          final handler = bindFactory.of(metadata.type);
+          _router.add(bind.runtimeType.toString(), path,
+              handler.handle(clazzDeclaration, method));
         }
       }
     }
     _controllers.add(controller);
-  }
-
-  void _handleGet(
-      final InstanceMirror controllerAnnotationMirror,
-      final InstanceMirror metadata,
-      final ClassMirror clazzDeclaration,
-      final MethodMirror method) {
-    final path = '${controllerAnnotationMirror.reflectee.path}'
-        '${metadata.reflectee.path}';
-    _router.get(path, (final Request request) async {
-      //TODO path params and query params
-      final params = request.params.values.toList();
-      final response = clazzDeclaration.invoke(method.simpleName, params);
-      var result = response.reflectee;
-      if (result is Future) {
-        return await result;
-      } else if (result is Response) {
-        return result;
-      } else if (result is Iterable || result is Map || result is Object) {
-        return Response.ok(jsonEncode(result));
-      } else {
-        return Response.ok(result);
-      }
-    });
   }
 }

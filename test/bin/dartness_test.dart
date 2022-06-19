@@ -1,4 +1,4 @@
-import 'package:dartness/controller.dart';
+import 'package:dartness/bind/annotation/controller.dart';
 import 'package:test/test.dart';
 
 import '../../bin/dartness.dart';
