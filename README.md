@@ -39,8 +39,10 @@ Server listening on port 8080
     - CORS
 4. Dependency Injection
     - Injectable
-5. Database
+5. Scheduling
+    - Annotation
+6. Database
     - ORM
     - Repository
-6. Testing
-7. CLI
+7. Testing
+8. CLI
