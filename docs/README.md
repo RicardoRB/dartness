@@ -16,7 +16,7 @@ You can run the example with the [Dart SDK](https://dart.dev/get-dart)
 like this:
 
 ```
-$ dart run bin/server.dart
+$ dart run example/main.dart
 Server listening on port 8080
 ```
 
