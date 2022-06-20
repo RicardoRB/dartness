@@ -24,7 +24,7 @@ Server listening on port 8080
 
 1. HTTP
     - Controllers
-        - Bind annotations
+        - <del>Bind annotations</del>
         - Header
         - Body
         - Param
