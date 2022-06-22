@@ -1,6 +1,6 @@
 /// Annotation for a bindable property.
 abstract class Bind {
-  const Bind(this.path);
+  const Bind([this.path = '']);
 
   final String path;
 

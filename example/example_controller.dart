@@ -1,11 +1,12 @@
 import 'dart:async';
 
-import 'package:dartness/bind/annotation/get.dart';
 import 'package:dartness/bind/annotation/controller.dart';
+import 'package:dartness/bind/annotation/get.dart';
+import 'package:dartness/bind/annotation/request_param.dart';
 
 @Controller("/example")
 class ExampleController {
-  @Get("")
+  @Get()
   static String getEmpty() {
     return "Empty";
   }
