@@ -6,6 +6,7 @@
 ///
 /// Example:
 /// ```
+/// @Controller("/")
 /// class ExampleController {
 ///   @Get('/')
 ///   String get() {
