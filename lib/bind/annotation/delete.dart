@@ -1,6 +1,6 @@
 import 'bind.dart';
 
-/// Route annotation. Routes HTTP Delete requests to the specified path.
+/// Route annotation for delete request.
 class Delete extends Bind {
   const Delete(super.path);
 }

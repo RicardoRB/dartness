@@ -1,4 +1,4 @@
-/// Route parent annotation.
+/// Annotation for a bindable property.
 abstract class Bind {
   const Bind(this.path);
 
