@@ -6,6 +6,7 @@ import 'package:collection/collection.dart';
 import 'package:dartness/bind/annotation/bind.dart';
 import 'package:dartness/bind/annotation/controller.dart';
 import 'package:dartness/bind/annotation/get.dart';
+import 'package:logger/logger.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart';
 import 'package:shelf_router/shelf_router.dart';
@@ -13,6 +14,7 @@ import 'package:shelf_router/shelf_router.dart';
 /// A server that delivers content, such as web pages, using the HTTP protocol
 /// by [HttpServer].
 class Dartness {
+  final logger = Logger();
   HttpServer? _server;
   final Set<Object> _controllers = {};
 
@@ -104,24 +106,72 @@ class Dartness {
     _controllers.add(controller);
   }
 
-
   /// Handles the route's response and invoke the [method] in [clazzDeclaration]
   Function _handleRoute(
       final ClassMirror clazzDeclaration, final MethodMirror method) {
-    return (final Request request) async {
-      //TODO path params and query params
-      final params = request.params.values.toList();
-      final response = clazzDeclaration.invoke(method.simpleName, params);
-      var result = response.reflectee;
-      if (result is Future) {
-        return await result;
-      } else if (result is Response) {
-        return result;
-      } else if (result is Iterable || result is Map || result is Object) {
-        return Response.ok(jsonEncode(result));
-      } else {
-        return Response.ok(result);
+    return (final Request request, [final Object? extras]) async {
+      try {
+        //TODO query params
+        final params =
+            _mergeMethodParamsWithRequestParams(method, request.params);
+        final response = clazzDeclaration.invoke(method.simpleName, params);
+        var result = response.reflectee;
+        if (result is Future) {
+          return Response.ok(await result);
+        } else if (result is Response) {
+          return result;
+        } else if (result is Iterable || result is Map || result is Object) {
+          return Response.ok(jsonEncode(result));
+        } else {
+          return Response.ok(result);
+        }
+      } catch (e, stack) {
+        logger.e('Error handling route', e, stack);
+        return Response.internalServerError(body: e.toString());
       }
     };
+  }
+
+  /// Merges the [method] parameters with the [request] parameters.
+  ///
+  /// In order to invoke the [method] the parameters must be in the same order
+  /// and must has the same name.
+  List<Object> _mergeMethodParamsWithRequestParams(
+      final MethodMirror method, final Map<String, String> requestParams) {
+    final List<Object> params = [];
+    for (final methodParam in method.parameters) {
+      if (methodParam.type.reflectedType == int) {
+        final value = _obtainMethodParam(requestParams, methodParam);
+        params.add(int.parse(value));
+      } else if (methodParam.type.reflectedType == double) {
+        final value = _obtainMethodParam(requestParams, methodParam);
+        params.add(double.parse(value));
+      } else if (methodParam.type.reflectedType == String) {
+        params.add(methodParam);
+      } else if (methodParam.type.reflectedType == bool) {
+        final value = _obtainMethodParam(requestParams, methodParam);
+        params.add(value == 'true');
+      } else if (methodParam.type.reflectedType == Object) {
+        params.add(methodParam);
+      } else {
+        throw ArgumentError.value(
+            methodParam.type.reflectedType, 'methodParam.type.reflectedType');
+      }
+    }
+    return params;
+  }
+
+  /// Obtains the value of the [methodParam] from the [requestParams].
+  /// If the [methodParam] is not in the [requestParams] an
+  /// [ArgumentError] will be throw.
+  String _obtainMethodParam(final Map<String, String> requestParams,
+      final ParameterMirror methodParam) {
+    final paramName = MirrorSystem.getName(methodParam.simpleName);
+    final value = requestParams[paramName];
+    if (value == null) {
+      throw ArgumentError.value(methodParam, 'methodParam',
+          'missing parameter ${methodParam.simpleName}');
+    }
+    return value;
   }
 }

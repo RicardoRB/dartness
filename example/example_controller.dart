@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:dartness/bind/annotation/controller.dart';
 import 'package:dartness/bind/annotation/get.dart';
-import 'package:dartness/bind/annotation/request_param.dart';
 
 @Controller("/example")
 class ExampleController {
@@ -31,9 +30,9 @@ class ExampleController {
     return Future.value("bla");
   }
 
-  @Get("/<id>")
-  static int getParam(int pathParam) {
-    return pathParam;
+  @Get("/ids/<id>")
+  static int getParam(int id) {
+    return id;
   }
 }
 
