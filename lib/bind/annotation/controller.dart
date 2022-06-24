@@ -6,9 +6,9 @@
 ///
 /// Example:
 /// ```
-/// @Controller("/")
+/// @Controller('/')
 /// class ExampleController {
-///   @Get('/')
+///   @Get()
 ///   String get() {
 ///     return 'Hello World!';
 ///   }
