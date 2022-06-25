@@ -52,5 +52,5 @@ void main() {
 
 class TestClass {}
 
-@Controller("")
+@Controller("/")
 class ControllerClass {}
