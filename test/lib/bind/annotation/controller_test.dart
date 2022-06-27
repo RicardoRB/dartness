@@ -6,6 +6,7 @@ import 'package:dartness/bind/annotation/delete.dart';
 import 'package:dartness/bind/annotation/get.dart';
 import 'package:dartness/bind/annotation/post.dart';
 import 'package:dartness/bind/annotation/put.dart';
+import 'package:dartness/bind/annotation/query_param.dart';
 import 'package:test/test.dart';
 
 import '../../../../bin/dartness.dart';
@@ -122,6 +123,17 @@ void main() {
         expect(response.statusCode, HttpStatus.ok);
         expect(await response.transform(utf8.decoder).join(), equals('1'));
       });
+
+      test(
+        'GET query params',
+        () async {
+          final request =
+              await httpClient.get('localhost', port, '/get/query?id=1');
+          final response = await request.close();
+          expect(response.statusCode, HttpStatus.ok);
+          expect(await response.transform(utf8.decoder).join(), equals('1'));
+        },
+      );
     });
 
     group('POST method tests', () {
@@ -182,7 +194,7 @@ void main() {
       });
     });
 
-    group('put method tests', () {
+    group('PUT method tests', () {
       test(
           'GIVEN a controller with PUT method '
           'WHEN calling "/"'
@@ -338,6 +350,12 @@ class GetControllerClass {
   static int getParam(int id) {
     return id;
   }
+
+  @Get("/query")
+  static int getQuery(@QueryParam() int id) {
+    return id;
+  }
+
 }
 
 @Controller("/post")

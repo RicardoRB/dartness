@@ -6,6 +6,7 @@ import 'package:collection/collection.dart';
 import 'package:dartness/bind/annotation/bind.dart';
 import 'package:dartness/bind/annotation/controller.dart';
 import 'package:dartness/bind/annotation/get.dart';
+import 'package:dartness/bind/annotation/query_param.dart';
 import 'package:logger/logger.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart';
@@ -112,9 +113,21 @@ class Dartness {
     return (final Request request, [final Object? extras]) async {
       try {
         //TODO query params
-        final params =
-            _mergeMethodParamsWithRequestParams(method, request.params);
-        final response = clazzDeclaration.invoke(method.simpleName, params);
+        final Map<String, String> pathParams = Map.of(request.params)
+          ..removeWhere(
+              (key, value) => request.url.queryParameters.containsKey(key));
+        final methodParams = [];
+        if (pathParams.isNotEmpty) {
+          final params = _getPathParamsValues(method, pathParams);
+          methodParams.addAll(params);
+        }
+        if (request.url.queryParameters.isNotEmpty) {
+          final queryParams =
+              _getQueryParamsValues(method, request.url.queryParameters);
+          methodParams.addAll(queryParams);
+        }
+        final response =
+            clazzDeclaration.invoke(method.simpleName, methodParams);
         var result = response.reflectee;
         if (result is Future) {
           return Response.ok(await result);
@@ -132,46 +145,67 @@ class Dartness {
     };
   }
 
-  /// Merges the [method] parameters with the [request] parameters.
+  /// Returns the values of the [method] parameters based on the [pathParams]
   ///
   /// In order to invoke the [method] the parameters must be in the same order
   /// and must has the same name.
-  List<Object> _mergeMethodParamsWithRequestParams(
-      final MethodMirror method, final Map<String, String> requestParams) {
+  List<Object> _getPathParamsValues(
+      final MethodMirror method, final Map<String, String> pathParams) {
     final List<Object> params = [];
     for (final methodParam in method.parameters) {
-      if (methodParam.type.reflectedType == int) {
-        final value = _obtainMethodParam(requestParams, methodParam);
-        params.add(int.parse(value));
-      } else if (methodParam.type.reflectedType == double) {
-        final value = _obtainMethodParam(requestParams, methodParam);
-        params.add(double.parse(value));
-      } else if (methodParam.type.reflectedType == String) {
-        params.add(methodParam);
-      } else if (methodParam.type.reflectedType == bool) {
-        final value = _obtainMethodParam(requestParams, methodParam);
-        params.add(value == 'true');
-      } else if (methodParam.type.reflectedType == Object) {
-        params.add(methodParam);
-      } else {
-        throw ArgumentError.value(
-            methodParam.type.reflectedType, 'methodParam.type.reflectedType');
-      }
+      final value = _getParamValue(methodParam, pathParams);
+      _addTypedParam(methodParam, params, value);
     }
     return params;
   }
 
-  /// Obtains the value of the [methodParam] from the [requestParams].
-  /// If the [methodParam] is not in the [requestParams] an
-  /// [ArgumentError] will be throw.
-  String _obtainMethodParam(final Map<String, String> requestParams,
-      final ParameterMirror methodParam) {
+  /// Return the param value by the [ParameterMirror] and the map [params]
+  String _getParamValue(
+      final ParameterMirror methodParam, final Map<String, String> params) {
     final paramName = MirrorSystem.getName(methodParam.simpleName);
-    final value = requestParams[paramName];
+    final value = params[paramName];
     if (value == null) {
       throw ArgumentError.value(methodParam, 'methodParam',
           'missing parameter ${methodParam.simpleName}');
     }
     return value;
+  }
+
+  /// Gets the [method] parameters values from the [queryParams].
+  /// The [queryParams] must be in the same order as the [method] parameters.
+  List<Object> _getQueryParamsValues(
+      final MethodMirror method, final Map<String, String> queryParameters) {
+    final List<Object> params = [];
+    // TODO: check if the query params are in the same order as the method params
+    final methodQueryParams = method.parameters.where((element) {
+      return element.metadata.any((metadata) {
+        return metadata.reflectee.runtimeType == QueryParam;
+      });
+    });
+
+    for (final methodParam in methodQueryParams) {
+      final value = _getParamValue(methodParam, queryParameters);
+      _addTypedParam(methodParam, params, value);
+    }
+    return params;
+  }
+
+  /// Adds the [value] to the [params] based on the [methodParam] reflected type.
+  void _addTypedParam(
+      ParameterMirror methodParam, List<Object> params, String value) {
+    if (methodParam.type.reflectedType == int) {
+      params.add(int.parse(value));
+    } else if (methodParam.type.reflectedType == double) {
+      params.add(double.parse(value));
+    } else if (methodParam.type.reflectedType == String) {
+      params.add(value);
+    } else if (methodParam.type.reflectedType == bool) {
+      params.add(value == 'true');
+    } else if (methodParam.type.reflectedType == Object) {
+      params.add(value);
+    } else {
+      throw ArgumentError.value(
+          methodParam.type.reflectedType, 'methodParam.type.reflectedType');
+    }
   }
 }
