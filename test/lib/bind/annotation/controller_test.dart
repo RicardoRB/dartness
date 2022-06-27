@@ -394,21 +394,28 @@ class GetControllerClass {
   }
 
   @Get("/queries")
-  static String getQueries(@QueryParam() int id, @QueryParam() int id2) {
+  static String getQueries(
+    @QueryParam() int id,
+    @QueryParam() int id2,
+  ) {
     return '$id/$id2';
   }
 
   @Get("/paths/<id>")
-  static String getPaths(@PathParam() int id, @QueryParam() int query) {
+  static String getPaths(
+    @PathParam() int id,
+    @QueryParam() int query,
+  ) {
     return '$id/$query';
   }
 
   @Get("/paths/<path1>/another/<path2>")
   static String getPathsAnotherPaths(
-      @PathParam() int path1,
-      @QueryParam() int query,
-      @PathParam() int path2,
-      @QueryParam() int query2) {
+    @PathParam() int path1,
+    @QueryParam() int query,
+    @PathParam() int path2,
+    @QueryParam() int query2,
+  ) {
     return '$path1/$path2/$query/$query2';
   }
 }
