@@ -159,6 +159,18 @@ void main() {
               await response.transform(utf8.decoder).join(), equals('"1/2"'));
         },
       );
+
+      test(
+        'GET query params with path params and multiple',
+        () async {
+          final request = await httpClient.get(
+              'localhost', port, '/get/paths/1/another/2?query=3&query2=4');
+          final response = await request.close();
+          expect(response.statusCode, HttpStatus.ok);
+          expect(await response.transform(utf8.decoder).join(),
+              equals('"1/2/3/4"'));
+        },
+      );
     });
 
     group('POST method tests', () {
@@ -389,6 +401,15 @@ class GetControllerClass {
   @Get("/paths/<id>")
   static String getPaths(@PathParam() int id, @QueryParam() int query) {
     return '$id/$query';
+  }
+
+  @Get("/paths/<path1>/another/<path2>")
+  static String getPathsAnotherPaths(
+      @PathParam() int path1,
+      @QueryParam() int query,
+      @PathParam() int path2,
+      @QueryParam() int query2) {
+    return '$path1/$path2/$query/$query2';
   }
 }
 
