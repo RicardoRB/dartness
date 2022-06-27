@@ -171,6 +171,25 @@ void main() {
               equals('"1/2/3/4"'));
         },
       );
+
+      test(
+        'GET query params with every object type',
+        () async {
+          final request = await httpClient.get(
+            'localhost',
+            port,
+            '/get/types?int=3'
+                '&string="hi"'
+                '&double=4.4'
+                '&bool=true'
+                '&list=[1,2]',
+          );
+          final response = await request.close();
+          expect(response.statusCode, HttpStatus.ok);
+          expect(await response.transform(utf8.decoder).join(),
+              equals('"true/3/4.4/\\"hi\\"/[1, 2]"'));
+        },
+      );
     });
 
     group('POST method tests', () {
@@ -417,6 +436,17 @@ class GetControllerClass {
     @QueryParam() int query2,
   ) {
     return '$path1/$path2/$query/$query2';
+  }
+
+  @Get("/types")
+  static String getTypes(
+    @QueryParam() bool bool,
+    @QueryParam() int int,
+    @QueryParam() double double,
+    @QueryParam() String string,
+    @QueryParam() List<int> list,
+  ) {
+    return '$bool/$int/$double/$string/$list';
   }
 }
 

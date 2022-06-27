@@ -7,6 +7,8 @@ import 'package:logger/logger.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
 
+import '../string_utils.dart';
+
 class RouterHandler {
   final _logger = Logger();
 
@@ -130,6 +132,26 @@ class RouterHandler {
       return value;
     } else if (methodParam.type.reflectedType == bool) {
       return value == 'true';
+    } else if (methodParam.type.reflectedType == List<int>) {
+      return stringToIterableInt(value).toList();
+    } else if (methodParam.type.reflectedType == List<double>) {
+      return stringToIterableDouble(value).toList();
+    } else if (methodParam.type.reflectedType == List<bool>) {
+      return stringToIterableBool(value).toList();
+    } else if (methodParam.type.reflectedType == List<String>) {
+      return stringToIterableString(value).toList();
+    } else if (methodParam.type.reflectedType == List<Object>) {
+      return stringToIterableString(value).toList();
+    } else if (methodParam.type.reflectedType == Set<int>) {
+      return stringToIterableInt(value).toSet();
+    } else if (methodParam.type.reflectedType == Set<double>) {
+      return stringToIterableDouble(value).toSet();
+    } else if (methodParam.type.reflectedType == Set<bool>) {
+      return stringToIterableBool(value).toSet();
+    } else if (methodParam.type.reflectedType == Set<String>) {
+      return stringToIterableString(value).toSet();
+    } else if (methodParam.type.reflectedType == Set<Object>) {
+      return stringToIterableString(value).toSet();
     } else if (methodParam.type.reflectedType == Object) {
       return value;
     } else {
