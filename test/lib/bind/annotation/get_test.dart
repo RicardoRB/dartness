@@ -4,7 +4,7 @@ import 'package:test/test.dart';
 void main() {
   late Get bind;
   setUp(() => bind = Get(""));
-  test('', () {
+  test('Get path test', () {
     expect(bind.path, "");
   });
 }

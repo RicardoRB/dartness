@@ -4,7 +4,7 @@ import 'package:test/test.dart';
 void main() {
   late Trace bind;
   setUp(() => bind = Trace(""));
-  test('', () {
+  test('Trace path test', () {
     expect(bind.path, "");
   });
 }

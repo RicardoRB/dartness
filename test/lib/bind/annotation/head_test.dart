@@ -4,7 +4,7 @@ import 'package:test/test.dart';
 void main() {
   late Head bind;
   setUp(() => bind = Head(""));
-  test('', () {
+  test('Head path test', () {
     expect(bind.path, "");
   });
 }
