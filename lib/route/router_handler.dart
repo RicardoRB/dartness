@@ -77,6 +77,7 @@ class RouterHandler {
     return _getParamsAndValues(methodPathParams, pathParams);
   }
 
+  /// Returns the values of the [methodPathParams] parameters based on the [pathParams]
   Map<String, Object> _getParamsAndValues(
     final Iterable<ParameterMirror> methodPathParams,
     final Map<String, String> pathParams,
@@ -91,7 +92,7 @@ class RouterHandler {
     return params;
   }
 
-  /// Gets the [method] parameters values from the [queryParams].
+  /// Gets the [method] parameters values from the [queryParameters].
   Map<String, Object> _getQueryParamsValues(
     final MethodMirror method,
     final Map<String, String> queryParameters,
@@ -119,7 +120,8 @@ class RouterHandler {
     return value;
   }
 
-  /// Gets the value param from the [methodParam] and returns it by his type
+  /// Gets the value param from the [methodParam] checking his type
+  /// and returns the [value] by his real type
   Object _getTypedParam(
     final ParameterMirror methodParam,
     final String value,
