@@ -27,8 +27,8 @@ Server listening on port 8080
         - <del>Bind annotations</del>
         - Header
         - Body
-        - Param
-        - Query
+        - <del>Param</del>
+        - <del>Query</del>
     - Middleware
     - Interceptor
     - Websockets
