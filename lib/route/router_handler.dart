@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:mirrors';
 
+import 'package:dartness/bind/annotation/path_param.dart';
 import 'package:dartness/bind/annotation/query_param.dart';
 import 'package:logger/logger.dart';
 import 'package:shelf/shelf.dart';
@@ -58,7 +59,12 @@ class RouterHandler {
   List<Object> _getPathParamsValues(
       final MethodMirror method, final Map<String, String> pathParams) {
     final List<Object> params = [];
-    for (final methodParam in method.parameters) {
+    final methodPathParams = method.parameters.where((element) {
+      return element.metadata.any((metadata) {
+        return metadata.reflectee.runtimeType == PathParam;
+      });
+    });
+    for (final methodParam in methodPathParams) {
       final value = _getParamValue(methodParam, pathParams);
       _addTypedParam(methodParam, params, value);
     }
@@ -84,7 +90,7 @@ class RouterHandler {
     return params;
   }
 
-  /// Return the param value by the [ParameterMirror] and the map [params]
+  /// Return the param value by the [methodParam] and the map [params]
   String _getParamValue(
       final ParameterMirror methodParam, final Map<String, String> params) {
     final paramName = MirrorSystem.getName(methodParam.simpleName);

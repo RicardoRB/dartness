@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:dartness/bind/annotation/controller.dart';
 import 'package:dartness/bind/annotation/delete.dart';
 import 'package:dartness/bind/annotation/get.dart';
+import 'package:dartness/bind/annotation/path_param.dart';
 import 'package:dartness/bind/annotation/post.dart';
 import 'package:dartness/bind/annotation/put.dart';
 import 'package:dartness/bind/annotation/query_param.dart';
@@ -132,6 +133,30 @@ void main() {
           final response = await request.close();
           expect(response.statusCode, HttpStatus.ok);
           expect(await response.transform(utf8.decoder).join(), equals('1'));
+        },
+      );
+
+      test(
+        'GET query params with multiple',
+        () async {
+          final request = await httpClient.get(
+              'localhost', port, '/get/queries?id=1&id2=2');
+          final response = await request.close();
+          expect(response.statusCode, HttpStatus.ok);
+          expect(
+              await response.transform(utf8.decoder).join(), equals('"1/2"'));
+        },
+      );
+
+      test(
+        'GET query params with path params',
+        () async {
+          final request =
+              await httpClient.get('localhost', port, '/get/paths/1?query=2');
+          final response = await request.close();
+          expect(response.statusCode, HttpStatus.ok);
+          expect(
+              await response.transform(utf8.decoder).join(), equals('"1/2"'));
         },
       );
     });
@@ -347,7 +372,7 @@ class GetControllerClass {
   }
 
   @Get("/ids/<id>")
-  static int getParam(int id) {
+  static int getParam(@PathParam() int id) {
     return id;
   }
 
@@ -356,6 +381,15 @@ class GetControllerClass {
     return id;
   }
 
+  @Get("/queries")
+  static String getQueries(@QueryParam() int id, @QueryParam() int id2) {
+    return '$id/$id2';
+  }
+
+  @Get("/paths/<id>")
+  static String getPaths(@PathParam() int id, @QueryParam() int query) {
+    return '$id/$query';
+  }
 }
 
 @Controller("/post")
@@ -381,7 +415,7 @@ class PostControllerClass {
   }
 
   @Post("/ids/<id>")
-  static int getParam(int id) {
+  static int getParam(@PathParam() int id) {
     return id;
   }
 }
@@ -409,7 +443,7 @@ class PutControllerClass {
   }
 
   @Put("/ids/<id>")
-  static int getParam(int id) {
+  static int getParam(@PathParam() int id) {
     return id;
   }
 }
