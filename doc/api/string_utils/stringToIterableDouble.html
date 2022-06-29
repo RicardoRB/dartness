@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the stringToIterableDouble function from the string_utils library, for the Dart programming language.">
+  <title>stringToIterableDouble function - string_utils library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../static-assets/styles.css?v1">
+  <link rel="icon" href="../static-assets/favicon.png?v1">
+
+  
+</head>
+
+
+<body data-base-href="../"
+      data-using-base-href="false">
+
+<div id="overlay-under-drawer"></div>
+
+<header id="title">
+  <button id="sidenav-left-toggle" type="button">&nbsp;</button>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../index.html">dartness</a></li>
+    <li><a href="../string_utils/string_utils-library.html">string_utils</a></li>
+    <li class="self-crumb">stringToIterableDouble function</li>
+  </ol>
+  <div class="self-name">stringToIterableDouble</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<main>
+
+
+  <div id="dartdoc-main-content" class="main-content">
+      <div>
+<h1><span class="kind-function">stringToIterableDouble</span> function 
+    <a href="https://dart.dev/null-safety" class="feature feature-null-safety" title="Supports the null safety language feature.">Null safety</a>
+ 
+</h1></div>
+
+    <section class="multi-line-signature">
+        
+
+<span class="returntype"><a href="https://api.flutter.dev/flutter/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/double-class.html">double</a></span>&gt;</span></span>
+<span class="name ">stringToIterableDouble</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="stringToIterableDouble-param-value"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">value</span></span></li>
+</ol>)
+
+    </section>
+    
+<section class="desc markdown">
+  <p>Generates an <a href="https://api.flutter.dev/flutter/dart-core/Iterable-class.html">Iterable</a> of <a href="https://api.flutter.dev/flutter/dart-core/double-class.html">double</a>
+from a <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a> with a <a href="https://www.w3schools.com/js/js_json_arrays.asp">json array structure</a></p>
+<p>Example:</p>
+<pre class="language-dart"><code class="language-dart">String array = '[1.1, 2.1]'
+List&lt;double&gt; list = stringToIterableDouble(array).toList();
+</code></pre>
+</section>
+
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">Iterable&lt;double&gt; stringToIterableDouble(final String value) =&gt;
+    stringToIterable(value, (e) =&gt; double.parse(e));</code></pre>
+</section>
+
+
+  </div> <!-- /.main-content -->
+
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+  <li><a href="../index.html">dartness</a></li>
+  <li><a href="../string_utils/string_utils-library.html">string_utils</a></li>
+  <li class="self-crumb">stringToIterableDouble function</li>
+</ol>
+
+
+    <h5>string_utils library</h5>
+    <ol>
+
+
+
+
+
+  <li class="section-title"><a href="../string_utils/string_utils-library.html#functions">Functions</a></li>
+  <li><a href="../string_utils/stringToIterable.html">stringToIterable</a></li>
+  <li><a href="../string_utils/stringToIterableBool.html">stringToIterableBool</a></li>
+  <li><a href="../string_utils/stringToIterableDouble.html">stringToIterableDouble</a></li>
+  <li><a href="../string_utils/stringToIterableInt.html">stringToIterableInt</a></li>
+  <li><a href="../string_utils/stringToIterableNum.html">stringToIterableNum</a></li>
+  <li><a href="../string_utils/stringToIterableString.html">stringToIterableString</a></li>
+
+
+
+</ol>
+
+  </div><!--/.sidebar-offcanvas-left-->
+
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  </div><!--/.sidebar-offcanvas-->
+
+</main>
+
+<footer>
+  <span class="no-break">
+    dartness
+      0.1.0-alpha
+  </span>
+
+  
+</footer>
+
+
+
+<script src="../static-assets/highlight.pack.js?v1"></script>
+<script src="../static-assets/script.js?v1"></script>
+
+
+
+</body>
+
+</html>
+
