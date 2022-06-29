@@ -5,7 +5,7 @@
 /// methods needs to be static and annotated with [Get], [Post], [Put], [Delete].
 ///
 /// Example:
-/// ```
+/// ```dart
 /// @Controller('/')
 /// class ExampleController {
 ///   @Get()

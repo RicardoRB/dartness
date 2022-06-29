@@ -2,7 +2,7 @@
 /// from a [String] with a [json array structure](https://www.w3schools.com/js/js_json_arrays.asp)
 ///
 /// Example:
-/// ```
+/// ```dart
 /// String array = '[1,2]'
 /// List<int> list = stringToIterable(array, (element) => int.parse(element)).toList();
 /// ```
@@ -21,7 +21,7 @@ Iterable<T> stringToIterable<T>(
 /// from a [String] with a [json array structure](https://www.w3schools.com/js/js_json_arrays.asp)
 ///
 /// Example:
-/// ```
+/// ```dart
 /// String array = '[1,2]'
 /// List<int> list = stringToIterableInt(array).toList();
 /// ```
@@ -32,7 +32,7 @@ Iterable<int> stringToIterableInt(final String value) =>
 /// from a [String] with a [json array structure](https://www.w3schools.com/js/js_json_arrays.asp)
 ///
 /// Example:
-/// ```
+/// ```dart
 /// String array = '[1.1, 2.1]'
 /// List<double> list = stringToIterableDouble(array).toList();
 /// ```
@@ -43,7 +43,7 @@ Iterable<double> stringToIterableDouble(final String value) =>
 /// from a [String] with a [json array structure](https://www.w3schools.com/js/js_json_arrays.asp)
 ///
 /// Example:
-/// ```
+/// ```dart
 /// String array = '[1.1, 2]'
 /// List<num> list = stringToIterableDouble(array).toList();
 /// ```
@@ -54,7 +54,7 @@ Iterable<num> stringToIterableNum(final String value) =>
 /// from a [String] with a [json array structure](https://www.w3schools.com/js/js_json_arrays.asp)
 ///
 /// Example:
-/// ```
+/// ```dart
 /// String array = '["string1", "string2"]'
 /// List<String> list = stringToIterableString(array).toList();
 /// ```
@@ -65,7 +65,7 @@ Iterable<String> stringToIterableString(final String value) =>
 /// from a [String] with a [json array structure](https://www.w3schools.com/js/js_json_arrays.asp)
 ///
 /// Example:
-/// ```
+/// ```dart
 /// String array = '[true, false]'
 /// List<bool> list = stringToIterableBool(array).toList();
 /// ```
