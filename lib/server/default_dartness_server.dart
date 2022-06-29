@@ -14,7 +14,7 @@ import 'dartness_server.dart';
 /// A server that delivers content, such as web pages, using the HTTP protocol
 /// by [HttpServer].
 class DefaultDartnessServer implements DartnessServer {
-  /// Creates a [DefaultDartnessServer] that listens on the specified [port] and
+  /// Creates a [DefaultDartnessServer] that listens on the specified [_port] and
   /// [internetAddress].
   ///
   /// If [internetAddress] is `null` the default [InternetAddress] will be [InternetAddress.anyIPv4].
@@ -67,7 +67,7 @@ class DefaultDartnessServer implements DartnessServer {
   }
 
   /// Starts an [HttpServer] that listens by the specified [_internetAddress] and
-  /// [port].
+  /// [_port].
   @override
   Future<void> start() async {
     if (_isStarted) {
@@ -78,7 +78,7 @@ class DefaultDartnessServer implements DartnessServer {
     _isStarted = true;
   }
 
-  /// Permanently stops the [Dartness] server from listening for new
+  /// Permanently stops the [HttpServer] server from listening for new
   /// connections. This closes the [Stream] of [HttpRequest]s with a
   /// done event.
   ///

@@ -18,8 +18,10 @@ abstract class DartnessServer {
   Future<void> start();
 
   /// Permanently stops the server from listening for new connections.
+  ///
+  /// If [force] is `true`, active connections will be closed immediately.
   Future<void> stop({bool force = false});
 
-  /// Adds a new controller in order to lise for http requests.
+  /// Adds a controller and handles the http methods
   void addController(final Object controller);
 }
