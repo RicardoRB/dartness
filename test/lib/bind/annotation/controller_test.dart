@@ -55,15 +55,15 @@ void main() {
 
     setUp(() async {
       httpClient = HttpClient();
-      dartness = Dartness();
+      dartness = Dartness(
+        port: port,
+      );
       dartness.addController(ControllerClass());
       dartness.addController(GetControllerClass());
       dartness.addController(PostControllerClass());
       dartness.addController(PutControllerClass());
       dartness.addController(DeleteControllerClass());
-      await dartness.create(
-        port: port,
-      );
+      await dartness.create();
     });
 
     tearDown(() async {

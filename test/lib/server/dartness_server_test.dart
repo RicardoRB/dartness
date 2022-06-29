@@ -1,11 +1,10 @@
 import 'package:dartness/bind/annotation/controller.dart';
+import 'package:dartness/server/default_dartness_server.dart';
 import 'package:test/test.dart';
 
-import '../../bin/dartness.dart';
-
 void main() {
-  late Dartness dartness;
-  setUp(() => dartness = Dartness());
+  late DefaultDartnessServer dartness;
+  setUp(() => dartness = DefaultDartnessServer(8080));
 
   test(
       ""
