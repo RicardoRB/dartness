@@ -1,4 +1,4 @@
-/// Annotation to bind a property to a request parameter.
+/// Annotation to bind a property to a path parameter.
 class PathParam {
   const PathParam([this.name]);
 

@@ -1,4 +1,4 @@
-/// Annotation to bind a property to a request query.
+/// Annotation to bind a property to a query parameter.
 class QueryParam {
   const QueryParam([this.name]);
 
