@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:mirrors';
 
+import 'package:collection/collection.dart';
 import 'package:dartness/bind/annotation/path_param.dart';
 import 'package:dartness/bind/annotation/query_param.dart';
 import 'package:logger/logger.dart';
@@ -111,13 +112,46 @@ class RouterHandler {
     final ParameterMirror methodParam,
     final Map<String, String> params,
   ) {
-    final paramName = MirrorSystem.getName(methodParam.simpleName);
+    final defaultName = MirrorSystem.getName(methodParam.simpleName);
+    final methodPathParams = methodParam.metadata.firstWhereOrNull(
+        (element) => element.reflectee.runtimeType == PathParam);
+
+    final methodQueryParams = methodParam.metadata.firstWhereOrNull(
+        (element) => element.reflectee.runtimeType == QueryParam);
+
+    final String paramName;
+    if (methodQueryParams != null) {
+      paramName = _getParamNameByField(
+        "name",
+        methodQueryParams,
+        orElse: defaultName,
+      );
+    } else if (methodPathParams != null) {
+      paramName = _getParamNameByField(
+        "name",
+        methodPathParams,
+        orElse: defaultName,
+      );
+    } else {
+      paramName = defaultName;
+    }
+
     final value = params[paramName];
     if (value == null) {
       throw ArgumentError.value(methodParam, 'methodParam',
           'missing parameter ${methodParam.simpleName}');
     }
     return value;
+  }
+
+  String _getParamNameByField(
+    final String fieldName,
+    final InstanceMirror mirror, {
+    required String orElse,
+  }) {
+    final nameFieldSymbol = MirrorSystem.getSymbol(fieldName);
+    final paramName = mirror.getField(nameFieldSymbol).reflectee ?? orElse;
+    return paramName;
   }
 
   /// Gets the value param from the [methodParam] checking his type
