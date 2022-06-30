@@ -1,3 +1,5 @@
+# Introduction
+
 <p align="center">Dartness is a progressive dart framework for building efficient and scalable server-side applications.</p>
 
 ## Description
@@ -10,39 +12,88 @@ Under the hood, Dartness makes use of [shelf](https://github.com/dart-lang/shelf
 Inspired by [Spring Boot](https://github.com/spring-projects/spring-boot) and [Nest](https://github.com/nestjs/nest)
 frameworks
 
-## Getting started
+## Installation
+
+Install [Dart SDK](https://dart.dev/get-dart) version >=2.17.1
+
+```bash
+$ dart --version            
+Dart SDK version: 2.17.3 (stable)
+```
+
+## Creating a new project
+
+```bash
+$ dart create -t console cli
+```
+
+1Add dartness into the pubspec.yaml
+
+```yaml
+dependencies:
+  dartness: ^0.1.0-alpha
+```
+
+2.Create the file in "bin/main.dart"
+
+```dart
+import 'package:dartness/dartness.dart';
+
+import 'example_controller.dart';
+
+void main() async {
+  final app = Dartness(
+    port: 3000,
+  );
+  await app.create();
+}
+
+```
+
+3.Run the server
+
+```bash
+$ dart run bin/main.dart
+Server listening on port 3000
+```
+
+## Example
 
 You can run the example with the [Dart SDK](https://dart.dev/get-dart)
 like this:
 
 ```
 $ dart run example/main.dart
-Server listening on port 8080
+Server listening on port 3000
 ```
+
+## Docs and more
+
+You can check the documentation at [dartness docs](https://ricardorb.github.io/dartness/)
 
 ## TODO
 
 1. HTTP
-    - Controllers
-       - <del>Bind annotations</del>
-        - Header
-        - Body
-        - <del>Param</del>
-        - <del>Query</del>
-    - Middleware
-    - Interceptor
-    - Websockets
+   - Controllers
+      - <del>Bind annotations</del>
+      - Header
+      - Body
+      - <del>Param</del>
+      - <del>Query</del>
+   - Middleware
+   - Interceptor
+   - Websockets
 2. Exceptions
-    - Exception Handler
+   - Exception Handler
 3. Security
-    - Roles
-    - CORS
+   - Roles
+   - CORS
 4. Dependency Injection
-    - Injectable
+   - Injectable
 5. Scheduling
-    - Annotation
+   - Annotation
 6. Database
-    - ORM
-    - Repository
+   - ORM
+   - Repository
 7. Testing
 8. CLI
