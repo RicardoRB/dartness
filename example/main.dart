@@ -1,4 +1,5 @@
-import '../bin/dartness.dart';
+import 'package:dartness/dartness.dart';
+
 import 'example_controller.dart';
 
 void main() async {

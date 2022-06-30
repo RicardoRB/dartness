@@ -8,9 +8,8 @@ import 'package:dartness/bind/annotation/path_param.dart';
 import 'package:dartness/bind/annotation/post.dart';
 import 'package:dartness/bind/annotation/put.dart';
 import 'package:dartness/bind/annotation/query_param.dart';
+import 'package:dartness/dartness.dart';
 import 'package:test/test.dart';
-
-import '../../../../bin/dartness.dart';
 
 void main() {
   late Controller controller;
