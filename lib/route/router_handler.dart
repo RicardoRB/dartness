@@ -113,23 +113,19 @@ class RouterHandler {
     final Map<String, String> params,
   ) {
     final defaultName = MirrorSystem.getName(methodParam.simpleName);
-    final methodPathParams = methodParam.metadata.firstWhereOrNull(
-        (element) => element.reflectee.runtimeType == PathParam);
-
-    final methodQueryParams = methodParam.metadata.firstWhereOrNull(
-        (element) => element.reflectee.runtimeType == QueryParam);
+    final methodParamsByNameField =
+        methodParam.metadata.firstWhereOrNull((element) {
+      return element.reflectee.runtimeType == PathParam ||
+          element.reflectee.runtimeType == QueryParam;
+    });
 
     final String paramName;
-    if (methodQueryParams != null) {
+    // If the param is annotated with @PathParam or @QueryParam,
+    // use the field 'name' if it is not null otherwise use the variable name
+    if (methodParamsByNameField != null) {
       paramName = _getParamNameByField(
         "name",
-        methodQueryParams,
-        orElse: defaultName,
-      );
-    } else if (methodPathParams != null) {
-      paramName = _getParamNameByField(
-        "name",
-        methodPathParams,
+        methodParamsByNameField,
         orElse: defaultName,
       );
     } else {
@@ -144,6 +140,8 @@ class RouterHandler {
     return value;
   }
 
+  /// Returns the value of a field with [fieldName] that [mirror] contains or
+  /// returns [orElse] if it is null
   String _getParamNameByField(
     final String fieldName,
     final InstanceMirror mirror, {
