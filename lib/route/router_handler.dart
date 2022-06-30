@@ -48,7 +48,7 @@ class RouterHandler {
         }
         final response =
             _clazzMirror.invoke(_methodMirror.simpleName, methodParams);
-        var result = response.reflectee;
+        final result = response.reflectee;
         if (result is Future) {
           return Response.ok(await result);
         } else if (result is Response) {
@@ -107,7 +107,7 @@ class RouterHandler {
     return _getParamsAndValues(methodQueryParams, queryParameters);
   }
 
-  /// Return the param value by the [methodParam] and the map [params]
+  /// Returns the param value by the [methodParam] and the map [params]
   String _getParamValue(
     final ParameterMirror methodParam,
     final Map<String, String> params,

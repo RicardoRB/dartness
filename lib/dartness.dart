@@ -45,7 +45,7 @@ class Dartness {
     return _server.stop(force: force);
   }
 
-  /// Add [controller] into [_controllers] and handles
+  /// Add [controller] into [Dartness] and handles
   /// the methods annotated with [Bind] children to [Controller.path] and [Bind.path].
   ///
   /// In order to add the [controller] the class must be annotated with [Controller]
