@@ -27,14 +27,14 @@ Dart SDK version: 2.17.3 (stable)
 $ dart create -t console cli
 ```
 
-1Add dartness into the pubspec.yaml
+1. Add dartness into the pubspec.yaml
 
 ```yaml
 dependencies:
   dartness: ^0.1.0-alpha
 ```
 
-2.Create the file in "bin/main.dart"
+2. Create the file in "bin/main.dart"
 
 ```dart
 import 'package:dartness/dartness.dart';
@@ -50,7 +50,7 @@ void main() async {
 
 ```
 
-3.Run the server
+3. Run the server
 
 ```bash
 $ dart run bin/main.dart
@@ -77,7 +77,7 @@ You can check the documentation at [dartness docs](https://ricardorb.github.io/d
     - Controllers
         - <del>Bind annotations</del>
         - Header
-        - Body
+        - <del>Body</del>
         - <del>Param</del>
         - <del>Query</del>
     - Middleware
