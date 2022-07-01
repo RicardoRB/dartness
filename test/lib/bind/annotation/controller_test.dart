@@ -268,7 +268,8 @@ void main() {
         request.write('{"value":"foo"}');
         final response = await request.close();
         expect(response.statusCode, HttpStatus.ok);
-        expect(await response.transform(utf8.decoder).join(), equals('{"value":"foo"}'));
+        expect(await response.transform(utf8.decoder).join(),
+            equals('{"value":"foo"}'));
       });
     });
 
