@@ -44,19 +44,50 @@
   <div id="dartdoc-main-content" class="main-content">
       
 <section class="desc markdown">
-  <p align="center">Dartness is a progressive dart framework for building efficient and scalable server-side applications.</p>
+  <h1 id="introduction">Introduction</h1><p align="center">Dartness is a progressive dart framework for building efficient and scalable server-side applications.</p>
 <h2 id="description">Description</h2>
 <p>Dartness is a framework for building efficient, scalable dart server-side applications. It provides an easy and quick
 way to develop modern standalone server.</p>
 <p>Under the hood, Dartness makes use of <a href="https://github.com/dart-lang/shelf">shelf</a>.</p>
 <p>Inspired by <a href="https://github.com/spring-projects/spring-boot">Spring Boot</a> and <a href="https://github.com/nestjs/nest">Nest</a>
 frameworks</p>
-<h2 id="getting-started">Getting started</h2>
+<h2 id="installation">Installation</h2>
+<p>Install <a href="https://dart.dev/get-dart">Dart SDK</a> version &gt;=2.17.1</p>
+<pre class="language-bash"><code class="language-bash">$ dart --version            
+Dart SDK version: 2.17.3 (stable)
+</code></pre>
+<h2 id="creating-a-new-project">Creating a new project</h2>
+<pre class="language-bash"><code class="language-bash">$ dart create -t console cli
+</code></pre>
+<p>1Add dartness into the pubspec.yaml</p>
+<pre class="language-yaml"><code class="language-yaml">dependencies:
+  dartness: ^0.1.0-alpha
+</code></pre>
+<p>2.Create the file in "bin/main.dart"</p>
+<pre class="language-dart"><code class="language-dart">import 'package:dartness/dartness.dart';
+
+import 'example_controller.dart';
+
+void main() async {
+  final app = Dartness(
+    port: 3000,
+  );
+  await app.create();
+}
+
+</code></pre>
+<p>3.Run the server</p>
+<pre class="language-bash"><code class="language-bash">$ dart run bin/main.dart
+Server listening on port 3000
+</code></pre>
+<h2 id="example">Example</h2>
 <p>You can run the example with the <a href="https://dart.dev/get-dart">Dart SDK</a>
 like this:</p>
 <pre class="language-dart"><code>$ dart run example/main.dart
-Server listening on port 8080
+Server listening on port 3000
 </code></pre>
+<h2 id="docs-and-more">Docs and more</h2>
+<p>You can check the documentation at <a href="https://ricardorb.github.io/dartness/">dartness docs</a></p>
 <h2 id="todo">TODO</h2>
 <ol>
 <li>HTTP
@@ -118,8 +149,8 @@ Server listening on port 8080
 <dd>
 </dd>
 
-          <dt id="connect">
-  <span class="name"><a href="bind_annotation_connect/bind_annotation_connect-library.html">connect</a></span> 
+          <dt id="body">
+  <span class="name"><a href="bind_annotation_body/bind_annotation_body-library.html">body</a></span> 
 
 </dt>
 <dd>
@@ -127,6 +158,13 @@ Server listening on port 8080
 
           <dt id="controller">
   <span class="name"><a href="bind_annotation_controller/bind_annotation_controller-library.html">controller</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="dartness">
+  <span class="name"><a href="dartness/dartness-library.html">dartness</a></span> 
 
 </dt>
 <dd>
@@ -237,13 +275,6 @@ Server listening on port 8080
 <dd>
 </dd>
 
-          <dt id="trace">
-  <span class="name"><a href="bind_annotation_trace/bind_annotation_trace-library.html">trace</a></span> 
-
-</dt>
-<dd>
-</dd>
-
         </dl>
       </section>
 
@@ -265,8 +296,9 @@ Server listening on port 8080
     <ol>
       <li class="section-title">Libraries</li>
       <li><a href="bind_annotation_bind/bind_annotation_bind-library.html">bind</a></li>
-      <li><a href="bind_annotation_connect/bind_annotation_connect-library.html">connect</a></li>
+      <li><a href="bind_annotation_body/bind_annotation_body-library.html">body</a></li>
       <li><a href="bind_annotation_controller/bind_annotation_controller-library.html">controller</a></li>
+      <li><a href="dartness/dartness-library.html">dartness</a></li>
       <li><a href="route_dartness_router/route_dartness_router-library.html">dartness_router</a></li>
       <li><a href="server_dartness_server/server_dartness_server-library.html">dartness_server</a></li>
       <li><a href="route_default_dartness_router/route_default_dartness_router-library.html">default_dartness_router</a></li>
@@ -282,7 +314,6 @@ Server listening on port 8080
       <li><a href="bind_annotation_query_param/bind_annotation_query_param-library.html">query_param</a></li>
       <li><a href="route_router_handler/route_router_handler-library.html">router_handler</a></li>
       <li><a href="string_utils/string_utils-library.html">string_utils</a></li>
-      <li><a href="bind_annotation_trace/bind_annotation_trace-library.html">trace</a></li>
 </ol>
 
   </div>

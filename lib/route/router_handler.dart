@@ -5,9 +5,9 @@ import 'package:collection/collection.dart';
 import 'package:dartness/bind/annotation/path_param.dart';
 import 'package:dartness/bind/annotation/query_param.dart';
 import 'package:logger/logger.dart';
-import 'package:shelf/shelf.dart';
-import 'package:shelf_router/shelf_router.dart';
+import 'package:shelf_plus/shelf_plus.dart';
 
+import '../bind/annotation/body.dart';
 import '../string_utils.dart';
 
 class RouterHandler {
@@ -45,9 +45,26 @@ class RouterHandler {
           if (allParamsWithValue.containsKey(paramName)) {
             methodParams.add(allParamsWithValue[paramName]);
           }
+          final containsBodyAnnotation = parameter.metadata.any((metadata) {
+            return metadata.reflectee is Body;
+          });
+          if (containsBodyAnnotation) {
+            final bodyReflectedClass =
+                reflectClass(parameter.type.reflectedType);
+            // Deserialize the body to the correct type and create an instance of it.
+            final deserialized = await request.body.as(
+              (reviver) {
+                return bodyReflectedClass
+                    .newInstance(Symbol('fromJson'), [reviver]);
+              },
+            );
+            methodParams.add(deserialized.reflectee);
+          }
         }
+
         final response =
             _clazzMirror.invoke(_methodMirror.simpleName, methodParams);
+
         final result = response.reflectee;
         if (result is Future) {
           return Response.ok(await result);

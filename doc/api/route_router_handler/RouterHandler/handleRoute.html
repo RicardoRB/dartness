@@ -93,10 +93,27 @@
         if (allParamsWithValue.containsKey(paramName)) {
           methodParams.add(allParamsWithValue[paramName]);
         }
+        final containsBodyAnnotation = parameter.metadata.any((metadata) {
+          return metadata.reflectee is Body;
+        });
+        if (containsBodyAnnotation) {
+          final bodyReflectedClass =
+              reflectClass(parameter.type.reflectedType);
+          &#47;&#47; Deserialize the body to the correct type and create an instance of it.
+          final deserialized = await request.body.as(
+            (reviver) {
+              return bodyReflectedClass
+                  .newInstance(Symbol(&#39;fromJson&#39;), [reviver]);
+            },
+          );
+          methodParams.add(deserialized.reflectee);
+        }
       }
+
       final response =
           _clazzMirror.invoke(_methodMirror.simpleName, methodParams);
-      var result = response.reflectee;
+
+      final result = response.reflectee;
       if (result is Future) {
         return Response.ok(await result);
       } else if (result is Response) {

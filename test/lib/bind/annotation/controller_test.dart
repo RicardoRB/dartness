@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:dartness/bind/annotation/body.dart';
 import 'package:dartness/bind/annotation/controller.dart';
 import 'package:dartness/bind/annotation/delete.dart';
 import 'package:dartness/bind/annotation/get.dart';
@@ -259,6 +260,16 @@ void main() {
         expect(response.statusCode, HttpStatus.ok);
         expect(await response.transform(utf8.decoder).join(), equals('1'));
       });
+
+      test('POST body', () async {
+        final request = await httpClient.post('localhost', port, '/post/body');
+        request.headers
+            .set(HttpHeaders.contentTypeHeader, ContentType.json.mimeType);
+        request.write('{"value":"foo"}');
+        final response = await request.close();
+        expect(response.statusCode, HttpStatus.ok);
+        expect(await response.transform(utf8.decoder).join(), equals('{"value":"foo"}'));
+      });
     });
 
     group('PUT method tests', () {
@@ -472,55 +483,60 @@ class GetControllerClass {
 @Controller("/post")
 class PostControllerClass {
   @Post("/double")
-  static double getDouble() {
+  static double postDouble() {
     return 1.1;
   }
 
   @Post("/null")
-  static dynamic getNull() {
+  static dynamic postNull() {
     return null;
   }
 
   @Post("/class")
-  static Foo getClass() {
+  static Foo postClass() {
     return Foo('class');
   }
 
   @Post("/future")
-  static Future<String> getFuture() async {
+  static Future<String> postFuture() async {
     return Future.value("bla");
   }
 
   @Post("/ids/<id>")
-  static int getParam(@PathParam() int id) {
+  static int postParam(@PathParam() int id) {
     return id;
+  }
+
+  @Post("/body")
+  static Foo postBody(@Body() Foo body) {
+    return body;
   }
 }
 
 @Controller("/put")
 class PutControllerClass {
   @Put("/double")
-  static double getDouble() {
+  static double putDouble() {
     return 1.1;
   }
 
   @Put("/null")
-  static dynamic getNull() {
+  static dynamic putNull() {
     return null;
   }
 
   @Put("/class")
-  static Foo getClass() {
+  static Foo putClass() {
     return Foo('class');
   }
 
   @Put("/future")
-  static Future<String> getFuture() async {
+  static Future<String> putFuture() async {
     return Future.value("bla");
   }
 
   @Put("/ids/<id>")
-  static int getParam(@PathParam() int id) {
+  static int putParam(@PathParam() int id) {
     return id;
   }
 }
@@ -528,27 +544,27 @@ class PutControllerClass {
 @Controller("/delete")
 class DeleteControllerClass {
   @Delete("/double")
-  static double getDouble() {
+  static double deleteDouble() {
     return 1.1;
   }
 
   @Delete("/null")
-  static dynamic getNull() {
+  static dynamic deleteNull() {
     return null;
   }
 
   @Delete("/class")
-  static Foo getClass() {
+  static Foo deleteClass() {
     return Foo('class');
   }
 
   @Delete("/future")
-  static Future<String> getFuture() async {
+  static Future<String> deleteFuture() async {
     return Future.value("bla");
   }
 
   @Delete("/ids/<id>")
-  static int getParam(int id) {
+  static int deleteParam(int id) {
     return id;
   }
 }
@@ -558,9 +574,11 @@ class Foo {
 
   final String value;
 
-  Map<dynamic, dynamic> toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'value': value,
     };
   }
+
+  Foo.fromJson(Map<String, dynamic> json) : value = json['value'];
 }
