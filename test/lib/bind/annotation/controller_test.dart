@@ -5,6 +5,7 @@ import 'package:dartness/bind/annotation/body.dart';
 import 'package:dartness/bind/annotation/controller.dart';
 import 'package:dartness/bind/annotation/delete.dart';
 import 'package:dartness/bind/annotation/get.dart';
+import 'package:dartness/bind/annotation/http_status.dart';
 import 'package:dartness/bind/annotation/path_param.dart';
 import 'package:dartness/bind/annotation/post.dart';
 import 'package:dartness/bind/annotation/put.dart';
@@ -200,6 +201,17 @@ void main() {
           expect(response.statusCode, HttpStatus.ok);
           expect(await response.transform(utf8.decoder).join(),
               equals('"params/testName"'));
+        },
+      );
+
+      test(
+        'GET with response status code 202',
+        () async {
+          final request =
+              await httpClient.get('localhost', port, '/get/statuscodes');
+          final response = await request.close();
+          expect(response.statusCode, HttpStatus.accepted);
+          expect(await response.transform(utf8.decoder).join(), isEmpty);
         },
       );
     });
@@ -479,6 +491,10 @@ class GetControllerClass {
   ) {
     return '$otherPath/$otherQuery';
   }
+
+  @HttpCode(HttpStatus.accepted)
+  @Get("/statuscodes")
+  static getStatusCode() {}
 }
 
 @Controller("/post")

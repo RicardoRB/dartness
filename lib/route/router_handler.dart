@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'dart:mirrors';
 
 import 'package:collection/collection.dart';
@@ -8,6 +9,7 @@ import 'package:logger/logger.dart';
 import 'package:shelf_plus/shelf_plus.dart';
 
 import '../bind/annotation/body.dart';
+import '../bind/annotation/http_status.dart';
 import '../string_utils.dart';
 
 class RouterHandler {
@@ -62,18 +64,24 @@ class RouterHandler {
           }
         }
 
+        final HttpCode? httpStatus = _methodMirror.metadata
+            .firstWhereOrNull((meta) => meta.reflectee is HttpCode)
+            ?.reflectee;
+
+        final responseStatusCode = httpStatus?.code ?? HttpStatus.ok;
+
         final response =
             _clazzMirror.invoke(_methodMirror.simpleName, methodParams);
 
         final result = response.reflectee;
         if (result is Future) {
-          return Response.ok(await result);
+          return Response(responseStatusCode, body: await result);
         } else if (result is Response) {
           return result;
         } else if (result is Iterable || result is Map || result is Object) {
-          return Response.ok(jsonEncode(result));
+          return Response(responseStatusCode, body: jsonEncode(result));
         } else {
-          return Response.ok(result);
+          return Response(responseStatusCode, body: result);
         }
       } catch (e, stack) {
         _logger.e('Error handling route', e, stack);
