@@ -55,7 +55,7 @@ that happen? To explain, we'll first introduce the concept that Dartness employs
 responses:
 
 | Option                 | Description                                                                                                                                                                                                                                                                                                                                                                      |
-|------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ---------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Standard (recommended) | Using this built-in method, when a request handler returns a Dart object or array, it will automatically be serialized to JSON. When it returns a Dart primitive type (e.g., String, num, bool), however, Dartness will send just the value without attempting to serialize it. This makes response handling simple: just return the value, and Dartness takes care of the rest. |
 | Library-specific       | We can use the library-specific [Shelf response class](https://pub.dev/documentation/shelf/latest/shelf/Response-class.html). With this approach, you have the ability to use the native response handling methods exposed by that object. For example, with Shelf, you can construct responses using code like Response.ok().                                                   |
 
@@ -87,6 +87,18 @@ class CitiesController {
 
 It's that simple. Nest provides decorators for all the standard HTTP methods: `@Get()`, `@Post()`, `@Put()`, `@Delete()`
 , `@Patch()`, `@Options()`, and `@Head()`.
+
+## Status code
+
+As mentioned, the response status code is always 200 by default, except for POST requests which are 201. We can easily change this behavior by adding the `@HttpCode(...)` annotation at a handler level.
+
+```dart
+  @Post()
+  @HttpCode(202)
+  String get() {
+    return 'This method returns status code 202';
+  }
+```
 
 ## Asynchronicity
 
