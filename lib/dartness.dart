@@ -26,11 +26,21 @@ class Dartness {
   ///
   /// If [logRequest] is true prints the time of the request, the elapsed time for the
   /// inner handlers, the response's status code and the request URI.
+  ///
+  /// You can also add controllers by using [controllers] optional parameter.
   Future<void> create({
     final bool logRequest = false,
+    final Iterable<Object> controllers = const [],
+    final Iterable<Middleware> middlewares = const [],
   }) async {
     if (logRequest) {
       _server.addMiddleware(logRequests());
+    }
+    for (final controller in controllers) {
+      addController(controller);
+    }
+    for (final middleware in middlewares) {
+      addController(middleware);
     }
     await _server.start();
     print('Server listening on port ${_server.getPort()}');
@@ -61,5 +71,10 @@ class Dartness {
   /// throws [ArgumentError] if [controller] is not annotated with [Controller]
   void addController(final Object controller) {
     _server.addController(controller);
+  }
+
+  /// Adds a middleware in order to listen between an http request
+  void addMiddleware(final Middleware middleware) {
+    _server.addMiddleware(middleware);
   }
 }

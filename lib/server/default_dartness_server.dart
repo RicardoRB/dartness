@@ -10,6 +10,7 @@ import '../bind/annotation/controller.dart';
 import '../route/default_dartness_router.dart';
 import '../route/router_handler.dart';
 import 'dartness_server.dart';
+import 'default_dartness_pipeline.dart';
 
 /// A server that delivers content, such as web pages, using the HTTP protocol
 /// by [HttpServer].
@@ -27,7 +28,7 @@ class DefaultDartnessServer implements DartnessServer {
   HttpServer? _server;
 
   /// The pipeline of handlers that will be used to process requests.
-  final _pipeline = Pipeline();
+  final _pipeline = DefaultDartnessPipeline();
 
   /// The [DefaultDartnessRouter] that is handling the requests.
   final _router = DefaultDartnessRouter();
