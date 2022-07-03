@@ -15,32 +15,33 @@ class Dartness {
 
   /// Creates a [DefaultDartnessServer] that listens on the specified [port] and
   /// [internetAddress].
+  ///
+  /// You can also add controllers by using [controllers] optional parameter or
+  /// [middlewares].
   Dartness({
     final int port = 8080,
     final InternetAddress? internetAddress,
+    final Iterable<Object> controllers = const [],
+    final Iterable<Middleware> middlewares = const [],
   }) {
     _server = DefaultDartnessServer(port, internetAddress: internetAddress);
+    for (final controller in controllers) {
+      addController(controller);
+    }
+    for (final middleware in middlewares) {
+      addMiddleware(middleware);
+    }
   }
 
   /// Starts the [_server].
   ///
   /// If [logRequest] is true prints the time of the request, the elapsed time for the
   /// inner handlers, the response's status code and the request URI.
-  ///
-  /// You can also add controllers by using [controllers] optional parameter.
   Future<void> create({
     final bool logRequest = false,
-    final Iterable<Object> controllers = const [],
-    final Iterable<Middleware> middlewares = const [],
   }) async {
     if (logRequest) {
       addMiddleware(logRequests());
-    }
-    for (final controller in controllers) {
-      addController(controller);
-    }
-    for (final middleware in middlewares) {
-      addMiddleware(middleware);
     }
     await _server.start();
     print('Server listening on port ${_server.getPort()}');
