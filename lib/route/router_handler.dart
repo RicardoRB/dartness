@@ -3,9 +3,9 @@ import 'dart:io';
 import 'dart:mirrors';
 
 import 'package:collection/collection.dart';
-import 'package:dartness/bind/annotation/header.dart';
-import 'package:dartness/bind/annotation/path_param.dart';
-import 'package:dartness/bind/annotation/query_param.dart';
+import 'package:dartness_server/bind/annotation/header.dart';
+import 'package:dartness_server/bind/annotation/path_param.dart';
+import 'package:dartness_server/bind/annotation/query_param.dart';
 import 'package:logger/logger.dart';
 import 'package:shelf_plus/shelf_plus.dart';
 

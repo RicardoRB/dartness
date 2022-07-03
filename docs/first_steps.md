@@ -20,13 +20,13 @@ $ dart create -t console your_project_name
 
 ```yaml
 dependencies:
-  dartness: ^0.2.0-alpha
+  dartness_server: ^0.2.0-alpha
 ```
 
 2. Create the file in "bin/main.dart" or whatever file that runs your application.
 
 ```dart
-import 'package:dartness/dartness.dart';
+import 'package:dartness_server/dartness.dart';
 
 import 'example_controller.dart';
 
@@ -44,7 +44,7 @@ In order to create a controller, you need to import it and add it to the `Dartne
 adding it when you create the app or before creating the app by `app.addController(controller)`.
 
 ```dart
-import 'package:dartness/dartness.dart';
+import 'package:dartness_server/dartness.dart';
 
 import 'example_controller.dart';
 

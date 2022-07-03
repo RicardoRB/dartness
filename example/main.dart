@@ -1,4 +1,4 @@
-import 'package:dartness/dartness.dart';
+import 'package:dartness_server/dartness.dart';
 
 import 'example_controller.dart';
 

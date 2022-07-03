@@ -1,10 +1,10 @@
 import 'dart:io';
 
-import 'package:dartness/bind/annotation/bind.dart';
-import 'package:dartness/bind/annotation/controller.dart';
-import 'package:dartness/bind/annotation/get.dart';
-import 'package:dartness/server/dartness_server.dart';
-import 'package:dartness/server/default_dartness_server.dart';
+import 'package:dartness_server/bind/annotation/bind.dart';
+import 'package:dartness_server/bind/annotation/controller.dart';
+import 'package:dartness_server/bind/annotation/get.dart';
+import 'package:dartness_server/server/dartness_server.dart';
+import 'package:dartness_server/server/default_dartness_server.dart';
 import 'package:shelf/shelf.dart';
 
 /// A server that delivers content, such as web pages, using the HTTP protocol

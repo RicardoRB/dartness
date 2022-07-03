@@ -22,8 +22,8 @@ path for each route in the file.
 ```dart
 import 'dart:async';
 
-import 'package:dartness/bind/annotation/controller.dart';
-import 'package:dartness/bind/annotation/get.dart';
+import 'package:dartness_server/bind/annotation/controller.dart';
+import 'package:dartness_server/bind/annotation/get.dart';
 
 @Controller('cities')
 class CitiesController {
@@ -68,8 +68,8 @@ that creates new records. For this, let's create the **POST** handler:
 ```dart
 import 'dart:async';
 
-import 'package:dartness/bind/annotation/controller.dart';
-import 'package:dartness/bind/annotation/get.dart';
+import 'package:dartness_server/bind/annotation/controller.dart';
+import 'package:dartness_server/bind/annotation/get.dart';
 
 @Controller('cities')
 class CitiesController {
@@ -129,8 +129,8 @@ to resolve by itself. Let's see an example of this:
 ```dart
 import 'dart:async';
 
-import 'package:dartness/bind/annotation/controller.dart';
-import 'package:dartness/bind/annotation/get.dart';
+import 'package:dartness_server/bind/annotation/controller.dart';
+import 'package:dartness_server/bind/annotation/get.dart';
 
 @Controller('cities')
 class CitiesController {

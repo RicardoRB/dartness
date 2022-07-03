@@ -1,4 +1,4 @@
-import 'package:dartness/bind/annotation/patch.dart';
+import 'package:dartness_server/bind/annotation/patch.dart';
 import 'package:test/test.dart';
 
 void main() {

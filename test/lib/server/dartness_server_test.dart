@@ -1,5 +1,5 @@
-import 'package:dartness/bind/annotation/controller.dart';
-import 'package:dartness/server/default_dartness_server.dart';
+import 'package:dartness_server/bind/annotation/controller.dart';
+import 'package:dartness_server/server/default_dartness_server.dart';
 import 'package:test/test.dart';
 
 void main() {

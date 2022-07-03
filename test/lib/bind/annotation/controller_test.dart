@@ -1,17 +1,17 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:dartness/bind/annotation/body.dart';
-import 'package:dartness/bind/annotation/controller.dart';
-import 'package:dartness/bind/annotation/delete.dart';
-import 'package:dartness/bind/annotation/get.dart';
-import 'package:dartness/bind/annotation/header.dart';
-import 'package:dartness/bind/annotation/http_status.dart';
-import 'package:dartness/bind/annotation/path_param.dart';
-import 'package:dartness/bind/annotation/post.dart';
-import 'package:dartness/bind/annotation/put.dart';
-import 'package:dartness/bind/annotation/query_param.dart';
-import 'package:dartness/dartness.dart';
+import 'package:dartness_server/bind/annotation/body.dart';
+import 'package:dartness_server/bind/annotation/controller.dart';
+import 'package:dartness_server/bind/annotation/delete.dart';
+import 'package:dartness_server/bind/annotation/get.dart';
+import 'package:dartness_server/bind/annotation/header.dart';
+import 'package:dartness_server/bind/annotation/http_status.dart';
+import 'package:dartness_server/bind/annotation/path_param.dart';
+import 'package:dartness_server/bind/annotation/post.dart';
+import 'package:dartness_server/bind/annotation/put.dart';
+import 'package:dartness_server/bind/annotation/query_param.dart';
+import 'package:dartness_server/dartness.dart';
 import 'package:test/test.dart';
 
 void main() {

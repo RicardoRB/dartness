@@ -1,4 +1,4 @@
-import 'package:dartness/bind/annotation/controller.dart';
+import 'package:dartness_server/bind/annotation/controller.dart';
 
 /// Annotation for a bindable property.
 abstract class Bind {

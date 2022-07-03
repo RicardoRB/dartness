@@ -1,4 +1,4 @@
-name: dartness
+name: dartness_server
 description:
   Dartness is a framework for building efficient, scalable dart server-side applications.
   It provides an easy and quick way to develop modern standalone server.
