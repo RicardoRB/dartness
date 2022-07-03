@@ -5,6 +5,7 @@ import 'package:dartness/bind/annotation/body.dart';
 import 'package:dartness/bind/annotation/controller.dart';
 import 'package:dartness/bind/annotation/delete.dart';
 import 'package:dartness/bind/annotation/get.dart';
+import 'package:dartness/bind/annotation/header.dart';
 import 'package:dartness/bind/annotation/http_status.dart';
 import 'package:dartness/bind/annotation/path_param.dart';
 import 'package:dartness/bind/annotation/post.dart';
@@ -212,6 +213,23 @@ void main() {
           final response = await request.close();
           expect(response.statusCode, HttpStatus.accepted);
           expect(await response.transform(utf8.decoder).join(), isEmpty);
+        },
+      );
+
+      test(
+        'GET with response header test : test',
+        () async {
+          final request =
+              await httpClient.get('localhost', port, '/get/headers');
+          final response = await request.close();
+          expect(response.statusCode, HttpStatus.ok);
+          bool containsHeader = false;
+          response.headers.forEach((name, values) {
+            if (name == 'test') {
+              containsHeader = values.contains('test');
+            }
+          });
+          expect(containsHeader, isTrue);
         },
       );
     });
@@ -495,6 +513,10 @@ class GetControllerClass {
   @HttpCode(HttpStatus.accepted)
   @Get("/statuscodes")
   static getStatusCode() {}
+
+  @Header('test', 'test')
+  @Get("/headers")
+  static getHeader() {}
 }
 
 @Controller("/post")

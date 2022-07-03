@@ -76,7 +76,7 @@ You can check the documentation at [dartness docs](https://ricardorb.github.io/d
 1. HTTP
     - Controllers
         - <del>Bind annotations</del>
-        - Header
+        - <del>Header</del>
         - <del>Body</del>
         - <del>Param</del>
         - <del>Query</del>

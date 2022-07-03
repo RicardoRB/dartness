@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:mirrors';
 
 import 'package:collection/collection.dart';
+import 'package:dartness/bind/annotation/header.dart';
 import 'package:dartness/bind/annotation/path_param.dart';
 import 'package:dartness/bind/annotation/query_param.dart';
 import 'package:logger/logger.dart';
@@ -70,19 +71,36 @@ class RouterHandler {
 
         final responseStatusCode = httpStatus?.code ?? HttpStatus.ok;
 
+        final Iterable<Header> responseHeaders = _methodMirror.metadata
+            .where((meta) => meta.reflectee is Header)
+            .map((e) => e.reflectee);
+
+        final Map<String, Object> headers = Map.fromIterable(
+          responseHeaders,
+          key: (e) => e.key,
+          value: (e) => e.value,
+        );
+
         final response =
             _clazzMirror.invoke(_methodMirror.simpleName, methodParams);
 
         final result = response.reflectee;
-        if (result is Future) {
-          return Response(responseStatusCode, body: await result);
-        } else if (result is Response) {
+        final dynamic body;
+        if (result is Response) {
           return result;
+        } else if (result is Future) {
+          body = await result;
         } else if (result is Iterable || result is Map || result is Object) {
-          return Response(responseStatusCode, body: jsonEncode(result));
+          body = jsonEncode(result);
         } else {
-          return Response(responseStatusCode, body: result);
+          body = result;
         }
+
+        return Response(
+          responseStatusCode,
+          body: body,
+          headers: headers,
+        );
       } catch (e, stack) {
         _logger.e('Error handling route', e, stack);
         return Response.internalServerError(body: e.toString());
