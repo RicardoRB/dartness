@@ -110,19 +110,42 @@
         }
       }
 
+      final HttpCode? httpStatus = _methodMirror.metadata
+          .firstWhereOrNull((meta) =&gt; meta.reflectee is HttpCode)
+          ?.reflectee;
+
+      final responseStatusCode = httpStatus?.code ?? HttpStatus.ok;
+
+      final Iterable&lt;Header&gt; responseHeaders = _methodMirror.metadata
+          .where((meta) =&gt; meta.reflectee is Header)
+          .map((e) =&gt; e.reflectee);
+
+      final Map&lt;String, Object&gt; headers = Map.fromIterable(
+        responseHeaders,
+        key: (e) =&gt; e.key,
+        value: (e) =&gt; e.value,
+      );
+
       final response =
           _clazzMirror.invoke(_methodMirror.simpleName, methodParams);
 
       final result = response.reflectee;
-      if (result is Future) {
-        return Response.ok(await result);
-      } else if (result is Response) {
+      final dynamic body;
+      if (result is Response) {
         return result;
+      } else if (result is Future) {
+        body = await result;
       } else if (result is Iterable || result is Map || result is Object) {
-        return Response.ok(jsonEncode(result));
+        body = jsonEncode(result);
       } else {
-        return Response.ok(result);
+        body = result;
       }
+
+      return Response(
+        responseStatusCode,
+        body: body,
+        headers: headers,
+      );
     } catch (e, stack) {
       _logger.e(&#39;Error handling route&#39;, e, stack);
       return Response.internalServerError(body: e.toString());

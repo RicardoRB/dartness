@@ -90,14 +90,28 @@ It's that simple. Nest provides decorators for all the standard HTTP methods: `@
 
 ## Status code
 
-As mentioned, the response status code is always 200 by default, except for POST requests which are 201. We can easily change this behavior by adding the `@HttpCode(...)` annotation at a handler level.
+As mentioned, the response status code is always 200 by default, except for POST requests which are 201. We can easily
+change this behavior by adding the `@HttpCode(...)` annotation at a handler level.
 
 ```dart
-  @Post()
-  @HttpCode(202)
-  String get() {
-    return 'This method returns status code 202';
-  }
+@Post()
+@HttpCode(202)
+String get() {
+  return 'This method returns status code 202';
+}
+```
+
+## Headers
+
+To specify a custom response header, you can either use a `@Header()` annotation or a library-specific response object
+(eg. `return Response(200, headers: {'content-type': 'application/json'})`).
+
+```dart
+@Get()
+@Header('content-type', 'application/json')
+String get() {
+  return 'This method returns a custom content-type header';
+}
 ```
 
 ## Asynchronicity
