@@ -34,13 +34,13 @@ class Dartness {
     final Iterable<Middleware> middlewares = const [],
   }) async {
     if (logRequest) {
-      _server.addMiddleware(logRequests());
+      addMiddleware(logRequests());
     }
     for (final controller in controllers) {
       addController(controller);
     }
     for (final middleware in middlewares) {
-      addController(middleware);
+      addMiddleware(middleware);
     }
     await _server.start();
     print('Server listening on port ${_server.getPort()}');
