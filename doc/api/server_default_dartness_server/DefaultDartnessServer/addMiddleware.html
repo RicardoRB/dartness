@@ -58,7 +58,7 @@
 </div>
 
 <span class="returntype">void</span>
-<span class="name ">addMiddleware</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="addMiddleware-param-middleware"><span class="type-annotation"><a href="https://pub.dev/documentation/shelf/1.3.1/shelf/Middleware.html">Middleware</a></span> <span class="parameter-name">middleware</span></span></li>
+<span class="name ">addMiddleware</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="addMiddleware-param-middleware"><span class="type-annotation"><a href="../../server_dartness_middleware/DartnessMiddleware-class.html">DartnessMiddleware</a></span> <span class="parameter-name">middleware</span></span></li>
 </ol>)
 
       <div class="features">override</div>
@@ -75,8 +75,8 @@ and the applications running on it.</p>
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
-void addMiddleware(final Middleware middleware) {
-  _pipeline.addMiddleware(middleware);
+void addMiddleware(final DartnessMiddleware middleware) {
+  _pipeline = _pipeline.addMiddleware(middleware);
 }</code></pre>
 </section>
 
@@ -115,6 +115,7 @@ void addMiddleware(final Middleware middleware) {
 
     <li class="section-title"><a href="../../server_default_dartness_server/DefaultDartnessServer-class.html#instance-methods">Methods</a></li>
     <li><a href="../../server_default_dartness_server/DefaultDartnessServer/addController.html">addController</a></li>
+    <li><a href="../../server_default_dartness_server/DefaultDartnessServer/addInterceptor.html">addInterceptor</a></li>
     <li><a href="../../server_default_dartness_server/DefaultDartnessServer/addMiddleware.html">addMiddleware</a></li>
     <li><a href="../../server_default_dartness_server/DefaultDartnessServer/getAddress.html">getAddress</a></li>
     <li><a href="../../server_default_dartness_server/DefaultDartnessServer/getPort.html">getPort</a></li>

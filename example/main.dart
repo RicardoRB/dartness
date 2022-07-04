@@ -7,6 +7,7 @@ void main() async {
     port: 3000,
     controllers: [ExampleController()],
   );
-  app.addController(ExampleController());
+  // As optional, you can also use app.addController(ExampleController());
+  // app.addController(ExampleController());
   await app.create();
 }

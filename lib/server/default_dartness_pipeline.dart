@@ -4,11 +4,14 @@ import 'dartness_interceptor.dart';
 import 'dartness_middleware.dart';
 import 'dartness_pipeline.dart';
 
+/// Default implementation of [DartnessPipeline] that uses shelf [Pipeline]
+/// in order to provide an efficient way of create [DartnessMiddleware]
+/// and [DartnessInterceptor].
 class DefaultDartnessPipeline implements DartnessPipeline {
   final Pipeline _pipeline;
 
   DefaultDartnessPipeline({
-    Pipeline pipeline = const Pipeline(),
+    final Pipeline pipeline = const Pipeline(),
   }) : _pipeline = pipeline;
 
   @override
@@ -41,7 +44,7 @@ class DefaultDartnessPipeline implements DartnessPipeline {
   }
 
   @override
-  Handler addHandler(final Handler router) {
-    return _pipeline.addHandler(router);
+  Handler addHandler(final Handler handler) {
+    return _pipeline.addHandler(handler);
   }
 }

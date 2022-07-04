@@ -69,87 +69,80 @@
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">Function handleRoute() {
   return (final Request request, [final Object? extras]) async {
-    try {
-      final Map&lt;String, String&gt; pathParams = Map.of(request.params)
-        ..removeWhere((key, value) {
-          return request.url.queryParameters.containsKey(key);
-        });
+    final Map&lt;String, String&gt; pathParams = Map.of(request.params)
+      ..removeWhere((key, value) {
+        return request.url.queryParameters.containsKey(key);
+      });
 
-      final Map&lt;String, Object&gt; allParamsWithValue = {};
-      if (pathParams.isNotEmpty) {
-        final pathParamValues =
-            _getPathParamsValues(_methodMirror, pathParams);
-        allParamsWithValue.addAll(pathParamValues);
-      }
-      if (request.url.queryParameters.isNotEmpty) {
-        final queryParamValues =
-            _getQueryParamsValues(_methodMirror, request.url.queryParameters);
-        allParamsWithValue.addAll(queryParamValues);
-      }
-
-      final methodParams = [];
-      for (final parameter in _methodMirror.parameters) {
-        final paramName = MirrorSystem.getName(parameter.simpleName);
-        if (allParamsWithValue.containsKey(paramName)) {
-          methodParams.add(allParamsWithValue[paramName]);
-        }
-        final containsBodyAnnotation = parameter.metadata.any((metadata) {
-          return metadata.reflectee is Body;
-        });
-        if (containsBodyAnnotation) {
-          final bodyReflectedClass =
-              reflectClass(parameter.type.reflectedType);
-          &#47;&#47; Deserialize the body to the correct type and create an instance of it.
-          final deserialized = await request.body.as(
-            (reviver) {
-              return bodyReflectedClass
-                  .newInstance(Symbol(&#39;fromJson&#39;), [reviver]);
-            },
-          );
-          methodParams.add(deserialized.reflectee);
-        }
-      }
-
-      final HttpCode? httpStatus = _methodMirror.metadata
-          .firstWhereOrNull((meta) =&gt; meta.reflectee is HttpCode)
-          ?.reflectee;
-
-      final responseStatusCode = httpStatus?.code ?? HttpStatus.ok;
-
-      final Iterable&lt;Header&gt; responseHeaders = _methodMirror.metadata
-          .where((meta) =&gt; meta.reflectee is Header)
-          .map((e) =&gt; e.reflectee);
-
-      final Map&lt;String, Object&gt; headers = Map.fromIterable(
-        responseHeaders,
-        key: (e) =&gt; e.key,
-        value: (e) =&gt; e.value,
-      );
-
-      final response =
-          _clazzMirror.invoke(_methodMirror.simpleName, methodParams);
-
-      final result = response.reflectee;
-      final dynamic body;
-      if (result is Response) {
-        return result;
-      } else if (result is Future) {
-        body = await result;
-      } else if (result is Iterable || result is Map || result is Object) {
-        body = jsonEncode(result);
-      } else {
-        body = result;
-      }
-
-      return Response(
-        responseStatusCode,
-        body: body,
-        headers: headers,
-      );
-    } catch (e, stack) {
-      _logger.e(&#39;Error handling route&#39;, e, stack);
-      return Response.internalServerError(body: e.toString());
+    final Map&lt;String, Object&gt; allParamsWithValue = {};
+    if (pathParams.isNotEmpty) {
+      final pathParamValues = _getPathParamsValues(_methodMirror, pathParams);
+      allParamsWithValue.addAll(pathParamValues);
     }
+    if (request.url.queryParameters.isNotEmpty) {
+      final queryParamValues =
+          _getQueryParamsValues(_methodMirror, request.url.queryParameters);
+      allParamsWithValue.addAll(queryParamValues);
+    }
+
+    final methodParams = [];
+    for (final parameter in _methodMirror.parameters) {
+      final paramName = MirrorSystem.getName(parameter.simpleName);
+      if (allParamsWithValue.containsKey(paramName)) {
+        methodParams.add(allParamsWithValue[paramName]);
+      }
+      final containsBodyAnnotation = parameter.metadata.any((metadata) {
+        return metadata.reflectee is Body;
+      });
+      if (containsBodyAnnotation) {
+        final bodyReflectedClass = reflectClass(parameter.type.reflectedType);
+        &#47;&#47; Deserialize the body to the correct type and create an instance of it.
+        final deserialized = await request.body.as(
+          (reviver) {
+            return bodyReflectedClass
+                .newInstance(Symbol(&#39;fromJson&#39;), [reviver]);
+          },
+        );
+        methodParams.add(deserialized.reflectee);
+      }
+    }
+
+    final HttpCode? httpStatus = _methodMirror.metadata
+        .firstWhereOrNull((meta) =&gt; meta.reflectee is HttpCode)
+        ?.reflectee;
+
+    final responseStatusCode = httpStatus?.code ?? HttpStatus.ok;
+
+    final Iterable&lt;Header&gt; responseHeaders = _methodMirror.metadata
+        .where((meta) =&gt; meta.reflectee is Header)
+        .map((e) =&gt; e.reflectee);
+
+    final Map&lt;String, Object&gt; headers = Map.fromIterable(
+      responseHeaders,
+      key: (e) =&gt; e.key,
+      value: (e) =&gt; e.value,
+    );
+
+    final response =
+        _clazzMirror.invoke(_methodMirror.simpleName, methodParams);
+
+    final result = response.reflectee;
+    final dynamic body;
+    if (result is Response) {
+      return result;
+    } else if (result is Future) {
+      body = await result;
+    } else if (result is Iterable || result is Map || result is Object) {
+      body = jsonEncode(result);
+    } else {
+      body = result;
+    }
+
+    return Response(
+      responseStatusCode,
+      body: body,
+      headers: headers,
+    );
   };
 }</code></pre>
 </section>
