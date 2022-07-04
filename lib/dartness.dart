@@ -3,7 +3,9 @@ import 'dart:io';
 import 'package:dartness_server/bind/annotation/bind.dart';
 import 'package:dartness_server/bind/annotation/controller.dart';
 import 'package:dartness_server/bind/annotation/get.dart';
+import 'package:dartness_server/server/dartness_interceptor.dart';
 import 'package:dartness_server/server/dartness_server.dart';
+import 'package:dartness_server/server/log_requests_interceptor.dart';
 
 import 'server/dartness_middleware.dart';
 import 'server/default_dartness_server.dart';
@@ -42,7 +44,7 @@ class Dartness {
     final bool logRequest = false,
   }) async {
     if (logRequest) {
-      // addMiddleware(LogRequestsMiddleware());
+      addInterceptor(LogRequestsInterceptor());
     }
     await _server.start();
     print('Server listening on port ${_server.getPort()}');
@@ -78,5 +80,9 @@ class Dartness {
   /// Adds a middleware in order to listen between an http request
   void addMiddleware(final DartnessMiddleware middleware) {
     _server.addMiddleware(middleware);
+  }
+
+  void addInterceptor(final DartnessInterceptor interceptor) {
+    _server.addInterceptor(interceptor);
   }
 }

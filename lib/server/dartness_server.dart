@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'dartness_interceptor.dart';
 import 'dartness_middleware.dart';
 
 /// An interface that defines the methods that a server must implement.
@@ -13,6 +14,8 @@ abstract class DartnessServer {
   /// Adds a middleware in order to listen between an http request
   /// and the applications running on it.
   void addMiddleware(final DartnessMiddleware middleware);
+
+  void addInterceptor(final DartnessInterceptor interceptor);
 
   /// Starts the server.
   Future<void> start();

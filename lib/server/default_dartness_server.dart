@@ -9,6 +9,7 @@ import '../bind/annotation/bind.dart';
 import '../bind/annotation/controller.dart';
 import '../route/default_dartness_router.dart';
 import '../route/router_handler.dart';
+import 'dartness_interceptor.dart';
 import 'dartness_pipeline.dart';
 import 'dartness_server.dart';
 import 'default_dartness_pipeline.dart';
@@ -66,6 +67,11 @@ class DefaultDartnessServer implements DartnessServer {
   @override
   void addMiddleware(final DartnessMiddleware middleware) {
     _pipeline = _pipeline.addMiddleware(middleware);
+  }
+
+  @override
+  void addInterceptor(final DartnessInterceptor interceptor) {
+    _pipeline = _pipeline.addInterceptor(interceptor);
   }
 
   /// Starts an [HttpServer] that listens by the specified [_internetAddress] and

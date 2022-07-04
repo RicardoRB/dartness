@@ -1,6 +1,6 @@
-import 'package:dartness_server/server/dartness_interceptor.dart';
 import 'package:shelf/shelf.dart';
 
+import 'dartness_interceptor.dart';
 import 'dartness_middleware.dart';
 import 'dartness_pipeline.dart';
 
@@ -20,6 +20,23 @@ class DefaultDartnessPipeline implements DartnessPipeline {
       };
     });
 
+    return DefaultDartnessPipeline(pipeline: pipeline);
+  }
+
+  @override
+  DartnessPipeline addInterceptor(final DartnessInterceptor interceptor) {
+    final pipeline = _pipeline.addMiddleware((final Handler innerHandler) {
+      return (final Request request) {
+        interceptor.onRequest(request);
+        return Future.sync(() => innerHandler(request))
+            .then((final Response response) {
+          interceptor.onResponse(response);
+          return response;
+        }).catchError((Object error, StackTrace stackTrace) {
+          interceptor.onError(error, stackTrace);
+        });
+      };
+    });
     return DefaultDartnessPipeline(pipeline: pipeline);
   }
 
