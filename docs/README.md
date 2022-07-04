@@ -80,8 +80,8 @@ You can check the documentation at [dartness docs](https://ricardorb.github.io/d
         - <del>Body</del>
         - <del>Param</del>
         - <del>Query</del>
-    - Middleware
-    - Interceptor
+    - <del>Middleware</del>
+    - <del>Interceptor</del>
     - Websockets
 2. Exceptions
     - Exception Handler
