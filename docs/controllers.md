@@ -34,16 +34,16 @@ class CitiesController {
 }
 ```
 
-The `@Get()` HTTP request method decorator before the `getCities()` method tells Dartness to create a handler for a
+The `@Get()` HTTP request method annotation before the `getCities()` method tells Dartness to create a handler for a
 specific
 endpoint for HTTP requests. The endpoint corresponds to the HTTP request method (GET in this case) and the route path.
 What is the route path? The route path for a handler is determined by concatenating the prefix declared for
-the controller, and any path specified in the method's decorator. Since we've declared a prefix for every route (cities)
+the controller, and any path specified in the method's annotation. Since we've declared a prefix for every route (cities)
 ,
-and haven't added any path information in the decorator, Dartness will map `GET /cities` requests to this handler. As
+and haven't added any path information in the annotation, Dartness will map `GET /cities` requests to this handler. As
 mentioned,
-the path includes both the optional controller path prefix and any path string declared in the request method decorator.
-For example, a path prefix of customers combined with the decorator `@Get('country')` would produce a route mapping for
+the path includes both the optional controller path prefix and any path string declared in the request method annotation.
+For example, a path prefix of customers combined with the annotation `@Get('country')` would produce a route mapping for
 requests like `GET /cities/country`.
 
 In our example above, when a `GET` request is made to this endpoint, Dartness routes the request to our user-defined
@@ -85,7 +85,7 @@ class CitiesController {
 }
 ```
 
-It's that simple. Nest provides decorators for all the standard HTTP methods: `@Get()`, `@Post()`, `@Put()`, `@Delete()`
+It's that simple. Nest provides annotations for all the standard HTTP methods: `@Get()`, `@Post()`, `@Put()`, `@Delete()`
 , `@Patch()`, `@Options()`, and `@Head()`.
 
 ## Status code
