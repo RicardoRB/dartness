@@ -1,3 +1,4 @@
+import 'package:dartness_server/server/dartness_interceptor.dart';
 import 'package:shelf/shelf.dart';
 
 import 'dartness_middleware.dart';
@@ -12,7 +13,6 @@ class DefaultDartnessPipeline implements DartnessPipeline {
 
   @override
   DartnessPipeline addMiddleware(final DartnessMiddleware middleware) {
-    _pipeline.addMiddleware(logRequests());
     final pipeline = _pipeline.addMiddleware((final Handler innerHandler) {
       return (final Request request) {
         middleware.call(request);
@@ -26,10 +26,5 @@ class DefaultDartnessPipeline implements DartnessPipeline {
   @override
   Handler addHandler(final Handler router) {
     return _pipeline.addHandler(router);
-  }
-
-  @override
-  String toString() {
-    return 'DartnessPipeline{$hashCode}';
   }
 }
