@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:shelf/shelf.dart';
+import 'dartness_middleware.dart';
 
 /// An interface that defines the methods that a server must implement.
 abstract class DartnessServer {
@@ -12,7 +12,7 @@ abstract class DartnessServer {
 
   /// Adds a middleware in order to listen between an http request
   /// and the applications running on it.
-  void addMiddleware(final Middleware middleware);
+  void addMiddleware(final DartnessMiddleware middleware);
 
   /// Starts the server.
   Future<void> start();

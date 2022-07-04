@@ -2,13 +2,14 @@ import 'dart:io';
 import 'dart:mirrors';
 
 import 'package:collection/collection.dart';
-import 'package:shelf/shelf.dart';
+import 'package:dartness_server/server/dartness_middleware.dart';
 import 'package:shelf/shelf_io.dart' as shelf_io;
 
 import '../bind/annotation/bind.dart';
 import '../bind/annotation/controller.dart';
 import '../route/default_dartness_router.dart';
 import '../route/router_handler.dart';
+import 'dartness_pipeline.dart';
 import 'dartness_server.dart';
 import 'default_dartness_pipeline.dart';
 
@@ -28,7 +29,7 @@ class DefaultDartnessServer implements DartnessServer {
   HttpServer? _server;
 
   /// The pipeline of handlers that will be used to process requests.
-  final _pipeline = DefaultDartnessPipeline();
+  DartnessPipeline _pipeline = DefaultDartnessPipeline();
 
   /// The [DefaultDartnessRouter] that is handling the requests.
   final _router = DefaultDartnessRouter();
@@ -63,8 +64,8 @@ class DefaultDartnessServer implements DartnessServer {
   /// Adds a middleware in order to listen between an http request
   /// and the applications running on it.
   @override
-  void addMiddleware(final Middleware middleware) {
-    _pipeline.addMiddleware(middleware);
+  void addMiddleware(final DartnessMiddleware middleware) {
+    _pipeline = _pipeline.addMiddleware(middleware);
   }
 
   /// Starts an [HttpServer] that listens by the specified [_internetAddress] and

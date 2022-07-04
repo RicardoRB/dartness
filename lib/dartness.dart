@@ -4,8 +4,9 @@ import 'package:dartness_server/bind/annotation/bind.dart';
 import 'package:dartness_server/bind/annotation/controller.dart';
 import 'package:dartness_server/bind/annotation/get.dart';
 import 'package:dartness_server/server/dartness_server.dart';
-import 'package:dartness_server/server/default_dartness_server.dart';
-import 'package:shelf/shelf.dart';
+
+import 'server/dartness_middleware.dart';
+import 'server/default_dartness_server.dart';
 
 /// A server that delivers content, such as web pages, using the HTTP protocol
 /// by [HttpServer].
@@ -22,7 +23,7 @@ class Dartness {
     final int port = 8080,
     final InternetAddress? internetAddress,
     final Iterable<Object> controllers = const [],
-    final Iterable<Middleware> middlewares = const [],
+    final Iterable<DartnessMiddleware> middlewares = const [],
   }) {
     _server = DefaultDartnessServer(port, internetAddress: internetAddress);
     for (final controller in controllers) {
@@ -41,7 +42,7 @@ class Dartness {
     final bool logRequest = false,
   }) async {
     if (logRequest) {
-      addMiddleware(logRequests());
+      // addMiddleware(LogRequestsMiddleware());
     }
     await _server.start();
     print('Server listening on port ${_server.getPort()}');
@@ -75,7 +76,7 @@ class Dartness {
   }
 
   /// Adds a middleware in order to listen between an http request
-  void addMiddleware(final Middleware middleware) {
+  void addMiddleware(final DartnessMiddleware middleware) {
     _server.addMiddleware(middleware);
   }
 }

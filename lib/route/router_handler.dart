@@ -13,6 +13,8 @@ import '../bind/annotation/body.dart';
 import '../bind/annotation/http_status.dart';
 import '../string_utils.dart';
 
+/// A router handler for handling request for a [ClassMirror] with [Controller]
+/// with his metadata and the method [MethodMirror] with the metadata.
 class RouterHandler {
   final _logger = Logger();
 
