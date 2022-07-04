@@ -22,7 +22,7 @@ Dart SDK version: 2.17.3 (stable)
 ## Creating a new project
 
 ```bash
-$ dart create -t console cli
+$ dart create -t console your_project_name
 ```
 
 1Add dartness into the pubspec.yaml
