@@ -20,12 +20,13 @@ class Dartness {
   /// [internetAddress].
   ///
   /// You can also add controllers by using [controllers] optional parameter or
-  /// [middlewares].
+  /// [middlewares] and [interceptors].
   Dartness({
     final int port = 8080,
     final InternetAddress? internetAddress,
     final Iterable<Object> controllers = const [],
     final Iterable<DartnessMiddleware> middlewares = const [],
+    final Iterable<DartnessInterceptor> interceptors = const [],
   }) {
     _server = DefaultDartnessServer(port, internetAddress: internetAddress);
     for (final controller in controllers) {
@@ -33,6 +34,9 @@ class Dartness {
     }
     for (final middleware in middlewares) {
       addMiddleware(middleware);
+    }
+    for (final interceptor in interceptors) {
+      addInterceptor(interceptor);
     }
   }
 
@@ -77,11 +81,12 @@ class Dartness {
     _server.addController(controller);
   }
 
-  /// Adds a middleware in order to listen between an http request
+  /// Adds a middleware in order to listen before the http request
   void addMiddleware(final DartnessMiddleware middleware) {
     _server.addMiddleware(middleware);
   }
 
+  /// Adds an interceptor in order to listen between an http request
   void addInterceptor(final DartnessInterceptor interceptor) {
     _server.addInterceptor(interceptor);
   }

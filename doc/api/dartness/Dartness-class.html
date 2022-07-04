@@ -63,7 +63,7 @@ by <a href="https://api.flutter.dev/flutter/dart-io/HttpServer-class.html">HttpS
 
     <dl class="constructor-summary-list">
         <dt id="Dartness" class="callable">
-          <span class="name"><a href="../dartness/Dartness/Dartness.html">Dartness</a></span><span class="signature">(<span class="parameter" id="-param-port">{<span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">port</span> = <span class="default-value">8080</span>, </span><span class="parameter" id="-param-internetAddress"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-io/InternetAddress-class.html">InternetAddress</a>?</span> <span class="parameter-name">internetAddress</span>, </span><span class="parameter" id="-param-controllers"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/Object-class.html">Object</a></span>&gt;</span></span> <span class="parameter-name">controllers</span> = <span class="default-value">const []</span>, </span><span class="parameter" id="-param-middlewares"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../server_dartness_middleware/DartnessMiddleware-class.html">DartnessMiddleware</a></span>&gt;</span></span> <span class="parameter-name">middlewares</span> = <span class="default-value">const []</span>}</span>)</span>
+          <span class="name"><a href="../dartness/Dartness/Dartness.html">Dartness</a></span><span class="signature">(<span class="parameter" id="-param-port">{<span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">port</span> = <span class="default-value">8080</span>, </span><span class="parameter" id="-param-internetAddress"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-io/InternetAddress-class.html">InternetAddress</a>?</span> <span class="parameter-name">internetAddress</span>, </span><span class="parameter" id="-param-controllers"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/Object-class.html">Object</a></span>&gt;</span></span> <span class="parameter-name">controllers</span> = <span class="default-value">const []</span>, </span><span class="parameter" id="-param-middlewares"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../server_dartness_middleware/DartnessMiddleware-class.html">DartnessMiddleware</a></span>&gt;</span></span> <span class="parameter-name">middlewares</span> = <span class="default-value">const []</span>, </span><span class="parameter" id="-param-interceptors"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../server_dartness_interceptor/DartnessInterceptor-class.html">DartnessInterceptor</a></span>&gt;</span></span> <span class="parameter-name">interceptors</span> = <span class="default-value">const []</span>}</span>)</span>
         </dt>
         <dd>
           Creates a <a href="../server_default_dartness_server/DefaultDartnessServer-class.html">DefaultDartnessServer</a> that listens on the specified <code>port</code> and
@@ -129,7 +129,7 @@ the methods annotated with <a href="../bind_annotation_bind/Bind-class.html">Bin
 
 </dt>
 <dd>
-  
+  Adds an interceptor in order to listen between an http request
   
 
 </dd>
@@ -142,7 +142,7 @@ the methods annotated with <a href="../bind_annotation_bind/Bind-class.html">Bin
 
 </dt>
 <dd>
-  Adds a middleware in order to listen between an http request
+  Adds a middleware in order to listen before the http request
   
 
 </dd>

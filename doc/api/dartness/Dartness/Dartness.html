@@ -53,7 +53,8 @@
       <span class="name ">Dartness</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="-param-port">{<span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">port</span> = <span class="default-value">8080</span>, </span></li>
 <li><span class="parameter" id="-param-internetAddress"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-io/InternetAddress-class.html">InternetAddress</a>?</span> <span class="parameter-name">internetAddress</span>, </span></li>
 <li><span class="parameter" id="-param-controllers"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/Object-class.html">Object</a></span>&gt;</span></span> <span class="parameter-name">controllers</span> = <span class="default-value">const []</span>, </span></li>
-<li><span class="parameter" id="-param-middlewares"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../server_dartness_middleware/DartnessMiddleware-class.html">DartnessMiddleware</a></span>&gt;</span></span> <span class="parameter-name">middlewares</span> = <span class="default-value">const []</span>}</span></li>
+<li><span class="parameter" id="-param-middlewares"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../server_dartness_middleware/DartnessMiddleware-class.html">DartnessMiddleware</a></span>&gt;</span></span> <span class="parameter-name">middlewares</span> = <span class="default-value">const []</span>, </span></li>
+<li><span class="parameter" id="-param-interceptors"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../server_dartness_interceptor/DartnessInterceptor-class.html">DartnessInterceptor</a></span>&gt;</span></span> <span class="parameter-name">interceptors</span> = <span class="default-value">const []</span>}</span></li>
 </ol>)
     </section>
 
@@ -62,7 +63,7 @@
   <p>Creates a <a href="../../server_default_dartness_server/DefaultDartnessServer-class.html">DefaultDartnessServer</a> that listens on the specified <code>port</code> and
 <code>internetAddress</code>.</p>
 <p>You can also add controllers by using <code>controllers</code> optional parameter or
-<code>middlewares</code>.</p>
+<code>middlewares</code> and <code>interceptors</code>.</p>
 </section>
 
 
@@ -74,6 +75,7 @@
   final InternetAddress? internetAddress,
   final Iterable&lt;Object&gt; controllers = const [],
   final Iterable&lt;DartnessMiddleware&gt; middlewares = const [],
+  final Iterable&lt;DartnessInterceptor&gt; interceptors = const [],
 }) {
   _server = DefaultDartnessServer(port, internetAddress: internetAddress);
   for (final controller in controllers) {
@@ -81,6 +83,9 @@
   }
   for (final middleware in middlewares) {
     addMiddleware(middleware);
+  }
+  for (final interceptor in interceptors) {
+    addInterceptor(interceptor);
   }
 }</code></pre>
 </section>
