@@ -3,13 +3,13 @@ import 'dart:io';
 import 'dart:mirrors';
 
 import 'package:collection/collection.dart';
-import 'package:dartness_server/bind/annotation/header.dart';
-import 'package:dartness_server/bind/annotation/path_param.dart';
-import 'package:dartness_server/bind/annotation/query_param.dart';
 import 'package:shelf_plus/shelf_plus.dart';
 
 import '../bind/annotation/body.dart';
+import '../bind/annotation/header.dart';
 import '../bind/annotation/http_status.dart';
+import '../bind/annotation/path_param.dart';
+import '../bind/annotation/query_param.dart';
 import '../string_utils.dart';
 
 /// A router handler for handling request for a [ClassMirror] with [Controller]

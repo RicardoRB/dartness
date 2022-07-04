@@ -1,5 +1,3 @@
-import 'package:dartness_server/bind/annotation/controller.dart';
-
 /// Annotation for a bindable property.
 abstract class Bind {
   const Bind([this.path = '']);

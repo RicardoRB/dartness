@@ -1,4 +1,4 @@
-import 'package:dartness_server/route/router_handler.dart';
+import 'router_handler.dart';
 
 /// A router that can be used to handle requests.
 abstract class DartnessRouter {

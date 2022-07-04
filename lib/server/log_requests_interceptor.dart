@@ -1,6 +1,7 @@
-import 'package:dartness_server/server/dartness_interceptor.dart';
 import 'package:logger/logger.dart';
 import 'package:shelf/shelf.dart';
+
+import 'dartness_interceptor.dart';
 
 /// Middleware which prints the time of the request, the elapsed time for the
 /// inner handlers, the response's status code and the request URI.

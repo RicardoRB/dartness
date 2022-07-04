@@ -1,7 +1,7 @@
-import 'package:dartness_server/route/router_handler.dart';
 import 'package:shelf_router/shelf_router.dart';
 
 import 'dartness_router.dart';
+import 'router_handler.dart';
 
 /// A router that can be used to handle requests.
 class DefaultDartnessRouter implements DartnessRouter {

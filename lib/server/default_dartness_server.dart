@@ -2,7 +2,6 @@ import 'dart:io';
 import 'dart:mirrors';
 
 import 'package:collection/collection.dart';
-import 'package:dartness_server/server/dartness_middleware.dart';
 import 'package:shelf/shelf_io.dart' as shelf_io;
 
 import '../bind/annotation/bind.dart';
@@ -10,6 +9,7 @@ import '../bind/annotation/controller.dart';
 import '../route/default_dartness_router.dart';
 import '../route/router_handler.dart';
 import 'dartness_interceptor.dart';
+import 'dartness_middleware.dart';
 import 'dartness_pipeline.dart';
 import 'dartness_server.dart';
 import 'default_dartness_pipeline.dart';
