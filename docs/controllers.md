@@ -38,11 +38,13 @@ The `@Get()` HTTP request method annotation before the `getCities()` method tell
 specific
 endpoint for HTTP requests. The endpoint corresponds to the HTTP request method (GET in this case) and the route path.
 What is the route path? The route path for a handler is determined by concatenating the prefix declared for
-the controller, and any path specified in the method's annotation. Since we've declared a prefix for every route (cities)
+the controller, and any path specified in the method's annotation. Since we've declared a prefix for every route (
+cities)
 ,
 and haven't added any path information in the annotation, Dartness will map `GET /cities` requests to this handler. As
 mentioned,
-the path includes both the optional controller path prefix and any path string declared in the request method annotation.
+the path includes both the optional controller path prefix and any path string declared in the request method
+annotation.
 For example, a path prefix of customers combined with the annotation `@Get('country')` would produce a route mapping for
 requests like `GET /cities/country`.
 
@@ -85,7 +87,8 @@ class CitiesController {
 }
 ```
 
-It's that simple. Nest provides annotations for all the standard HTTP methods: `@Get()`, `@Post()`, `@Put()`, `@Delete()`
+It's that simple. Nest provides annotations for all the standard HTTP methods: `@Get()`, `@Post()`, `@Put()`
+, `@Delete()`
 , `@Patch()`, `@Options()`, and `@Head()`.
 
 ## Status code
@@ -114,6 +117,49 @@ String get() {
 }
 ```
 
+## Route parameters
+
+`@PathParam()` is used to annotate a method parameter (`id` in the example below), and makes the route parameters
+available as property of that annotation method parameter inside the body of the method. As seen in the code below, we
+can access the id parameter by referencing `id`. You can also pass in a particular parameter token to the annotation,
+and then reference the route parameter directly by name in the method body.
+
+```dart
+
+import 'package:dartness_server/bind/annotation/controller.dart';
+import 'package:dartness_server/bind/annotation/get.dart';
+import 'package:dartness_server/bind/annotation/path_param.dart';
+
+@Controller('cities')
+class CitiesController {
+  @Get('/<id>')
+  String findById(@PathParam() id) {
+    return 'This action returns a city with id: $id';
+  }
+}
+```
+
+## Query
+
+`@QueryParam()` annotation is used to bind a web request parameter to a method parameter, it makes the query parameters
+available
+as inside the body of the method. In the example below, we can access the query parameter `name` by referencing `name`.
+
+```dart
+
+import 'package:dartness_server/bind/annotation/controller.dart';
+import 'package:dartness_server/bind/annotation/get.dart';
+import 'package:dartness_server/bind/annotation/query_param.dart';
+
+@Controller('cities')
+class CitiesController {
+  @Get()
+  String find(@QueryParam() name) {
+    return 'This action returns a the query parameter name: $name';
+  }
+}
+```
+
 ## Asynchronicity
 
 Future is a class in dart that allow us to write asynchronous code using the async and await keywords. Dartness handles
@@ -127,15 +173,13 @@ Every async function has to return a Future. This means that you can return a de
 to resolve by itself. Let's see an example of this:
 
 ```dart
-import 'dart:async';
-
 import 'package:dartness_server/bind/annotation/controller.dart';
 import 'package:dartness_server/bind/annotation/get.dart';
 
 @Controller('cities')
 class CitiesController {
   @Get()
-  Future<String> getCities() async {
+  String getCities() {
     return 'This action returns a list of cities';
   }
 }
