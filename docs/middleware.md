@@ -1,7 +1,7 @@
 # Middleware
 
-Middleware is a function which is called before the route handler. Middleware functions have access to the request
-objects. The middleware function can modify the request object and return a new one.
+Middleware is a class which is called before the route handler. Middleware classes have access to the request
+objects. The middleware class can modify the request object.
 
 Middleware classes can be used like the following task:
 
