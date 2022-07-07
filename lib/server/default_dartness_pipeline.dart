@@ -18,7 +18,7 @@ class DefaultDartnessPipeline implements DartnessPipeline {
   DartnessPipeline addMiddleware(final DartnessMiddleware middleware) {
     final pipeline = _pipeline.addMiddleware((final Handler innerHandler) {
       return (final Request request) {
-        middleware.call(request);
+        middleware.handle(request);
         return innerHandler(request);
       };
     });
