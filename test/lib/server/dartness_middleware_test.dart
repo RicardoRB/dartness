@@ -1,0 +1,62 @@
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:dartness_server/bind/annotation/controller.dart';
+import 'package:dartness_server/bind/annotation/get.dart';
+import 'package:dartness_server/dartness.dart';
+import 'package:dartness_server/server/dartness_middleware.dart';
+import 'package:shelf/shelf.dart';
+import 'package:test/test.dart';
+
+void main() {
+  late Dartness dartness;
+
+  const int port = 1243;
+  late HttpClient httpClient;
+
+  setUp(() async {
+    httpClient = HttpClient();
+    dartness = Dartness(
+      port: port,
+      controllers: [TestController()],
+      middlewares: [TestMiddleware()],
+    );
+    await dartness.create();
+  });
+
+  tearDown(() async {
+    await dartness.close();
+  });
+
+  test(
+      ""
+      "GIVEN a Middleware that handles the request before the request is executed"
+      "in order to validate the authentication of the request"
+      "WHEN sending a request to the server"
+      "THEN throw HttpException"
+      "", () async {
+    final expected = "Unauthorized";
+    final request = await httpClient.get('localhost', port, '/auth');
+    final response = await request.close();
+
+    /// The response should be a 401 Unauthorized
+    /// this must be fixed in the future with the exception handler
+    expect(response.statusCode, HttpStatus.internalServerError);
+    expect(await response.transform(utf8.decoder).join(), equals(expected));
+  });
+}
+
+@Controller("/auth")
+class TestController {
+  @Get()
+  static String get(Request request) => '';
+}
+
+class TestMiddleware implements DartnessMiddleware {
+  @override
+  void handle(Request request) {
+    if (!request.headers.containsKey(HttpHeaders.authorizationHeader)) {
+      throw HttpException("Unauthorized", uri: request.requestedUri);
+    }
+  }
+}
