@@ -59,6 +59,11 @@ class RouterHandler {
           );
           methodParams.add(deserialized.reflectee);
         }
+
+        final containsRequestClass = parameter.type.reflectedType == Request;
+        if (containsRequestClass) {
+          methodParams.add(request);
+        }
       }
 
       final HttpCode? httpStatus = _methodMirror.metadata
