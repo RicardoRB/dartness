@@ -35,14 +35,13 @@ void main() {
       "WHEN sending a request to the server"
       "THEN throw HttpException"
       "", () async {
-    final expected = "Unauthorized";
+    final expected = HttpStatus.internalServerError;
     final request = await httpClient.get('localhost', port, '/auth');
     final response = await request.close();
 
     /// The response should be a 401 Unauthorized
     /// this must be fixed in the future with the exception handler
-    expect(response.statusCode, HttpStatus.internalServerError);
-    expect(await response.transform(utf8.decoder).join(), equals(expected));
+    expect(response.statusCode, expected);
   });
 }
 
