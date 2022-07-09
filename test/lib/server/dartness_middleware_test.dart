@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:dartness_server/bind/annotation/controller.dart';
@@ -48,7 +47,7 @@ void main() {
 @Controller("/auth")
 class TestController {
   @Get()
-  static String get(Request request) => '';
+  static String get() => '';
 }
 
 class TestMiddleware implements DartnessMiddleware {

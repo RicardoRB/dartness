@@ -52,7 +52,7 @@ void main() {
   group('http tests', () {
     late Dartness dartness;
 
-    const int port = 1243;
+    const int port = 1432;
     late HttpClient httpClient;
 
     setUp(() async {
