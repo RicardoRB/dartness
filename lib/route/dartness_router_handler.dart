@@ -14,95 +14,94 @@ import '../string_utils.dart';
 
 /// A router handler for handling request for a [ClassMirror] with [Controller]
 /// with his metadata and the method [MethodMirror] with the metadata.
-class RouterHandler {
+class DartnessRouterHandler {
   final ClassMirror _clazzMirror;
   final MethodMirror _methodMirror;
 
-  RouterHandler(this._clazzMirror, this._methodMirror);
+  DartnessRouterHandler(this._clazzMirror, this._methodMirror);
 
   /// Handles the route's response and invoke the [_methodMirror] in [_clazzMirror]
-  Function handleRoute() {
-    return (final Request request, [final Object? extras]) async {
-      final Map<String, String> pathParams = Map.of(request.params)
-        ..removeWhere((key, value) {
-          return request.url.queryParameters.containsKey(key);
-        });
+  Future<Response> handleRoute(final Request request,
+      [final Object? extras]) async {
+    final Map<String, String> pathParams = Map.of(request.params)
+      ..removeWhere((key, value) {
+        return request.url.queryParameters.containsKey(key);
+      });
 
-      final Map<String, Object> allParamsWithValue = {};
-      if (pathParams.isNotEmpty) {
-        final pathParamValues = _getPathParamsValues(_methodMirror, pathParams);
-        allParamsWithValue.addAll(pathParamValues);
+    final Map<String, Object> allParamsWithValue = {};
+    if (pathParams.isNotEmpty) {
+      final pathParamValues = _getPathParamsValues(_methodMirror, pathParams);
+      allParamsWithValue.addAll(pathParamValues);
+    }
+    if (request.url.queryParameters.isNotEmpty) {
+      final queryParamValues =
+          _getQueryParamsValues(_methodMirror, request.url.queryParameters);
+      allParamsWithValue.addAll(queryParamValues);
+    }
+
+    final methodParams = [];
+    for (final parameter in _methodMirror.parameters) {
+      final paramName = MirrorSystem.getName(parameter.simpleName);
+      if (allParamsWithValue.containsKey(paramName)) {
+        methodParams.add(allParamsWithValue[paramName]);
       }
-      if (request.url.queryParameters.isNotEmpty) {
-        final queryParamValues =
-            _getQueryParamsValues(_methodMirror, request.url.queryParameters);
-        allParamsWithValue.addAll(queryParamValues);
-      }
-
-      final methodParams = [];
-      for (final parameter in _methodMirror.parameters) {
-        final paramName = MirrorSystem.getName(parameter.simpleName);
-        if (allParamsWithValue.containsKey(paramName)) {
-          methodParams.add(allParamsWithValue[paramName]);
-        }
-        final containsBodyAnnotation = parameter.metadata.any((metadata) {
-          return metadata.reflectee is Body;
-        });
-        if (containsBodyAnnotation) {
-          final bodyReflectedClass = reflectClass(parameter.type.reflectedType);
-          // Deserialize the body to the correct type and create an instance of it.
-          final deserialized = await request.body.as(
-            (reviver) {
-              return bodyReflectedClass
-                  .newInstance(Symbol('fromJson'), [reviver]);
-            },
-          );
-          methodParams.add(deserialized.reflectee);
-        }
-
-        final containsRequestClass = parameter.type.reflectedType == Request;
-        if (containsRequestClass) {
-          methodParams.add(request);
-        }
+      final containsBodyAnnotation = parameter.metadata.any((metadata) {
+        return metadata.reflectee is Body;
+      });
+      if (containsBodyAnnotation) {
+        final bodyReflectedClass = reflectClass(parameter.type.reflectedType);
+        // Deserialize the body to the correct type and create an instance of it.
+        final deserialized = await request.body.as(
+          (reviver) {
+            return bodyReflectedClass
+                .newInstance(Symbol('fromJson'), [reviver]);
+          },
+        );
+        methodParams.add(deserialized.reflectee);
       }
 
-      final HttpCode? httpStatus = _methodMirror.metadata
-          .firstWhereOrNull((meta) => meta.reflectee is HttpCode)
-          ?.reflectee;
-
-      final responseStatusCode = httpStatus?.code ?? HttpStatus.ok;
-
-      final Iterable<Header> responseHeaders = _methodMirror.metadata
-          .where((meta) => meta.reflectee is Header)
-          .map((e) => e.reflectee);
-
-      final Map<String, Object> headers = Map.fromIterable(
-        responseHeaders,
-        key: (e) => e.key,
-        value: (e) => e.value,
-      );
-
-      final response =
-          _clazzMirror.invoke(_methodMirror.simpleName, methodParams);
-
-      final result = response.reflectee;
-      final dynamic body;
-      if (result is Response) {
-        return result;
-      } else if (result is Future) {
-        body = await result;
-      } else if (result is Iterable || result is Map || result is Object) {
-        body = jsonEncode(result);
-      } else {
-        body = result;
+      final containsRequestClass = parameter.type.reflectedType == Request;
+      if (containsRequestClass) {
+        methodParams.add(request);
       }
+    }
 
-      return Response(
-        responseStatusCode,
-        body: body,
-        headers: headers,
-      );
-    };
+    final HttpCode? httpStatus = _methodMirror.metadata
+        .firstWhereOrNull((meta) => meta.reflectee is HttpCode)
+        ?.reflectee;
+
+    final responseStatusCode = httpStatus?.code ?? HttpStatus.ok;
+
+    final Iterable<Header> responseHeaders = _methodMirror.metadata
+        .where((meta) => meta.reflectee is Header)
+        .map((e) => e.reflectee);
+
+    final Map<String, Object> headers = Map.fromIterable(
+      responseHeaders,
+      key: (e) => e.key,
+      value: (e) => e.value,
+    );
+
+    final response =
+        _clazzMirror.invoke(_methodMirror.simpleName, methodParams);
+
+    final result = response.reflectee;
+    final dynamic body;
+    if (result is Response) {
+      return result;
+    } else if (result is Future) {
+      body = await result;
+    } else if (result is Iterable || result is Map || result is Object) {
+      body = jsonEncode(result);
+    } else {
+      body = result;
+    }
+
+    return Response(
+      responseStatusCode,
+      body: body,
+      headers: headers,
+    );
   }
 
   /// Returns the values of the [method] parameters based on the [pathParams]

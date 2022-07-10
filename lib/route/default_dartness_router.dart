@@ -1,12 +1,19 @@
+import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
 
 import 'dartness_router.dart';
-import 'router_handler.dart';
+import 'dartness_router_handler.dart';
 
+// typedef RequestHandler = Future<Response> Function(Request request,
+//     [Object? extras]);
 /// A router that can be used to handle requests.
 class DefaultDartnessRouter implements DartnessRouter {
+  DefaultDartnessRouter({
+    final Router? router,
+  }) : _router = router ?? Router();
+
   /// The [Router] that is handling the requests.
-  final _router = Router();
+  final Router _router;
 
   // For some unknown reason, if the type [Route] isn't returned, it will throw
   // type 'Router' is not a subtype of type '(Request) => FutureOr<Response>'
@@ -18,8 +25,11 @@ class DefaultDartnessRouter implements DartnessRouter {
   void add(
     final String httpMethod,
     final String pathRoute,
-    final RouterHandler routerHandler,
+    final DartnessRouterHandler routerHandler,
   ) {
-    _router.add(httpMethod, pathRoute, routerHandler.handleRoute());
+    final Function handler = (final Request request,
+            [final Object? extras]) async =>
+        await routerHandler.handleRoute(request, extras);
+    _router.add(httpMethod, pathRoute, handler);
   }
 }

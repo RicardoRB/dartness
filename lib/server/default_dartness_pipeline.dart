@@ -8,11 +8,12 @@ import 'dartness_pipeline.dart';
 /// in order to provide an efficient way of create [DartnessMiddleware]
 /// and [DartnessInterceptor].
 class DefaultDartnessPipeline implements DartnessPipeline {
-  final Pipeline _pipeline;
-
   DefaultDartnessPipeline({
     final Pipeline pipeline = const Pipeline(),
   }) : _pipeline = pipeline;
+
+  /// The [Pipeline] that is handling the requests.
+  final Pipeline _pipeline;
 
   @override
   DartnessPipeline addMiddleware(final DartnessMiddleware middleware) {

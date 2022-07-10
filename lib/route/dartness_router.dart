@@ -1,4 +1,4 @@
-import 'router_handler.dart';
+import 'dartness_router_handler.dart';
 
 /// A router that can be used to handle requests.
 abstract class DartnessRouter {
@@ -6,6 +6,6 @@ abstract class DartnessRouter {
   void add(
     final String httpMethod,
     final String pathRoute,
-    final RouterHandler routerHandler,
+    final DartnessRouterHandler routerHandler,
   );
 }

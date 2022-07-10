@@ -7,7 +7,7 @@ import 'package:shelf/shelf_io.dart' as shelf_io;
 import '../bind/annotation/bind.dart';
 import '../bind/annotation/controller.dart';
 import '../route/default_dartness_router.dart';
-import '../route/router_handler.dart';
+import '../route/dartness_router_handler.dart';
 import 'dartness_interceptor.dart';
 import 'dartness_middleware.dart';
 import 'dartness_pipeline.dart';
@@ -132,7 +132,7 @@ class DefaultDartnessServer implements DartnessServer {
         if (metadata.type.isSubtypeOf(reflectClass(Bind))) {
           final bind = metadata.reflectee as Bind;
           final path = '${ctlReflectee.path}${bind.path}';
-          final handler = RouterHandler(clazzDeclaration, method);
+          final handler = DartnessRouterHandler(clazzDeclaration, method);
           _router.add(
             bind.toString(),
             path,
