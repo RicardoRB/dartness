@@ -8,7 +8,7 @@ level.
 
 ## Prerequisites
 
-Please make sure that [Dart SDK](https://dart.dev/get-dart) version >=2.17.1 is installed on your machine.
+Please make sure that [Dart SDK](https://dart.dev/get-dart) version >=2.17.0 is installed on your machine.
 
 ## Setup
 

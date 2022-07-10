@@ -12,7 +12,7 @@ Server listening on port 8080
 
 ## Prerequisites
 
-Install [Dart SDK](https://dart.dev/get-dart) version >=2.17.1
+Install [Dart SDK](https://dart.dev/get-dart) version >=2.17.0
 
 ```bash
 $ dart --version            
