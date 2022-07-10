@@ -28,7 +28,7 @@ import 'package:dartness_server/bind/annotation/get.dart';
 @Controller('cities')
 class CitiesController {
   @Get()
-  String getCities() async {
+  static String getCities() async {
     return 'This action returns a list of cities';
   }
 }
@@ -76,12 +76,12 @@ import 'package:dartness_server/bind/annotation/get.dart';
 @Controller('cities')
 class CitiesController {
   @Get()
-  String getCities() async {
+  static String getCities() async {
     return 'This action returns a list of cities';
   }
 
   @Post()
-  String postCity(@Body CityRequest city) async {
+  static String postCity(@Body CityRequest city) async {
     return 'This action creates a new city';
   }
 }
@@ -133,7 +133,7 @@ import 'package:dartness_server/bind/annotation/path_param.dart';
 @Controller('cities')
 class CitiesController {
   @Get('/<id>')
-  String findById(@PathParam() id) {
+  static String findById(@PathParam() id) {
     return 'This action returns a city with id: $id';
   }
 }
@@ -154,7 +154,7 @@ import 'package:dartness_server/bind/annotation/query_param.dart';
 @Controller('cities')
 class CitiesController {
   @Get()
-  String find(@QueryParam() name) {
+  static String find(@QueryParam() name) {
     return 'This action returns a the query parameter name: $name';
   }
 }
@@ -179,7 +179,7 @@ import 'package:dartness_server/bind/annotation/get.dart';
 @Controller('cities')
 class CitiesController {
   @Get()
-  String getCities() {
+  static String getCities() {
     return 'This action returns a list of cities';
   }
 }
