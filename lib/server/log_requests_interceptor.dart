@@ -1,4 +1,3 @@
-import 'package:logger/logger.dart';
 import 'package:shelf/shelf.dart';
 
 import 'dartness_interceptor.dart';
@@ -10,7 +9,6 @@ class LogRequestsInterceptor implements DartnessInterceptor {
   late Stopwatch watch;
   late Uri uri;
   late String method;
-  final Logger _logger = Logger();
 
   @override
   void onRequest(Request request) {
@@ -19,20 +17,20 @@ class LogRequestsInterceptor implements DartnessInterceptor {
     uri = request.requestedUri;
     method = request.method;
     final msg = _message(startTime, request.requestedUri, request.method);
-    _logger.i(msg);
+    print(msg);
   }
 
   @override
   void onResponse(Response response) {
     final msg = _messageResponse(
         startTime, response.statusCode, uri, method, watch.elapsed);
-    _logger.i(msg);
+    print(msg);
   }
 
   @override
   void onError(Object error, StackTrace stackTrace) {
     final msg = _messageError(startTime, uri, method, watch.elapsed);
-    _logger.e("Error request $msg", error, stackTrace);
+    print("Error request $msg: $stackTrace");
   }
 
   String _message(
