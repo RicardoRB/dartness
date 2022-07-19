@@ -203,14 +203,14 @@ void main() {
           );
           final response = await request.close();
           expect(response.statusCode, HttpStatus.ok);
-          expect(
-              await response.transform(utf8.decoder).join(), equals('"true/3"'));
+          expect(await response.transform(utf8.decoder).join(),
+              equals('"true/3"'));
         },
       );
 
       test(
         'GET query params with optionals values sending none',
-            () async {
+        () async {
           final request = await httpClient.get(
             'localhost',
             port,
@@ -218,8 +218,8 @@ void main() {
           );
           final response = await request.close();
           expect(response.statusCode, HttpStatus.ok);
-          expect(
-              await response.transform(utf8.decoder).join(), equals('"null/1"'));
+          expect(await response.transform(utf8.decoder).join(),
+              equals('"null/1"'));
         },
       );
 

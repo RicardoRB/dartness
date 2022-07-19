@@ -57,7 +57,8 @@ class DartnessRouterHandler {
 
         if (parameter.isNamed) {
           if (parameter.hasDefaultValue) {
-            namedArguments[parameter.simpleName] = parameter.defaultValue?.reflectee;
+            namedArguments[parameter.simpleName] =
+                parameter.defaultValue?.reflectee;
           } else {
             namedArguments[parameter.simpleName] = null;
           }
