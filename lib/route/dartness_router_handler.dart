@@ -39,11 +39,29 @@ class DartnessRouterHandler {
       allParamsWithValue.addAll(queryParamValues);
     }
 
-    final methodParams = [];
+    final List<dynamic> positionalArguments = [];
+    final Map<Symbol, dynamic> namedArguments = {};
     for (final parameter in _methodMirror.parameters) {
       final paramName = MirrorSystem.getName(parameter.simpleName);
+
       if (allParamsWithValue.containsKey(paramName)) {
-        methodParams.add(allParamsWithValue[paramName]);
+        if (parameter.isNamed) {
+          namedArguments[parameter.simpleName] = allParamsWithValue[paramName];
+        } else {
+          positionalArguments.add(allParamsWithValue[paramName]);
+        }
+      } else {
+        if (parameter.isOptional) {
+          positionalArguments.add(null);
+        }
+
+        if (parameter.isNamed) {
+          if (parameter.hasDefaultValue) {
+            namedArguments[parameter.simpleName] = parameter.defaultValue?.reflectee;
+          } else {
+            namedArguments[parameter.simpleName] = null;
+          }
+        }
       }
       final containsBodyAnnotation = parameter.metadata.any((metadata) {
         return metadata.reflectee is Body;
@@ -57,12 +75,12 @@ class DartnessRouterHandler {
                 .newInstance(Symbol('fromJson'), [reviver]);
           },
         );
-        methodParams.add(deserialized.reflectee);
+        positionalArguments.add(deserialized.reflectee);
       }
 
       final containsRequestClass = parameter.type.reflectedType == Request;
       if (containsRequestClass) {
-        methodParams.add(request);
+        positionalArguments.add(request);
       }
     }
 
@@ -82,8 +100,11 @@ class DartnessRouterHandler {
       value: (e) => e.value,
     );
 
-    final response =
-        _clazzMirror.invoke(_methodMirror.simpleName, methodParams);
+    final response = _clazzMirror.invoke(
+      _methodMirror.simpleName,
+      positionalArguments,
+      namedArguments,
+    );
 
     final result = response.reflectee;
     final dynamic body;

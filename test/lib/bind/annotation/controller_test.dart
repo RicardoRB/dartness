@@ -194,6 +194,36 @@ void main() {
       );
 
       test(
+        'GET query params with optionals values',
+        () async {
+          final request = await httpClient.get(
+            'localhost',
+            port,
+            '/get/optional?int=3&bool=true',
+          );
+          final response = await request.close();
+          expect(response.statusCode, HttpStatus.ok);
+          expect(
+              await response.transform(utf8.decoder).join(), equals('"true/3"'));
+        },
+      );
+
+      test(
+        'GET query params with optionals values sending none',
+            () async {
+          final request = await httpClient.get(
+            'localhost',
+            port,
+            '/get/optional',
+          );
+          final response = await request.close();
+          expect(response.statusCode, HttpStatus.ok);
+          expect(
+              await response.transform(utf8.decoder).join(), equals('"null/1"'));
+        },
+      );
+
+      test(
         'GET query name and param name',
         () async {
           final request = await httpClient.get(
@@ -500,6 +530,14 @@ class GetControllerClass {
     @QueryParam() List<int> list,
   ) {
     return '$bool/$int/$double/$string/$list';
+  }
+
+  @Get("/optional")
+  static String getOptional(
+    @QueryParam() bool? bool, {
+    @QueryParam() int int = 1,
+  }) {
+    return '$bool/$int';
   }
 
   @Get("/names/<namePath>")
