@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:dartness_server/bind/annotation/controller.dart';
 import 'package:dartness_server/bind/annotation/get.dart';
 
+import 'not_found_exception.dart';
+
 @Controller("/example")
 class ExampleController {
   @Get()
@@ -32,6 +34,9 @@ class ExampleController {
 
   @Get("/ids/<id>")
   static int getParam(int id) {
+    if (id < 0) {
+      throw NotFoundException("Id not found");
+    }
     return id;
   }
 }

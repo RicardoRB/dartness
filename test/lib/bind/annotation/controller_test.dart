@@ -12,6 +12,7 @@ import 'package:dartness_server/bind/annotation/post.dart';
 import 'package:dartness_server/bind/annotation/put.dart';
 import 'package:dartness_server/bind/annotation/query_param.dart';
 import 'package:dartness_server/dartness.dart';
+import 'package:dartness_server/exception/http_status_exception.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -260,6 +261,17 @@ void main() {
             }
           });
           expect(containsHeader, isTrue);
+        },
+      );
+
+      test(
+        'GET with custom http status exception',
+        () async {
+          final request =
+              await httpClient.get('localhost', port, '/get/custom_exception');
+          final response = await request.close();
+          expect(response.statusCode, HttpStatus.notFound);
+          // expect(response, isTrue);
         },
       );
     });
@@ -555,6 +567,11 @@ class GetControllerClass {
   @Header('test', 'test')
   @Get("/headers")
   static getHeader() {}
+
+  @Get("/custom_exception")
+  static getCustomException() {
+    throw ExampleCustomHttpStatusException('Custom exception thrown');
+  }
 }
 
 @Controller("/post")
@@ -658,4 +675,9 @@ class Foo {
   }
 
   Foo.fromJson(Map<String, dynamic> json) : value = json['value'];
+}
+
+class ExampleCustomHttpStatusException extends HttpStatusException {
+  const ExampleCustomHttpStatusException(String message)
+      : super(message, HttpStatus.notFound);
 }

@@ -10,6 +10,7 @@ import '../bind/annotation/header.dart';
 import '../bind/annotation/http_status.dart';
 import '../bind/annotation/path_param.dart';
 import '../bind/annotation/query_param.dart';
+import '../exception/http_status_exception.dart';
 import '../string_utils.dart';
 
 /// A router handler for handling request for a [ClassMirror] with [Controller]
@@ -101,29 +102,36 @@ class DartnessRouterHandler {
       value: (e) => e.value,
     );
 
-    final response = _clazzMirror.invoke(
-      _methodMirror.simpleName,
-      positionalArguments,
-      namedArguments,
-    );
+    try {
+      final response = _clazzMirror.invoke(
+        _methodMirror.simpleName,
+        positionalArguments,
+        namedArguments,
+      );
 
-    final result = response.reflectee;
-    final dynamic body;
-    if (result is Response) {
-      return result;
-    } else if (result is Future) {
-      body = await result;
-    } else if (result is Iterable || result is Map || result is Object) {
-      body = jsonEncode(result);
-    } else {
-      body = result;
+      final result = response.reflectee;
+      final dynamic body;
+      if (result is Response) {
+        return result;
+      } else if (result is Future) {
+        body = await result;
+      } else if (result is Iterable || result is Map || result is Object) {
+        body = jsonEncode(result);
+      } else {
+        body = result;
+      }
+
+      return Response(
+        responseStatusCode,
+        body: body,
+        headers: headers,
+      );
+    } on HttpStatusException catch (e) {
+      return Response(
+        e.statusCode,
+        body: e.message,
+      );
     }
-
-    return Response(
-      responseStatusCode,
-      body: body,
-      headers: headers,
-    );
   }
 
   /// Returns the values of the [method] parameters based on the [pathParams]
