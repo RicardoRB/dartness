@@ -22,8 +22,7 @@ path for each route in the file.
 ```dart
 import 'dart:async';
 
-import 'package:dartness_server/bind/annotation/controller.dart';
-import 'package:dartness_server/bind/annotation/get.dart';
+import 'package:dartness_server/dartness.dart';
 
 @Controller('cities')
 class CitiesController {
@@ -70,8 +69,7 @@ that creates new records. For this, let's create the **POST** handler:
 ```dart
 import 'dart:async';
 
-import 'package:dartness_server/bind/annotation/controller.dart';
-import 'package:dartness_server/bind/annotation/get.dart';
+import 'package:dartness_server/dartness.dart';
 
 @Controller('cities')
 class CitiesController {
@@ -126,7 +124,7 @@ and then reference the route parameter directly by name in the method body.
 
 ```dart
 
-import 'package:dartness_server/bind/annotation/controller.dart';
+import 'package:dartness_server/dartness.dart';
 import 'package:dartness_server/bind/annotation/get.dart';
 import 'package:dartness_server/bind/annotation/path_param.dart';
 
@@ -147,7 +145,7 @@ as inside the body of the method. In the example below, we can access the query 
 
 ```dart
 
-import 'package:dartness_server/bind/annotation/controller.dart';
+import 'package:dartness_server/dartness.dart';
 import 'package:dartness_server/bind/annotation/get.dart';
 import 'package:dartness_server/bind/annotation/query_param.dart';
 
@@ -173,8 +171,7 @@ Every async function has to return a Future. This means that you can return a de
 to resolve by itself. Let's see an example of this:
 
 ```dart
-import 'package:dartness_server/bind/annotation/controller.dart';
-import 'package:dartness_server/bind/annotation/get.dart';
+import 'package:dartness_server/dartness.dart';
 
 @Controller('cities')
 class CitiesController {

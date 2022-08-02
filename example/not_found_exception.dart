@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:dartness_server/src/exception/http_status_exception.dart';
+import 'package:dartness_server/dartness.dart';
 
 class NotFoundException extends HttpStatusException {
   const NotFoundException(String message) : super(message, HttpStatus.notFound);
