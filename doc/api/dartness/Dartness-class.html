@@ -63,10 +63,10 @@ by <a href="https://api.flutter.dev/flutter/dart-io/HttpServer-class.html">HttpS
 
     <dl class="constructor-summary-list">
         <dt id="Dartness" class="callable">
-          <span class="name"><a href="../dartness/Dartness/Dartness.html">Dartness</a></span><span class="signature">(<span class="parameter" id="-param-port">{<span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">port</span> = <span class="default-value">8080</span>, </span><span class="parameter" id="-param-internetAddress"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-io/InternetAddress-class.html">InternetAddress</a>?</span> <span class="parameter-name">internetAddress</span>, </span><span class="parameter" id="-param-controllers"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/Object-class.html">Object</a></span>&gt;</span></span> <span class="parameter-name">controllers</span> = <span class="default-value">const []</span>, </span><span class="parameter" id="-param-middlewares"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../server_dartness_middleware/DartnessMiddleware-class.html">DartnessMiddleware</a></span>&gt;</span></span> <span class="parameter-name">middlewares</span> = <span class="default-value">const []</span>, </span><span class="parameter" id="-param-interceptors"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../server_dartness_interceptor/DartnessInterceptor-class.html">DartnessInterceptor</a></span>&gt;</span></span> <span class="parameter-name">interceptors</span> = <span class="default-value">const []</span>}</span>)</span>
+          <span class="name"><a href="../dartness/Dartness/Dartness.html">Dartness</a></span><span class="signature">(<span class="parameter" id="-param-port">{<span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">port</span> = <span class="default-value">8080</span>, </span><span class="parameter" id="-param-internetAddress"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-io/InternetAddress-class.html">InternetAddress</a>?</span> <span class="parameter-name">internetAddress</span>, </span><span class="parameter" id="-param-controllers"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/Object-class.html">Object</a></span>&gt;</span></span> <span class="parameter-name">controllers</span> = <span class="default-value">const []</span>, </span><span class="parameter" id="-param-middlewares"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../dartness/DartnessMiddleware-class.html">DartnessMiddleware</a></span>&gt;</span></span> <span class="parameter-name">middlewares</span> = <span class="default-value">const []</span>, </span><span class="parameter" id="-param-interceptors"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../dartness/DartnessInterceptor-class.html">DartnessInterceptor</a></span>&gt;</span></span> <span class="parameter-name">interceptors</span> = <span class="default-value">const []</span>}</span>)</span>
         </dt>
         <dd>
-          Creates a <a href="../server_default_dartness_server/DefaultDartnessServer-class.html">DefaultDartnessServer</a> that listens on the specified <code>port</code> and
+          Creates a <code>DefaultDartnessServer</code> that listens on the specified <code>port</code> and
 <code>internetAddress</code>.
         </dd>
     </dl>
@@ -116,13 +116,13 @@ by <a href="https://api.flutter.dev/flutter/dart-io/HttpServer-class.html">HttpS
 </dt>
 <dd>
   Add <code>controller</code> into <a href="../dartness/Dartness-class.html">Dartness</a> and handles
-the methods annotated with <a href="../bind_annotation_bind/Bind-class.html">Bind</a> children to <a href="../bind_annotation_controller/Controller/path.html">Controller.path</a> and <a href="../bind_annotation_bind/Bind/path.html">Bind.path</a>.
+the methods annotated with <a href="../dartness/Bind-class.html">Bind</a> children to <a href="../dartness/Controller/path.html">Controller.path</a> and <a href="../dartness/Bind/path.html">Bind.path</a>.
   
 
 </dd>
 
         <dt id="addInterceptor" class="callable">
-  <span class="name"><a href="../dartness/Dartness/addInterceptor.html">addInterceptor</a></span><span class="signature">(<wbr><span class="parameter" id="addInterceptor-param-interceptor"><span class="type-annotation"><a href="../server_dartness_interceptor/DartnessInterceptor-class.html">DartnessInterceptor</a></span> <span class="parameter-name">interceptor</span></span>)
+  <span class="name"><a href="../dartness/Dartness/addInterceptor.html">addInterceptor</a></span><span class="signature">(<wbr><span class="parameter" id="addInterceptor-param-interceptor"><span class="type-annotation"><a href="../dartness/DartnessInterceptor-class.html">DartnessInterceptor</a></span> <span class="parameter-name">interceptor</span></span>)
     <span class="returntype parameter">&#8594; void</span>
   </span>
   
@@ -135,7 +135,7 @@ the methods annotated with <a href="../bind_annotation_bind/Bind-class.html">Bin
 </dd>
 
         <dt id="addMiddleware" class="callable">
-  <span class="name"><a href="../dartness/Dartness/addMiddleware.html">addMiddleware</a></span><span class="signature">(<wbr><span class="parameter" id="addMiddleware-param-middleware"><span class="type-annotation"><a href="../server_dartness_middleware/DartnessMiddleware-class.html">DartnessMiddleware</a></span> <span class="parameter-name">middleware</span></span>)
+  <span class="name"><a href="../dartness/Dartness/addMiddleware.html">addMiddleware</a></span><span class="signature">(<wbr><span class="parameter" id="addMiddleware-param-middleware"><span class="type-annotation"><a href="../dartness/DartnessMiddleware-class.html">DartnessMiddleware</a></span> <span class="parameter-name">middleware</span></span>)
     <span class="returntype parameter">&#8594; void</span>
   </span>
   
@@ -248,7 +248,28 @@ done event.
     <h5>dartness library</h5>
     <ol>
   <li class="section-title"><a href="../dartness/dartness-library.html#classes">Classes</a></li>
+  <li><a href="../dartness/Bind-class.html">Bind</a></li>
+  <li><a href="../dartness/Body-class.html">Body</a></li>
+  <li><a href="../dartness/Controller-class.html">Controller</a></li>
   <li><a href="../dartness/Dartness-class.html">Dartness</a></li>
+  <li><a href="../dartness/DartnessInterceptor-class.html">DartnessInterceptor</a></li>
+  <li><a href="../dartness/DartnessMiddleware-class.html">DartnessMiddleware</a></li>
+  <li><a href="../dartness/DartnessPipeline-class.html">DartnessPipeline</a></li>
+  <li><a href="../dartness/DartnessRouter-class.html">DartnessRouter</a></li>
+  <li><a href="../dartness/DartnessRouterHandler-class.html">DartnessRouterHandler</a></li>
+  <li><a href="../dartness/DartnessServer-class.html">DartnessServer</a></li>
+  <li><a href="../dartness/Delete-class.html">Delete</a></li>
+  <li><a href="../dartness/Get-class.html">Get</a></li>
+  <li><a href="../dartness/Head-class.html">Head</a></li>
+  <li><a href="../dartness/Header-class.html">Header</a></li>
+  <li><a href="../dartness/HttpCode-class.html">HttpCode</a></li>
+  <li><a href="../dartness/LogRequestsInterceptor-class.html">LogRequestsInterceptor</a></li>
+  <li><a href="../dartness/Options-class.html">Options</a></li>
+  <li><a href="../dartness/Patch-class.html">Patch</a></li>
+  <li><a href="../dartness/PathParam-class.html">PathParam</a></li>
+  <li><a href="../dartness/Post-class.html">Post</a></li>
+  <li><a href="../dartness/Put-class.html">Put</a></li>
+  <li><a href="../dartness/QueryParam-class.html">QueryParam</a></li>
 
 
 
@@ -257,6 +278,8 @@ done event.
 
 
 
+  <li class="section-title"><a href="../dartness/dartness-library.html#exceptions">Exceptions</a></li>
+  <li><a href="../dartness/HttpStatusException-class.html">HttpStatusException</a></li>
 </ol>
 
   </div>

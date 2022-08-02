@@ -62,15 +62,15 @@
     
 <section class="desc markdown">
   <p>Add <code>controller</code> into <a href="../../dartness/Dartness-class.html">Dartness</a> and handles
-the methods annotated with <a href="../../bind_annotation_bind/Bind-class.html">Bind</a> children to <a href="../../bind_annotation_controller/Controller/path.html">Controller.path</a> and <a href="../../bind_annotation_bind/Bind/path.html">Bind.path</a>.</p>
-<p>In order to add the <code>controller</code> the class must be annotated with <a href="../../bind_annotation_controller/Controller-class.html">Controller</a></p>
-<p>Just the methods that are static and are annotated with any <a href="../../bind_annotation_bind/Bind-class.html">Bind</a> annotation
+the methods annotated with <a href="../../dartness/Bind-class.html">Bind</a> children to <a href="../../dartness/Controller/path.html">Controller.path</a> and <a href="../../dartness/Bind/path.html">Bind.path</a>.</p>
+<p>In order to add the <code>controller</code> the class must be annotated with <a href="../../dartness/Controller-class.html">Controller</a></p>
+<p>Just the methods that are static and are annotated with any <a href="../../dartness/Bind-class.html">Bind</a> annotation
 will be handled.</p>
-<p>If the <a href="../../bind_annotation_bind/Bind-class.html">Bind</a> annotation in the method is <a href="../../bind_annotation_get/Get-class.html">Get</a> the method will also be
-called for <a href="../../bind_annotation_head/Head-class.html">Head</a> requests matching <a href="../../bind_annotation_bind/Bind/path.html">Bind.path</a>. This is because handling
-<a href="../../bind_annotation_get/Get-class.html">Get</a> requests without handling <a href="../../bind_annotation_head/Head-class.html">Head</a> is always wrong. To explicitly
-implement a <a href="../../bind_annotation_head/Head-class.html">Head</a> handler the method must be created before the <a href="../../bind_annotation_get/Get-class.html">Get</a> handler.</p>
-<p>throws <a href="https://api.flutter.dev/flutter/dart-core/ArgumentError-class.html">ArgumentError</a> if <code>controller</code> is not annotated with <a href="../../bind_annotation_controller/Controller-class.html">Controller</a></p>
+<p>If the <a href="../../dartness/Bind-class.html">Bind</a> annotation in the method is <a href="../../dartness/Get-class.html">Get</a> the method will also be
+called for <a href="../../dartness/Head-class.html">Head</a> requests matching <a href="../../dartness/Bind/path.html">Bind.path</a>. This is because handling
+<a href="../../dartness/Get-class.html">Get</a> requests without handling <a href="../../dartness/Head-class.html">Head</a> is always wrong. To explicitly
+implement a <a href="../../dartness/Head-class.html">Head</a> handler the method must be created before the <a href="../../dartness/Get-class.html">Get</a> handler.</p>
+<p>throws <a href="https://api.flutter.dev/flutter/dart-core/ArgumentError-class.html">ArgumentError</a> if <code>controller</code> is not annotated with <a href="../../dartness/Controller-class.html">Controller</a></p>
 </section>
 
 
