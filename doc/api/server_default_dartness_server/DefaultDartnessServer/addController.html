@@ -103,7 +103,7 @@ void addController(final Object controller) {
       if (metadata.type.isSubtypeOf(reflectClass(Bind))) {
         final bind = metadata.reflectee as Bind;
         final path = &#39;${ctlReflectee.path}${bind.path}&#39;;
-        final handler = RouterHandler(clazzDeclaration, method);
+        final handler = DartnessRouterHandler(clazzDeclaration, method);
         _router.add(
           bind.toString(),
           path,

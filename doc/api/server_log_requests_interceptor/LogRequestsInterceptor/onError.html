@@ -77,7 +77,7 @@
   <pre class="language-dart"><code class="language-dart">@override
 void onError(Object error, StackTrace stackTrace) {
   final msg = _messageError(startTime, uri, method, watch.elapsed);
-  _logger.e(&quot;Error request $msg&quot;, error, stackTrace);
+  print(&quot;Error request $msg: $stackTrace&quot;);
 }</code></pre>
 </section>
 
