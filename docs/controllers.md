@@ -152,7 +152,23 @@ import 'package:dartness_server/bind/annotation/query_param.dart';
 @Controller('cities')
 class CitiesController {
   @Get()
-  static String find(@QueryParam() name) {
+  static String find(@QueryParam() String name) {
+    return 'This action returns a the query parameter name: $name';
+  }
+}
+```
+
+Dartness also support name parameters for query parameters. For example, if our query parameter is optional and in some
+cases can be also null, we can use as the follow:
+
+```dart
+
+@Controller('cities')
+class CitiesController {
+  @Get()
+  static String find({
+    @QueryParam() String? name,
+  }) {
     return 'This action returns a the query parameter name: $name';
   }
 }
