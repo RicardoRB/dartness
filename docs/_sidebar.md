@@ -5,4 +5,5 @@
     - [Controllers](controllers.md)
     - [Middlewares](middleware.md)
     - [Interceptors](interceptor.md)
+    - [Exceptions](exceptions.md)
 
