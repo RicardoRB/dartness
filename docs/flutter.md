@@ -134,4 +134,4 @@ $  flutter run apps/my_app/lib/main.dart
 
 Having a single repository make us easier to manage our projects and to share code adding our projects as dependency
 into the `pubspec.yml`. We can use the same code in different projects, and as simple as run our backend and our app we
-can communicate them in our local enviroment.
+can communicate them in our local environment.
