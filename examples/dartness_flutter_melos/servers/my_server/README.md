@@ -1,7 +1,6 @@
 # My server
 
-A sample dartness application with an entrypoint in `bin/`, library code
-in `lib/`, and example unit test in `test/`.
+A sample dartness backend application.
 
 ## Run the server
 
