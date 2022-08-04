@@ -557,10 +557,6 @@ class GetControllerClass {
   @Get("/headers")
   static getHeader() {}
 
-  @Get("/custom_exception")
-  static getCustomException() {
-    throw ExampleCustomHttpStatusException('Custom exception thrown');
-  }
 }
 
 @Controller("/post")
@@ -664,9 +660,4 @@ class Foo {
   }
 
   Foo.fromJson(Map<String, dynamic> json) : value = json['value'];
-}
-
-class ExampleCustomHttpStatusException extends HttpStatusException {
-  const ExampleCustomHttpStatusException(String message)
-      : super(message, HttpStatus.notFound);
 }
