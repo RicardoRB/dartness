@@ -1,0 +1,31 @@
+name: my_project
+
+command:
+  bootstrap:
+    usePubspecOverrides: true
+
+packages:
+  - apps/**
+  - commons/**
+  - servers/**
+scripts:
+  pub:get: melos apps:pub:get && melos dart:pub:get
+  apps:pub:get: melos exec --flutter -- flutter pub get .
+  dart:pub:get: melos exec --no-flutter -- dart pub get .
+
+  test: melos apps:test && melos dart:test
+  apps:test: melos exec --dir-exists=test --flutter -- flutter test
+  dart:test: melos exec --dir-exists=test --no-flutter -- dart test
+
+  analyze: melos apps:analyze && melos dart:analyze
+  apps:analyze: melos exec --flutter -- flutter analyze
+  dart:analyze: melos exec --no-flutter -- dart analyze
+
+  format: dart format .
+
+  build_runner:build: melos apps:build_runner:build && melos dart:build_runner:build
+  apps:build_runner:build: melos exec --flutter -- flutter pub run build_runner build --delete-conflicting-outputs
+  dart:build_runner:build: melos exec --no-flutter -- dart run build_runner build --delete-conflicting-outputs
+
+  format:check:
+    exec: dart format --set-exit-if-changed .
