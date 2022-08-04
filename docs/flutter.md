@@ -12,7 +12,12 @@ application.
 In this section, we will see how to use the Dartness framework in a single repository
 with [Flutter](https://flutter.dev/), and we will use [Melos](https://melos.invertase.dev/) to manage our projects.
 
-I assume you have flutter and melos installed.
+_I assume you have flutter and melos installed._
+
+### Example
+You have an example
+in [/examples/dartness_flutter_melos/](https://github.com/RicardoRB/dartness/tree/master/examples/dartness_flutter_melos)
+folder.
 
 ### Create a new project
 
@@ -51,7 +56,7 @@ The tree of the project will be as follows:
 
 ### Configure the project
 
-In the root folder (my_project) create a file **melos.yml** with the following value:
+In the root folder (`my_project`) create a file **melos.yml** with the following value:
 
 ```yaml
 name: my_project
@@ -91,7 +96,7 @@ scripts:
 This will create the basic commands to run with melos, you can check more commands in
 the [melos documentation](https://melos.invertase.dev/docs/).
 
-In order to link the projects and install all package dependencies, you need to run the following commands:
+In order to link the projects and install all package dependencies, you need to run the following command:
 
 ```bash
 $ melos bootstrap
