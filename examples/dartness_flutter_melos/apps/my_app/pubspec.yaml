@@ -1,5 +1,5 @@
 name: my_app
-description: A new Flutter project.
+description: A sample Flutter that fetch from dartness server.
 
 publish_to: 'none'
 
