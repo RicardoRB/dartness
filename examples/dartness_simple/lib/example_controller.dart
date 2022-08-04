@@ -2,8 +2,6 @@ import 'dart:async';
 
 import 'package:dartness_server/dartness.dart';
 
-import 'not_found_exception.dart';
-
 @Controller("/example")
 class ExampleController {
   @Get()
