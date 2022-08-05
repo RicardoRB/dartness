@@ -84,7 +84,7 @@ You can check the documentation at [dartness docs](https://ricardorb.github.io/d
     - <del>Interceptor</del>
     - Websockets
 2. Exceptions
-    - Exception Handler
+    - <del>Exception Handler</del>
 3. Security
     - Roles
     - CORS
