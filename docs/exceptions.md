@@ -59,7 +59,7 @@ class ErrorHandler {
 > you need to just specify only 1 error. Otherwise, the error parameter should be a parent of them. Usually, `Error` or
 > `Exception`.
 
-## Adding Error Handler to your application
+### Adding Error Handler to your application
 
 Dartness accept multiple error handling layers, you can add your own error handling layer to your application by
 send them to the `addErrorHandler` method or by name parameter.
