@@ -30,9 +30,19 @@ void main() {
       'GET with custom http status exception',
       () async {
         final request =
-            await httpClient.get('localhost', port, '/get/exception');
+            await httpClient.get('localhost', port, '/get/argument_error');
         final response = await request.close();
         expect(response.statusCode, HttpStatus.badRequest);
+      },
+    );
+
+    test(
+      'GET with custom http status exception',
+      () async {
+        final request =
+            await httpClient.get('localhost', port, '/get/range_error');
+        final response = await request.close();
+        expect(response.statusCode, HttpStatus.internalServerError);
       },
     );
   });
@@ -40,9 +50,14 @@ void main() {
 
 @Controller("/get")
 class GetControllerClass {
-  @Get("/exception")
-  static getCustomException() {
+  @Get("/argument_error")
+  static getArgumentException() {
     throw ArgumentError('Random exception');
+  }
+
+  @Get("/range_error")
+  static getRangeError() {
+    throw RangeError('Random exception');
   }
 }
 
@@ -53,5 +68,10 @@ class CustomErrorHandler {
       HttpStatus.badRequest,
       body: 'ArgumentError',
     );
+  }
+
+  @CatchError([RangeError])
+  static void rangeErrorHandler(RangeError error, Request request) {
+    print('RangeError');
   }
 }
