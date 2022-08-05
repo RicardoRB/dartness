@@ -97,7 +97,7 @@ class DartnessRouterHandler {
         .map((e) => e.reflectee);
 
     final Map<String, Object> headers = {
-      for (var e in responseHeaders) e.key: e.value
+      for (final header in responseHeaders) header.key: header.value
     };
 
     try {
