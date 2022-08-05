@@ -15,6 +15,7 @@ abstract class DartnessServer {
   /// and the applications running on it.
   void addMiddleware(final DartnessMiddleware middleware);
 
+  /// Adds an interceptor in order to listen before the http request
   void addInterceptor(final DartnessInterceptor interceptor);
 
   /// Starts the server.
@@ -27,4 +28,7 @@ abstract class DartnessServer {
 
   /// Adds a controller and handles the http methods
   void addController(final Object controller);
+
+  /// Adds a error handler in order to listen for errors
+  void addErrorHandler(Object errorHandler);
 }

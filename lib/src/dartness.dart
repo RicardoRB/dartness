@@ -23,6 +23,7 @@ class Dartness {
     final Iterable<Object> controllers = const [],
     final Iterable<DartnessMiddleware> middlewares = const [],
     final Iterable<DartnessInterceptor> interceptors = const [],
+    final Iterable<Object> errorHandlers = const [],
   }) {
     _server = DefaultDartnessServer(port, internetAddress: internetAddress);
     for (final controller in controllers) {
@@ -85,5 +86,10 @@ class Dartness {
   /// Adds an interceptor in order to listen between an http request
   void addInterceptor(final DartnessInterceptor interceptor) {
     _server.addInterceptor(interceptor);
+  }
+
+  /// Adds an interceptor in order to listen between an http request
+  void addErrorHandler(final Object errorHandler) {
+    _server.addErrorHandler(errorHandler);
   }
 }

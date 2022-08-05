@@ -16,4 +16,8 @@ abstract class DartnessPipeline {
 
   /// Returns a new [Handler] with [handler]
   Handler addHandler(final Handler handler);
+
+  /// Returns a new [DataHandler] with [errorHandler] added to the existing set of
+  /// [Object].
+  DartnessPipeline addErrorHandler(final Object errorHandler);
 }

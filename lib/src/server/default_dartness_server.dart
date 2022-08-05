@@ -143,4 +143,9 @@ class DefaultDartnessServer implements DartnessServer {
     }
     _controllers.add(controller);
   }
+
+  @override
+  void addErrorHandler(final Object errorHandler) {
+    _pipeline = _pipeline.addErrorHandler(errorHandler);
+  }
 }
