@@ -2,7 +2,8 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:mirrors';
 
-import 'package:dartness_server/dartness.dart';
+import 'package:dartness_server/bind.dart';
+import 'package:dartness_server/route.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_plus/shelf_plus.dart';
 import 'package:test/test.dart';

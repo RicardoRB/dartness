@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:dartness_server/bind.dart';
 import 'package:dartness_server/dartness.dart';
 import 'package:test/test.dart';
 
@@ -556,7 +557,6 @@ class GetControllerClass {
   @Header('test', 'test')
   @Get("/headers")
   static getHeader() {}
-
 }
 
 @Controller("/post")

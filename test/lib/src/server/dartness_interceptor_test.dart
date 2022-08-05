@@ -1,7 +1,9 @@
 import 'dart:io';
 
-import 'package:dartness_server/src/dartness.dart';
+import 'package:dartness_server/bind.dart';
 import 'package:dartness_server/dartness.dart';
+import 'package:dartness_server/server.dart';
+import 'package:dartness_server/src/dartness.dart';
 import 'package:shelf/shelf.dart';
 import 'package:test/test.dart';
 
