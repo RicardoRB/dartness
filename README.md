@@ -101,3 +101,4 @@ You can check the documentation at [dartness docs](https://ricardorb.github.io/d
     - Repository
 7. Testing
 8. CLI
+9. Hot reload
