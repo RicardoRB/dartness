@@ -12,7 +12,8 @@ abstract class DartnessPipeline {
 
   /// Returns a new [DartnessPipeline] with [dartnessInterceptor] added to the existing set of
   /// [DartnessInterceptor].
-  DartnessPipeline addInterceptor(final DartnessInterceptor dartnessInterceptor);
+  DartnessPipeline addInterceptor(
+      final DartnessInterceptor dartnessInterceptor);
 
   /// Returns a new [Handler] with [handler]
   Handler addHandler(final Handler handler);

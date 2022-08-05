@@ -3,5 +3,4 @@
 /// See documentation guides at https://ricardorb.github.io/dartness/#/.
 library dartness;
 
-
 export 'src/dartness.dart';
