@@ -3,8 +3,8 @@
 /// Example:
 /// ```dart
 ///   @CatchError([NotFoundException])
-///   void handleNotFoundException(NotFoundException exception) {
-///     print("Not found");
+///   Response handleNotFoundException(Error error) {
+///     return Response.notFound(error.message);
 ///   }
 /// ```
 class CatchError {
