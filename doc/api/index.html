@@ -63,16 +63,12 @@ Dart SDK version: 2.17.3 (stable)
 <li>Add dartness into the pubspec.yaml</li>
 </ol>
 <pre class="language-yaml"><code class="language-yaml">dependencies:
-  dartness_server: ^0.2.0-alpha
+  dartness_server: ^0.3.0-alpha
 </code></pre>
 <ol start="2">
 <li>Create the file in "bin/main.dart"</li>
 </ol>
-<pre class="language-dart"><code class="language-dart">import 'package:dartness_server/dartness.dart';
-
-import 'example_controller.dart';
-
-void main() async {
+<pre class="language-dart"><code class="language-dart">void main() async {
   final app = Dartness(
     port: 3000,
   );
@@ -220,7 +216,7 @@ Server listening on port 3000
 <footer>
   <span class="no-break">
     dartness_server
-      0.2.0-alpha
+      0.3.0-alpha
   </span>
 
   

@@ -8,7 +8,7 @@
 - Created the [Controller](https://ricardorb.github.io/dartness/docs/controller.html) class.
 - Created bind annotations.
 
-## 0.2.0-alpha
+## 0.3.0-alpha
 
 - Created Get, Post, Put, Delete, Head, Options, and Trace methods.
 - Created Header annotation.

@@ -31,7 +31,7 @@ $ dart create -t console your_project_name
 
 ```yaml
 dependencies:
-  dartness_server: ^0.2.0-alpha
+  dartness_server: ^0.3.0-alpha
 ```
 
 2. Create the file in "bin/main.dart"
