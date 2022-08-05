@@ -1,11 +1,9 @@
-import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
 
 import 'dartness_router.dart';
 import 'dartness_router_handler.dart';
+import 'shelf_route/dartness_router_handler_shelf.dart';
 
-// typedef RequestHandler = Future<Response> Function(Request request,
-//     [Object? extras]);
 /// A router that can be used to handle requests.
 class DefaultDartnessRouter implements DartnessRouter {
   DefaultDartnessRouter({
@@ -27,9 +25,8 @@ class DefaultDartnessRouter implements DartnessRouter {
     final String pathRoute,
     final DartnessRouterHandler routerHandler,
   ) {
-    final Function handler = (final Request request,
-            [final Object? extras]) async =>
-        await routerHandler.handleRoute(request, extras);
-    _router.add(httpMethod, pathRoute, handler);
+    final dartnessRouterHandlerShelf =
+        DartnessRouterHandlerShelf(routerHandler);
+    _router.add(httpMethod, pathRoute, dartnessRouterHandlerShelf.handler);
   }
 }

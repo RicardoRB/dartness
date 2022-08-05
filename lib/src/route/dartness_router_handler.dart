@@ -96,11 +96,9 @@ class DartnessRouterHandler {
         .where((meta) => meta.reflectee is Header)
         .map((e) => e.reflectee);
 
-    final Map<String, Object> headers = Map.fromIterable(
-      responseHeaders,
-      key: (e) => e.key,
-      value: (e) => e.value,
-    );
+    final Map<String, Object> headers = {
+      for (var e in responseHeaders) e.key: e.value
+    };
 
     try {
       final response = _clazzMirror.invoke(
