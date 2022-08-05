@@ -62,7 +62,7 @@
     </section>
     
 <section class="desc markdown">
-  <p>Handles the route's response and invoke the <code>_methodMirror</code> in <code>_clazzMirror</code></p>
+  <p>Handles the route's response and invoke the <code>_methodMirror</code> in <code>_controller</code></p>
 </section>
 
 
@@ -148,7 +148,8 @@
   };
 
   try {
-    final response = _clazzMirror.invoke(
+    final controllerReflect = reflect(_controller);
+    final response = controllerReflect.invoke(
       _methodMirror.simpleName,
       positionalArguments,
       namedArguments,

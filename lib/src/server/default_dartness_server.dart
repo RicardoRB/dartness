@@ -102,7 +102,7 @@ class DefaultDartnessServer implements DartnessServer {
   ///
   /// In order to add the [controller] the class must be annotated with [Controller]
   ///
-  /// Just the methods that are static and are annotated with any [Bind] annotation
+  /// Just the methods that are annotated with any [Bind] annotation
   /// will be handled.
   ///
   /// If the [Bind] annotation in the method is [Get] the method will also be

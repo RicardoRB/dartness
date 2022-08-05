@@ -2,7 +2,7 @@
 /// A controller is a class that can be used to handle requests.
 ///
 /// The controller class can handle requests by implementing the
-/// methods needs to be static and annotated with [Get], [Post], [Put], [Delete].
+/// methods and annotated with [Get], [Post], [Put], [Delete].
 ///
 /// Example:
 /// ```dart
