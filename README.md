@@ -1,3 +1,11 @@
+![Github Action](https://github.com/RicardoRB/dartness/actions/workflows/all.yml/badge.svg)
+![Top Language](https://img.shields.io/github/languages/top/RicardoRB/dartness)
+![License](https://img.shields.io/github/license/RicardoRB/dartness)
+![Pub Likes](https://img.shields.io/pub/likes/dartness_server)
+![Pub popularity](https://img.shields.io/pub/popularity/dartness_server)
+![Pub version](https://img.shields.io/pub/v/dartness_server?include_prereleases)
+![Stars](https://img.shields.io/github/stars/RicardoRB/dartness?style=social)
+
 # Introduction
 
 <p align="center">Dartness is a progressive dart framework for building efficient and scalable server-side applications.</p>
