@@ -19,7 +19,7 @@ export 'src/bind/annotation/post.dart';
 export 'src/bind/annotation/put.dart';
 export 'src/bind/annotation/query_param.dart';
 export 'src/dartness.dart';
-export 'src/exception/http_status_exception.dart';
+export 'src/exception/dartness_exception.dart';
 export 'src/route/dartness_router.dart';
 export 'src/route/dartness_router_handler.dart';
 export 'src/server/dartness_interceptor.dart';
