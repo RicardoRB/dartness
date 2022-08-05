@@ -20,10 +20,6 @@ specify the path prefix customers in the `@Controller()`annotation so that we do
 path for each route in the file.
 
 ```dart
-import 'dart:async';
-
-import 'package:dartness_server/dartness.dart';
-
 @Controller('cities')
 class CitiesController {
   @Get()
@@ -67,10 +63,6 @@ endpoint
 that creates new records. For this, let's create the **POST** handler:
 
 ```dart
-import 'dart:async';
-
-import 'package:dartness_server/dartness.dart';
-
 @Controller('cities')
 class CitiesController {
   @Get()
@@ -123,11 +115,6 @@ can access the id parameter by referencing `id`. You can also pass in a particul
 and then reference the route parameter directly by name in the method body.
 
 ```dart
-
-import 'package:dartness_server/dartness.dart';
-import 'package:dartness_server/bind/annotation/get.dart';
-import 'package:dartness_server/bind/annotation/path_param.dart';
-
 @Controller('cities')
 class CitiesController {
   @Get('/<id>')
@@ -144,11 +131,6 @@ available
 as inside the body of the method. In the example below, we can access the query parameter `name` by referencing `name`.
 
 ```dart
-
-import 'package:dartness_server/dartness.dart';
-import 'package:dartness_server/bind/annotation/get.dart';
-import 'package:dartness_server/bind/annotation/query_param.dart';
-
 @Controller('cities')
 class CitiesController {
   @Get()
@@ -187,8 +169,6 @@ Every async function has to return a Future. This means that you can return a de
 to resolve by itself. Let's see an example of this:
 
 ```dart
-import 'package:dartness_server/dartness.dart';
-
 @Controller('cities')
 class CitiesController {
   @Get()

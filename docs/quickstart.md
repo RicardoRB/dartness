@@ -35,10 +35,6 @@ dependencies:
 2.Create the file in "bin/main.dart"
 
 ```dart
-import 'package:dartness_server/dartness.dart';
-
-import 'example_controller.dart';
-
 void main() async {
   final app = Dartness(
     port: 3000,
