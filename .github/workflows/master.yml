@@ -46,12 +46,21 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     needs: [ analyze, format, test ]
+    container:
+      image: google/dart:latest
     steps:
-      - name: Checkout pub publisher
-        uses: actions/checkout@v1
-      - name: Publish
-        uses: sakebook/actions-flutter-pub-publisher@v1.4.1
-        with:
-          credential: ${{ secrets.CREDENTIAL_JSON }}
-          flutter_package: false
-          skip_test: true
+      - uses: actions/checkout@v1
+      - name: Setup credentials
+        run: |
+          mkdir -p ~/.pub-cache 
+          cat <<EOF > ~/.pub-cache/credentials.json
+          {
+            "accessToken":"${{ secrets.OAUTH_ACCESS_TOKEN }}",
+            "refreshToken":"${{ secrets.OAUTH_REFRESH_TOKEN }}",
+            "tokenEndpoint":"https://accounts.google.com/o/oauth2/token",
+            "scopes": [ "openid", "https://www.googleapis.com/auth/userinfo.email" ],
+            "expiration": 1659717556326
+          }
+          EOF
+      - name: Publish package
+        run: pub publish -f
