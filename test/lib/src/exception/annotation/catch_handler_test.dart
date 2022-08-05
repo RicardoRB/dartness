@@ -64,7 +64,7 @@ class GetControllerClass {
 
 class CustomErrorHandler {
   @CatchError([ArgumentError])
-  static Response argumentErrorHandler(ArgumentError error, Request request) {
+  Response argumentErrorHandler(ArgumentError error, Request request) {
     return Response(
       HttpStatus.badRequest,
       body: 'ArgumentError',
@@ -72,7 +72,7 @@ class CustomErrorHandler {
   }
 
   @CatchError([RangeError])
-  static void rangeErrorHandler(RangeError error, Request request) {
+  void rangeErrorHandler(RangeError error, Request request) {
     print('RangeError');
   }
 }

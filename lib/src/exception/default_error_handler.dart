@@ -34,7 +34,8 @@ class DefaultErrorHandler implements DartnessErrorHandler {
             final containsError = catchError.errors
                 .any((error) => error == errorCatch.runtimeType);
             if (containsError) {
-              final response = clazzDeclaration.invoke(
+              final reflectedErrorHandler = reflect(errorHandler);
+              final response = reflectedErrorHandler.invoke(
                 method.simpleName,
                 [errorCatch, request],
               );
