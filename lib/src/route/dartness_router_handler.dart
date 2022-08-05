@@ -13,15 +13,15 @@ import '../bind/annotation/query_param.dart';
 import '../exception/http_status_exception.dart';
 import '../string_utils.dart';
 
-/// A router handler for handling request for a [ClassMirror] with [Controller]
+/// A router handler for handling request for a [_controller]
 /// with his metadata and the method [MethodMirror] with the metadata.
 class DartnessRouterHandler {
-  final ClassMirror _clazzMirror;
+  final Object _controller;
   final MethodMirror _methodMirror;
 
-  DartnessRouterHandler(this._clazzMirror, this._methodMirror);
+  DartnessRouterHandler(this._controller, this._methodMirror);
 
-  /// Handles the route's response and invoke the [_methodMirror] in [_clazzMirror]
+  /// Handles the route's response and invoke the [_methodMirror] in [_controller]
   Future<Response> handleRoute(final Request request,
       [final Object? extras]) async {
     final Map<String, String> pathParams = Map.of(request.params)
@@ -101,7 +101,9 @@ class DartnessRouterHandler {
     };
 
     try {
-      final response = _clazzMirror.invoke(
+
+      final controllerReflect = reflect(_controller);
+      final response = controllerReflect.invoke(
         _methodMirror.simpleName,
         positionalArguments,
         namedArguments,

@@ -63,10 +63,10 @@ void main() {
 @Controller("/auth")
 class TestController {
   @Get()
-  static String get() => '';
+  String get() => '';
 
   @Get("/error")
-  static String getError() => throw Exception("random exception");
+  String getError() => throw Exception("random exception");
 }
 
 class TestInterceptor implements DartnessInterceptor {

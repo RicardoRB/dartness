@@ -10,7 +10,13 @@ import 'package:test/test.dart';
 
 void main() {
   late DartnessRouterHandler dartnessRouterHandler;
-  final clazzMirror = reflectClass(TestController);
+  late ClassMirror clazzMirror;
+  late TestController testController;
+
+  setUp(() async {
+    testController = TestController();
+    clazzMirror = reflectClass(testController.runtimeType);
+  });
 
   MethodMirror _getMethodMirror(
     final String methodName, {
@@ -40,7 +46,7 @@ void main() {
 
   test("Getting double", () async {
     final methodMirror = _getMethodMirror('getDouble');
-    dartnessRouterHandler = DartnessRouterHandler(clazzMirror, methodMirror);
+    dartnessRouterHandler = DartnessRouterHandler(testController, methodMirror);
     final expectedStatusCode = HttpStatus.ok;
     final expectedBody = '1.1';
     final request = Request(
@@ -58,7 +64,7 @@ void main() {
 
   test("Getting null", () async {
     final methodMirror = _getMethodMirror('getNull');
-    dartnessRouterHandler = DartnessRouterHandler(clazzMirror, methodMirror);
+    dartnessRouterHandler = DartnessRouterHandler(testController, methodMirror);
     final expectedStatusCode = HttpStatus.ok;
     final expectedBody = '';
     final request = Request(
@@ -76,7 +82,7 @@ void main() {
 
   test("Getting object", () async {
     final methodMirror = _getMethodMirror('getClass');
-    dartnessRouterHandler = DartnessRouterHandler(clazzMirror, methodMirror);
+    dartnessRouterHandler = DartnessRouterHandler(testController, methodMirror);
     final expectedStatusCode = HttpStatus.ok;
     final expectedBody = jsonEncode(Foo('class'));
     final request = Request(
@@ -94,7 +100,7 @@ void main() {
 
   test("Getting future", () async {
     final methodMirror = _getMethodMirror('getFuture');
-    dartnessRouterHandler = DartnessRouterHandler(clazzMirror, methodMirror);
+    dartnessRouterHandler = DartnessRouterHandler(testController, methodMirror);
     final expectedStatusCode = HttpStatus.ok;
     final expectedBody = 'bla';
     final request = Request(
@@ -112,7 +118,7 @@ void main() {
 
   test("Getting paths", () async {
     final methodMirror = _getMethodMirror('getParam', params: ['id']);
-    dartnessRouterHandler = DartnessRouterHandler(clazzMirror, methodMirror);
+    dartnessRouterHandler = DartnessRouterHandler(testController, methodMirror);
     final expectedStatusCode = HttpStatus.ok;
     final expectedBody = '1';
     final Map<String, String> pathParams = {'id': '1'};
@@ -135,7 +141,7 @@ void main() {
 
   test("Getting query", () async {
     final methodMirror = _getMethodMirror('getQuery', params: ['id']);
-    dartnessRouterHandler = DartnessRouterHandler(clazzMirror, methodMirror);
+    dartnessRouterHandler = DartnessRouterHandler(testController, methodMirror);
     final expectedStatusCode = HttpStatus.ok;
     final expectedBody = '1';
     final request = Request(
@@ -155,7 +161,7 @@ void main() {
 
   test("Getting query", () async {
     final methodMirror = _getMethodMirror('getQueries', params: ['id', 'id2']);
-    dartnessRouterHandler = DartnessRouterHandler(clazzMirror, methodMirror);
+    dartnessRouterHandler = DartnessRouterHandler(testController, methodMirror);
     final expectedStatusCode = HttpStatus.ok;
     final expectedBody = '"1/2"';
     final request = Request(
@@ -175,7 +181,7 @@ void main() {
 
   test("Getting query", () async {
     final methodMirror = _getMethodMirror('getQueries', params: ['id', 'id2']);
-    dartnessRouterHandler = DartnessRouterHandler(clazzMirror, methodMirror);
+    dartnessRouterHandler = DartnessRouterHandler(testController, methodMirror);
     final expectedStatusCode = HttpStatus.ok;
     final expectedBody = '"1/2"';
     final request = Request(
@@ -197,37 +203,37 @@ void main() {
 @Controller("/test")
 class TestController {
   @Get("/double")
-  static double getDouble() {
+  double getDouble() {
     return 1.1;
   }
 
   @Get("/null")
-  static dynamic getNull() {
+  dynamic getNull() {
     return null;
   }
 
   @Get("/class")
-  static Foo getClass() {
+  Foo getClass() {
     return Foo('class');
   }
 
   @Get("/future")
-  static Future<String> getFuture() async {
+  Future<String> getFuture() async {
     return Future.value("bla");
   }
 
   @Get("/ids/<id>")
-  static int getParam(@PathParam() int id) {
+  int getParam(@PathParam() int id) {
     return id;
   }
 
   @Get("/query")
-  static int getQuery(@QueryParam() int id) {
+  int getQuery(@QueryParam() int id) {
     return id;
   }
 
   @Get("/queries")
-  static String getQueries(
+  String getQueries(
     @QueryParam() int id,
     @QueryParam() int id2,
   ) {
@@ -235,7 +241,7 @@ class TestController {
   }
 
   @Get("/paths/<id>")
-  static String getPaths(
+  String getPaths(
     @PathParam() int id,
     @QueryParam() int query,
   ) {
@@ -243,7 +249,7 @@ class TestController {
   }
 
   @Get("/paths/<path1>/another/<path2>")
-  static String getPathsAnotherPaths(
+  String getPathsAnotherPaths(
     @PathParam() int path1,
     @QueryParam() int query,
     @PathParam() int path2,
@@ -253,7 +259,7 @@ class TestController {
   }
 
   @Get("/types")
-  static String getTypes(
+  String getTypes(
     @QueryParam() bool bool,
     @QueryParam() int int,
     @QueryParam() double double,
@@ -264,7 +270,7 @@ class TestController {
   }
 
   @Get("/names/<namePath>")
-  static String getNames(
+  String getNames(
     @PathParam("namePath") String otherPath,
     @QueryParam("nameQuery") String otherQuery,
   ) {
@@ -273,11 +279,11 @@ class TestController {
 
   @HttpCode(HttpStatus.accepted)
   @Get("/statuscodes")
-  static getStatusCode() {}
+  getStatusCode() {}
 
   @Header('test', 'test')
   @Get("/headers")
-  static getHeader() {}
+  getHeader() {}
 }
 
 class Foo {

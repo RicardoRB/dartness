@@ -132,7 +132,7 @@ class DefaultDartnessServer implements DartnessServer {
         if (metadata.type.isSubtypeOf(reflectClass(Bind))) {
           final bind = metadata.reflectee as Bind;
           final path = '${ctlReflectee.path}${bind.path}';
-          final handler = DartnessRouterHandler(clazzDeclaration, method);
+          final handler = DartnessRouterHandler(controller, method);
           _router.add(
             bind.toString(),
             path,

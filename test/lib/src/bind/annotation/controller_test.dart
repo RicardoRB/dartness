@@ -64,7 +64,7 @@ void main() {
     });
 
     group('GET method tests', () {
-      test(
+        test(
           'GIVEN a controller with GET method '
           'WHEN calling "/"'
           'THEN return "Empty"', () async {
@@ -445,22 +445,22 @@ void main() {
 @Controller("/")
 class ControllerClass {
   @Get()
-  static String getEmpty() {
+  String getEmpty() {
     return "Empty";
   }
 
   @Post()
-  static String postEmpty() {
+  String postEmpty() {
     return "Empty";
   }
 
   @Put()
-  static String putEmpty() {
+  String putEmpty() {
     return "Empty";
   }
 
   @Delete()
-  static String deleteEmpty() {
+  String deleteEmpty() {
     return "Empty";
   }
 }
@@ -468,37 +468,37 @@ class ControllerClass {
 @Controller("/get")
 class GetControllerClass {
   @Get("/double")
-  static double getDouble() {
+  double getDouble() {
     return 1.1;
   }
 
   @Get("/null")
-  static dynamic getNull() {
+  dynamic getNull() {
     return null;
   }
 
   @Get("/class")
-  static Foo getClass() {
+  Foo getClass() {
     return Foo('class');
   }
 
   @Get("/future")
-  static Future<String> getFuture() async {
+  Future<String> getFuture() async {
     return Future.value("bla");
   }
 
   @Get("/ids/<id>")
-  static int getParam(@PathParam() int id) {
+  int getParam(@PathParam() int id) {
     return id;
   }
 
   @Get("/query")
-  static int getQuery(@QueryParam() int id) {
+  int getQuery(@QueryParam() int id) {
     return id;
   }
 
   @Get("/queries")
-  static String getQueries(
+  String getQueries(
     @QueryParam() int id,
     @QueryParam() int id2,
   ) {
@@ -506,7 +506,7 @@ class GetControllerClass {
   }
 
   @Get("/paths/<id>")
-  static String getPaths(
+  String getPaths(
     @PathParam() int id,
     @QueryParam() int query,
   ) {
@@ -514,7 +514,7 @@ class GetControllerClass {
   }
 
   @Get("/paths/<path1>/another/<path2>")
-  static String getPathsAnotherPaths(
+  String getPathsAnotherPaths(
     @PathParam() int path1,
     @QueryParam() int query,
     @PathParam() int path2,
@@ -524,7 +524,7 @@ class GetControllerClass {
   }
 
   @Get("/types")
-  static String getTypes(
+  String getTypes(
     @QueryParam() bool bool,
     @QueryParam() int int,
     @QueryParam() double double,
@@ -535,7 +535,7 @@ class GetControllerClass {
   }
 
   @Get("/optional")
-  static String getOptional(
+  String getOptional(
     @QueryParam() bool? bool, {
     @QueryParam() int int = 1,
   }) {
@@ -543,7 +543,7 @@ class GetControllerClass {
   }
 
   @Get("/names/<namePath>")
-  static String getNames(
+  String getNames(
     @PathParam("namePath") String otherPath,
     @QueryParam("nameQuery") String otherQuery,
   ) {
@@ -552,42 +552,42 @@ class GetControllerClass {
 
   @HttpCode(HttpStatus.accepted)
   @Get("/statuscodes")
-  static getStatusCode() {}
+  getStatusCode() {}
 
   @Header('test', 'test')
   @Get("/headers")
-  static getHeader() {}
+  getHeader() {}
 }
 
 @Controller("/post")
 class PostControllerClass {
   @Post("/double")
-  static double postDouble() {
+  double postDouble() {
     return 1.1;
   }
 
   @Post("/null")
-  static dynamic postNull() {
+  dynamic postNull() {
     return null;
   }
 
   @Post("/class")
-  static Foo postClass() {
+  Foo postClass() {
     return Foo('class');
   }
 
   @Post("/future")
-  static Future<String> postFuture() async {
+  Future<String> postFuture() async {
     return Future.value("bla");
   }
 
   @Post("/ids/<id>")
-  static int postParam(@PathParam() int id) {
+  int postParam(@PathParam() int id) {
     return id;
   }
 
   @Post("/body")
-  static Foo postBody(@Body() Foo body) {
+  Foo postBody(@Body() Foo body) {
     return body;
   }
 }
@@ -595,27 +595,27 @@ class PostControllerClass {
 @Controller("/put")
 class PutControllerClass {
   @Put("/double")
-  static double putDouble() {
+  double putDouble() {
     return 1.1;
   }
 
   @Put("/null")
-  static dynamic putNull() {
+  dynamic putNull() {
     return null;
   }
 
   @Put("/class")
-  static Foo putClass() {
+  Foo putClass() {
     return Foo('class');
   }
 
   @Put("/future")
-  static Future<String> putFuture() async {
+  Future<String> putFuture() async {
     return Future.value("bla");
   }
 
   @Put("/ids/<id>")
-  static int putParam(@PathParam() int id) {
+  int putParam(@PathParam() int id) {
     return id;
   }
 }
@@ -623,27 +623,27 @@ class PutControllerClass {
 @Controller("/delete")
 class DeleteControllerClass {
   @Delete("/double")
-  static double deleteDouble() {
+  double deleteDouble() {
     return 1.1;
   }
 
   @Delete("/null")
-  static dynamic deleteNull() {
+  dynamic deleteNull() {
     return null;
   }
 
   @Delete("/class")
-  static Foo deleteClass() {
+  Foo deleteClass() {
     return Foo('class');
   }
 
   @Delete("/future")
-  static Future<String> deleteFuture() async {
+  Future<String> deleteFuture() async {
     return Future.value("bla");
   }
 
   @Delete("/ids/<id>")
-  static int deleteParam(int id) {
+  int deleteParam(int id) {
     return id;
   }
 }

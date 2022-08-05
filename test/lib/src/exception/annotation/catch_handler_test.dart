@@ -52,12 +52,12 @@ void main() {
 @Controller("/get")
 class GetControllerClass {
   @Get("/argument_error")
-  static getArgumentException() {
+  getArgumentException() {
     throw ArgumentError('Random exception');
   }
 
   @Get("/range_error")
-  static getRangeError() {
+  getRangeError() {
     throw RangeError('Random exception');
   }
 }
