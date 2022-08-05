@@ -35,6 +35,9 @@ class Dartness {
     for (final interceptor in interceptors) {
       addInterceptor(interceptor);
     }
+    for (final errorHandler in errorHandlers) {
+      addErrorHandler(errorHandler);
+    }
   }
 
   /// Starts the [_server].
