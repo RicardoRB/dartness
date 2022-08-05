@@ -101,7 +101,6 @@ class DartnessRouterHandler {
     };
 
     try {
-
       final controllerReflect = reflect(_controller);
       final response = controllerReflect.invoke(
         _methodMirror.simpleName,

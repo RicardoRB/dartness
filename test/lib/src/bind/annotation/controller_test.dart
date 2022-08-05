@@ -64,7 +64,7 @@ void main() {
     });
 
     group('GET method tests', () {
-        test(
+      test(
           'GIVEN a controller with GET method '
           'WHEN calling "/"'
           'THEN return "Empty"', () async {
