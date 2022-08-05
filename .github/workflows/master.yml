@@ -6,73 +6,42 @@ on:
       - master
 
 jobs:
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: dart-lang/setup-dart@v1.3
+
+      - name: Install dependencies
+        run: dart pub get
+
+      - name: Verify formatting
+        run: dart format --output=none --set-exit-if-changed .
 
 
   analyze:
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v1
-      - uses: subosito/flutter-action@v1
-        with:
-          channel: "stable"
+      - uses: actions/checkout@v2
+      - uses: dart-lang/setup-dart@v1.3
 
-      - name: "Install Tools"
-        run: |
-          ./.github/workflows/scripts/install-tools.sh
+      - name: Install dependencies
+        run: dart pub get
 
-      - name: "Bootstrap Workspace"
-        run: melos bootstrap
-
-      - name: "Getting Dependencies"
-        run: melos pub:get
-
-      - name: "Run Analyze"
-        run: melos run analyze
-
-  format:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v1
-      - uses: subosito/flutter-action@v1
-        with:
-          channel: "stable"
-
-      - name: "Install Tools"
-        run: |
-          ./.github/workflows/scripts/install-tools.sh
-
-      - name: "Bootstrap Workspace"
-        run: melos bootstrap
-
-      - name: "Getting Dependencies"
-        run: melos pub:get
-
-      - name: "Run Format"
-        run: melos run format:check
+      - name: Analyze project source
+        run: dart analyze
 
   test:
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v1
-      - uses: subosito/flutter-action@v1
-        with:
-          channel: "stable"
+      - uses: actions/checkout@v2
+      - uses: dart-lang/setup-dart@v1.3
 
-      - name: "Install Tools"
-        run: |
-          ./.github/workflows/scripts/install-tools.sh
+      - name: Install dependencies
+        run: dart pub get
 
-      - name: "Bootstrap Workspace"
-        run: melos bootstrap
-
-      - name: "Getting Dependencies"
-        run: melos pub:get
-
-      - name: Test
-        run: melos run test
+      - name: Run tests
+        run: dart test
 
   publish:
     runs-on: ubuntu-latest
