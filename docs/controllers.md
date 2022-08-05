@@ -23,7 +23,7 @@ path for each route in the file.
 @Controller('cities')
 class CitiesController {
   @Get()
-  static String getCities() async {
+  String getCities() async {
     return 'This action returns a list of cities';
   }
 }
@@ -66,12 +66,12 @@ that creates new records. For this, let's create the **POST** handler:
 @Controller('cities')
 class CitiesController {
   @Get()
-  static String getCities() async {
+  String getCities() async {
     return 'This action returns a list of cities';
   }
 
   @Post()
-  static String postCity(@Body CityRequest city) async {
+  String postCity(@Body CityRequest city) async {
     return 'This action creates a new city';
   }
 }
@@ -118,7 +118,7 @@ and then reference the route parameter directly by name in the method body.
 @Controller('cities')
 class CitiesController {
   @Get('/<id>')
-  static String findById(@PathParam() id) {
+  String findById(@PathParam() id) {
     return 'This action returns a city with id: $id';
   }
 }
@@ -134,7 +134,7 @@ as inside the body of the method. In the example below, we can access the query 
 @Controller('cities')
 class CitiesController {
   @Get()
-  static String find(@QueryParam() String name) {
+  String find(@QueryParam() String name) {
     return 'This action returns a the query parameter name: $name';
   }
 }
@@ -148,7 +148,7 @@ cases can be also null, we can use as the follow:
 @Controller('cities')
 class CitiesController {
   @Get()
-  static String find({
+  String find({
     @QueryParam() String? name,
   }) {
     return 'This action returns a the query parameter name: $name';
@@ -172,7 +172,7 @@ to resolve by itself. Let's see an example of this:
 @Controller('cities')
 class CitiesController {
   @Get()
-  static String getCities() {
+  String getCities() {
     return 'This action returns a list of cities';
   }
 }
