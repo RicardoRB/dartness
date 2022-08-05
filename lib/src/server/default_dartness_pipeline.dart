@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:dartness_server/src/exception/dartness_error_handler.dart';
 import 'package:shelf/shelf.dart';
 
@@ -7,6 +5,9 @@ import '../exception/default_error_handler.dart';
 import 'dartness_interceptor.dart';
 import 'dartness_middleware.dart';
 import 'dartness_pipeline.dart';
+import 'shelf_middleware/dartness_error_handler_shelf.dart';
+import 'shelf_middleware/dartness_interceptor_shelf.dart';
+import 'shelf_middleware/dartness_middleware_shelf.dart';
 
 /// Default implementation of [DartnessPipeline] that uses shelf [Pipeline]
 /// in order to provide an efficient way of create [DartnessMiddleware]
@@ -25,31 +26,16 @@ class DefaultDartnessPipeline implements DartnessPipeline {
   final DartnessErrorHandler _errorHandler;
 
   @override
-  DartnessPipeline addMiddleware(final DartnessMiddleware middleware) {
-    final pipeline = _pipeline.addMiddleware((final Handler innerHandler) {
-      return (final Request request) {
-        middleware.handle(request);
-        return innerHandler(request);
-      };
-    });
-
+  DartnessPipeline addMiddleware(final DartnessMiddleware dartnessMiddleware) {
+    final shelfMiddleware = DartnessMiddlewareShelf(dartnessMiddleware);
+    final pipeline = _pipeline.addMiddleware(shelfMiddleware.middleware);
     return DefaultDartnessPipeline(pipeline: pipeline);
   }
 
   @override
   DartnessPipeline addInterceptor(final DartnessInterceptor interceptor) {
-    final pipeline = _pipeline.addMiddleware((final Handler innerHandler) {
-      return (final Request request) {
-        interceptor.onRequest(request);
-        return Future.sync(() => innerHandler(request))
-            .then((final Response response) {
-          interceptor.onResponse(response);
-          return response;
-        }).catchError((Object error, StackTrace stackTrace) {
-          interceptor.onError(error, stackTrace);
-        });
-      };
-    });
+    final shelfInterceptor = DartnessInterceptorShelf(interceptor);
+    final pipeline = _pipeline.addMiddleware(shelfInterceptor.middleware);
     return DefaultDartnessPipeline(pipeline: pipeline);
   }
 
@@ -61,17 +47,8 @@ class DefaultDartnessPipeline implements DartnessPipeline {
   @override
   DartnessPipeline addErrorHandler(Object errorHandler) {
     _errorHandler.addErrorHandler(errorHandler);
-    final pipeline = _pipeline.addMiddleware((final Handler innerHandler) {
-      return (final Request request) async {
-        try {
-          return await Future.sync(() => innerHandler(request));
-        } on Error catch (errorCatch, stackTrace) {
-          return await _errorHandler.handle(errorCatch, stackTrace, request);
-        } catch (error) {
-          return Response(HttpStatus.internalServerError);
-        }
-      };
-    });
+    final errorHandlerShelf = DartnessErrorHandlerShelf(_errorHandler);
+    final pipeline = _pipeline.addMiddleware(errorHandlerShelf.middleware);
     return DefaultDartnessPipeline(pipeline: pipeline);
   }
 }
