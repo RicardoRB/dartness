@@ -54,8 +54,8 @@
   <p>Annotation to mark a method that is handling the <a href="../exception/CatchError/errors.html">errors</a>.</p>
 <p>Example:</p>
 <pre class="language-dart"><code class="language-dart">  @CatchError([NotFoundException])
-  void handleNotFoundException(NotFoundException exception) {
-    print("Not found");
+  Response handleNotFoundException(Error error) {
+    return Response.notFound(error.message);
   }
 </code></pre>
 </section>

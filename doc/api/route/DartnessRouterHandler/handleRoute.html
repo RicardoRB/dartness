@@ -143,11 +143,9 @@
       .where((meta) =&gt; meta.reflectee is Header)
       .map((e) =&gt; e.reflectee);
 
-  final Map&lt;String, Object&gt; headers = Map.fromIterable(
-    responseHeaders,
-    key: (e) =&gt; e.key,
-    value: (e) =&gt; e.value,
-  );
+  final Map&lt;String, Object&gt; headers = {
+    for (final header in responseHeaders) header.key: header.value
+  };
 
   try {
     final response = _clazzMirror.invoke(
