@@ -20,7 +20,7 @@ jobs:
         run: dart pub global activate melos
 
       - name: "Bootstrap Workspace"
-        run:  melos bootstrap --no-private
+        run: melos bootstrap --no-private
 
       - name: "Getting Dependencies"
         run: melos get
@@ -35,7 +35,7 @@ jobs:
         run: dart pub global activate melos
 
       - name: "Bootstrap Workspace"
-        run:  melos bootstrap --no-private
+        run: melos bootstrap --no-private
 
       - name: "Getting Dependencies"
         run: melos get
@@ -50,7 +50,7 @@ jobs:
         run: dart pub global activate melos
 
       - name: "Bootstrap Workspace"
-        run:  melos bootstrap --no-private
+        run: melos bootstrap --no-private
 
       - name: "Getting Dependencies"
         run: melos get
