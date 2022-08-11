@@ -1,0 +1,9 @@
+builders:
+  dartness_server:
+    target: ":dartness_generator"
+    import: "package:dartness_generator/builder.dart"
+    builder_factories: [ "dartness" ]
+    build_extensions: { ".dart": [ ".dartness.g.part" ] }
+    auto_apply: dependents
+    build_to: cache
+    applies_builders: [ "source_gen|combining_builder" ]
