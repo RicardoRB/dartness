@@ -1,0 +1,1 @@
+dart pub global activate melos
