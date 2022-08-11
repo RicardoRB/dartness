@@ -27,6 +27,9 @@ jobs:
   analyze:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
+      - uses: dart-lang/setup-dart@v1.3
+
       - name: "Install Melos"
         run: dart pub global activate melos
 
@@ -42,6 +45,9 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
+      - uses: dart-lang/setup-dart@v1.3
+
       - name: "Install Melos"
         run: dart pub global activate melos
 
@@ -73,6 +79,11 @@ jobs:
             "expiration": 1659717556326
           }
           EOF
+      - uses: actions/checkout@v2
+      - uses: dart-lang/setup-dart@v1.3
+
+      - name: "Install Melos"
+        run: dart pub global activate melos
       - name: "Bootstrap Workspace"
         run: melos bootstrap --no-private
 
