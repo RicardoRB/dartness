@@ -9,7 +9,8 @@ environment:
 dependencies:
   build: ^2.3.0
   source_gen: ^1.2.2
-  analyzer: ^4.5.0
+  analyzer: ^4.6.0
+  code_builder: ^4.2.0
   dartness_server:
     path: ../dartness_server/
 

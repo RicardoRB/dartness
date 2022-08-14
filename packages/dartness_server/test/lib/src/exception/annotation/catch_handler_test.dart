@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:dartness_server/bind.dart';
+import 'package:dartness_server/dartness.dart';
 import 'package:dartness_server/dartness.dart';
 import 'package:dartness_server/src/exception/annotation/catch_error.dart';
 import 'package:shelf/shelf.dart';

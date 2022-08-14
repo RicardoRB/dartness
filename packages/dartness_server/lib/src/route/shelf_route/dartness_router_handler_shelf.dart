@@ -14,5 +14,5 @@ class DartnessRouterHandlerShelf implements ShelfHandler {
   @override
   Function get handler =>
       (final Request request, [final Object? extras]) async =>
-          await dartnessRouterHandler.handleRoute(request, extras);
+          await dartnessRouterHandler.handler(request, extras);
 }
