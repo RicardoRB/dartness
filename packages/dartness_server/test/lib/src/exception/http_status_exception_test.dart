@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:dartness_server/dartness.dart';
-import 'package:dartness_server/dartness.dart';
 import 'package:dartness_server/exception.dart';
 import 'package:test/test.dart';
 

@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:dartness_server/dartness.dart';
 import 'package:shelf/shelf_io.dart' as shelf_io;
 
-import '../dartness_controller.dart';
 import 'dartness_interceptor.dart';
 import 'dartness_middleware.dart';
 import 'dartness_pipeline.dart';
