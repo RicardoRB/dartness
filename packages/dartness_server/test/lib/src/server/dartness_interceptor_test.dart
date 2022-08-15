@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:dartness_server/dartness.dart';
-import 'package:dartness_server/dartness.dart';
 import 'package:dartness_server/server.dart';
 import 'package:dartness_server/src/dartness.dart';
 import 'package:shelf/shelf.dart';
@@ -20,7 +19,7 @@ void main() {
     httpClient = HttpClient();
     dartness = Dartness(
       port: port,
-      controllers: [TestController()],
+      // controllers: [TestController()],
       interceptors: [TestInterceptor()],
     );
     await dartness.create();

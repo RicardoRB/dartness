@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'dartness_controller.dart';
 import 'server/dartness_interceptor.dart';
 import 'server/dartness_middleware.dart';
 import 'server/dartness_server.dart';
@@ -20,7 +21,7 @@ class Dartness {
   Dartness({
     final int port = 8080,
     final InternetAddress? internetAddress,
-    final Iterable<Object> controllers = const [],
+    final Iterable<DartnessController> controllers = const [],
     final Iterable<DartnessMiddleware> middlewares = const [],
     final Iterable<DartnessInterceptor> interceptors = const [],
     final Iterable<Object> errorHandlers = const [],
@@ -64,7 +65,7 @@ class Dartness {
   }
 
   /// Add [controller] into [Dartness] and handles
-  /// the methods annotated with [Bind] children to [Controller.path] and [Bind.path].
+  /// the methods annotated with [Bind] children to [Controller.method] and [Bind.method].
   ///
   /// In order to add the [controller] the class must be annotated with [Controller]
   ///
@@ -72,12 +73,12 @@ class Dartness {
   /// will be handled.
   ///
   /// If the [Bind] annotation in the method is [Get] the method will also be
-  /// called for [Head] requests matching [Bind.path]. This is because handling
+  /// called for [Head] requests matching [Bind.method]. This is because handling
   /// [Get] requests without handling [Head] is always wrong. To explicitly
   /// implement a [Head] handler the method must be created before the [Get] handler.
   ///
   /// throws [ArgumentError] if [controller] is not annotated with [Controller]
-  void addController(final Object controller) {
+  void addController(final DartnessController controller) {
     _server.addController(controller);
   }
 

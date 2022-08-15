@@ -1,3 +1,5 @@
+import 'package:dartness_server/dartness.dart';
+
 abstract class ControllerGenerated {
-  final Map<String, List<String>> routes = {};
+  Map<String, ControllerRoute> getRoutes();
 }

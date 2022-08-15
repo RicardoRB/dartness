@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import '../dartness_controller.dart';
 import 'dartness_interceptor.dart';
 import 'dartness_middleware.dart';
 
@@ -27,7 +28,7 @@ abstract class DartnessServer {
   Future<void> stop({bool force = false});
 
   /// Adds a controller and handles the http methods
-  void addController(final Object controller);
+  void addController(final DartnessController controller);
 
   /// Adds a error handler in order to listen for errors
   void addErrorHandler(Object errorHandler);

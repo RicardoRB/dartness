@@ -6,11 +6,11 @@ part of 'city_controller.dart';
 // ControllerGenerator
 // **************************************************************************
 
-extension $CityControllerRouter on CityController {
-  DefaultDartnessRouter getRouter() {
-    final router = DefaultDartnessRouter();
-    router.add('GET', '', DartnessRouterHandler(this.getCities));
-    router.add('GET', '/:id', DartnessRouterHandler(this.getCity));
-    return router;
+extension CityControllerRoutes on CityController {
+  List<ControllerRoute> getRoutes() {
+    final routes = <ControllerRoute>[];
+    routes.add(ControllerRoute('GET', '/cities', getCities));
+    routes.add(ControllerRoute('GET', '/cities/<id>', getCity));
+    return routes;
   }
 }

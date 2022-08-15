@@ -1,9 +1,11 @@
 class CityService {
+  final cities = ['New York', 'London', 'Paris'];
+
   List<String> getCities() {
-    return ['New York', 'London', 'Paris'];
+    return cities;
   }
 
-  String getCity(String id) {
-    return 'New York';
+  String getCity(int id) {
+    return cities[id];
   }
 }

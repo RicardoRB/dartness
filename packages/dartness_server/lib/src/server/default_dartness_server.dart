@@ -1,13 +1,9 @@
 import 'dart:io';
-import 'dart:mirrors';
 
-import 'package:collection/collection.dart';
+import 'package:dartness_server/dartness.dart';
 import 'package:shelf/shelf_io.dart' as shelf_io;
 
-import '../bind/annotation/bind.dart';
-import '../bind/annotation/controller.dart';
-import '../route/default_dartness_router.dart';
-import '../route/dartness_router_handler.dart';
+import '../dartness_controller.dart';
 import 'dartness_interceptor.dart';
 import 'dartness_middleware.dart';
 import 'dartness_pipeline.dart';
@@ -36,7 +32,7 @@ class DefaultDartnessServer implements DartnessServer {
   final _router = DefaultDartnessRouter();
 
   /// Controllers that are handling the requests.
-  final Set<Object> _controllers = {};
+  final Set<DartnessController> _controllers = {};
 
   Set<Object> get controllers => _controllers;
 
@@ -112,34 +108,13 @@ class DefaultDartnessServer implements DartnessServer {
   ///
   /// throws [ArgumentError] if [controller] is not annotated with [Controller]
   @override
-  void addController(final Object controller) {
-    final clazzDeclaration = reflectClass(controller.runtimeType);
-    final controllerMirror = reflectClass(Controller);
-    final controllerAnnotationMirror = clazzDeclaration.metadata
-        .firstWhereOrNull((d) => d.type == controllerMirror);
-
-    if (controllerAnnotationMirror == null) {
-      throw ArgumentError.value(controller, 'controller',
-          "doesn't contain @${controllerMirror.reflectedType}");
-    }
-
-    final ctlReflectee = controllerAnnotationMirror.reflectee as Controller;
-    final methods = clazzDeclaration.declarations.values
-        .where((value) => value is MethodMirror && value.isRegularMethod)
-        .map((method) => method as MethodMirror);
-    for (final method in methods) {
-      for (final metadata in method.metadata) {
-        if (metadata.type.isSubtypeOf(reflectClass(Bind))) {
-          final bind = metadata.reflectee as Bind;
-          final path = '${ctlReflectee.path}${bind.path}';
-          // final handler = DartnessRouterHandler(controller, method);
-          // _router.add(
-          //   bind.toString(),
-          //   path,
-          //   handler,
-          // );
-        }
-      }
+  void addController(final DartnessController controller) {
+    for (final route in controller.routes) {
+      _router.add(
+        route.method,
+        route.path,
+        route.handler,
+      );
     }
     _controllers.add(controller);
   }

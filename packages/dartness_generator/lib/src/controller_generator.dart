@@ -7,9 +7,15 @@ import 'package:source_gen/source_gen.dart';
 const _bindType = TypeChecker.fromRuntime(Bind);
 
 class ControllerGenerator extends GeneratorForAnnotation<Controller> {
+  final routesVariableName = 'routes';
+  final classReturn = (List<ControllerRoute>).toString();
+
   @override
   String? generateForAnnotatedElement(
-      Element element, ConstantReader annotation, BuildStep buildStep) {
+    Element element,
+    ConstantReader annotation,
+    BuildStep buildStep,
+  ) {
     if (element is! ClassElement) {
       throw InvalidGenerationSourceError(
           '@${element.name} cannot target `${element.runtimeType}`.');
@@ -18,41 +24,41 @@ class ControllerGenerator extends GeneratorForAnnotation<Controller> {
     if (elements.isEmpty) {
       return null;
     }
-    final routerVariableName = 'router';
-    final classMethodRouter = (DefaultDartnessRouter).toString();
+    final controllerPath = annotation.read('path').stringValue;
 
     final method = Method(
       (methodBuilder) => methodBuilder
-        ..name = 'getRouter'
-        ..returns = refer(classMethodRouter)
+        ..name = 'getRoutes'
+        ..returns = refer(classReturn)
         ..body = Block(
           (blocBuilder) => blocBuilder
             ..addExpression(
-              refer(classMethodRouter)
-                  .newInstance([]).assignFinal(routerVariableName),
+              refer('<ControllerRoute>[]').assignFinal(routesVariableName),
             )
             ..statements.addAll(
               elements.map((methodElement) {
                 final bind = _bindType.firstAnnotationOf(methodElement);
-                final path = bind?.getField('path')?.toStringValue() ?? '';
-                final name = bind?.type
+                final path =
+                    '$controllerPath${bind?.getField('path')?.toStringValue()}';
+                final bindName = bind?.type
                         ?.getDisplayString(withNullability: false)
                         .toUpperCase() ??
                     '';
-                return refer(routerVariableName).property('add').call([
-                  literalString(name),
-                  literalString(path),
-                  refer((DartnessRouterHandler).toString()).newInstance([
-                    refer('this').property(methodElement.name),
-                  ]),
+
+                return refer(routesVariableName).property('add').call([
+                  refer((ControllerRoute).toString()).newInstance([
+                    literalString(bindName),
+                    literalString(path),
+                    refer(methodElement.name),
+                  ])
                 ]).statement;
               }),
             )
-            ..addExpression(refer(routerVariableName).returned),
+            ..addExpression(refer(routesVariableName).returned),
         ),
     );
     return Extension((extensionBuilder) => extensionBuilder
-      ..name = '\$${element.name}Router'
+      ..name = '${element.name}Routes'
       ..on = refer(element.name)
       ..methods.add(method)).accept(DartEmitter()).toString();
   }

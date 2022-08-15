@@ -51,11 +51,11 @@ void main() {
       dartness = Dartness(
         port: port,
       );
-      dartness.addController(ControllerClass());
-      dartness.addController(GetControllerClass());
-      dartness.addController(PostControllerClass());
-      dartness.addController(PutControllerClass());
-      dartness.addController(DeleteControllerClass());
+      // dartness.addController(ControllerClass());
+      // dartness.addController(GetControllerClass());
+      // dartness.addController(PostControllerClass());
+      // dartness.addController(PutControllerClass());
+      // dartness.addController(DeleteControllerClass());
       await dartness.create();
     });
 

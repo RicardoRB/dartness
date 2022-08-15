@@ -17,7 +17,7 @@ void main() {
       dartness = Dartness(
         port: port,
       );
-      dartness.addController(GetControllerClass());
+      // dartness.addController(GetControllerClass());
       await dartness.create();
     });
 
