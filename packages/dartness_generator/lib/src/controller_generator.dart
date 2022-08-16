@@ -9,6 +9,8 @@ const _bindType = TypeChecker.fromRuntime(HttpMethod);
 class ControllerGenerator extends GeneratorForAnnotation<Controller> {
   final routesVariableName = 'routes';
   final classReturn = (List<ControllerRoute>).toString();
+  final _queryParamType = TypeChecker.fromRuntime(QueryParam);
+  final _pathParamType = TypeChecker.fromRuntime(PathParam);
 
   @override
   String? generateForAnnotatedElement(
@@ -44,24 +46,36 @@ class ControllerGenerator extends GeneratorForAnnotation<Controller> {
                 final bindMethod =
                     bind?.getField('method')?.toStringValue() ?? '';
 
-                final positionalArguments = methodElement.parameters
-                    .where((element) => element.isPositional)
-                    .map((e) => e.name);
+                final List<Expression> arguments = [];
 
-                final namedArgumentsList = methodElement.parameters
-                    .where((element) => element.isNamed);
-                final namedArguments = {
-                  for (final element in namedArgumentsList)
-                    element.name: element.defaultValueCode
-                };
+                for (final param in methodElement.parameters) {
+                  final isQuery = _queryParamType.hasAnnotationOfExact(param);
+                  final isPath = _pathParamType.hasAnnotationOfExact(param);
+                  if (isQuery && isPath) {
+                    throw InvalidGenerationSourceError(
+                        'Param `${param.name}` cannot be both @QueryParam and @PathParam');
+                  }
+                  arguments.add(refer((DartnessParam).toString()).newInstance(
+                    [
+                      literalString(param.name),
+                      literalBool(isQuery),
+                      literalBool(isPath),
+                      literalBool(param.isNamed),
+                      literalBool(param.isPositional),
+                      literalBool(param.isOptional),
+                    ],
+                    {
+                      'defaultValue': literal(param.defaultValueCode),
+                    },
+                  ));
+                }
 
                 return refer(routesVariableName).property('add').call([
                   refer((ControllerRoute).toString()).newInstance([
                     literalString(bindMethod),
                     literalString(path),
                     refer(methodElement.name),
-                    literalList(positionalArguments),
-                    literalMap(namedArguments),
+                    literalList(arguments),
                   ])
                 ]).statement;
               }),

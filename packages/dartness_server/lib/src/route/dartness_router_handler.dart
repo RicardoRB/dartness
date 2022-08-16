@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:dartness_server/dartness.dart';
 import 'package:shelf_plus/shelf_plus.dart';
 
 import '../exception/http_status_exception.dart';
@@ -11,37 +12,44 @@ typedef OnCall = dynamic Function(List arguments);
 class DartnessRouterHandler {
   DartnessRouterHandler(
     this._methodFunction,
-    this._positionalArguments,
-    this._namedArguments,
+    this._params,
   );
 
   final Function _methodFunction;
-  final List<String> _positionalArguments;
-  final Map<String, dynamic>? _namedArguments;
+  final List<DartnessParam> _params;
 
   /// Handles the route's response and invoke the [_methodMirror] in [_controller]
   Future<Response> handleRoute(final Request request,
       [final Object? extras]) async {
     try {
-      final arguments = request.params.entries
-          .where((e) => _positionalArguments.contains(e.key))
-          .map((e) => _getTypedParam(e.value))
-          .toList();
+      final positionalArguments = [];
       final Map<Symbol, dynamic> namedArguments = {};
-      if (_namedArguments?.isNotEmpty == true) {
-        request.requestedUri.queryParameters
-            .forEach((queryParamKey, queryParamValue) {
-          _namedArguments?.forEach((nameArgumentKey, nameArgumentValue) {
-            if (queryParamKey == nameArgumentKey) {
-              namedArguments[Symbol(nameArgumentKey)] =
-                  _getTypedParam(queryParamValue);
-            }
-          });
-        });
+      for (final param in _params) {
+        if (param.isPositional) {
+          if (param.isPath) {
+            final value = _getTypedParam(
+                request.params[param.name] ?? param.defaultValue);
+            positionalArguments.add(value);
+          } else {
+            final value = _getTypedParam(
+                request.url.queryParameters[param.name] ?? param.defaultValue);
+            positionalArguments.add(value);
+          }
+        } else {
+          if (param.isPath) {
+            final value = _getTypedParam(
+                request.params[param.name] ?? param.defaultValue);
+            namedArguments[Symbol(param.name)] = value;
+          } else {
+            final value = _getTypedParam(
+                request.url.queryParameters[param.name] ?? param.defaultValue);
+            namedArguments[Symbol(param.name)] = value;
+          }
+        }
       }
 
-      final response =
-          await Function.apply(_methodFunction, arguments, namedArguments);
+      final response = await Function.apply(
+          _methodFunction, positionalArguments, namedArguments);
 
       final dynamic body;
       if (response is Response) {

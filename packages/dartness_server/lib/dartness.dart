@@ -16,6 +16,7 @@ export 'src/bind/annotation/query_param.dart';
 /// Main
 export 'src/dartness.dart';
 export 'src/dartness_controller.dart';
+export 'src/datness_param.dart';
 export 'src/route/controller_route.dart';
 
 /// Route

@@ -20,8 +20,8 @@ class DefaultDartnessRouter implements DartnessRouter {
   /// the [httpMethod] for the [pathRoute].
   @override
   void add(final ControllerRoute route) {
-    final dartnessRouterHandler = DartnessRouterHandler(
-        route.handler, route.positionalArguments, route.namedArguments);
+    final dartnessRouterHandler =
+        DartnessRouterHandler(route.handler, route.params);
     _router.add(route.method, route.path, dartnessRouterHandler.handleRoute);
   }
 }
