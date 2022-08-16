@@ -202,37 +202,37 @@
 //
 // @Controller("/test")
 // class TestController {
-//   @Get("/double")
+//   @Bind.get("/double")
 //   double getDouble() {
 //     return 1.1;
 //   }
 //
-//   @Get("/null")
+//   @Bind.get("/null")
 //   dynamic getNull() {
 //     return null;
 //   }
 //
-//   @Get("/class")
+//   @Bind.get("/class")
 //   Foo getClass() {
 //     return Foo('class');
 //   }
 //
-//   @Get("/future")
+//   @Bind.get("/future")
 //   Future<String> getFuture() async {
 //     return Future.value("bla");
 //   }
 //
-//   @Get("/ids/<id>")
+//   @Bind.get("/ids/<id>")
 //   int getParam(@PathParam() int id) {
 //     return id;
 //   }
 //
-//   @Get("/query")
+//   @Bind.get("/query")
 //   int getQuery(@QueryParam() int id) {
 //     return id;
 //   }
 //
-//   @Get("/queries")
+//   @Bind.get("/queries")
 //   String getQueries(
 //     @QueryParam() int id,
 //     @QueryParam() int id2,
@@ -240,7 +240,7 @@
 //     return '$id/$id2';
 //   }
 //
-//   @Get("/paths/<id>")
+//   @Bind.get("/paths/<id>")
 //   String getPaths(
 //     @PathParam() int id,
 //     @QueryParam() int query,
@@ -248,7 +248,7 @@
 //     return '$id/$query';
 //   }
 //
-//   @Get("/paths/<path1>/another/<path2>")
+//   @Bind.get("/paths/<path1>/another/<path2>")
 //   String getPathsAnotherPaths(
 //     @PathParam() int path1,
 //     @QueryParam() int query,
@@ -258,7 +258,7 @@
 //     return '$path1/$path2/$query/$query2';
 //   }
 //
-//   @Get("/types")
+//   @Bind.get("/types")
 //   String getTypes(
 //     @QueryParam() bool bool,
 //     @QueryParam() int int,
@@ -269,7 +269,7 @@
 //     return '$bool/$int/$double/$string/$list';
 //   }
 //
-//   @Get("/names/<namePath>")
+//   @Bind.get("/names/<namePath>")
 //   String getNames(
 //     @PathParam("namePath") String otherPath,
 //     @QueryParam("nameQuery") String otherQuery,
@@ -278,11 +278,11 @@
 //   }
 //
 //   @HttpCode(HttpStatus.accepted)
-//   @Get("/statuscodes")
+//   @Bind.get("/statuscodes")
 //   getStatusCode() {}
 //
 //   @Header('test', 'test')
-//   @Get("/headers")
+//   @Bind.get("/headers")
 //   getHeader() {}
 // }
 //

@@ -443,22 +443,22 @@ void main() {
 
 @Controller("/")
 class ControllerClass {
-  @Get()
+  @HttpMethod.get()
   String getEmpty() {
     return "Empty";
   }
 
-  @Post()
+  @HttpMethod.post()
   String postEmpty() {
     return "Empty";
   }
 
-  @Put()
+  @HttpMethod.put()
   String putEmpty() {
     return "Empty";
   }
 
-  @Delete()
+  @HttpMethod.delete()
   String deleteEmpty() {
     return "Empty";
   }
@@ -466,37 +466,37 @@ class ControllerClass {
 
 @Controller("/get")
 class GetControllerClass {
-  @Get("/double")
+  @HttpMethod.get("/double")
   double getDouble() {
     return 1.1;
   }
 
-  @Get("/null")
+  @HttpMethod.get("/null")
   dynamic getNull() {
     return null;
   }
 
-  @Get("/class")
+  @HttpMethod.get("/class")
   Foo getClass() {
     return Foo('class');
   }
 
-  @Get("/future")
+  @HttpMethod.get("/future")
   Future<String> getFuture() async {
     return Future.value("bla");
   }
 
-  @Get("/ids/<id>")
+  @HttpMethod.get("/ids/<id>")
   int getParam(@PathParam() int id) {
     return id;
   }
 
-  @Get("/query")
+  @HttpMethod.get("/query")
   int getQuery(@QueryParam() int id) {
     return id;
   }
 
-  @Get("/queries")
+  @HttpMethod.get("/queries")
   String getQueries(
     @QueryParam() int id,
     @QueryParam() int id2,
@@ -504,7 +504,7 @@ class GetControllerClass {
     return '$id/$id2';
   }
 
-  @Get("/paths/<id>")
+  @HttpMethod.get("/paths/<id>")
   String getPaths(
     @PathParam() int id,
     @QueryParam() int query,
@@ -512,7 +512,7 @@ class GetControllerClass {
     return '$id/$query';
   }
 
-  @Get("/paths/<path1>/another/<path2>")
+  @HttpMethod.get("/paths/<path1>/another/<path2>")
   String getPathsAnotherPaths(
     @PathParam() int path1,
     @QueryParam() int query,
@@ -522,7 +522,7 @@ class GetControllerClass {
     return '$path1/$path2/$query/$query2';
   }
 
-  @Get("/types")
+  @HttpMethod.get("/types")
   String getTypes(
     @QueryParam() bool bool,
     @QueryParam() int int,
@@ -533,7 +533,7 @@ class GetControllerClass {
     return '$bool/$int/$double/$string/$list';
   }
 
-  @Get("/optional")
+  @HttpMethod.get("/optional")
   String getOptional(
     @QueryParam() bool? bool, {
     @QueryParam() int int = 1,
@@ -541,7 +541,7 @@ class GetControllerClass {
     return '$bool/$int';
   }
 
-  @Get("/names/<namePath>")
+  @HttpMethod.get("/names/<namePath>")
   String getNames(
     @PathParam("namePath") String otherPath,
     @QueryParam("nameQuery") String otherQuery,
@@ -550,42 +550,42 @@ class GetControllerClass {
   }
 
   @HttpCode(HttpStatus.accepted)
-  @Get("/statuscodes")
+  @HttpMethod.get("/statuscodes")
   getStatusCode() {}
 
   @Header('test', 'test')
-  @Get("/headers")
+  @HttpMethod.get("/headers")
   getHeader() {}
 }
 
 @Controller("/post")
 class PostControllerClass {
-  @Post("/double")
+  @HttpMethod.post("/double")
   double postDouble() {
     return 1.1;
   }
 
-  @Post("/null")
+  @HttpMethod.post("/null")
   dynamic postNull() {
     return null;
   }
 
-  @Post("/class")
+  @HttpMethod.post("/class")
   Foo postClass() {
     return Foo('class');
   }
 
-  @Post("/future")
+  @HttpMethod.post("/future")
   Future<String> postFuture() async {
     return Future.value("bla");
   }
 
-  @Post("/ids/<id>")
+  @HttpMethod.post("/ids/<id>")
   int postParam(@PathParam() int id) {
     return id;
   }
 
-  @Post("/body")
+  @HttpMethod.post("/body")
   Foo postBody(@Body() Foo body) {
     return body;
   }
@@ -593,27 +593,27 @@ class PostControllerClass {
 
 @Controller("/put")
 class PutControllerClass {
-  @Put("/double")
+  @HttpMethod.put("/double")
   double putDouble() {
     return 1.1;
   }
 
-  @Put("/null")
+  @HttpMethod.put("/null")
   dynamic putNull() {
     return null;
   }
 
-  @Put("/class")
+  @HttpMethod.put("/class")
   Foo putClass() {
     return Foo('class');
   }
 
-  @Put("/future")
+  @HttpMethod.put("/future")
   Future<String> putFuture() async {
     return Future.value("bla");
   }
 
-  @Put("/ids/<id>")
+  @HttpMethod.put("/ids/<id>")
   int putParam(@PathParam() int id) {
     return id;
   }
@@ -621,27 +621,27 @@ class PutControllerClass {
 
 @Controller("/delete")
 class DeleteControllerClass {
-  @Delete("/double")
+  @HttpMethod.delete("/double")
   double deleteDouble() {
     return 1.1;
   }
 
-  @Delete("/null")
+  @HttpMethod.delete("/null")
   dynamic deleteNull() {
     return null;
   }
 
-  @Delete("/class")
+  @HttpMethod.delete("/class")
   Foo deleteClass() {
     return Foo('class');
   }
 
-  @Delete("/future")
+  @HttpMethod.delete("/future")
   Future<String> deleteFuture() async {
     return Future.value("bla");
   }
 
-  @Delete("/ids/<id>")
+  @HttpMethod.delete("/ids/<id>")
   int deleteParam(int id) {
     return id;
   }

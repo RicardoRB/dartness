@@ -8,7 +8,7 @@
 /// ```dart
 /// @Controller('/')
 /// class ExampleController {
-///   @Get()
+///   @Bind.get()
 ///   String get() {
 ///     return 'Hello World!';
 ///   }

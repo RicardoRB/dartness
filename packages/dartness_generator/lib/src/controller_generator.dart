@@ -4,7 +4,7 @@ import 'package:code_builder/code_builder.dart';
 import 'package:dartness_server/dartness.dart';
 import 'package:source_gen/source_gen.dart';
 
-const _bindType = TypeChecker.fromRuntime(Bind);
+const _bindType = TypeChecker.fromRuntime(HttpMethod);
 
 class ControllerGenerator extends GeneratorForAnnotation<Controller> {
   final routesVariableName = 'routes';
@@ -33,23 +33,28 @@ class ControllerGenerator extends GeneratorForAnnotation<Controller> {
         ..body = Block(
           (blocBuilder) => blocBuilder
             ..addExpression(
-              refer('<ControllerRoute>[]').assignFinal(routesVariableName),
+              refer('<${(ControllerRoute).toString()}>[]')
+                  .assignFinal(routesVariableName),
             )
             ..statements.addAll(
               elements.map((methodElement) {
                 final bind = _bindType.firstAnnotationOf(methodElement);
                 final path =
-                    '$controllerPath${bind?.getField('path')?.toStringValue()}';
-                final bindName = bind?.type
-                        ?.getDisplayString(withNullability: false)
-                        .toUpperCase() ??
-                    '';
+                    '$controllerPath${bind?.getField('path')?.toStringValue() ?? ''}';
+                final bindMethod =
+                    bind?.getField('method')?.toStringValue() ?? '';
+
+                final positionalArguments = methodElement.parameters
+                    .where((element) => element.isPositional)
+                    .map((e) => e.name);
 
                 return refer(routesVariableName).property('add').call([
                   refer((ControllerRoute).toString()).newInstance([
-                    literalString(bindName),
+                    literalString(bindMethod),
                     literalString(path),
                     refer(methodElement.name),
+                    literalList(positionalArguments),
+                    literalMap({})
                   ])
                 ]).statement;
               }),

@@ -1,8 +1,8 @@
-import 'package:dartness_server/bind.dart';
+import 'package:dartness_server/http_method.dart';
 
 @Controller("/hello")
 class ExampleController {
-  @Get("/world")
+  @Bind.get("/world")
   static String getHelloWorld() {
     return "Hello Wold";
   }

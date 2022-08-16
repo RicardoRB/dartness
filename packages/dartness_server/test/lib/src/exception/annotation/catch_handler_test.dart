@@ -50,12 +50,12 @@ void main() {
 
 @Controller("/get")
 class GetControllerClass {
-  @Get("/argument_error")
+  @HttpMethod.get("/argument_error")
   getArgumentException() {
     throw ArgumentError('Random exception');
   }
 
-  @Get("/range_error")
+  @HttpMethod.get("/range_error")
   getRangeError() {
     throw RangeError('Random exception');
   }

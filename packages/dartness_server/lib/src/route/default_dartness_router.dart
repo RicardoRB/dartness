@@ -1,6 +1,6 @@
 import 'package:shelf_router/shelf_router.dart';
 
-import 'dartness_router.dart';
+import '../../dartness.dart';
 
 /// A router that can be used to handle requests.
 class DefaultDartnessRouter implements DartnessRouter {
@@ -19,11 +19,9 @@ class DefaultDartnessRouter implements DartnessRouter {
   /// Add a [routerHandler] to the [_router] and handles the request by
   /// the [httpMethod] for the [pathRoute].
   @override
-  void add(
-    final String httpMethod,
-    final String pathRoute,
-    final Function routerHandler,
-  ) {
-    _router.add(httpMethod, pathRoute, routerHandler);
+  void add(final ControllerRoute route) {
+    final dartnessRouterHandler = DartnessRouterHandler(
+        route.handler, route.positionalArguments, route.namedArguments);
+    _router.add(route.method, route.path, dartnessRouterHandler.handleRoute);
   }
 }

@@ -1,3 +1,5 @@
+import '../dto/city_dto.dart';
+
 class CityService {
   final cities = ['New York', 'London', 'Paris'];
 
@@ -5,7 +7,7 @@ class CityService {
     return cities;
   }
 
-  String getCity(int id) {
-    return cities[id];
+  CityDto getCity(int id) {
+    return CityDto(cities[id]);
   }
 }

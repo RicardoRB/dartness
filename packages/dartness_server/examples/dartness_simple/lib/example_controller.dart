@@ -1,37 +1,37 @@
 import 'dart:async';
 
-import 'package:dartness_server/bind.dart';
+import 'package:dartness_server/http_method.dart';
 
 import 'not_found_exception.dart';
 
 @Controller("/example")
 class ExampleController {
-  @Get()
+  @Bind.get()
   static String getEmpty() {
     return "Empty";
   }
 
-  @Get("/double")
+  @Bind.get("/double")
   static double getDouble() {
     return 1.1;
   }
 
-  @Get("/null")
+  @Bind.get("/null")
   static dynamic getNull() {
     return null;
   }
 
-  @Get("/class")
+  @Bind.get("/class")
   static Foo getClass() {
     return Foo('class');
   }
 
-  @Get("/future")
+  @Bind.get("/future")
   static Future<String> getFuture() async {
     return Future.value("bla");
   }
 
-  @Get("/ids/<id>")
+  @Bind.get("/ids/<id>")
   static int getParam(int id) {
     if (id < 0) {
       throw NotFoundException("Id not found");

@@ -60,10 +60,10 @@ void main() {
 
 @Controller("/auth")
 class TestController {
-  @Get()
+  @HttpMethod.get()
   String get() => '';
 
-  @Get("/error")
+  @HttpMethod.get("/error")
   String getError() => throw Exception("random exception");
 }
 
