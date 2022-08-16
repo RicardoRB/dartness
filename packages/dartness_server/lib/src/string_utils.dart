@@ -71,3 +71,44 @@ Iterable<String> stringToIterableString(final String value) =>
 /// ```
 Iterable<bool> stringToIterableBool(final String value) =>
     stringToIterable(value, (e) => e == 'true');
+
+
+/// Given a [value] with a [type] return the value with the correct type.
+dynamic stringToType(final String? value, final Type type) {
+  if (value == null) {
+    return null;
+  }
+  if (type == num) {
+    return num.parse(value);
+  } else if (type == int) {
+    return int.parse(value);
+  } else if (type == double) {
+    return double.parse(value);
+  } else if (type == bool) {
+    return value == 'true';
+  } else if (type == DateTime) {
+    return DateTime.parse(value);
+  } else if (type == List<int>) {
+    return stringToIterableInt(value).toList();
+  } else if (type == List<double>) {
+    return stringToIterableDouble(value).toList();
+  } else if (type == List<bool>) {
+    return stringToIterableBool(value).toList();
+  } else if (type == List<String>) {
+    return stringToIterableString(value).toList();
+  } else if (type == List<Object>) {
+    return stringToIterableString(value).toList();
+  } else if (type == Set<int>) {
+    return stringToIterableInt(value).toSet();
+  } else if (type == Set<double>) {
+    return stringToIterableDouble(value).toSet();
+  } else if (type == Set<bool>) {
+    return stringToIterableBool(value).toSet();
+  } else if (type == Set<String>) {
+    return stringToIterableString(value).toSet();
+  } else if (type == Set<Object>) {
+    return stringToIterableString(value).toSet();
+  } else {
+    return value;
+  }
+}

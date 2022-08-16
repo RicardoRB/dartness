@@ -4,6 +4,7 @@ import 'package:dartness_server/dartness.dart';
 import 'package:shelf_plus/shelf_plus.dart';
 
 import '../exception/http_status_exception.dart';
+import '../string_utils.dart';
 
 typedef OnCall = dynamic Function(List arguments);
 
@@ -27,22 +28,22 @@ class DartnessRouterHandler {
       for (final param in _params) {
         if (param.isPositional) {
           if (param.isPath) {
-            final value = _getTypedParam(
-                request.params[param.name] ?? param.defaultValue);
+            final pathParam = getPathParam(request, param);
+            final value = stringToType(pathParam, param.type);
             positionalArguments.add(value);
           } else {
-            final value = _getTypedParam(
-                request.url.queryParameters[param.name] ?? param.defaultValue);
+            final queryParam = getQueryParam(request, param);
+            final value = stringToType(queryParam, param.type);
             positionalArguments.add(value);
           }
         } else {
           if (param.isPath) {
-            final value = _getTypedParam(
-                request.params[param.name] ?? param.defaultValue);
+            final pathParam = getPathParam(request, param);
+            final value = stringToType(pathParam, param.type);
             namedArguments[Symbol(param.name)] = value;
           } else {
-            final value = _getTypedParam(
-                request.url.queryParameters[param.name] ?? param.defaultValue);
+            final queryParam = getQueryParam(request, param);
+            final value = stringToType(queryParam, param.type);
             namedArguments[Symbol(param.name)] = value;
           }
         }
@@ -74,19 +75,9 @@ class DartnessRouterHandler {
     }
   }
 
-  /// Gets the value param from the [methodParam] checking his type
-  /// and returns the [value] by his real type
-  Object _getTypedParam(final String value) {
-    if (num.tryParse(value) != null) {
-      if (int.tryParse(value) != null) {
-        return int.parse(value);
-      } else {
-        return double.parse(value);
-      }
-    } else if (value == 'true' || value == 'false') {
-      return value == 'true';
-    } else {
-      return value;
-    }
-  }
+  getQueryParam(Request request, DartnessParam param) =>
+      request.url.queryParameters[param.name] ?? param.defaultValue;
+
+  getPathParam(Request request, DartnessParam param) =>
+      request.params[param.name] ?? param.defaultValue;
 }

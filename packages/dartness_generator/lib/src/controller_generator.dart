@@ -13,11 +13,9 @@ class ControllerGenerator extends GeneratorForAnnotation<Controller> {
   final _pathParamType = TypeChecker.fromRuntime(PathParam);
 
   @override
-  String? generateForAnnotatedElement(
-    Element element,
-    ConstantReader annotation,
-    BuildStep buildStep,
-  ) {
+  String? generateForAnnotatedElement(Element element,
+      ConstantReader annotation,
+      BuildStep buildStep,) {
     if (element is! ClassElement) {
       throw InvalidGenerationSourceError(
           '@${element.name} cannot target `${element.runtimeType}`.');
@@ -26,14 +24,18 @@ class ControllerGenerator extends GeneratorForAnnotation<Controller> {
     if (elements.isEmpty) {
       return null;
     }
-    final controllerPath = annotation.read('path').stringValue;
+    final controllerPath = annotation
+        .read('path')
+        .stringValue;
 
     final method = Method(
-      (methodBuilder) => methodBuilder
+          (methodBuilder) =>
+      methodBuilder
         ..name = 'getRoutes'
         ..returns = refer(classReturn)
         ..body = Block(
-          (blocBuilder) => blocBuilder
+              (blocBuilder) =>
+          blocBuilder
             ..addExpression(
               refer('<${(ControllerRoute).toString()}>[]')
                   .assignFinal(routesVariableName),
@@ -42,7 +44,8 @@ class ControllerGenerator extends GeneratorForAnnotation<Controller> {
               elements.map((methodElement) {
                 final bind = _bindType.firstAnnotationOf(methodElement);
                 final path =
-                    '$controllerPath${bind?.getField('path')?.toStringValue() ?? ''}';
+                    '$controllerPath${bind?.getField('path')?.toStringValue() ??
+                    ''}';
                 final bindMethod =
                     bind?.getField('method')?.toStringValue() ?? '';
 
@@ -53,7 +56,8 @@ class ControllerGenerator extends GeneratorForAnnotation<Controller> {
                   final isPath = _pathParamType.hasAnnotationOfExact(param);
                   if (isQuery && isPath) {
                     throw InvalidGenerationSourceError(
-                        'Param `${param.name}` cannot be both @QueryParam and @PathParam');
+                        'Param `${param
+                            .name}` cannot be both @QueryParam and @PathParam');
                   }
                   arguments.add(refer((DartnessParam).toString()).newInstance(
                     [
@@ -63,34 +67,43 @@ class ControllerGenerator extends GeneratorForAnnotation<Controller> {
                       literalBool(param.isNamed),
                       literalBool(param.isPositional),
                       literalBool(param.isOptional),
+                      CodeExpression(Code(param.type.getDisplayString(
+                        withNullability: false,
+                      )))
                     ],
                     {
-                      'defaultValue': literal(param.defaultValueCode),
+                    'defaultValue': literal(param.defaultValueCode),
                     },
                   ));
                 }
 
-                return refer(routesVariableName).property('add').call([
+                return refer(routesVariableName)
+                    .property('add')
+                    .call([
                   refer((ControllerRoute).toString()).newInstance([
                     literalString(bindMethod),
                     literalString(path),
                     refer(methodElement.name),
                     literalList(arguments),
                   ])
-                ]).statement;
+                ])
+                    .statement;
               }),
             )
             ..addExpression(refer(routesVariableName).returned),
         ),
     );
-    return Extension((extensionBuilder) => extensionBuilder
+    return Extension((extensionBuilder) =>
+    extensionBuilder
       ..name = '${element.name}Routes'
       ..on = refer(element.name)
       ..methods.add(method)).accept(DartEmitter()).toString();
   }
 
-  List<ExecutableElement> findBindElements(ClassElement classElement) => [
+  List<ExecutableElement> findBindElements(ClassElement classElement) =>
+      [
         ...classElement.methods.where(_bindType.hasAnnotationOf),
         ...classElement.accessors.where(_bindType.hasAnnotationOf)
-      ]..sort((a, b) => (a.nameOffset).compareTo(b.nameOffset));
+      ]
+        ..sort((a, b) => (a.nameOffset).compareTo(b.nameOffset));
 }

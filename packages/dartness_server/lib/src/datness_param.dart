@@ -5,7 +5,8 @@ class DartnessParam {
     this.isPath,
     this.isNamed,
     this.isPositional,
-    this.isOptional, {
+    this.isOptional,
+    this.type, {
     this.defaultValue,
   });
 
@@ -15,5 +16,6 @@ class DartnessParam {
   final bool isNamed;
   final bool isPositional;
   final bool isOptional;
+  final Type type;
   final dynamic defaultValue;
 }

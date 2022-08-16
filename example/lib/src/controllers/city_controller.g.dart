@@ -10,11 +10,12 @@ extension CityControllerRoutes on CityController {
   List<ControllerRoute> getRoutes() {
     final routes = <ControllerRoute>[];
     routes.add(ControllerRoute('GET', '/cities', getCities, [
-      DartnessParam('offset', true, false, true, false, true,
-          defaultValue: null)
+      DartnessParam('offset', true, false, true, false, true, int,
+          defaultValue: '100')
     ]));
     routes.add(ControllerRoute('GET', '/cities/<id>', getCity, [
-      DartnessParam('id', false, true, false, true, false, defaultValue: null)
+      DartnessParam('id', false, true, false, true, false, int,
+          defaultValue: null)
     ]));
     return routes;
   }

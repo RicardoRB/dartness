@@ -13,7 +13,7 @@ class CityController {
 
   @HttpMethod.get()
   List<String> getCities({
-    @QueryParam() int? offset,
+    @QueryParam() int? offset = 100,
   }) {
     return _cityService.getCities(offset);
   }
