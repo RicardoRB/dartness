@@ -11,23 +11,35 @@ typedef OnCall = dynamic Function(List arguments);
 class DartnessRouterHandler {
   DartnessRouterHandler(
     this._methodFunction,
-    this.positionalArguments,
-    this.namedArguments,
+    this._positionalArguments,
+    this._namedArguments,
   );
 
   final Function _methodFunction;
-  final List<String> positionalArguments;
-  final Map<String, dynamic>? namedArguments;
+  final List<String> _positionalArguments;
+  final Map<String, dynamic>? _namedArguments;
 
   /// Handles the route's response and invoke the [_methodMirror] in [_controller]
   Future<Response> handleRoute(final Request request,
       [final Object? extras]) async {
     try {
       final arguments = request.params.entries
-          .where((e) => positionalArguments.contains(e.key))
+          .where((e) => _positionalArguments.contains(e.key))
           .map((e) => _getTypedParam(e.value))
           .toList();
       final Map<Symbol, dynamic> namedArguments = {};
+      if (_namedArguments?.isNotEmpty == true) {
+        request.requestedUri.queryParameters
+            .forEach((queryParamKey, queryParamValue) {
+          _namedArguments?.forEach((nameArgumentKey, nameArgumentValue) {
+            if (queryParamKey == nameArgumentKey) {
+              namedArguments[Symbol(nameArgumentKey)] =
+                  _getTypedParam(queryParamValue);
+            }
+          });
+        });
+      }
+
       final response =
           await Function.apply(_methodFunction, arguments, namedArguments);
 

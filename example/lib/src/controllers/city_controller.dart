@@ -12,8 +12,10 @@ class CityController {
   final CityService _cityService;
 
   @HttpMethod.get()
-  List<String> getCities() {
-    return _cityService.getCities();
+  List<String> getCities({
+    @QueryParam() int? offset,
+  }) {
+    return _cityService.getCities(offset);
   }
 
   @HttpMethod.get('/<id>')

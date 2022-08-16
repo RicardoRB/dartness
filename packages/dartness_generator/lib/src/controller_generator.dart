@@ -48,13 +48,20 @@ class ControllerGenerator extends GeneratorForAnnotation<Controller> {
                     .where((element) => element.isPositional)
                     .map((e) => e.name);
 
+                final namedArgumentsList = methodElement.parameters
+                    .where((element) => element.isNamed);
+                final namedArguments = {
+                  for (final element in namedArgumentsList)
+                    element.name: element.defaultValueCode
+                };
+
                 return refer(routesVariableName).property('add').call([
                   refer((ControllerRoute).toString()).newInstance([
                     literalString(bindMethod),
                     literalString(path),
                     refer(methodElement.name),
                     literalList(positionalArguments),
-                    literalMap({})
+                    literalMap(namedArguments),
                   ])
                 ]).statement;
               }),

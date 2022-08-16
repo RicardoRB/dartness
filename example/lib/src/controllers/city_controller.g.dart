@@ -9,7 +9,8 @@ part of 'city_controller.dart';
 extension CityControllerRoutes on CityController {
   List<ControllerRoute> getRoutes() {
     final routes = <ControllerRoute>[];
-    routes.add(ControllerRoute('GET', '/cities', getCities, [], {}));
+    routes.add(
+        ControllerRoute('GET', '/cities', getCities, [], {'offset': null}));
     routes.add(ControllerRoute('GET', '/cities/<id>', getCity, ['id'], {}));
     return routes;
   }

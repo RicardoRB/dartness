@@ -3,11 +3,12 @@
 /// See documentation guides at https://ricardorb.github.io/dartness/#/.
 library dartness;
 
-/// Annotations
-export 'src/bind/annotation/http_method.dart';
 export 'src/bind/annotation/body.dart';
 export 'src/bind/annotation/controller.dart';
 export 'src/bind/annotation/header.dart';
+
+/// Annotations
+export 'src/bind/annotation/http_method.dart';
 export 'src/bind/annotation/http_status.dart';
 export 'src/bind/annotation/path_param.dart';
 export 'src/bind/annotation/query_param.dart';
@@ -15,7 +16,6 @@ export 'src/bind/annotation/query_param.dart';
 /// Main
 export 'src/dartness.dart';
 export 'src/dartness_controller.dart';
-export 'src/generator/controller_generated.dart';
 export 'src/route/controller_route.dart';
 
 /// Route
