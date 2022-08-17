@@ -9,14 +9,24 @@ part of 'city_controller.dart';
 extension CityControllerRoutes on CityController {
   List<ControllerRoute> getRoutes() {
     final routes = <ControllerRoute>[];
-    routes.add(ControllerRoute('GET', '/cities', getCities, [
-      DartnessParam('offset', true, false, true, false, true, int,
-          defaultValue: '100')
-    ]));
-    routes.add(ControllerRoute('GET', '/cities/<id>', getCity, [
-      DartnessParam('id', false, true, false, true, false, int,
-          defaultValue: null)
-    ]));
+    routes.add(ControllerRoute(
+        'GET',
+        '/cities',
+        getCities,
+        [
+          DartnessParam('offset', true, false, true, false, true, int,
+              defaultValue: '100')
+        ],
+        httpCode: 202));
+    routes.add(ControllerRoute(
+        'GET',
+        '/cities/<id>',
+        getCity,
+        [
+          DartnessParam('id', false, true, false, true, false, int,
+              defaultValue: null)
+        ],
+        httpCode: null));
     return routes;
   }
 }

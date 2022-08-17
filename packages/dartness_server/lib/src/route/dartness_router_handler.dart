@@ -6,18 +6,12 @@ import 'package:shelf_plus/shelf_plus.dart';
 import '../exception/http_status_exception.dart';
 import '../string_utils.dart';
 
-typedef OnCall = dynamic Function(List arguments);
-
 /// A router handler for handling request for a [_controller]
 /// with his metadata and the method [MethodMirror] with the metadata.
 class DartnessRouterHandler {
-  DartnessRouterHandler(
-    this._methodFunction,
-    this._params,
-  );
+  DartnessRouterHandler(this._route);
 
-  final Function _methodFunction;
-  final List<DartnessParam> _params;
+  final ControllerRoute _route;
 
   /// Handles the route's response and invoke the [_methodMirror] in [_controller]
   Future<Response> handleRoute(final Request request,
@@ -25,7 +19,7 @@ class DartnessRouterHandler {
     try {
       final positionalArguments = [];
       final Map<Symbol, dynamic> namedArguments = {};
-      for (final param in _params) {
+      for (final param in _route.params) {
         if (param.isPositional) {
           if (param.isPath) {
             final pathParam = getPathParam(request, param);
@@ -50,7 +44,7 @@ class DartnessRouterHandler {
       }
 
       final response = await Function.apply(
-          _methodFunction, positionalArguments, namedArguments);
+          _route.handler, positionalArguments, namedArguments);
 
       final dynamic body;
       if (response is Response) {
@@ -64,7 +58,7 @@ class DartnessRouterHandler {
       }
 
       return Response(
-        200,
+        _route.httpCode ?? 200,
         body: body,
       );
     } on HttpStatusException catch (e) {

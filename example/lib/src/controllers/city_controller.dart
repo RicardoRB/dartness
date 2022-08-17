@@ -11,6 +11,7 @@ class CityController {
 
   final CityService _cityService;
 
+  @HttpCode(202)
   @HttpMethod.get()
   List<String> getCities({
     @QueryParam() int? offset = 100,
