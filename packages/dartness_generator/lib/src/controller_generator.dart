@@ -11,6 +11,7 @@ class ControllerGenerator extends GeneratorForAnnotation<Controller> {
   static final _pathParamType = TypeChecker.fromRuntime(PathParam);
   static final _httpMethodType = TypeChecker.fromRuntime(HttpMethod);
   static final _httpCodeType = TypeChecker.fromRuntime(HttpCode);
+  static final _headerType = TypeChecker.fromRuntime(Header);
 
   @override
   String? generateForAnnotatedElement(
@@ -45,6 +46,10 @@ class ControllerGenerator extends GeneratorForAnnotation<Controller> {
                 final httpCodeAnnotation =
                     _httpCodeType.firstAnnotationOfExact(methodElement) ??
                         _httpCodeType.firstAnnotationOfExact(element);
+                final methodHeaderAnnotation =
+                    _headerType.annotationsOfExact(methodElement);
+                final controllerHeaderAnnotation =
+                    _headerType.annotationsOfExact(element);
                 final path =
                     '$controllerPath${httpMethodAnnotation?.getField('path')?.toStringValue() ?? ''}';
                 final bindMethod =
@@ -53,6 +58,19 @@ class ControllerGenerator extends GeneratorForAnnotation<Controller> {
 
                 final httpCode =
                     httpCodeAnnotation?.getField('code')?.toIntValue();
+
+                final Map<String, String> headers = <String, String>{};
+
+                for (final methodHeader in methodHeaderAnnotation) {
+                  headers[methodHeader.getField('key')?.toStringValue() ?? ''] =
+                      methodHeader.getField('value')?.toStringValue() ?? '';
+                }
+
+                for (final controllerHeader in controllerHeaderAnnotation) {
+                  headers[controllerHeader.getField('key')?.toStringValue() ??
+                          ''] =
+                      controllerHeader.getField('value')?.toStringValue() ?? '';
+                }
 
                 final List<Expression> arguments = [];
 
@@ -89,6 +107,7 @@ class ControllerGenerator extends GeneratorForAnnotation<Controller> {
                     literalList(arguments),
                   ], {
                     'httpCode': literal(httpCode),
+                    'headers': literalMap(headers),
                   })
                 ]).statement;
               }),

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dartness_server/dartness.dart';
 import 'package:example/src/dto/city_dto.dart';
 
@@ -19,6 +21,7 @@ class CityController {
     return _cityService.getCities(offset);
   }
 
+  @Header(HttpHeaders.contentTypeHeader, 'application/json')
   @HttpMethod.get('/<id>')
   CityDto getCity(@PathParam() int id) {
     return _cityService.getCity(id);

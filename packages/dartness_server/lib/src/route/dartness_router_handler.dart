@@ -60,6 +60,7 @@ class DartnessRouterHandler {
       return Response(
         _route.httpCode ?? 200,
         body: body,
+        headers: _route.headers,
       );
     } on HttpStatusException catch (e) {
       return Response(

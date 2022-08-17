@@ -7,6 +7,7 @@ class ControllerRoute {
     this.handler,
     this.params, {
     this.httpCode,
+    this.headers,
   });
 
   final String path;
@@ -14,4 +15,5 @@ class ControllerRoute {
   final Function handler;
   final List<DartnessParam> params;
   final int? httpCode;
+  final Map<String, String>? headers;
 }
