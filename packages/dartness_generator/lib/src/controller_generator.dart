@@ -43,7 +43,8 @@ class ControllerGenerator extends GeneratorForAnnotation<Controller> {
                 final httpMethodAnnotation =
                     _httpMethodType.firstAnnotationOfExact(methodElement);
                 final httpCodeAnnotation =
-                    _httpCodeType.firstAnnotationOfExact(methodElement);
+                    _httpCodeType.firstAnnotationOfExact(methodElement) ??
+                        _httpCodeType.firstAnnotationOfExact(element);
                 final path =
                     '$controllerPath${httpMethodAnnotation?.getField('path')?.toStringValue() ?? ''}';
                 final bindMethod =
