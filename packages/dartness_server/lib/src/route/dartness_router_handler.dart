@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:dartness_server/dartness.dart';
 import 'package:shelf_plus/shelf_plus.dart';
@@ -58,7 +59,7 @@ class DartnessRouterHandler {
       }
 
       return Response(
-        _route.httpCode ?? 200,
+        _route.httpCode ?? HttpStatus.ok,
         body: body,
         headers: _route.headers,
       );

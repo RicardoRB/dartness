@@ -1,3 +1,4 @@
+import 'package:dartness_server/src/server/dartness_request.dart';
 import 'package:shelf/shelf.dart';
 
 import '../dartness_middleware.dart';
@@ -12,7 +13,7 @@ class DartnessMiddlewareShelf implements ShelfMiddleware {
   @override
   Middleware get middleware => (final Handler innerHandler) {
         return (final Request request) {
-          dartnessMiddleware.handle(request);
+          dartnessMiddleware.handle(DartnessRequest.fromShelf(request));
           return innerHandler(request);
         };
       };

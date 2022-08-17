@@ -1,6 +1,7 @@
-import 'package:shelf/shelf.dart';
+import 'package:dartness_server/src/server/dartness_response.dart';
 
 import 'dartness_interceptor.dart';
+import 'dartness_request.dart';
 
 /// Middleware which prints the time of the request, the elapsed time for the
 /// inner handlers, the response's status code and the request URI.
@@ -11,7 +12,7 @@ class LogRequestsInterceptor implements DartnessInterceptor {
   late String method;
 
   @override
-  void onRequest(Request request) {
+  void onRequest(DartnessRequest request) {
     startTime = DateTime.now();
     watch = Stopwatch()..start();
     uri = request.requestedUri;
@@ -21,7 +22,7 @@ class LogRequestsInterceptor implements DartnessInterceptor {
   }
 
   @override
-  void onResponse(Response response) {
+  void onResponse(DartnessResponse response) {
     final msg = _messageResponse(
         startTime, response.statusCode, uri, method, watch.elapsed);
     print(msg);

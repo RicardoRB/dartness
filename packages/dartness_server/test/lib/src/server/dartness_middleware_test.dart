@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:dartness_server/dartness.dart';
 import 'package:dartness_server/server.dart';
-import 'package:shelf/shelf.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -50,7 +49,7 @@ class TestController {
 
 class TestMiddleware implements DartnessMiddleware {
   @override
-  void handle(Request request) {
+  void handle(DartnessRequest request) {
     if (!request.headers.containsKey(HttpHeaders.authorizationHeader)) {
       throw HttpException("Unauthorized", uri: request.requestedUri);
     }

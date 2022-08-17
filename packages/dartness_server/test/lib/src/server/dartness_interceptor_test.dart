@@ -78,12 +78,12 @@ class TestInterceptor implements DartnessInterceptor {
   }
 
   @override
-  void onRequest(Request request) {
+  void onRequest(DartnessRequest request) {
     TestInterceptor.isOnRequestCalled = true;
   }
 
   @override
-  void onResponse(Response response) {
+  void onResponse(DartnessResponse response) {
     TestInterceptor.isOnResponseCalled = true;
   }
 }
