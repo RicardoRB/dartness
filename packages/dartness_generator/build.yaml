@@ -7,3 +7,11 @@ builders:
     auto_apply: dependents
     build_to: cache
     applies_builders: [ "source_gen|combining_builder" ]
+  error_handler:
+    target: ":error_handler_generator"
+    import: "package:dartness_generator/builder.dart"
+    builder_factories: [ "errorHandler" ]
+    build_extensions: { ".dart": [ ".dartness.g.part" ] }
+    auto_apply: dependents
+    build_to: cache
+    applies_builders: [ "source_gen|combining_builder" ]

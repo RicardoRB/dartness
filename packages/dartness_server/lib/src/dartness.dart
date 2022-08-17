@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'dartness_controller.dart';
+import 'exception/dartness_error_handler.dart';
 import 'server/dartness_interceptor.dart';
 import 'server/dartness_middleware.dart';
 import 'server/dartness_server.dart';
@@ -24,7 +25,7 @@ class Dartness {
     final Iterable<DartnessController> controllers = const [],
     final Iterable<DartnessMiddleware> middlewares = const [],
     final Iterable<DartnessInterceptor> interceptors = const [],
-    final Iterable<Object> errorHandlers = const [],
+    final Iterable<DartnessErrorHandler> errorHandlers = const [],
   }) {
     _server = DefaultDartnessServer(port, internetAddress: internetAddress);
     for (final controller in controllers) {
@@ -93,7 +94,7 @@ class Dartness {
   }
 
   /// Adds an interceptor in order to listen between an http request
-  void addErrorHandler(final Object errorHandler) {
+  void addErrorHandler(final DartnessErrorHandler errorHandler) {
     _server.addErrorHandler(errorHandler);
   }
 }

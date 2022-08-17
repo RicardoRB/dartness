@@ -1,7 +1,8 @@
 import 'package:dartness_server/src/exception/dartness_error_handler.dart';
+import 'package:dartness_server/src/exception/dartness_error_handler_register.dart';
 import 'package:shelf/shelf.dart';
 
-import '../exception/default_error_handler.dart';
+import '../exception/default_error_handler_register.dart';
 import 'dartness_interceptor.dart';
 import 'dartness_middleware.dart';
 import 'dartness_pipeline.dart';
@@ -15,15 +16,15 @@ import 'shelf_middleware/dartness_middleware_shelf.dart';
 class DefaultDartnessPipeline implements DartnessPipeline {
   DefaultDartnessPipeline({
     final Pipeline pipeline = const Pipeline(),
-    final DartnessErrorHandler? errorHandler,
+    final DartnessErrorHandlerRegister? errorHandler,
   })  : _pipeline = pipeline,
-        _errorHandler = errorHandler ?? DefaultErrorHandler();
+        _errorHandler = errorHandler ?? DefaultErrorHandlerRegister();
 
   /// The [Pipeline] that is handling the requests.
   final Pipeline _pipeline;
 
-  /// The [DartnessErrorHandler] that is handling the errors.
-  final DartnessErrorHandler _errorHandler;
+  /// The [DartnessErrorHandlerRegister] that is handling the errors.
+  final DartnessErrorHandlerRegister _errorHandler;
 
   @override
   DartnessPipeline addMiddleware(final DartnessMiddleware dartnessMiddleware) {
@@ -45,7 +46,7 @@ class DefaultDartnessPipeline implements DartnessPipeline {
   }
 
   @override
-  DartnessPipeline addErrorHandler(Object errorHandler) {
+  DartnessPipeline addErrorHandler(final DartnessErrorHandler errorHandler) {
     _errorHandler.addErrorHandler(errorHandler);
     final errorHandlerShelf = DartnessErrorHandlerShelf(_errorHandler);
     final pipeline = _pipeline.addMiddleware(errorHandlerShelf.middleware);

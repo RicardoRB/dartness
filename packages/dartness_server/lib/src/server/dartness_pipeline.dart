@@ -1,5 +1,6 @@
 import 'package:shelf/shelf.dart';
 
+import '../exception/dartness_error_handler.dart';
 import 'dartness_interceptor.dart';
 import 'dartness_middleware.dart';
 
@@ -20,5 +21,5 @@ abstract class DartnessPipeline {
 
   /// Returns a new [DartnessPipeline] with [errorHandler] added to the existing set of
   /// handlers.
-  DartnessPipeline addErrorHandler(final Object errorHandler);
+  DartnessPipeline addErrorHandler(final DartnessErrorHandler errorHandler);
 }

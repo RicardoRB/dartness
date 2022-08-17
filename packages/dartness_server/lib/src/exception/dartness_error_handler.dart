@@ -1,11 +1,9 @@
-import 'package:shelf/shelf.dart';
+class DartnessErrorHandler {
+  DartnessErrorHandler(this.errorTypes, this.handler);
 
-/// Interface that is used to handle the errors.
-abstract class DartnessErrorHandler {
-  /// Adds an error handler to the error handler.
-  void addErrorHandler(final Object errorHandler);
+  final List<Type> errorTypes;
+  final Function handler;
 
-  /// Method that handles the error by the errors added by [addErrorHandler].
-  Future<dynamic> handle(final Error errorCatch, final StackTrace stackTrace,
-      final Request request);
+  bool canHandle(final Error errorCatch) =>
+      errorTypes.any((errorType) => errorType == errorCatch.runtimeType);
 }

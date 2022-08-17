@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:dartness_server/dartness.dart';
 import 'package:shelf/shelf_io.dart' as shelf_io;
 
+import '../exception/dartness_error_handler.dart';
 import 'dartness_interceptor.dart';
 import 'dartness_middleware.dart';
 import 'dartness_pipeline.dart';
@@ -115,7 +116,7 @@ class DefaultDartnessServer implements DartnessServer {
   }
 
   @override
-  void addErrorHandler(final Object errorHandler) {
+  void addErrorHandler(final DartnessErrorHandler errorHandler) {
     _pipeline = _pipeline.addErrorHandler(errorHandler);
   }
 }

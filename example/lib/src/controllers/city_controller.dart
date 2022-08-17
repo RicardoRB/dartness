@@ -1,8 +1,8 @@
 import 'dart:io';
 
 import 'package:dartness_server/dartness.dart';
-import 'package:example/src/dto/city_dto.dart';
 
+import '../dtos/city_dto.dart';
 import '../services/city_service.dart';
 
 part 'city_controller.g.dart';

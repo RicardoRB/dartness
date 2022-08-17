@@ -18,7 +18,7 @@ void main() {
         port: port,
       );
       // dartness.addController(GetControllerClass());
-      dartness.addErrorHandler(CustomErrorHandler());
+      // dartness.addErrorHandler(CustomErrorHandler());
       await dartness.create();
     });
 

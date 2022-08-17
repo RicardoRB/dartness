@@ -1,4 +1,5 @@
-import '../dto/city_dto.dart';
+import '../dtos/city_dto.dart';
+import '../error_handlers/not_found_exception.dart';
 
 class CityService {
   final cities = ['New York', 'London', 'Paris'];
@@ -11,6 +12,9 @@ class CityService {
   }
 
   CityDto getCity(int id) {
+    if (id > cities.length) {
+      throw NotFoundException('City not found');
+    }
     return CityDto(cities[id]);
   }
 }

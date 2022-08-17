@@ -1,10 +1,11 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:shelf/shelf.dart' as shelf;
 
 class DartnessResponse {
   DartnessResponse({
-    int statusCode = 200,
+    int statusCode = HttpStatus.ok,
     String? body,
     Map<String, Object>? headers,
     Encoding? encoding,

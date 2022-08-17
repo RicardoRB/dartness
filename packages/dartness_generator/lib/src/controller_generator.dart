@@ -62,14 +62,19 @@ class ControllerGenerator extends GeneratorForAnnotation<Controller> {
                 final Map<String, String> headers = <String, String>{};
 
                 for (final methodHeader in methodHeaderAnnotation) {
-                  headers[methodHeader.getField('key')?.toStringValue() ?? ''] =
+                  final key =
+                      methodHeader.getField('key')?.toStringValue() ?? '';
+                  final value =
                       methodHeader.getField('value')?.toStringValue() ?? '';
+                  headers[key] = value;
                 }
 
                 for (final controllerHeader in controllerHeaderAnnotation) {
-                  headers[controllerHeader.getField('key')?.toStringValue() ??
-                          ''] =
+                  final key =
+                      controllerHeader.getField('key')?.toStringValue() ?? '';
+                  final value =
                       controllerHeader.getField('value')?.toStringValue() ?? '';
+                  headers[key] = value;
                 }
 
                 final List<Expression> arguments = [];
