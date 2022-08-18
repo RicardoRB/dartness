@@ -8,6 +8,6 @@ abstract class DartnessErrorHandlerRegister {
   void addErrorHandler(final DartnessErrorHandler errorHandler);
 
   /// Method that handles the error by the errors added by [addErrorHandler].
-  Future<dynamic> handle(final Error errorCatch, final StackTrace stackTrace,
+  Future<dynamic> handle(final Object error, final StackTrace stackTrace,
       final Request request);
 }

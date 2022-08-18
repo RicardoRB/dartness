@@ -4,6 +4,6 @@ class DartnessErrorHandler {
   final List<Type> errorTypes;
   final Function handler;
 
-  bool canHandle(final Error errorCatch) =>
+  bool canHandle(final Object errorCatch) =>
       errorTypes.any((errorType) => errorType == errorCatch.runtimeType);
 }

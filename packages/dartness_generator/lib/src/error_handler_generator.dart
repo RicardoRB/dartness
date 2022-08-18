@@ -9,8 +9,6 @@ class ErrorHandlerGenerator extends GeneratorForAnnotation<ErrorHandler> {
   static final _errorHandlersVariableName = 'catchErrorHandlers';
   static final _classReturn = (List<DartnessErrorHandler>).toString();
   static final _catchErrorType = TypeChecker.fromRuntime(CatchError);
-  static final _httpStatusExceptionType =
-      TypeChecker.fromRuntime(HttpStatusException);
 
   @override
   String? generateForAnnotatedElement(

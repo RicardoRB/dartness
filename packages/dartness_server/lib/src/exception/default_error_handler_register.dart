@@ -23,7 +23,7 @@ class DefaultErrorHandlerRegister implements DartnessErrorHandlerRegister {
 
   @override
   Future<dynamic> handle(
-    final Error errorCatch,
+    final Object errorCatch,
     final StackTrace stackTrace,
     final Request request,
   ) async {
