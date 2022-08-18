@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:shelf/shelf.dart' as shelf;
 
+/// A http response class that is used in the Dartness framework
 class DartnessResponse {
   DartnessResponse({
     int statusCode = HttpStatus.ok,

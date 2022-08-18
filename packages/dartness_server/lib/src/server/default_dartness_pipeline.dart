@@ -16,15 +16,16 @@ import 'shelf_middleware/dartness_middleware_shelf.dart';
 class DefaultDartnessPipeline implements DartnessPipeline {
   DefaultDartnessPipeline({
     final Pipeline pipeline = const Pipeline(),
-    final DartnessErrorHandlerRegister? errorHandler,
+    final DartnessErrorHandlerRegister? errorHandlerRegister,
   })  : _pipeline = pipeline,
-        _errorHandler = errorHandler ?? DefaultErrorHandlerRegister();
+        _errorHandlerRegister =
+            errorHandlerRegister ?? DefaultErrorHandlerRegister();
 
   /// The [Pipeline] that is handling the requests.
   final Pipeline _pipeline;
 
   /// The [DartnessErrorHandlerRegister] that is handling the errors.
-  final DartnessErrorHandlerRegister _errorHandler;
+  final DartnessErrorHandlerRegister _errorHandlerRegister;
 
   @override
   DartnessPipeline addMiddleware(final DartnessMiddleware dartnessMiddleware) {
@@ -47,8 +48,8 @@ class DefaultDartnessPipeline implements DartnessPipeline {
 
   @override
   DartnessPipeline addErrorHandler(final DartnessErrorHandler errorHandler) {
-    _errorHandler.addErrorHandler(errorHandler);
-    final errorHandlerShelf = DartnessErrorHandlerShelf(_errorHandler);
+    _errorHandlerRegister.addErrorHandler(errorHandler);
+    final errorHandlerShelf = DartnessErrorHandlerShelf(_errorHandlerRegister);
     final pipeline = _pipeline.addMiddleware(errorHandlerShelf.middleware);
     return DefaultDartnessPipeline(pipeline: pipeline);
   }

@@ -11,6 +11,9 @@
 abstract class HttpStatusException implements Exception {
   const HttpStatusException(this.message, this.statusCode);
 
+  /// The message of the exception.
   final String message;
+
+  /// The http status code of the exception.
   final int statusCode;
 }

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:shelf/shelf.dart' as shelf;
 
+/// A http request class that is used in the Dartness framework
 class DartnessRequest {
   DartnessRequest(
     String method,

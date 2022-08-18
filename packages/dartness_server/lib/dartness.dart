@@ -25,8 +25,6 @@ export 'src/bind/annotation/trace.dart';
 export 'src/dartness.dart';
 export 'src/dartness_controller.dart';
 export 'src/datness_param.dart';
-export 'src/exception/annotation/error_handler.dart';
-export 'src/exception/dartness_error_handler.dart';
 export 'src/route/controller_route.dart';
 
 /// Route
