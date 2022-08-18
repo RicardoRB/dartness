@@ -1,23 +1,23 @@
 import 'dart:io';
 
 import 'package:collection/collection.dart';
-import 'package:dartness_server/src/exception/dartness_error_handler.dart';
 import 'package:dartness_server/src/exception/dartness_error_handler_register.dart';
 import 'package:shelf/shelf.dart';
 
 import 'annotation/catch_error.dart';
+import 'dartness_catch_handler.dart';
 
-/// Default implementation of [DartnessErrorHandlerRegister] that handles the errors
-/// by the custom handlers added by [addErrorHandler].
+/// Default implementation of [DartnessCatchErrorRegister] that handles the errors
+/// by the custom handlers added by [addCatchError].
 /// This implementation uses the [MirrorSystem] to get the [CatchError]
 /// annotation to handle the errors and invoke the methods that it has been
 /// implemented by the user.
-class DefaultErrorHandlerRegister implements DartnessErrorHandlerRegister {
-  final Set<DartnessErrorHandler> _errorHandlers = {};
+class DefaultErrorHandlerRegister implements DartnessCatchErrorRegister {
+  final Set<DartnessCatchError> _catchErrors = {};
 
   @override
-  void addErrorHandler(final DartnessErrorHandler errorHandler) {
-    _errorHandlers.add(errorHandler);
+  void addCatchError(final DartnessCatchError errorHandler) {
+    _catchErrors.add(errorHandler);
   }
 
   @override
@@ -26,12 +26,12 @@ class DefaultErrorHandlerRegister implements DartnessErrorHandlerRegister {
     final StackTrace stackTrace,
     final Request request,
   ) async {
-    final errorHandler = _errorHandlers
+    final catchError = _catchErrors
         .firstWhereOrNull((errorHandler) => errorHandler.canHandle(errorCatch));
-    if (errorHandler == null) {
+    if (catchError == null) {
       return Response(HttpStatus.internalServerError);
     }
 
-    return await Function.apply(errorHandler.handler, [errorCatch]);
+    return await Function.apply(catchError.handler, [errorCatch]);
   }
 }

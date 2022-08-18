@@ -1,13 +1,12 @@
 import 'package:analyzer/dart/element/element.dart';
 import 'package:build/build.dart';
 import 'package:code_builder/code_builder.dart';
-import 'package:dartness_server/dartness.dart';
 import 'package:dartness_server/exception.dart';
 import 'package:source_gen/source_gen.dart';
 
 class ErrorHandlerGenerator extends GeneratorForAnnotation<ErrorHandler> {
   static final _errorHandlersVariableName = 'catchErrorHandlers';
-  static final _classReturn = (List<DartnessErrorHandler>).toString();
+  static final _classReturn = (List<DartnessCatchError>).toString();
   static final _catchErrorType = TypeChecker.fromRuntime(CatchError);
 
   @override
@@ -27,12 +26,12 @@ class ErrorHandlerGenerator extends GeneratorForAnnotation<ErrorHandler> {
 
     final method = Method(
       (methodBuilder) => methodBuilder
-        ..name = 'getCatchHandlers'
+        ..name = 'getCatchErrors'
         ..returns = refer(_classReturn)
         ..body = Block(
           (blocBuilder) => blocBuilder
             ..addExpression(
-              refer('<${(DartnessErrorHandler).toString()}>[]')
+              refer('<${(DartnessCatchError).toString()}>[]')
                   .assignFinal(_errorHandlersVariableName),
             )
             ..statements.addAll(
@@ -52,7 +51,7 @@ class ErrorHandlerGenerator extends GeneratorForAnnotation<ErrorHandler> {
                     [];
 
                 return refer(_errorHandlersVariableName).property('add').call([
-                  refer((DartnessErrorHandler).toString()).newInstance([
+                  refer((DartnessCatchError).toString()).newInstance([
                     literalList(errors),
                     refer(methodElement.name),
                   ])

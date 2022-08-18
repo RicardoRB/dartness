@@ -7,6 +7,14 @@ import 'dartness_middleware.dart';
 
 /// An interface that defines the methods that a server must implement.
 abstract class DartnessServer {
+  /// Starts the server.
+  Future<void> start();
+
+  /// Permanently stops the server from listening for new connections.
+  ///
+  /// If [force] is `true`, active connections will be closed immediately.
+  Future<void> stop({final bool force = false});
+
   /// Returns the port that the server is listening on.
   int getPort();
 
@@ -19,14 +27,6 @@ abstract class DartnessServer {
 
   /// Adds an interceptor in order to listen before the http request
   void addInterceptor(final DartnessInterceptor interceptor);
-
-  /// Starts the server.
-  Future<void> start();
-
-  /// Permanently stops the server from listening for new connections.
-  ///
-  /// If [force] is `true`, active connections will be closed immediately.
-  Future<void> stop({final bool force = false});
 
   /// Adds a controller and handles the http methods
   void addController(final DartnessController controller);

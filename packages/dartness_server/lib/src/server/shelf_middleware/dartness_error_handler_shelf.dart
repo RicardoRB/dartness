@@ -6,11 +6,11 @@ import 'package:shelf/shelf.dart';
 import '../../exception/dartness_error_handler_register.dart';
 import 'shelf_middleware.dart';
 
-/// A representation of a [DartnessErrorHandlerRegister] by using [Middleware]
+/// A representation of a [DartnessCatchErrorRegister] by using [Middleware]
 class DartnessErrorHandlerShelf implements ShelfMiddleware {
   DartnessErrorHandlerShelf(this._errorHandler);
 
-  final DartnessErrorHandlerRegister _errorHandler;
+  final DartnessCatchErrorRegister _errorHandler;
 
   @override
   Middleware get middleware => (final Handler innerHandler) {

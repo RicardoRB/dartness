@@ -1,13 +1,13 @@
 import 'package:shelf/shelf.dart';
 
-import 'dartness_error_handler.dart';
+import 'dartness_catch_handler.dart';
 
 /// Interface that is used to handle the errors.
-abstract class DartnessErrorHandlerRegister {
+abstract class DartnessCatchErrorRegister {
   /// Adds an error handler to the error handler.
-  void addErrorHandler(final DartnessErrorHandler errorHandler);
+  void addCatchError(final DartnessCatchError errorHandler);
 
-  /// Method that handles the error by the errors added by [addErrorHandler].
-  Future<dynamic> handle(final Object error, final StackTrace stackTrace,
-      final Request request);
+  /// Method that handles the error by the errors added by [addCatchError].
+  Future<dynamic> handle(
+      final Object error, final StackTrace stackTrace, final Request request);
 }

@@ -48,28 +48,6 @@ class DefaultDartnessServer implements DartnessServer {
   /// Returns `true` if the server is listening for connections.
   bool get isStarted => _isStarted;
 
-  @override
-  int getPort() {
-    return _port;
-  }
-
-  @override
-  InternetAddress getAddress() {
-    return _internetAddress;
-  }
-
-  /// Adds a middleware in order to listen between an http request
-  /// and the applications running on it.
-  @override
-  void addMiddleware(final DartnessMiddleware middleware) {
-    _pipeline = _pipeline.addMiddleware(middleware);
-  }
-
-  @override
-  void addInterceptor(final DartnessInterceptor interceptor) {
-    _pipeline = _pipeline.addInterceptor(interceptor);
-  }
-
   /// Starts an [HttpServer] that listens by the specified [_internetAddress] and
   /// [_port].
   @override
@@ -91,6 +69,28 @@ class DefaultDartnessServer implements DartnessServer {
   Future<void> stop({bool force = false}) async {
     await _server?.close();
     _isStarted = false;
+  }
+
+  @override
+  int getPort() {
+    return _port;
+  }
+
+  @override
+  InternetAddress getAddress() {
+    return _internetAddress;
+  }
+
+  /// Adds a middleware in order to listen between an http request
+  /// and the applications running on it.
+  @override
+  void addMiddleware(final DartnessMiddleware middleware) {
+    _pipeline = _pipeline.addMiddleware(middleware);
+  }
+
+  @override
+  void addInterceptor(final DartnessInterceptor interceptor) {
+    _pipeline = _pipeline.addInterceptor(interceptor);
   }
 
   /// Add [controller] into [_controllers] and handles

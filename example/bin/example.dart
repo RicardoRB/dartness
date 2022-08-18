@@ -1,4 +1,5 @@
 import 'package:dartness_server/dartness.dart';
+import 'package:dartness_server/exception.dart';
 import 'package:example/src/controllers/city_controller.dart';
 import 'package:example/src/error_handlers/example_error_handler.dart';
 import 'package:example/src/interceptors/example_interceptor.dart';
@@ -12,13 +13,14 @@ void main(List<String> args) async {
     port: 3000,
     controllers: controllers.map(
         (controller) => DartnessController(controller, controller.getRoutes())),
+    errorHandlers: errorHandlers.map((errorHandler) =>
+        DartnessErrorHandler(errorHandler, errorHandler.getCatchErrors())),
     middlewares: [
       ExampleMiddleware(),
     ],
     interceptors: [
       ExampleInterceptor(),
     ],
-    errorHandlers: errorHandlers.expand((e) => e.getCatchHandlers()),
   );
   app.create();
 }

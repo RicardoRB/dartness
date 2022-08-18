@@ -7,10 +7,10 @@ part of 'example_error_handler.dart';
 // **************************************************************************
 
 extension ExampleErrorHandlerCatchers on ExampleErrorHandler {
-  List<DartnessErrorHandler> getCatchHandlers() {
-    final catchErrorHandlers = <DartnessErrorHandler>[];
-    catchErrorHandlers.add(
-        DartnessErrorHandler([NotFoundException], handleNotFoundException));
+  List<DartnessCatchError> getCatchErrors() {
+    final catchErrorHandlers = <DartnessCatchError>[];
+    catchErrorHandlers
+        .add(DartnessCatchError([NotFoundException], handleNotFoundException));
     return catchErrorHandlers;
   }
 }
