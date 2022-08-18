@@ -66,7 +66,7 @@ class Dartness {
   }
 
   /// Add [controller] into [Dartness] and handles
-  /// the methods annotated with [Bind] children to [Controller.method] and [Bind.method].
+  /// the methods annotated with [Bind] children to [Controller] and [Bind.method].
   ///
   /// In order to add the [controller] the class must be annotated with [Controller]
   ///

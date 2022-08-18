@@ -6,14 +6,14 @@ import 'package:shelf_plus/shelf_plus.dart';
 
 import '../string_utils.dart';
 
-/// A router handler for handling request for a [_controller]
-/// with his metadata and the method [MethodMirror] with the metadata.
+/// A router handler for handling request for a [ControllerRoute]
+/// with his metadata and the method [ControllerRoute.handler] with the metadata.
 class DartnessRouterHandler {
   DartnessRouterHandler(this._route);
 
   final ControllerRoute _route;
 
-  /// Handles the route's response and invoke the [_methodMirror] in [_controller]
+  /// Handles the route's response and invoke the [Function] in [ControllerRoute.handler]
   Future<Response> handleRoute(final Request request,
       [final Object? extras]) async {
     final positionalArguments = [];

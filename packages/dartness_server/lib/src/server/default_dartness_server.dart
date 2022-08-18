@@ -94,19 +94,19 @@ class DefaultDartnessServer implements DartnessServer {
   }
 
   /// Add [controller] into [_controllers] and handles
-  /// the methods annotated with [HttpMethod] children to [Controller.path] and [HttpMethod.path].
+  /// the methods annotated with [Bind] children classes to [Controller.path] and [Bind.path].
   ///
   /// In order to add the [controller] the class must be annotated with [Controller]
   ///
-  /// Just the methods that are annotated with any [HttpMethod] annotation
+  /// Just the methods that are annotated with any [Bind] annotation
   /// will be handled.
   ///
-  /// If the [HttpMethod] annotation in the method is [Get] the method will also be
-  /// called for [Head] requests matching [HttpMethod.path]. This is because handling
-  /// [Get] requests without handling [Head] is always wrong. To explicitly
-  /// implement a [Head] handler the method must be created before the [Get] handler.
-  ///
-  /// throws [ArgumentError] if [controller] is not annotated with [Controller]
+  /// If the [Bind] annotation in the method is [Get] the method will also be
+  /// called for [Head] requests matching [Controller.path] and [Bind.path].
+  /// This is because handling [Get] requests without handling [Head] is always
+  /// wrong.
+  /// To explicitly implement a [Head] handler the method must be created before
+  /// the [Get] handler.
   @override
   void addController(final DartnessController controller) {
     for (final route in controller.routes) {

@@ -51,8 +51,8 @@
 
     
 <section class="desc markdown">
-  <p>A router handler for handling request for a <code>_controller</code>
-with his metadata and the method <a href="https://api.flutter.dev/flutter/dart-mirrors/MethodMirror-class.html">MethodMirror</a> with the metadata.</p>
+  <p>A router handler for handling request for a <a href="../dartness/ControllerRoute-class.html">ControllerRoute</a>
+with his metadata and the method <a href="../dartness/ControllerRoute/handler.html">ControllerRoute.handler</a> with the metadata.</p>
 </section>
 
 
@@ -63,7 +63,7 @@ with his metadata and the method <a href="https://api.flutter.dev/flutter/dart-m
 
     <dl class="constructor-summary-list">
         <dt id="DartnessRouterHandler" class="callable">
-          <span class="name"><a href="../route/DartnessRouterHandler/DartnessRouterHandler.html">DartnessRouterHandler</a></span><span class="signature">(<span class="parameter" id="-param-_controller"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Object-class.html">Object</a></span> <span class="parameter-name">_controller</span>, </span><span class="parameter" id="-param-_methodMirror"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-mirrors/MethodMirror-class.html">MethodMirror</a></span> <span class="parameter-name">_methodMirror</span></span>)</span>
+          <span class="name"><a href="../route/DartnessRouterHandler/DartnessRouterHandler.html">DartnessRouterHandler</a></span><span class="signature">(<span class="parameter" id="-param-_route"><span class="type-annotation"><a href="../dartness/ControllerRoute-class.html">ControllerRoute</a></span> <span class="parameter-name">_route</span></span>)</span>
         </dt>
         <dd>
           
@@ -106,15 +106,41 @@ with his metadata and the method <a href="https://api.flutter.dev/flutter/dart-m
       id="instance-methods">
     <h2>Methods</h2>
     <dl class="callables">
-        <dt id="handleRoute" class="callable">
-  <span class="name"><a href="../route/DartnessRouterHandler/handleRoute.html">handleRoute</a></span><span class="signature">(<wbr><span class="parameter" id="handleRoute-param-request"><span class="type-annotation"><a href="https://pub.dev/documentation/shelf/1.3.1/shelf/Request-class.html">Request</a></span> <span class="parameter-name">request</span>, </span><span class="parameter" id="handleRoute-param-extras">[<span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Object-class.html">Object</a>?</span> <span class="parameter-name">extras</span>]</span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://pub.dev/documentation/shelf/1.3.1/shelf/Response-class.html">Response</a></span>&gt;</span></span>
+        <dt id="getPathParam" class="callable">
+  <span class="name"><a href="../route/DartnessRouterHandler/getPathParam.html">getPathParam</a></span><span class="signature">(<wbr><span class="parameter" id="getPathParam-param-request"><span class="type-annotation"><a href="https://pub.dev/documentation/shelf/1.3.2/shelf/Request-class.html">Request</a></span> <span class="parameter-name">request</span>, </span><span class="parameter" id="getPathParam-param-param"><span class="type-annotation"><a href="../dartness/DartnessParam-class.html">DartnessParam</a></span> <span class="parameter-name">param</span></span>)
+    <span class="returntype parameter">&#8594; dynamic</span>
   </span>
   
 
 </dt>
 <dd>
-  Handles the route's response and invoke the <code>_methodMirror</code> in <code>_controller</code>
+  
+  
+
+</dd>
+
+        <dt id="getQueryParam" class="callable">
+  <span class="name"><a href="../route/DartnessRouterHandler/getQueryParam.html">getQueryParam</a></span><span class="signature">(<wbr><span class="parameter" id="getQueryParam-param-request"><span class="type-annotation"><a href="https://pub.dev/documentation/shelf/1.3.2/shelf/Request-class.html">Request</a></span> <span class="parameter-name">request</span>, </span><span class="parameter" id="getQueryParam-param-param"><span class="type-annotation"><a href="../dartness/DartnessParam-class.html">DartnessParam</a></span> <span class="parameter-name">param</span></span>)
+    <span class="returntype parameter">&#8594; dynamic</span>
+  </span>
+  
+
+</dt>
+<dd>
+  
+  
+
+</dd>
+
+        <dt id="handleRoute" class="callable">
+  <span class="name"><a href="../route/DartnessRouterHandler/handleRoute.html">handleRoute</a></span><span class="signature">(<wbr><span class="parameter" id="handleRoute-param-request"><span class="type-annotation"><a href="https://pub.dev/documentation/shelf/1.3.2/shelf/Request-class.html">Request</a></span> <span class="parameter-name">request</span>, </span><span class="parameter" id="handleRoute-param-extras">[<span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Object-class.html">Object</a>?</span> <span class="parameter-name">extras</span>]</span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://pub.dev/documentation/shelf/1.3.2/shelf/Response-class.html">Response</a></span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Handles the route's response and invoke the <a href="https://api.flutter.dev/flutter/dart-core/Function-class.html">Function</a> in <a href="../dartness/ControllerRoute/handler.html">ControllerRoute.handler</a>
   
 
 </dd>
@@ -194,6 +220,7 @@ with his metadata and the method <a href="https://api.flutter.dev/flutter/dart-m
   <li class="section-title"><a href="../route/route-library.html#classes">Classes</a></li>
   <li><a href="../route/DartnessRouter-class.html">DartnessRouter</a></li>
   <li><a href="../route/DartnessRouterHandler-class.html">DartnessRouterHandler</a></li>
+  <li><a href="../route/DefaultDartnessRouter-class.html">DefaultDartnessRouter</a></li>
 
 
 
@@ -220,6 +247,8 @@ with his metadata and the method <a href="https://api.flutter.dev/flutter/dart-m
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></li>
 
     <li class="section-title"><a href="../route/DartnessRouterHandler-class.html#instance-methods">Methods</a></li>
+    <li><a href="../route/DartnessRouterHandler/getPathParam.html">getPathParam</a></li>
+    <li><a href="../route/DartnessRouterHandler/getQueryParam.html">getQueryParam</a></li>
     <li><a href="../route/DartnessRouterHandler/handleRoute.html">handleRoute</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">toString</a></li>

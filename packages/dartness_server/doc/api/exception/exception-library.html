@@ -66,12 +66,40 @@
   Annotation to mark a method that is handling the <a href="../exception/CatchError/errors.html">errors</a>.
 </dd>
 
+        <dt id="DartnessCatchError">
+  <span class="name "><a href="../exception/DartnessCatchError-class.html">DartnessCatchError</a></span> 
+
+</dt>
+<dd>
+  A wrapper class in order to retrieve the error handler instance from the
+annotation <a href="../exception/ErrorHandler-class.html">ErrorHandler</a> and the data required to handle it internally by the
+Dartness framework.
+</dd>
+
+        <dt id="DartnessCatchErrorRegister">
+  <span class="name "><a href="../exception/DartnessCatchErrorRegister-class.html">DartnessCatchErrorRegister</a></span> 
+
+</dt>
+<dd>
+  Interface that is used to handle the errors.
+</dd>
+
         <dt id="DartnessErrorHandler">
   <span class="name "><a href="../exception/DartnessErrorHandler-class.html">DartnessErrorHandler</a></span> 
 
 </dt>
 <dd>
-  Interface that is used to handle the errors.
+  A wrapper class in order to retrieve the error handler instance from the
+annotation <a href="../exception/ErrorHandler-class.html">ErrorHandler</a> and the data required to handle it internally by the
+Dartness framework.
+</dd>
+
+        <dt id="ErrorHandler">
+  <span class="name "><a href="../exception/ErrorHandler-class.html">ErrorHandler</a></span> 
+
+</dt>
+<dd>
+  An annotation that indicate that a class is an error handler.
 </dd>
 
       </dl>
@@ -118,7 +146,6 @@ This abstract class is used to create custom exceptions for HTTP status codes.
     <h5><span class="package-name">dartness_server</span> <span class="package-kind">package</span></h5>
     <ol>
       <li class="section-title">Libraries</li>
-      <li><a href="../bind/bind-library.html">bind</a></li>
       <li><a href="../dartness/dartness-library.html">dartness</a></li>
       <li><a href="../exception/exception-library.html">exception</a></li>
       <li><a href="../route/route-library.html">route</a></li>
@@ -132,7 +159,10 @@ This abstract class is used to create custom exceptions for HTTP status codes.
     <ol>
   <li class="section-title"><a href="../exception/exception-library.html#classes">Classes</a></li>
   <li><a href="../exception/CatchError-class.html">CatchError</a></li>
+  <li><a href="../exception/DartnessCatchError-class.html">DartnessCatchError</a></li>
+  <li><a href="../exception/DartnessCatchErrorRegister-class.html">DartnessCatchErrorRegister</a></li>
   <li><a href="../exception/DartnessErrorHandler-class.html">DartnessErrorHandler</a></li>
+  <li><a href="../exception/ErrorHandler-class.html">ErrorHandler</a></li>
 
 
 

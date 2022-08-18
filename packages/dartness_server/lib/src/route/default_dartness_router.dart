@@ -16,8 +16,7 @@ class DefaultDartnessRouter implements DartnessRouter {
   @override
   Router get router => _router;
 
-  /// Add a [routerHandler] to the [_router] and handles the request by
-  /// the [httpMethod] for the [pathRoute].
+  /// Adds a [ControllerRoute] to the [_router] and handles the request for it.
   @override
   void add(final ControllerRoute route) {
     final dartnessRouterHandler = DartnessRouterHandler(route);

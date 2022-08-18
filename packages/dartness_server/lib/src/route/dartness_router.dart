@@ -6,6 +6,6 @@ import '../../dartness.dart';
 abstract class DartnessRouter {
   Router get router;
 
-  /// Adds a new [pathRoute] by the [httpMethod] handling by the [routerHandler].
+  /// Adds a new [ControllerRoute].
   void add(final ControllerRoute route);
 }

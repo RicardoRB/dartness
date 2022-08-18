@@ -58,7 +58,7 @@
 </div>
 
 <span class="returntype">void</span>
-<span class="name ">onRequest</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="onRequest-param-request"><span class="type-annotation"><a href="https://pub.dev/documentation/shelf/1.3.1/shelf/Request-class.html">Request</a></span> <span class="parameter-name">request</span></span></li>
+<span class="name ">onRequest</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="onRequest-param-request"><span class="type-annotation"><a href="../../dartness/DartnessRequest-class.html">DartnessRequest</a></span> <span class="parameter-name">request</span></span></li>
 </ol>)
 
       <div class="features">override</div>
@@ -74,7 +74,7 @@
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
-void onRequest(Request request) {
+void onRequest(DartnessRequest request) {
   startTime = DateTime.now();
   watch = Stopwatch()..start();
   uri = request.requestedUri;

@@ -34,7 +34,7 @@ class DartnessRequest {
   /// The returned map is unmodifiable.
   Map<String, String> get headers => _request.headers;
 
-  /// The [HttpMethod] associated with the request.
+  /// The http method associated with the request.
   String get method => _request.method;
 
   /// The body as a byte array stream.
