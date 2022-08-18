@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:dartness_server/dartness.dart';
 import 'package:dartness_server/server.dart';
-import 'package:shelf/shelf.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -60,10 +59,10 @@ void main() {
 
 @Controller("/auth")
 class TestController {
-  @HttpMethod.get()
+  @Get()
   String get() => '';
 
-  @HttpMethod.get("/error")
+  @Get("/error")
   String getError() => throw Exception("random exception");
 }
 

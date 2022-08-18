@@ -38,7 +38,7 @@ void main() {
 
 @Controller("/get")
 class GetControllerClass {
-  @HttpMethod.get("/custom_exception")
+  @Get("/custom_exception")
   getCustomException() {
     throw ExampleCustomHttpStatusException('Custom exception thrown');
   }

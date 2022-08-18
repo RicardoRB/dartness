@@ -9,7 +9,7 @@ class ControllerGenerator extends GeneratorForAnnotation<Controller> {
   static final _classReturn = (List<ControllerRoute>).toString();
   static final _queryParamType = TypeChecker.fromRuntime(QueryParam);
   static final _pathParamType = TypeChecker.fromRuntime(PathParam);
-  static final _httpMethodType = TypeChecker.fromRuntime(HttpMethod);
+  static final _bindType = TypeChecker.fromRuntime(Bind);
   static final _httpCodeType = TypeChecker.fromRuntime(HttpCode);
   static final _headerType = TypeChecker.fromRuntime(Header);
 
@@ -41,8 +41,8 @@ class ControllerGenerator extends GeneratorForAnnotation<Controller> {
             )
             ..statements.addAll(
               elements.map((methodElement) {
-                final httpMethodAnnotation =
-                    _httpMethodType.firstAnnotationOfExact(methodElement);
+                final bindAnnotation =
+                    _bindType.firstAnnotationOf(methodElement);
                 final httpCodeAnnotation =
                     _httpCodeType.firstAnnotationOfExact(methodElement) ??
                         _httpCodeType.firstAnnotationOfExact(element);
@@ -51,10 +51,12 @@ class ControllerGenerator extends GeneratorForAnnotation<Controller> {
                 final controllerHeaderAnnotation =
                     _headerType.annotationsOfExact(element);
                 final path =
-                    '$controllerPath${httpMethodAnnotation?.getField('path')?.toStringValue() ?? ''}';
-                final bindMethod =
-                    httpMethodAnnotation?.getField('method')?.toStringValue() ??
-                        '';
+                    '$controllerPath${bindAnnotation?.getField('(super)')?.getField('path')?.toStringValue() ?? ''}';
+                final bindMethod = bindAnnotation
+                        ?.getField('(super)')
+                        ?.getField('method')
+                        ?.toStringValue() ??
+                    '';
 
                 final httpCode =
                     httpCodeAnnotation?.getField('code')?.toIntValue();
@@ -127,7 +129,7 @@ class ControllerGenerator extends GeneratorForAnnotation<Controller> {
   }
 
   List<ExecutableElement> findBindElements(ClassElement classElement) => [
-        ...classElement.methods.where(_httpMethodType.hasAnnotationOf),
-        ...classElement.accessors.where(_httpMethodType.hasAnnotationOf)
+        ...classElement.methods.where(_bindType.hasAnnotationOf),
+        ...classElement.accessors.where(_bindType.hasAnnotationOf)
       ]..sort((a, b) => (a.nameOffset).compareTo(b.nameOffset));
 }

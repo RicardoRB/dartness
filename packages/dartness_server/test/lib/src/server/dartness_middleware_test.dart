@@ -43,7 +43,7 @@ void main() {
 
 @Controller("/auth")
 class TestController {
-  @HttpMethod.get()
+  @Get()
   static String get() => '';
 }
 

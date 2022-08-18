@@ -14,7 +14,7 @@ class CityController {
   final CityService _cityService;
 
   @HttpCode(202)
-  @HttpMethod.get()
+  @Get()
   List<String> getCities({
     @QueryParam() int? offset = 100,
   }) {
@@ -22,7 +22,7 @@ class CityController {
   }
 
   @Header(HttpHeaders.contentTypeHeader, 'application/json')
-  @HttpMethod.get('/<id>')
+  @Get('/<id>')
   CityDto getCity(@PathParam() int id) {
     return _cityService.getCity(id);
   }
