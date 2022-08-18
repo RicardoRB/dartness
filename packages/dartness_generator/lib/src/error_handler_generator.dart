@@ -19,7 +19,7 @@ class ErrorHandlerGenerator extends GeneratorForAnnotation<ErrorHandler> {
       throw InvalidGenerationSourceError(
           '@${element.name} cannot target `${element.runtimeType}`.');
     }
-    final elements = findCatchErrorElements(element);
+    final elements = _findCatchErrorElements(element);
     if (elements.isEmpty) {
       return null;
     }
@@ -36,26 +36,10 @@ class ErrorHandlerGenerator extends GeneratorForAnnotation<ErrorHandler> {
             )
             ..statements.addAll(
               elements.map((methodElement) {
-                final catchErrorAnnotation =
-                    _catchErrorType.firstAnnotationOfExact(methodElement);
-
-                final errorTypes = catchErrorAnnotation?.getField('errors');
-                final errors = errorTypes?.toListValue()?.map((errorType) {
-                      final typeName = errorType
-                              .toTypeValue()
-                              ?.getDisplayString(withNullability: false) ??
-                          '';
-                      final typeCode = Code(typeName);
-                      return CodeExpression(typeCode);
-                    }) ??
-                    [];
-
-                return refer(_errorHandlersVariableName).property('add').call([
-                  refer((DartnessCatchError).toString()).newInstance([
-                    literalList(errors),
-                    refer(methodElement.name),
-                  ])
-                ]).statement;
+                final methodRefer = _methodElementToMethodRefer(methodElement);
+                return refer(_errorHandlersVariableName)
+                    .property('add')
+                    .call([methodRefer]).statement;
               }),
             )
             ..addExpression(refer(_errorHandlersVariableName).returned),
@@ -67,7 +51,28 @@ class ErrorHandlerGenerator extends GeneratorForAnnotation<ErrorHandler> {
       ..methods.add(method)).accept(DartEmitter()).toString();
   }
 
-  List<ExecutableElement> findCatchErrorElements(ClassElement classElement) => [
+  Expression _methodElementToMethodRefer(ExecutableElement methodElement) {
+    final catchErrorAnnotation =
+        _catchErrorType.firstAnnotationOfExact(methodElement);
+
+    final errorTypes = catchErrorAnnotation?.getField('errors');
+    final errors = errorTypes?.toListValue()?.map((errorType) {
+          final typeName = errorType
+                  .toTypeValue()
+                  ?.getDisplayString(withNullability: false) ??
+              '';
+          final typeCode = Code(typeName);
+          return CodeExpression(typeCode);
+        }) ??
+        [];
+    final methodRefer = refer((DartnessCatchError).toString()).newInstance([
+      literalList(errors),
+      refer(methodElement.name),
+    ]);
+    return methodRefer;
+  }
+
+  List<ExecutableElement> _findCatchErrorElements(ClassElement classElement) => [
         ...classElement.methods.where(_catchErrorType.hasAnnotationOf),
         ...classElement.accessors.where(_catchErrorType.hasAnnotationOf)
       ]..sort((a, b) => (a.nameOffset).compareTo(b.nameOffset));

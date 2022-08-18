@@ -23,7 +23,7 @@ class ControllerGenerator extends GeneratorForAnnotation<Controller> {
       throw InvalidGenerationSourceError(
           '@${element.name} cannot target `${element.runtimeType}`.');
     }
-    final elements = findBindElements(element);
+    final elements = _findBindElements(element);
     if (elements.isEmpty) {
       return null;
     }
@@ -41,82 +41,11 @@ class ControllerGenerator extends GeneratorForAnnotation<Controller> {
             )
             ..statements.addAll(
               elements.map((methodElement) {
-                final bindAnnotation =
-                    _bindType.firstAnnotationOf(methodElement);
-                final httpCodeAnnotation =
-                    _httpCodeType.firstAnnotationOfExact(methodElement) ??
-                        _httpCodeType.firstAnnotationOfExact(element);
-                final methodHeaderAnnotation =
-                    _headerType.annotationsOfExact(methodElement);
-                final controllerHeaderAnnotation =
-                    _headerType.annotationsOfExact(element);
-                final path =
-                    '$controllerPath${bindAnnotation?.getField('(super)')?.getField('path')?.toStringValue() ?? ''}';
-                final bindMethod = bindAnnotation
-                        ?.getField('(super)')
-                        ?.getField('method')
-                        ?.toStringValue() ??
-                    '';
-
-                final httpCode =
-                    httpCodeAnnotation?.getField('code')?.toIntValue();
-
-                final Map<String, String> headers = <String, String>{};
-
-                for (final methodHeader in methodHeaderAnnotation) {
-                  final key =
-                      methodHeader.getField('key')?.toStringValue() ?? '';
-                  final value =
-                      methodHeader.getField('value')?.toStringValue() ?? '';
-                  headers[key] = value;
-                }
-
-                for (final controllerHeader in controllerHeaderAnnotation) {
-                  final key =
-                      controllerHeader.getField('key')?.toStringValue() ?? '';
-                  final value =
-                      controllerHeader.getField('value')?.toStringValue() ?? '';
-                  headers[key] = value;
-                }
-
-                final List<Expression> arguments = [];
-
-                for (final param in methodElement.parameters) {
-                  final isQuery = _queryParamType.hasAnnotationOfExact(param);
-                  final isPath = _pathParamType.hasAnnotationOfExact(param);
-                  if (isQuery && isPath) {
-                    throw InvalidGenerationSourceError(
-                        'Param `${param.name}` cannot be both @QueryParam and @PathParam');
-                  }
-                  arguments.add(refer((DartnessParam).toString()).newInstance(
-                    [
-                      literalString(param.name),
-                      literalBool(isQuery),
-                      literalBool(isPath),
-                      literalBool(param.isNamed),
-                      literalBool(param.isPositional),
-                      literalBool(param.isOptional),
-                      CodeExpression(Code(param.type.getDisplayString(
-                        withNullability: false,
-                      )))
-                    ],
-                    {
-                      'defaultValue': literal(param.defaultValueCode),
-                    },
-                  ));
-                }
-
-                return refer(_routesVariableName).property('add').call([
-                  refer((ControllerRoute).toString()).newInstance([
-                    literalString(bindMethod),
-                    literalString(path),
-                    refer(methodElement.name),
-                    literalList(arguments),
-                  ], {
-                    'httpCode': literal(httpCode),
-                    'headers': literalMap(headers),
-                  })
-                ]).statement;
+                final methodRef = _methodElementToMethodRefer(
+                    methodElement, element, controllerPath);
+                return refer(_routesVariableName)
+                    .property('add')
+                    .call([methodRef]).statement;
               }),
             )
             ..addExpression(refer(_routesVariableName).returned),
@@ -128,7 +57,83 @@ class ControllerGenerator extends GeneratorForAnnotation<Controller> {
       ..methods.add(method)).accept(DartEmitter()).toString();
   }
 
-  List<ExecutableElement> findBindElements(ClassElement classElement) => [
+  Expression _methodElementToMethodRefer(final ExecutableElement methodElement,
+      final ClassElement element, final String controllerPath) {
+    final bindAnnotation = _bindType.firstAnnotationOf(methodElement);
+    final httpCodeAnnotation =
+        _httpCodeType.firstAnnotationOfExact(methodElement) ??
+            _httpCodeType.firstAnnotationOfExact(element);
+    final methodHeaderAnnotation =
+        _headerType.annotationsOfExact(methodElement);
+    final controllerHeaderAnnotation = _headerType.annotationsOfExact(element);
+    final path =
+        '$controllerPath${bindAnnotation?.getField('(super)')?.getField('path')?.toStringValue() ?? ''}';
+    final bindMethod = bindAnnotation
+            ?.getField('(super)')
+            ?.getField('method')
+            ?.toStringValue() ??
+        '';
+
+    final httpCode = httpCodeAnnotation?.getField('code')?.toIntValue();
+
+    final Map<String, String> headers = <String, String>{};
+
+    for (final methodHeader in methodHeaderAnnotation) {
+      final key = methodHeader.getField('key')?.toStringValue() ?? '';
+      final value = methodHeader.getField('value')?.toStringValue() ?? '';
+      headers[key] = value;
+    }
+
+    for (final controllerHeader in controllerHeaderAnnotation) {
+      final key = controllerHeader.getField('key')?.toStringValue() ?? '';
+      final value = controllerHeader.getField('value')?.toStringValue() ?? '';
+      headers[key] = value;
+    }
+
+    final List<Expression> arguments = [];
+
+    for (final param in methodElement.parameters) {
+      final paramRefer = _paramElementToParamRef(param);
+      arguments.add(paramRefer);
+    }
+    final methodRef = refer((ControllerRoute).toString()).newInstance([
+      literalString(bindMethod),
+      literalString(path),
+      refer(methodElement.name),
+      literalList(arguments),
+    ], {
+      'httpCode': literal(httpCode),
+      'headers': literalMap(headers),
+    });
+    return methodRef;
+  }
+
+  Expression _paramElementToParamRef(final ParameterElement param) {
+    final isQuery = _queryParamType.hasAnnotationOfExact(param);
+    final isPath = _pathParamType.hasAnnotationOfExact(param);
+    if (isQuery && isPath) {
+      throw InvalidGenerationSourceError(
+          'Param `${param.name}` cannot be both @QueryParam and @PathParam');
+    }
+    return refer((DartnessParam).toString()).newInstance(
+      [
+        literalString(param.name),
+        literalBool(isQuery),
+        literalBool(isPath),
+        literalBool(param.isNamed),
+        literalBool(param.isPositional),
+        literalBool(param.isOptional),
+        CodeExpression(Code(param.type.getDisplayString(
+          withNullability: false,
+        )))
+      ],
+      {
+        'defaultValue': literal(param.defaultValueCode),
+      },
+    );
+  }
+
+  List<ExecutableElement> _findBindElements(ClassElement classElement) => [
         ...classElement.methods.where(_bindType.hasAnnotationOf),
         ...classElement.accessors.where(_bindType.hasAnnotationOf)
       ]..sort((a, b) => (a.nameOffset).compareTo(b.nameOffset));
