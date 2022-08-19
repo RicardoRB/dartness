@@ -23,7 +23,12 @@ The following goals are the main objectives that Dartness needs to provided and 
 * 👨‍💻👩‍💻 **Community empowered**, where the community should be able to understand and maintain the dartness project by
   their own
 
-## Installation
+## Examples
+
+You can find different examples if you prefer to understand the code by yourself in
+the [/examples folder](https://github.com/RicardoRB/dartness/tree/master/examples).
+
+## Requisites
 
 Install [Dart SDK](https://dart.dev/get-dart) version >=2.17.0
 
