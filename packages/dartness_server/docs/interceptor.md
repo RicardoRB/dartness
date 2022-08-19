@@ -21,12 +21,12 @@ Below you can find an example implementation to a simple middleware feature usin
 ```dart
 class MyInterceptor implements DartnessInterceptor {
   @override
-  void onRequest(Request request) {
+  void onRequest(DartnessRequest request) {
     // do something before the request is executed
   }
 
   @override
-  void onResponse(Response response) {
+  void onResponse(DartnessResponse response) {
     // do something after the request is executed
   }
 

@@ -1,6 +1,6 @@
 # Introduction
 
-<p align="center">Dartness is a progressive dart framework for building efficient and scalable server-side applications.</p>
+Dartness is a dart framework for building efficient and scalable server-side applications.
 
 ## Description
 
@@ -12,6 +12,17 @@ Under the hood, Dartness makes use of [shelf](https://github.com/dart-lang/shelf
 Inspired by [Spring Boot](https://github.com/spring-projects/spring-boot) and [Nest](https://github.com/nestjs/nest)
 frameworks
 
+## Goals
+
+The following goals are the main objectives that Dartness needs to provided and why it was designed for:
+
+* 🛠 **Full stack integration** with flutter or other dart front end frameworks
+* 🤹‍♀️🤹‍♂️ **Easy and understandable** for people coming from other kind of technology
+  as [Spring Boot](https://github.com/spring-projects/spring-boot) and [NestJS](https://github.com/nestjs/nest)
+* ✏ **Simplicity**, it should be easy to create why and how to use every functionality
+* 👨‍💻👩‍💻 **Community empowered**, where the community should be able to understand and maintain the dartness project by their
+  own
+
 ## Installation
 
 Install [Dart SDK](https://dart.dev/get-dart) version >=2.17.0
@@ -20,6 +31,10 @@ Install [Dart SDK](https://dart.dev/get-dart) version >=2.17.0
 $ dart --version            
 Dart SDK version: 2.17.3 (stable)
 ```
+
+## Docs and more
+
+You can check the documentation at [dartness docs](https://ricardorb.github.io/dartness/)
 
 ## Creating a new project
 
@@ -62,10 +77,6 @@ like this:
 $ dart run example/main.dart
 Server listening on port 3000
 ```
-
-## Docs and more
-
-You can check the documentation at [dartness docs](https://ricardorb.github.io/dartness/)
 
 ## TODO
 

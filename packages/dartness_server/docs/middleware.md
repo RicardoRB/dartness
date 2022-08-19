@@ -14,7 +14,7 @@ Below you can find an example implementation to a simple middleware feature usin
 ```dart
 class MyMiddleware implements DartnessMiddleware {
   @override
-  void handle(Request request) {
+  void handle(DartnessRequest request) {
     // do something before the request is executed
     request.headers[HttpHeaders.authorizationHeader] = 'token';
   }
