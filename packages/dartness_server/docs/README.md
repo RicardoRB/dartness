@@ -19,9 +19,9 @@ The following goals are the main objectives that Dartness needs to provided and 
 * 🛠 **Full stack integration** with flutter or other dart front end frameworks
 * 🤹‍♀️🤹‍♂️ **Easy and understandable** for people coming from other kind of technology
   as [Spring Boot](https://github.com/spring-projects/spring-boot) and [NestJS](https://github.com/nestjs/nest)
-* ✏ **Simplicity**, it should be easy to create why and how to use every functionality
-* 👨‍💻👩‍💻 **Community empowered**, where the community should be able to understand and maintain the dartness project by their
-  own
+* ✏ **Simplicity**, it should be easy to know why and how to use every functionality
+* 👨‍💻👩‍💻 **Community empowered**, where the community should be able to understand and maintain the dartness project by
+  their own
 
 ## Installation
 
