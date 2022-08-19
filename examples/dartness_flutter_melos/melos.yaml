@@ -13,6 +13,11 @@ scripts:
   apps:pub:get: melos exec --flutter -- flutter pub get .
   dart:pub:get: melos exec --no-flutter -- dart pub get .
 
+
+  pub:get:offline: melos apps:pub:get:offline && melos dart:pub:get:offline
+  apps:pub:get:offline: melos exec --flutter -- flutter pub get . --offline
+  dart:pub:get:offline: melos exec --no-flutter -- dart pub get . --offline
+
   test: melos apps:test && melos dart:test
   apps:test: melos exec --dir-exists=test --flutter -- flutter test
   dart:test: melos exec --dir-exists=test --no-flutter -- dart test

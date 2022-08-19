@@ -10,11 +10,11 @@ environment:
 
 dependencies:
   dartness_server:
-    path: ../packages/dartness_server/
+    path: ../../packages/dartness_server/
 
 dev_dependencies:
   lints: ^2.0.0
   test: ^1.21.4
   build_runner: ^2.2.0
   dartness_generator:
-    path: ../packages/dartness_generator/
+    path: ../../packages/dartness_generator/
