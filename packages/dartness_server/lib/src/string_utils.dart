@@ -72,7 +72,6 @@ Iterable<String> stringToIterableString(final String value) =>
 Iterable<bool> stringToIterableBool(final String value) =>
     stringToIterable(value, (e) => e == 'true');
 
-
 /// Given a [value] with a [type] return the value with the correct type.
 dynamic stringToType(final String? value, final Type type) {
   if (value == null) {

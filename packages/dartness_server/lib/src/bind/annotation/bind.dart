@@ -8,5 +8,4 @@ abstract class Bind {
 
   /// The method to bind the property to.
   final String method;
-
 }

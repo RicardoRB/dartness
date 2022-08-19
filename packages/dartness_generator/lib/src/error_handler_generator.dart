@@ -72,7 +72,8 @@ class ErrorHandlerGenerator extends GeneratorForAnnotation<ErrorHandler> {
     return methodRefer;
   }
 
-  List<ExecutableElement> _findCatchErrorElements(ClassElement classElement) => [
+  List<ExecutableElement> _findCatchErrorElements(ClassElement classElement) =>
+      [
         ...classElement.methods.where(_catchErrorType.hasAnnotationOf),
         ...classElement.accessors.where(_catchErrorType.hasAnnotationOf)
       ]..sort((a, b) => (a.nameOffset).compareTo(b.nameOffset));
