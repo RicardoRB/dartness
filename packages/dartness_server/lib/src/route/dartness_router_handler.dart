@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:dartness_server/dartness.dart';
+import 'package:dartness_server/exception.dart';
 import 'package:shelf_plus/shelf_plus.dart';
 
 import '../string_utils.dart';
@@ -45,10 +46,13 @@ class DartnessRouterHandler {
         }
       }
     }
-
-    final response = await Function.apply(
-        _route.handler, positionalArguments, namedArguments);
-
+    final dynamic response;
+    try {
+      response = await Function.apply(
+          _route.handler, positionalArguments, namedArguments);
+    } on HttpStatusException catch (e) {
+      return Response(e.statusCode, body: e.message);
+    }
     dynamic body;
     if (response is Response) {
       return response;
