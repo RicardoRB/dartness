@@ -71,44 +71,56 @@
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">Future&lt;Response&gt; handleRoute(final Request request,
     [final Object? extras]) async {
-  final positionalArguments = [];
+  final List&lt;dynamic&gt; positionalArguments = [];
   final Map&lt;Symbol, dynamic&gt; namedArguments = {};
   for (final param in _route.params) {
     if (param.isPositional) {
       if (param.isPath) {
-        final pathParam = getPathParam(request, param);
+        final pathParam = _getPathParam(request, param);
         final value = stringToType(pathParam, param.type);
         positionalArguments.add(value);
-      } else {
-        final queryParam = getQueryParam(request, param);
+      } else if (param.isQuery) {
+        final queryParam = _getQueryParam(request, param);
         final value = stringToType(queryParam, param.type);
         positionalArguments.add(value);
+      } else {
+        final bodyJson = await request.body.asJson;
+        final bodyInstance = param.fromJson?.call(bodyJson);
+        positionalArguments.add(bodyInstance);
       }
     } else {
       if (param.isPath) {
-        final pathParam = getPathParam(request, param);
+        final pathParam = _getPathParam(request, param);
         final value = stringToType(pathParam, param.type);
         namedArguments[Symbol(param.name)] = value;
       } else {
-        final queryParam = getQueryParam(request, param);
+        final queryParam = _getQueryParam(request, param);
         final value = stringToType(queryParam, param.type);
         namedArguments[Symbol(param.name)] = value;
       }
     }
   }
+  final dynamic response;
+  try {
+    response = await Function.apply(
+        _route.handler, positionalArguments, namedArguments);
+  } on HttpStatusException catch (e) {
+    return Response(e.statusCode, body: e.message);
+  } catch (e) {
+    rethrow;
+  }
 
-  final response = await Function.apply(
-      _route.handler, positionalArguments, namedArguments);
-
-  final dynamic body;
+  dynamic body;
   if (response is Response) {
     return response;
-  } else if (response is Iterable || response is Map) {
+  } else if (response is Iterable || response is Map || response is num) {
     body = jsonEncode(response);
-  } else if (response?.toJson() != null) {
-    body = jsonEncode(response.toJson());
   } else {
-    body = response;
+    try {
+      body = jsonEncode(response.toJson());
+    } on NoSuchMethodError catch (_) {
+      body = response;
+    }
   }
 
   return Response(
@@ -151,8 +163,6 @@
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></li>
 
     <li class="section-title"><a href="../../route/DartnessRouterHandler-class.html#instance-methods">Methods</a></li>
-    <li><a href="../../route/DartnessRouterHandler/getPathParam.html">getPathParam</a></li>
-    <li><a href="../../route/DartnessRouterHandler/getQueryParam.html">getQueryParam</a></li>
     <li><a href="../../route/DartnessRouterHandler/handleRoute.html">handleRoute</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">toString</a></li>
