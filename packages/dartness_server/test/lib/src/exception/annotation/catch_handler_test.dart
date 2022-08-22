@@ -1,9 +1,11 @@
 import 'dart:io';
 
 import 'package:dartness_server/dartness.dart';
-import 'package:dartness_server/src/exception/annotation/catch_error.dart';
-import 'package:shelf/shelf.dart';
+import 'package:dartness_server/exception.dart';
 import 'package:test/test.dart';
+
+import 'custom_error_handler.dart';
+import 'get_controller_class.dart';
 
 void main() {
   group('http tests', () {
@@ -16,9 +18,19 @@ void main() {
       httpClient = HttpClient();
       dartness = Dartness(
         port: port,
+        controllers: [
+          DartnessController(
+            GetControllerClass.instance,
+            GetControllerClass.instance.getRoutes(),
+          ),
+        ],
+        errorHandlers: [
+          DartnessErrorHandler(
+            CustomErrorHandler.instance,
+            CustomErrorHandler.instance.getCatchErrors(),
+          ),
+        ],
       );
-      // dartness.addController(GetControllerClass());
-      // dartness.addErrorHandler(CustomErrorHandler());
       await dartness.create();
     });
 
@@ -46,32 +58,4 @@ void main() {
       },
     );
   });
-}
-
-@Controller("/get")
-class GetControllerClass {
-  @Get("/argument_error")
-  getArgumentException() {
-    throw ArgumentError('Random exception');
-  }
-
-  @Get("/range_error")
-  getRangeError() {
-    throw RangeError('Random exception');
-  }
-}
-
-class CustomErrorHandler {
-  @CatchError([ArgumentError])
-  Response argumentErrorHandler(ArgumentError error, Request request) {
-    return Response(
-      HttpStatus.badRequest,
-      body: 'ArgumentError',
-    );
-  }
-
-  @CatchError([RangeError])
-  void rangeErrorHandler(RangeError error, Request request) {
-    print('RangeError');
-  }
 }

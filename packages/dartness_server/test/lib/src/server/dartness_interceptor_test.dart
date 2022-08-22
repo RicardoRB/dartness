@@ -4,6 +4,8 @@ import 'package:dartness_server/dartness.dart';
 import 'package:dartness_server/server.dart';
 import 'package:test/test.dart';
 
+import 'test_controller.dart';
+
 void main() {
   late Dartness dartness;
 
@@ -17,8 +19,13 @@ void main() {
     httpClient = HttpClient();
     dartness = Dartness(
       port: port,
-      // controllers: [TestController()],
-      interceptors: [TestInterceptor()],
+      controllers: [
+        DartnessController(
+            TestController.instance, TestController.instance.getRoutes()),
+      ],
+      interceptors: [
+        TestInterceptor(),
+      ],
     );
     await dartness.create();
   });
@@ -55,15 +62,6 @@ void main() {
     expect(TestInterceptor.isOnResponseCalled, isFalse);
     expect(TestInterceptor.isOnErrorCalled, isTrue);
   });
-}
-
-@Controller("/auth")
-class TestController {
-  @Get()
-  String get() => '';
-
-  @Get("/error")
-  String getError() => throw Exception("random exception");
 }
 
 class TestInterceptor implements DartnessInterceptor {

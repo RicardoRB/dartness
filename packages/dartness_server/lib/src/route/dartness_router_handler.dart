@@ -45,15 +45,17 @@ class DartnessRouterHandler {
     final response = await Function.apply(
         _route.handler, positionalArguments, namedArguments);
 
-    final dynamic body;
+    dynamic body;
     if (response is Response) {
       return response;
-    } else if (response is Iterable || response is Map) {
+    } else if (response is Iterable || response is Map || response is num) {
       body = jsonEncode(response);
-    } else if (response?.toJson() != null) {
-      body = jsonEncode(response.toJson());
     } else {
-      body = response;
+      try {
+        body = jsonEncode(response.toJson());
+      } on NoSuchMethodError catch (_) {
+        body = response;
+      }
     }
 
     return Response(

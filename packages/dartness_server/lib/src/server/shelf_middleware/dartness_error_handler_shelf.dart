@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:dartness_server/dartness.dart';
 import 'package:dartness_server/src/exception/http_status_exception.dart';
 import 'package:shelf/shelf.dart';
 
@@ -22,6 +23,14 @@ class DartnessErrorHandlerShelf implements ShelfMiddleware {
             final result =
                 await _errorHandler.handle(error, stackTrace, request);
             if (result != null) {
+              if (result is DartnessResponse) {
+                final body = await result.body();
+                return Response(
+                  result.statusCode,
+                  body: body,
+                  headers: result.headers,
+                );
+              }
               return result;
             }
             if (error is HttpStatusException) {

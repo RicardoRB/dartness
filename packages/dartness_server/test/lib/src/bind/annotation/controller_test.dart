@@ -4,6 +4,12 @@ import 'dart:io';
 import 'package:dartness_server/dartness.dart';
 import 'package:test/test.dart';
 
+import 'controller_class.dart';
+import 'delete_controller_class.dart';
+import 'get_controller_class.dart';
+import 'post_controller_class.dart';
+import 'put_controller_class.dart';
+
 void main() {
   late Controller controller;
 
@@ -46,15 +52,33 @@ void main() {
     late HttpClient httpClient;
 
     setUp(() async {
+      final controllers = [
+        DartnessController(
+          ControllerClass.instance,
+          ControllerClass.instance.getRoutes(),
+        ),
+        DartnessController(
+          GetControllerClass.instance,
+          GetControllerClass.instance.getRoutes(),
+        ),
+        DartnessController(
+          PostControllerClass.instance,
+          PostControllerClass.instance.getRoutes(),
+        ),
+        DartnessController(
+          PutControllerClass.instance,
+          PutControllerClass.instance.getRoutes(),
+        ),
+        DartnessController(
+          DeleteControllerClass.instance,
+          DeleteControllerClass.instance.getRoutes(),
+        ),
+      ];
       httpClient = HttpClient();
       dartness = Dartness(
         port: port,
+        controllers: controllers,
       );
-      // dartness.addController(ControllerClass());
-      // dartness.addController(GetControllerClass());
-      // dartness.addController(PostControllerClass());
-      // dartness.addController(PutControllerClass());
-      // dartness.addController(DeleteControllerClass());
       await dartness.create();
     });
 
@@ -70,8 +94,8 @@ void main() {
         final request = await httpClient.get('localhost', port, '/');
         final response = await request.close();
         expect(response.statusCode, HttpStatus.ok);
-        expect(
-            await response.transform(utf8.decoder).join(), equals('"Empty"'));
+        final body = await response.transform(utf8.decoder).join();
+        expect(body, equals("Empty"));
       });
 
       test('GET not found', () async {
@@ -85,36 +109,40 @@ void main() {
         final request = await httpClient.get('localhost', port, '/get/double');
         final response = await request.close();
         expect(response.statusCode, HttpStatus.ok);
-        expect(await response.transform(utf8.decoder).join(), equals('1.1'));
+        final body = await response.transform(utf8.decoder).join();
+        expect(body, equals('1.1'));
       });
 
       test('GET null', () async {
         final request = await httpClient.get('localhost', port, '/get/null');
         final response = await request.close();
         expect(response.statusCode, HttpStatus.ok);
-        expect(await response.transform(utf8.decoder).join(), equals(''));
+        final body = await response.transform(utf8.decoder).join();
+        expect(body, equals(''));
       });
 
       test('GET class', () async {
         final request = await httpClient.get('localhost', port, '/get/class');
         final response = await request.close();
         expect(response.statusCode, HttpStatus.ok);
-        expect(await response.transform(utf8.decoder).join(),
-            equals('{"value":"class"}'));
+        final body = await response.transform(utf8.decoder).join();
+        expect(body, equals('{"value":"class"}'));
       });
 
       test('GET future', () async {
         final request = await httpClient.get('localhost', port, '/get/future');
         final response = await request.close();
         expect(response.statusCode, HttpStatus.ok);
-        expect(await response.transform(utf8.decoder).join(), equals('bla'));
+        final body = await response.transform(utf8.decoder).join();
+        expect(body, equals('bla'));
       });
 
       test('GET param', () async {
         final request = await httpClient.get('localhost', port, '/get/ids/1');
         final response = await request.close();
         expect(response.statusCode, HttpStatus.ok);
-        expect(await response.transform(utf8.decoder).join(), equals('1'));
+        final body = await response.transform(utf8.decoder).join();
+        expect(body, equals('1'));
       });
 
       test(
@@ -124,7 +152,8 @@ void main() {
               await httpClient.get('localhost', port, '/get/query?id=1');
           final response = await request.close();
           expect(response.statusCode, HttpStatus.ok);
-          expect(await response.transform(utf8.decoder).join(), equals('1'));
+          final body = await response.transform(utf8.decoder).join();
+          expect(body, equals('1'));
         },
       );
 
@@ -135,8 +164,8 @@ void main() {
               'localhost', port, '/get/queries?id=1&id2=2');
           final response = await request.close();
           expect(response.statusCode, HttpStatus.ok);
-          expect(
-              await response.transform(utf8.decoder).join(), equals('"1/2"'));
+          final body = await response.transform(utf8.decoder).join();
+          expect(body, equals('1/2'));
         },
       );
 
@@ -147,8 +176,8 @@ void main() {
               await httpClient.get('localhost', port, '/get/paths/1?query=2');
           final response = await request.close();
           expect(response.statusCode, HttpStatus.ok);
-          expect(
-              await response.transform(utf8.decoder).join(), equals('"1/2"'));
+          final body = await response.transform(utf8.decoder).join();
+          expect(body, equals('1/2'));
         },
       );
 
@@ -159,8 +188,8 @@ void main() {
               'localhost', port, '/get/paths/1/another/2?query=3&query2=4');
           final response = await request.close();
           expect(response.statusCode, HttpStatus.ok);
-          expect(await response.transform(utf8.decoder).join(),
-              equals('"1/2/3/4"'));
+          final body = await response.transform(utf8.decoder).join();
+          expect(body, equals('1/2/3/4'));
         },
       );
 
@@ -178,8 +207,8 @@ void main() {
           );
           final response = await request.close();
           expect(response.statusCode, HttpStatus.ok);
-          expect(await response.transform(utf8.decoder).join(),
-              equals('"true/3/4.4/\\"hi\\"/[1, 2]"'));
+          final body = await response.transform(utf8.decoder).join();
+          expect(body, equals('true/3/4.4/"hi"/[1, 2]'));
         },
       );
 
@@ -193,8 +222,8 @@ void main() {
           );
           final response = await request.close();
           expect(response.statusCode, HttpStatus.ok);
-          expect(await response.transform(utf8.decoder).join(),
-              equals('"true/3"'));
+          final body = await response.transform(utf8.decoder).join();
+          expect(body, equals('true/3'));
         },
       );
 
@@ -208,8 +237,8 @@ void main() {
           );
           final response = await request.close();
           expect(response.statusCode, HttpStatus.ok);
-          expect(await response.transform(utf8.decoder).join(),
-              equals('"null/1"'));
+          final body = await response.transform(utf8.decoder).join();
+          expect(body, equals('null/1'));
         },
       );
 
@@ -220,8 +249,8 @@ void main() {
               'localhost', port, '/get/names/params?nameQuery=testName');
           final response = await request.close();
           expect(response.statusCode, HttpStatus.ok);
-          expect(await response.transform(utf8.decoder).join(),
-              equals('"params/testName"'));
+          final body = await response.transform(utf8.decoder).join();
+          expect(body, equals('params/testName'));
         },
       );
 
@@ -232,7 +261,8 @@ void main() {
               await httpClient.get('localhost', port, '/get/statuscodes');
           final response = await request.close();
           expect(response.statusCode, HttpStatus.accepted);
-          expect(await response.transform(utf8.decoder).join(), isEmpty);
+          final body = await response.transform(utf8.decoder).join();
+          expect(body, isEmpty);
         },
       );
 
@@ -273,8 +303,8 @@ void main() {
         final request = await httpClient.post('localhost', port, '/');
         final response = await request.close();
         expect(response.statusCode, HttpStatus.ok);
-        expect(
-            await response.transform(utf8.decoder).join(), equals('"Empty"'));
+        final body = await response.transform(utf8.decoder).join();
+        expect(body, equals('Empty'));
       });
 
       test('POST not found', () async {
@@ -289,22 +319,24 @@ void main() {
             await httpClient.post('localhost', port, '/post/double');
         final response = await request.close();
         expect(response.statusCode, HttpStatus.ok);
-        expect(await response.transform(utf8.decoder).join(), equals('1.1'));
+        final body = await response.transform(utf8.decoder).join();
+        expect(body, equals('1.1'));
       });
 
       test('POST null', () async {
         final request = await httpClient.post('localhost', port, '/post/null');
         final response = await request.close();
         expect(response.statusCode, HttpStatus.ok);
-        expect(await response.transform(utf8.decoder).join(), equals(''));
+        final body = await response.transform(utf8.decoder).join();
+        expect(body, equals(''));
       });
 
       test('POST class', () async {
         final request = await httpClient.post('localhost', port, '/post/class');
         final response = await request.close();
         expect(response.statusCode, HttpStatus.ok);
-        expect(await response.transform(utf8.decoder).join(),
-            equals('{"value":"class"}'));
+        final body = await response.transform(utf8.decoder).join();
+        expect(body, equals('{"value":"class"}'));
       });
 
       test('POST future', () async {
@@ -312,14 +344,16 @@ void main() {
             await httpClient.post('localhost', port, '/post/future');
         final response = await request.close();
         expect(response.statusCode, HttpStatus.ok);
-        expect(await response.transform(utf8.decoder).join(), equals('bla'));
+        final body = await response.transform(utf8.decoder).join();
+        expect(body, equals('bla'));
       });
 
       test('POST param', () async {
         final request = await httpClient.post('localhost', port, '/post/ids/1');
         final response = await request.close();
         expect(response.statusCode, HttpStatus.ok);
-        expect(await response.transform(utf8.decoder).join(), equals('1'));
+        final body = await response.transform(utf8.decoder).join();
+        expect(body, equals('1'));
       });
 
       test('POST body', () async {
@@ -329,8 +363,8 @@ void main() {
         request.write('{"value":"foo"}');
         final response = await request.close();
         expect(response.statusCode, HttpStatus.ok);
-        expect(await response.transform(utf8.decoder).join(),
-            equals('{"value":"foo"}'));
+        final body = await response.transform(utf8.decoder).join();
+        expect(body, equals('{"value":"foo"}'));
       });
     });
 
@@ -355,36 +389,40 @@ void main() {
         final request = await httpClient.put('localhost', port, '/put/double');
         final response = await request.close();
         expect(response.statusCode, HttpStatus.ok);
-        expect(await response.transform(utf8.decoder).join(), equals('1.1'));
+        final body = await response.transform(utf8.decoder).join();
+        expect(body, equals('1.1'));
       });
 
       test('PUT null', () async {
         final request = await httpClient.put('localhost', port, '/put/null');
         final response = await request.close();
         expect(response.statusCode, HttpStatus.ok);
-        expect(await response.transform(utf8.decoder).join(), equals(''));
+        final body = await response.transform(utf8.decoder).join();
+        expect(body, equals(''));
       });
 
       test('PUT class', () async {
         final request = await httpClient.put('localhost', port, '/put/class');
         final response = await request.close();
         expect(response.statusCode, HttpStatus.ok);
-        expect(await response.transform(utf8.decoder).join(),
-            equals('{"value":"class"}'));
+        final body = await response.transform(utf8.decoder).join();
+        expect(body, equals('{"value":"class"}'));
       });
 
       test('PUT future', () async {
         final request = await httpClient.put('localhost', port, '/put/future');
         final response = await request.close();
         expect(response.statusCode, HttpStatus.ok);
-        expect(await response.transform(utf8.decoder).join(), equals('bla'));
+        final body = await response.transform(utf8.decoder).join();
+        expect(body, equals('bla'));
       });
 
       test('PUT param', () async {
         final request = await httpClient.put('localhost', port, '/put/ids/1');
         final response = await request.close();
         expect(response.statusCode, HttpStatus.ok);
-        expect(await response.transform(utf8.decoder).join(), equals('1'));
+        final body = await response.transform(utf8.decoder).join();
+        expect(body, equals('1'));
       });
     });
 
@@ -410,7 +448,8 @@ void main() {
             await httpClient.delete('localhost', port, '/delete/double');
         final response = await request.close();
         expect(response.statusCode, HttpStatus.ok);
-        expect(await response.transform(utf8.decoder).join(), equals('1.1'));
+        final body = await response.transform(utf8.decoder).join();
+        expect(body, equals('1.1'));
       });
 
       test('DELETE null', () async {
@@ -418,7 +457,8 @@ void main() {
             await httpClient.delete('localhost', port, '/delete/null');
         final response = await request.close();
         expect(response.statusCode, HttpStatus.ok);
-        expect(await response.transform(utf8.decoder).join(), equals(''));
+        final body = await response.transform(utf8.decoder).join();
+        expect(body, equals(''));
       });
 
       test('DELETE class', () async {
@@ -426,8 +466,8 @@ void main() {
             await httpClient.delete('localhost', port, '/delete/class');
         final response = await request.close();
         expect(response.statusCode, HttpStatus.ok);
-        expect(await response.transform(utf8.decoder).join(),
-            equals('{"value":"class"}'));
+        final body = await response.transform(utf8.decoder).join();
+        expect(body, equals('{"value":"class"}'));
       });
 
       test('DELETE future', () async {
@@ -435,228 +475,9 @@ void main() {
             await httpClient.delete('localhost', port, '/delete/future');
         final response = await request.close();
         expect(response.statusCode, HttpStatus.ok);
-        expect(await response.transform(utf8.decoder).join(), equals('bla'));
+        final body = await response.transform(utf8.decoder).join();
+        expect(body, equals('bla'));
       });
     });
   });
-}
-
-@Controller("/")
-class ControllerClass {
-  @Get()
-  String getEmpty() {
-    return "Empty";
-  }
-
-  @Post()
-  String postEmpty() {
-    return "Empty";
-  }
-
-  @Put()
-  String putEmpty() {
-    return "Empty";
-  }
-
-  @Delete()
-  String deleteEmpty() {
-    return "Empty";
-  }
-}
-
-@Controller("/get")
-class GetControllerClass {
-  @Get("/double")
-  double getDouble() {
-    return 1.1;
-  }
-
-  @Get("/null")
-  dynamic getNull() {
-    return null;
-  }
-
-  @Get("/class")
-  Foo getClass() {
-    return Foo('class');
-  }
-
-  @Get("/future")
-  Future<String> getFuture() async {
-    return Future.value("bla");
-  }
-
-  @Get("/ids/<id>")
-  int getParam(@PathParam() int id) {
-    return id;
-  }
-
-  @Get("/query")
-  int getQuery(@QueryParam() int id) {
-    return id;
-  }
-
-  @Get("/queries")
-  String getQueries(
-    @QueryParam() int id,
-    @QueryParam() int id2,
-  ) {
-    return '$id/$id2';
-  }
-
-  @Get("/paths/<id>")
-  String getPaths(
-    @PathParam() int id,
-    @QueryParam() int query,
-  ) {
-    return '$id/$query';
-  }
-
-  @Get("/paths/<path1>/another/<path2>")
-  String getPathsAnotherPaths(
-    @PathParam() int path1,
-    @QueryParam() int query,
-    @PathParam() int path2,
-    @QueryParam() int query2,
-  ) {
-    return '$path1/$path2/$query/$query2';
-  }
-
-  @Get("/types")
-  String getTypes(
-    @QueryParam() bool bool,
-    @QueryParam() int int,
-    @QueryParam() double double,
-    @QueryParam() String string,
-    @QueryParam() List<int> list,
-  ) {
-    return '$bool/$int/$double/$string/$list';
-  }
-
-  @Get("/optional")
-  String getOptional(
-    @QueryParam() bool? bool, {
-    @QueryParam() int int = 1,
-  }) {
-    return '$bool/$int';
-  }
-
-  @Get("/names/<namePath>")
-  String getNames(
-    @PathParam("namePath") String otherPath,
-    @QueryParam("nameQuery") String otherQuery,
-  ) {
-    return '$otherPath/$otherQuery';
-  }
-
-  @HttpCode(HttpStatus.accepted)
-  @Get("/statuscodes")
-  getStatusCode() {}
-
-  @Header('test', 'test')
-  @Get("/headers")
-  getHeader() {}
-}
-
-@Controller("/post")
-class PostControllerClass {
-  @Post("/double")
-  double postDouble() {
-    return 1.1;
-  }
-
-  @Post("/null")
-  dynamic postNull() {
-    return null;
-  }
-
-  @Post("/class")
-  Foo postClass() {
-    return Foo('class');
-  }
-
-  @Post("/future")
-  Future<String> postFuture() async {
-    return Future.value("bla");
-  }
-
-  @Post("/ids/<id>")
-  int postParam(@PathParam() int id) {
-    return id;
-  }
-
-  @Post("/body")
-  Foo postBody(@Body() Foo body) {
-    return body;
-  }
-}
-
-@Controller("/put")
-class PutControllerClass {
-  @Put("/double")
-  double putDouble() {
-    return 1.1;
-  }
-
-  @Put("/null")
-  dynamic putNull() {
-    return null;
-  }
-
-  @Put("/class")
-  Foo putClass() {
-    return Foo('class');
-  }
-
-  @Put("/future")
-  Future<String> putFuture() async {
-    return Future.value("bla");
-  }
-
-  @Put("/ids/<id>")
-  int putParam(@PathParam() int id) {
-    return id;
-  }
-}
-
-@Controller("/delete")
-class DeleteControllerClass {
-  @Delete("/double")
-  double deleteDouble() {
-    return 1.1;
-  }
-
-  @Delete("/null")
-  dynamic deleteNull() {
-    return null;
-  }
-
-  @Delete("/class")
-  Foo deleteClass() {
-    return Foo('class');
-  }
-
-  @Delete("/future")
-  Future<String> deleteFuture() async {
-    return Future.value("bla");
-  }
-
-  @Delete("/ids/<id>")
-  int deleteParam(int id) {
-    return id;
-  }
-}
-
-class Foo {
-  const Foo(this.value);
-
-  final String value;
-
-  Map<String, dynamic> toJson() {
-    return {
-      'value': value,
-    };
-  }
-
-  Foo.fromJson(Map<String, dynamic> json) : value = json['value'];
 }
