@@ -1,8 +1,10 @@
 import 'dart:io';
 
 import 'package:dartness_server/dartness.dart';
-import 'package:dartness_server/server.dart';
 import 'package:test/test.dart';
+
+import 'test_controller.dart';
+import 'test_middleware.dart';
 
 void main() {
   late Dartness dartness;
@@ -14,7 +16,12 @@ void main() {
     httpClient = HttpClient();
     dartness = Dartness(
       port: port,
-      // controllers: [TestController()],
+      controllers: [
+        DartnessController(
+          TestController.instance,
+          TestController.instance.getRoutes(),
+        )
+      ],
       middlewares: [TestMiddleware()],
     );
     await dartness.create();
@@ -39,19 +46,4 @@ void main() {
     /// this must be fixed in the future with the exception handler
     expect(response.statusCode, expected);
   });
-}
-
-@Controller("/auth")
-class TestController {
-  @Get()
-  static String get() => '';
-}
-
-class TestMiddleware implements DartnessMiddleware {
-  @override
-  void handle(DartnessRequest request) {
-    if (!request.headers.containsKey(HttpHeaders.authorizationHeader)) {
-      throw HttpException("Unauthorized", uri: request.requestedUri);
-    }
-  }
 }

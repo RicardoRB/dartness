@@ -15,7 +15,7 @@ extension CityControllerRoutes on CityController {
         getCities,
         [
           DartnessParam('offset', true, false, false, true, false, true, int,
-              defaultValue: '100')
+              defaultValue: '100', fromJson: null)
         ],
         httpCode: 202,
         headers: {}));
@@ -25,7 +25,7 @@ extension CityControllerRoutes on CityController {
         getCity,
         [
           DartnessParam('id', false, true, false, false, true, false, int,
-              defaultValue: null)
+              defaultValue: null, fromJson: null)
         ],
         httpCode: null,
         headers: {'content-type': 'application/json'}));
