@@ -52,7 +52,10 @@ class DartnessRouterHandler {
           _route.handler, positionalArguments, namedArguments);
     } on HttpStatusException catch (e) {
       return Response(e.statusCode, body: e.message);
+    } catch (e) {
+      return Response(HttpStatus.internalServerError, body: e.toString());
     }
+    
     dynamic body;
     if (response is Response) {
       return response;
