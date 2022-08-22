@@ -1,10 +1,10 @@
 import 'package:dartness_server/dartness.dart';
 
-part 'controller_class.g.dart';
+part 'class_controller.g.dart';
 
 @Controller("/")
-class ControllerClass {
-  static final ControllerClass instance = ControllerClass();
+class ClassController {
+  static final ClassController instance = ClassController();
 
   @Get()
   String getEmpty() {

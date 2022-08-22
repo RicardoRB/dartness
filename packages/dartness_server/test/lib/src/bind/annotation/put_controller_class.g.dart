@@ -30,3 +30,8 @@ extension PutControllerClassRoutes on PutControllerClass {
     return routes;
   }
 }
+
+class PutDartnessControllerClass extends DartnessController {
+  PutDartnessControllerClass(PutControllerClass controller)
+      : super(controller, controller.getRoutes());
+}

@@ -1,12 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'controller_class.dart';
+part of 'class_controller.dart';
 
 // **************************************************************************
 // ControllerGenerator
 // **************************************************************************
 
-extension ControllerClassRoutes on ControllerClass {
+extension ClassControllerRoutes on ClassController {
   List<ControllerRoute> getRoutes() {
     final routes = <ControllerRoute>[];
     routes.add(
@@ -19,4 +19,9 @@ extension ControllerClassRoutes on ControllerClass {
         httpCode: null, headers: {}));
     return routes;
   }
+}
+
+class ClassDartnessController extends DartnessController {
+  ClassDartnessController(ClassController controller)
+      : super(controller, controller.getRoutes());
 }

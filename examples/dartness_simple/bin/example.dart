@@ -7,12 +7,13 @@ import 'package:example/src/middlewares/example_middleware.dart';
 import 'package:example/src/services/city_service.dart';
 
 void main(List<String> args) async {
-  final controllers = [CityController(CityService())];
+  final controllers = [
+    CityDartnessController(CityController(CityService())),
+  ];
   final errorHandlers = [ExampleErrorHandler()];
   final app = Dartness(
     port: 3000,
-    controllers: controllers.map(
-        (controller) => DartnessController(controller, controller.getRoutes())),
+    controllers: controllers,
     errorHandlers: errorHandlers.map((errorHandler) =>
         DartnessErrorHandler(errorHandler, errorHandler.getCatchErrors())),
     middlewares: [

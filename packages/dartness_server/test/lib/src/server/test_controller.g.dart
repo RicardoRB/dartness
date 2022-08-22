@@ -16,3 +16,8 @@ extension TestControllerRoutes on TestController {
     return routes;
   }
 }
+
+class TestDartnessController extends DartnessController {
+  TestDartnessController(TestController controller)
+      : super(controller, controller.getRoutes());
+}

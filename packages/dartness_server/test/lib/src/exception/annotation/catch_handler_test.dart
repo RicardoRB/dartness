@@ -19,10 +19,7 @@ void main() {
       dartness = Dartness(
         port: port,
         controllers: [
-          DartnessController(
-            GetControllerClass.instance,
-            GetControllerClass.instance.getRoutes(),
-          ),
+          GetDartnessControllerClass(GetControllerClass.instance),
         ],
         errorHandlers: [
           DartnessErrorHandler(

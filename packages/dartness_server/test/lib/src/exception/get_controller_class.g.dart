@@ -15,3 +15,8 @@ extension GetControllerClassRoutes on GetControllerClass {
     return routes;
   }
 }
+
+class GetDartnessControllerClass extends DartnessController {
+  GetDartnessControllerClass(GetControllerClass controller)
+      : super(controller, controller.getRoutes());
+}

@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:dartness_server/dartness.dart';
 import 'package:test/test.dart';
 
-import 'controller_class.dart';
+import 'class_controller.dart';
 import 'delete_controller_class.dart';
 import 'get_controller_class.dart';
 import 'post_controller_class.dart';
@@ -53,26 +53,11 @@ void main() {
 
     setUp(() async {
       final controllers = [
-        DartnessController(
-          ControllerClass.instance,
-          ControllerClass.instance.getRoutes(),
-        ),
-        DartnessController(
-          GetControllerClass.instance,
-          GetControllerClass.instance.getRoutes(),
-        ),
-        DartnessController(
-          PostControllerClass.instance,
-          PostControllerClass.instance.getRoutes(),
-        ),
-        DartnessController(
-          PutControllerClass.instance,
-          PutControllerClass.instance.getRoutes(),
-        ),
-        DartnessController(
-          DeleteControllerClass.instance,
-          DeleteControllerClass.instance.getRoutes(),
-        ),
+        ClassDartnessController(ClassController.instance),
+        GetDartnessControllerClass(GetControllerClass.instance),
+        PostDartnessControllerClass(PostControllerClass.instance),
+        PutDartnessControllerClass(PutControllerClass.instance),
+        DeleteDartnessControllerClass(DeleteControllerClass.instance),
       ];
       httpClient = HttpClient();
       dartness = Dartness(

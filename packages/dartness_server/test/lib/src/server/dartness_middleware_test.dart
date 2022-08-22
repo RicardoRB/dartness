@@ -16,12 +16,7 @@ void main() {
     httpClient = HttpClient();
     dartness = Dartness(
       port: port,
-      controllers: [
-        DartnessController(
-          TestController.instance,
-          TestController.instance.getRoutes(),
-        )
-      ],
+      controllers: [TestDartnessController(TestController.instance)],
       middlewares: [TestMiddleware()],
     );
     await dartness.create();

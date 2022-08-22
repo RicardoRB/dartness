@@ -52,10 +52,31 @@ class ControllerGenerator extends GeneratorForAnnotation<Controller> {
             ..addExpression(refer(_routesVariableName).returned),
         ),
     );
-    return Extension((extensionBuilder) => extensionBuilder
+
+    final extension = Extension((extensionBuilder) => extensionBuilder
       ..name = '${element.name}Routes'
       ..on = refer(element.name)
-      ..methods.add(method)).accept(DartEmitter()).toString();
+      ..methods.add(method));
+
+    final dartnessController = Class(
+      (extensionBuilder) => extensionBuilder
+        ..name = element.name.replaceAll('Controller', 'DartnessController')
+        ..constructors.add(Constructor(
+          (constructorBuilder) => constructorBuilder
+            ..initializers.add(refer('super').call(
+                [refer('controller'), refer('controller.getRoutes()')]).code)
+            ..requiredParameters.add(Parameter(
+              (parameterBuilder) => parameterBuilder
+                ..name = 'controller'
+                ..type = refer(element.name),
+            )),
+        ))
+        ..extend = refer((DartnessController).toString()),
+    );
+
+    return Library((b) => b.body.addAll([extension, dartnessController]))
+        .accept(DartEmitter())
+        .toString();
   }
 
   Expression _methodElementToMethodRefer(final ExecutableElement methodElement,

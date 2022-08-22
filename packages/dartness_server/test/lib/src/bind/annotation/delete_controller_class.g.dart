@@ -30,3 +30,8 @@ extension DeleteControllerClassRoutes on DeleteControllerClass {
     return routes;
   }
 }
+
+class DeleteDartnessControllerClass extends DartnessController {
+  DeleteDartnessControllerClass(DeleteControllerClass controller)
+      : super(controller, controller.getRoutes());
+}

@@ -32,3 +32,8 @@ extension CityControllerRoutes on CityController {
     return routes;
   }
 }
+
+class CityDartnessController extends DartnessController {
+  CityDartnessController(CityController controller)
+      : super(controller, controller.getRoutes());
+}

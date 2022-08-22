@@ -20,8 +20,7 @@ void main() {
     dartness = Dartness(
       port: port,
       controllers: [
-        DartnessController(
-            TestController.instance, TestController.instance.getRoutes()),
+        TestDartnessController(TestController.instance),
       ],
       interceptors: [
         TestInterceptor(),

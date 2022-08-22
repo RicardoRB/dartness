@@ -40,3 +40,8 @@ extension PostControllerClassRoutes on PostControllerClass {
     return routes;
   }
 }
+
+class PostDartnessControllerClass extends DartnessController {
+  PostDartnessControllerClass(PostControllerClass controller)
+      : super(controller, controller.getRoutes());
+}
