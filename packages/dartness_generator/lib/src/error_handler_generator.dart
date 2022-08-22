@@ -45,10 +45,36 @@ class ErrorHandlerGenerator extends GeneratorForAnnotation<ErrorHandler> {
             ..addExpression(refer(_errorHandlersVariableName).returned),
         ),
     );
-    return Extension((extensionBuilder) => extensionBuilder
+
+    final extension = Extension((extensionBuilder) => extensionBuilder
       ..name = '${element.name}Catchers'
       ..on = refer(element.name)
-      ..methods.add(method)).accept(DartEmitter()).toString();
+      ..methods.add(method));
+
+    final className = element.name.contains('ErrorHandler')
+        ? element.name.replaceAll('ErrorHandler', 'DartnessErrorHandler')
+        : '${element.name}DartnessErrorHandler';
+
+    final dartnessController = Class(
+      (extensionBuilder) => extensionBuilder
+        ..name = className
+        ..constructors.add(Constructor(
+          (constructorBuilder) => constructorBuilder
+            ..initializers.add(refer('super').call([
+              refer('errorHandler'),
+              refer('errorHandler.getCatchErrors()')
+            ]).code)
+            ..requiredParameters.add(Parameter(
+              (parameterBuilder) => parameterBuilder
+                ..name = 'errorHandler'
+                ..type = refer(element.name),
+            )),
+        ))
+        ..extend = refer((DartnessErrorHandler).toString()),
+    );
+    return Library((b) => b.body.addAll([extension, dartnessController]))
+        .accept(DartEmitter())
+        .toString();
   }
 
   Expression _methodElementToMethodRefer(ExecutableElement methodElement) {

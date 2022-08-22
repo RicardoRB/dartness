@@ -14,3 +14,8 @@ extension ExampleErrorHandlerCatchers on ExampleErrorHandler {
     return catchErrorHandlers;
   }
 }
+
+class ExampleDartnessErrorHandler extends DartnessErrorHandler {
+  ExampleDartnessErrorHandler(ExampleErrorHandler errorHandler)
+      : super(errorHandler, errorHandler.getCatchErrors());
+}

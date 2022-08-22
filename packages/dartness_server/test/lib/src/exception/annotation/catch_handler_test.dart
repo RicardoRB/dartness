@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:dartness_server/dartness.dart';
-import 'package:dartness_server/exception.dart';
 import 'package:test/test.dart';
 
 import 'custom_error_handler.dart';
@@ -22,10 +21,7 @@ void main() {
           GetDartnessControllerClass(GetControllerClass.instance),
         ],
         errorHandlers: [
-          DartnessErrorHandler(
-            CustomErrorHandler.instance,
-            CustomErrorHandler.instance.getCatchErrors(),
-          ),
+          CustomDartnessErrorHandler(CustomErrorHandler.instance)
         ],
       );
       await dartness.create();

@@ -15,3 +15,8 @@ extension CustomErrorHandlerCatchers on CustomErrorHandler {
     return catchErrorHandlers;
   }
 }
+
+class CustomDartnessErrorHandler extends DartnessErrorHandler {
+  CustomDartnessErrorHandler(CustomErrorHandler errorHandler)
+      : super(errorHandler, errorHandler.getCatchErrors());
+}
