@@ -1,7 +1,7 @@
-import 'package:dartness_server/src/exception/dartness_error_handler.dart';
-import 'package:dartness_server/src/exception/dartness_error_handler_register.dart';
 import 'package:shelf/shelf.dart';
 
+import '../exception/dartness_error_handler.dart';
+import '../exception/dartness_error_handler_register.dart';
 import '../exception/default_error_handler_register.dart';
 import 'dartness_interceptor.dart';
 import 'dartness_middleware.dart';

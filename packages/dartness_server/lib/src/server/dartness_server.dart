@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import '../dartness_controller.dart';
+import '../route/dartness_controller.dart';
 import '../exception/dartness_error_handler.dart';
 import 'dartness_interceptor.dart';
 import 'dartness_middleware.dart';

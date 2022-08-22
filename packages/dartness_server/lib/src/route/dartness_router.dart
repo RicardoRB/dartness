@@ -1,6 +1,6 @@
 import 'package:shelf_router/shelf_router.dart';
 
-import '../../dartness.dart';
+import 'controller_route.dart';
 
 /// A router that can be used to handle requests.
 abstract class DartnessRouter {

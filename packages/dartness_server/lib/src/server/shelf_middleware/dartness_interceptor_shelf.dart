@@ -1,9 +1,9 @@
 import 'dart:io';
 
-import 'package:dartness_server/src/server/dartness_request.dart';
 import 'package:shelf/shelf.dart';
 
 import '../dartness_interceptor.dart';
+import '../dartness_request.dart';
 import '../dartness_response.dart';
 import 'shelf_middleware.dart';
 

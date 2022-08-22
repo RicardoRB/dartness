@@ -1,10 +1,10 @@
 import 'dart:io';
 
-import 'package:dartness_server/dartness.dart';
-import 'package:dartness_server/src/exception/http_status_exception.dart';
 import 'package:shelf/shelf.dart';
 
 import '../../exception/dartness_error_handler_register.dart';
+import '../../exception/http_status_exception.dart';
+import '../dartness_response.dart';
 import 'shelf_middleware.dart';
 
 /// A representation of a [DartnessCatchErrorRegister] by using [Middleware]

@@ -1,7 +1,7 @@
-import 'package:dartness_server/src/server/dartness_request.dart';
 import 'package:shelf/shelf.dart';
 
 import '../dartness_middleware.dart';
+import '../dartness_request.dart';
 import 'shelf_middleware.dart';
 
 /// A representation of a [DartnessMiddleware] by using [Middleware]

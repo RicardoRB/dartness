@@ -1,4 +1,4 @@
-import 'package:dartness_server/dartness.dart';
+import 'dartness_param.dart';
 
 /// The data required to handle the class annotated with [Controller]
 /// internally by the Dartness framework.

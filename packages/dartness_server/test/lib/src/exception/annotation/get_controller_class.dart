@@ -1,4 +1,5 @@
 import 'package:dartness_server/dartness.dart';
+import 'package:dartness_server/route.dart';
 
 part 'get_controller_class.g.dart';
 

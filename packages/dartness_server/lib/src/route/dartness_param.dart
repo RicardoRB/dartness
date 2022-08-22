@@ -1,5 +1,3 @@
-import 'package:dartness_server/dartness.dart';
-
 /// The param data from the route method required to handle the class
 /// annotated with [Controller] internally by the Dartness framework.
 class DartnessParam {

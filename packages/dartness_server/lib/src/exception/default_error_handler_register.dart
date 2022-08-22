@@ -1,11 +1,11 @@
 import 'dart:io';
 
 import 'package:collection/collection.dart';
-import 'package:dartness_server/src/exception/dartness_error_handler_register.dart';
 import 'package:shelf/shelf.dart';
 
 import '../server/dartness_request.dart';
 import 'dartness_catch_handler.dart';
+import 'dartness_error_handler_register.dart';
 
 /// Default implementation of [DartnessCatchErrorRegister] that handles the errors
 /// by the custom handlers added by [addCatchError].

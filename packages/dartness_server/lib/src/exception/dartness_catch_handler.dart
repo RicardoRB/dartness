@@ -1,5 +1,3 @@
-import 'package:dartness_server/exception.dart';
-
 /// A wrapper class in order to retrieve the error handler instance from the
 /// annotation [ErrorHandler] and the data required to handle it internally by the
 /// Dartness framework.

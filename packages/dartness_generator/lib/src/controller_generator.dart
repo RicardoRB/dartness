@@ -2,6 +2,7 @@ import 'package:analyzer/dart/element/element.dart';
 import 'package:build/build.dart';
 import 'package:code_builder/code_builder.dart';
 import 'package:dartness_server/dartness.dart';
+import 'package:dartness_server/route.dart';
 import 'package:source_gen/source_gen.dart';
 
 class ControllerGenerator extends GeneratorForAnnotation<Controller> {

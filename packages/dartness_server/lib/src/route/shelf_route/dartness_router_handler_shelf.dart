@@ -1,8 +1,8 @@
-import 'package:dartness_server/src/route/shelf_route/shelf_handler.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
 
 import '../dartness_router_handler.dart';
+import 'shelf_handler.dart';
 
 /// A representation of a [DartnessRouterHandler] by using [Function] as handler
 /// in order to call [Router.add].

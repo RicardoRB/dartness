@@ -1,4 +1,4 @@
-import '../dartness.dart';
+import 'controller_route.dart';
 
 /// A wrapper class in order to retrieve the controller instance from the
 /// annotation [Controller] and the data required to handle it internally by the
