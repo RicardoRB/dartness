@@ -115,9 +115,20 @@ class ControllerGenerator extends GeneratorForAnnotation<Controller> {
       throw InvalidGenerationSourceError(
           'Param `${param.name}` cannot be both @QueryParam and @PathParam');
     }
+    final String name;
+    if (isQuery) {
+      final queryParamAnnotation =
+          _queryParamType.firstAnnotationOfExact(param);
+      name =
+          queryParamAnnotation?.getField('name')?.toStringValue() ?? param.name;
+    } else {
+      final pathParamAnnotation = _pathParamType.firstAnnotationOfExact(param);
+      name =
+          pathParamAnnotation?.getField('name')?.toStringValue() ?? param.name;
+    }
     return refer((DartnessParam).toString()).newInstance(
       [
-        literalString(param.name),
+        literalString(name),
         literalBool(isQuery),
         literalBool(isPath),
         literalBool(param.isNamed),

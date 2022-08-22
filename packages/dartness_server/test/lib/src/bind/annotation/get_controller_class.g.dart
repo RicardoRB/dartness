@@ -112,9 +112,9 @@ extension GetControllerClassRoutes on GetControllerClass {
         '/get/names/<namePath>',
         getNames,
         [
-          DartnessParam('otherPath', false, true, false, true, false, String,
+          DartnessParam('namePath', false, true, false, true, false, String,
               defaultValue: null),
-          DartnessParam('otherQuery', true, false, false, true, false, String,
+          DartnessParam('nameQuery', true, false, false, true, false, String,
               defaultValue: null)
         ],
         httpCode: null,
