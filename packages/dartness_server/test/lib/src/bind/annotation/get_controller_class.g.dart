@@ -22,8 +22,8 @@ extension GetControllerClassRoutes on GetControllerClass {
         '/get/ids/<id>',
         getParam,
         [
-          DartnessParam('id', false, true, false, true, false, int,
-              defaultValue: null)
+          DartnessParam('id', false, true, false, false, true, false, int,
+              defaultValue: null, fromJson: null)
         ],
         httpCode: null,
         headers: {}));
@@ -32,8 +32,8 @@ extension GetControllerClassRoutes on GetControllerClass {
         '/get/query',
         getQuery,
         [
-          DartnessParam('id', true, false, false, true, false, int,
-              defaultValue: null)
+          DartnessParam('id', true, false, false, false, true, false, int,
+              defaultValue: null, fromJson: null)
         ],
         httpCode: null,
         headers: {}));
@@ -42,10 +42,10 @@ extension GetControllerClassRoutes on GetControllerClass {
         '/get/queries',
         getQueries,
         [
-          DartnessParam('id', true, false, false, true, false, int,
-              defaultValue: null),
-          DartnessParam('id2', true, false, false, true, false, int,
-              defaultValue: null)
+          DartnessParam('id', true, false, false, false, true, false, int,
+              defaultValue: null, fromJson: null),
+          DartnessParam('id2', true, false, false, false, true, false, int,
+              defaultValue: null, fromJson: null)
         ],
         httpCode: null,
         headers: {}));
@@ -54,10 +54,10 @@ extension GetControllerClassRoutes on GetControllerClass {
         '/get/paths/<id>',
         getPaths,
         [
-          DartnessParam('id', false, true, false, true, false, int,
-              defaultValue: null),
-          DartnessParam('query', true, false, false, true, false, int,
-              defaultValue: null)
+          DartnessParam('id', false, true, false, false, true, false, int,
+              defaultValue: null, fromJson: null),
+          DartnessParam('query', true, false, false, false, true, false, int,
+              defaultValue: null, fromJson: null)
         ],
         httpCode: null,
         headers: {}));
@@ -66,14 +66,14 @@ extension GetControllerClassRoutes on GetControllerClass {
         '/get/paths/<path1>/another/<path2>',
         getPathsAnotherPaths,
         [
-          DartnessParam('path1', false, true, false, true, false, int,
-              defaultValue: null),
-          DartnessParam('query', true, false, false, true, false, int,
-              defaultValue: null),
-          DartnessParam('path2', false, true, false, true, false, int,
-              defaultValue: null),
-          DartnessParam('query2', true, false, false, true, false, int,
-              defaultValue: null)
+          DartnessParam('path1', false, true, false, false, true, false, int,
+              defaultValue: null, fromJson: null),
+          DartnessParam('query', true, false, false, false, true, false, int,
+              defaultValue: null, fromJson: null),
+          DartnessParam('path2', false, true, false, false, true, false, int,
+              defaultValue: null, fromJson: null),
+          DartnessParam('query2', true, false, false, false, true, false, int,
+              defaultValue: null, fromJson: null)
         ],
         httpCode: null,
         headers: {}));
@@ -82,16 +82,19 @@ extension GetControllerClassRoutes on GetControllerClass {
         '/get/types',
         getTypes,
         [
-          DartnessParam('bool', true, false, false, true, false, bool,
-              defaultValue: null),
-          DartnessParam('int', true, false, false, true, false, int,
-              defaultValue: null),
-          DartnessParam('double', true, false, false, true, false, double,
-              defaultValue: null),
-          DartnessParam('string', true, false, false, true, false, String,
-              defaultValue: null),
-          DartnessParam('list', true, false, false, true, false, List<int>,
-              defaultValue: null)
+          DartnessParam('bool', true, false, false, false, true, false, bool,
+              defaultValue: null, fromJson: null),
+          DartnessParam('int', true, false, false, false, true, false, int,
+              defaultValue: null, fromJson: null),
+          DartnessParam(
+              'double', true, false, false, false, true, false, double,
+              defaultValue: null, fromJson: null),
+          DartnessParam(
+              'string', true, false, false, false, true, false, String,
+              defaultValue: null, fromJson: null),
+          DartnessParam(
+              'list', true, false, false, false, true, false, List<int>,
+              defaultValue: null, fromJson: null)
         ],
         httpCode: null,
         headers: {}));
@@ -100,10 +103,10 @@ extension GetControllerClassRoutes on GetControllerClass {
         '/get/optional',
         getOptional,
         [
-          DartnessParam('bool', true, false, false, true, false, bool,
-              defaultValue: null),
-          DartnessParam('int', true, false, true, false, true, int,
-              defaultValue: '1')
+          DartnessParam('bool', true, false, false, false, true, false, bool,
+              defaultValue: null, fromJson: null),
+          DartnessParam('int', true, false, false, true, false, true, int,
+              defaultValue: '1', fromJson: null)
         ],
         httpCode: null,
         headers: {}));
@@ -112,10 +115,12 @@ extension GetControllerClassRoutes on GetControllerClass {
         '/get/names/<namePath>',
         getNames,
         [
-          DartnessParam('namePath', false, true, false, true, false, String,
-              defaultValue: null),
-          DartnessParam('nameQuery', true, false, false, true, false, String,
-              defaultValue: null)
+          DartnessParam(
+              'namePath', false, true, false, false, true, false, String,
+              defaultValue: null, fromJson: null),
+          DartnessParam(
+              'nameQuery', true, false, false, false, true, false, String,
+              defaultValue: null, fromJson: null)
         ],
         httpCode: null,
         headers: {}));

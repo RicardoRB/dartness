@@ -1,8 +1,9 @@
 import 'dart:io';
 
 import 'package:dartness_server/dartness.dart';
-import 'package:dartness_server/exception.dart';
 import 'package:test/test.dart';
+
+import 'get_controller_class.dart';
 
 void main() {
   group('http tests', () {
@@ -16,7 +17,10 @@ void main() {
       dartness = Dartness(
         port: port,
       );
-      // dartness.addController(GetControllerClass());
+      dartness.addController(DartnessController(
+        GetControllerClass.instance,
+        GetControllerClass.instance.getRoutes(),
+      ));
       await dartness.create();
     });
 
@@ -34,17 +38,4 @@ void main() {
       },
     );
   });
-}
-
-@Controller("/get")
-class GetControllerClass {
-  @Get("/custom_exception")
-  getCustomException() {
-    throw ExampleCustomHttpStatusException('Custom exception thrown');
-  }
-}
-
-class ExampleCustomHttpStatusException extends HttpStatusException {
-  const ExampleCustomHttpStatusException(String message)
-      : super(message, HttpStatus.notFound);
 }

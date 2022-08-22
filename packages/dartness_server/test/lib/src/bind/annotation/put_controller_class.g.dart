@@ -22,8 +22,8 @@ extension PutControllerClassRoutes on PutControllerClass {
         '/put/ids/<id>',
         putParam,
         [
-          DartnessParam('id', false, true, false, true, false, int,
-              defaultValue: null)
+          DartnessParam('id', false, true, false, false, true, false, int,
+              defaultValue: null, fromJson: null)
         ],
         httpCode: null,
         headers: {}));

@@ -7,11 +7,13 @@ class DartnessParam {
     this.name,
     this.isQuery,
     this.isPath,
+    this.isBody,
     this.isNamed,
     this.isPositional,
     this.isOptional,
     this.type, {
     this.defaultValue,
+    this.fromJson,
   });
 
   /// The name of the param.
@@ -22,6 +24,9 @@ class DartnessParam {
 
   /// Whether the param is a path param.
   final bool isPath;
+
+  /// Whether the param is a body param.
+  final bool isBody;
 
   /// Whether the param is a named param.
   final bool isNamed;
@@ -37,4 +42,7 @@ class DartnessParam {
 
   /// The default value of the param.
   final dynamic defaultValue;
+
+  /// The function to convert the param from json.
+  final Function? fromJson;
 }

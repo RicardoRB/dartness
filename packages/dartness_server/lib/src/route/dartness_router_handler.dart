@@ -16,26 +16,30 @@ class DartnessRouterHandler {
   /// Handles the route's response and invoke the [Function] in [ControllerRoute.handler]
   Future<Response> handleRoute(final Request request,
       [final Object? extras]) async {
-    final positionalArguments = [];
+    final List<dynamic> positionalArguments = [];
     final Map<Symbol, dynamic> namedArguments = {};
     for (final param in _route.params) {
       if (param.isPositional) {
         if (param.isPath) {
-          final pathParam = getPathParam(request, param);
+          final pathParam = _getPathParam(request, param);
           final value = stringToType(pathParam, param.type);
           positionalArguments.add(value);
-        } else {
-          final queryParam = getQueryParam(request, param);
+        } else if (param.isQuery) {
+          final queryParam = _getQueryParam(request, param);
           final value = stringToType(queryParam, param.type);
           positionalArguments.add(value);
+        } else {
+          final bodyJson = await request.body.asJson;
+          final bodyInstance = param.fromJson?.call(bodyJson);
+          positionalArguments.add(bodyInstance);
         }
       } else {
         if (param.isPath) {
-          final pathParam = getPathParam(request, param);
+          final pathParam = _getPathParam(request, param);
           final value = stringToType(pathParam, param.type);
           namedArguments[Symbol(param.name)] = value;
         } else {
-          final queryParam = getQueryParam(request, param);
+          final queryParam = _getQueryParam(request, param);
           final value = stringToType(queryParam, param.type);
           namedArguments[Symbol(param.name)] = value;
         }
@@ -65,9 +69,9 @@ class DartnessRouterHandler {
     );
   }
 
-  getQueryParam(Request request, DartnessParam param) =>
+  dynamic _getQueryParam(Request request, DartnessParam param) =>
       request.url.queryParameters[param.name] ?? param.defaultValue;
 
-  getPathParam(Request request, DartnessParam param) =>
+  dynamic _getPathParam(Request request, DartnessParam param) =>
       request.params[param.name] ?? param.defaultValue;
 }

@@ -9,6 +9,7 @@ class ControllerGenerator extends GeneratorForAnnotation<Controller> {
   static final _classReturn = (List<ControllerRoute>).toString();
   static final _queryParamType = TypeChecker.fromRuntime(QueryParam);
   static final _pathParamType = TypeChecker.fromRuntime(PathParam);
+  static final _bodyType = TypeChecker.fromRuntime(Body);
   static final _bindType = TypeChecker.fromRuntime(Bind);
   static final _httpCodeType = TypeChecker.fromRuntime(HttpCode);
   static final _headerType = TypeChecker.fromRuntime(Header);
@@ -110,36 +111,58 @@ class ControllerGenerator extends GeneratorForAnnotation<Controller> {
 
   Expression _paramElementToParamRef(final ParameterElement param) {
     final isQuery = _queryParamType.hasAnnotationOfExact(param);
-    final isPath = _pathParamType.hasAnnotationOfExact(param);
+    bool isPath = _pathParamType.hasAnnotationOfExact(param);
+    final isBody = _bodyType.hasAnnotationOfExact(param);
     if (isQuery && isPath) {
       throw InvalidGenerationSourceError(
           'Param `${param.name}` cannot be both @QueryParam and @PathParam');
     }
+    if (isBody && isPath) {
+      throw InvalidGenerationSourceError(
+          'Param `${param.name}` cannot be both @Body and @PathParam');
+    }
+    if (isBody && isQuery) {
+      throw InvalidGenerationSourceError(
+          'Param `${param.name}` cannot be both @Body and @QueryParam');
+    }
+
+    if (!isQuery && !isPath && !isBody) {
+      isPath = true;
+    }
+
     final String name;
     if (isQuery) {
       final queryParamAnnotation =
           _queryParamType.firstAnnotationOfExact(param);
       name =
           queryParamAnnotation?.getField('name')?.toStringValue() ?? param.name;
-    } else {
+    } else if (isPath) {
       final pathParamAnnotation = _pathParamType.firstAnnotationOfExact(param);
       name =
           pathParamAnnotation?.getField('name')?.toStringValue() ?? param.name;
+    } else {
+      name = param.name;
     }
     return refer((DartnessParam).toString()).newInstance(
       [
         literalString(name),
         literalBool(isQuery),
         literalBool(isPath),
+        literalBool(isBody),
         literalBool(param.isNamed),
         literalBool(param.isPositional),
         literalBool(param.isOptional),
         CodeExpression(Code(param.type.getDisplayString(
           withNullability: false,
-        )))
+        ))),
       ],
       {
         'defaultValue': literal(param.defaultValueCode),
+        'fromJson': isBody
+            ? refer(param.type.getDisplayString(
+                withNullability: false,
+              )).property('fromJson')
+            : literalNull,
       },
     );
   }

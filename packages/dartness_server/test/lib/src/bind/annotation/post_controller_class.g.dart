@@ -22,8 +22,8 @@ extension PostControllerClassRoutes on PostControllerClass {
         '/post/ids/<id>',
         postParam,
         [
-          DartnessParam('id', false, true, false, true, false, int,
-              defaultValue: null)
+          DartnessParam('id', false, true, false, false, true, false, int,
+              defaultValue: null, fromJson: null)
         ],
         httpCode: null,
         headers: {}));
@@ -32,8 +32,8 @@ extension PostControllerClassRoutes on PostControllerClass {
         '/post/body',
         postBody,
         [
-          DartnessParam('body', false, false, false, true, false, Foo,
-              defaultValue: null)
+          DartnessParam('body', false, false, true, false, true, false, Foo,
+              defaultValue: null, fromJson: Foo.fromJson)
         ],
         httpCode: null,
         headers: {}));
