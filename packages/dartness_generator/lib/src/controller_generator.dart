@@ -58,9 +58,13 @@ class ControllerGenerator extends GeneratorForAnnotation<Controller> {
       ..on = refer(element.name)
       ..methods.add(method));
 
+    final className = element.name.contains('Controller')
+        ? element.name.replaceAll('Controller', 'DartnessController')
+        : '${element.name}DartnessController';
+
     final dartnessController = Class(
       (extensionBuilder) => extensionBuilder
-        ..name = element.name.replaceAll('Controller', 'DartnessController')
+        ..name = className
         ..constructors.add(Constructor(
           (constructorBuilder) => constructorBuilder
             ..initializers.add(refer('super').call(
