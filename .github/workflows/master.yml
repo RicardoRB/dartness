@@ -12,12 +12,17 @@ jobs:
       - uses: actions/checkout@v2
       - uses: dart-lang/setup-dart@v1.3
 
-      - name: Install dependencies
-        run: dart pub get
+      - name: "Install Melos"
+        run: dart pub global activate melos
 
-      - name: Verify formatting
-        run: dart format --output=none --set-exit-if-changed .
+      - name: "Bootstrap Workspace"
+        run: melos bootstrap --no-private
 
+      - name: "Getting Dependencies"
+        run: melos get
+
+      - name: "Run Format"
+        run: melos format
 
   analyze:
     runs-on: ubuntu-latest
@@ -25,11 +30,17 @@ jobs:
       - uses: actions/checkout@v2
       - uses: dart-lang/setup-dart@v1.3
 
-      - name: Install dependencies
-        run: dart pub get
+      - name: "Install Melos"
+        run: dart pub global activate melos
 
-      - name: Analyze project source
-        run: dart analyze
+      - name: "Bootstrap Workspace"
+        run: melos bootstrap --no-private
+
+      - name: "Getting Dependencies"
+        run: melos get
+
+      - name: "Run Analyze"
+        run: melos analyze
 
   test:
     runs-on: ubuntu-latest
@@ -37,11 +48,17 @@ jobs:
       - uses: actions/checkout@v2
       - uses: dart-lang/setup-dart@v1.3
 
-      - name: Install dependencies
-        run: dart pub get
+      - name: "Install Melos"
+        run: dart pub global activate melos
 
-      - name: Run tests
-        run: dart test
+      - name: "Bootstrap Workspace"
+        run: melos bootstrap --no-private
+
+      - name: "Getting Dependencies"
+        run: melos get
+
+      - name: "Run Test"
+        run: melos test
 
   publish:
     runs-on: ubuntu-latest
@@ -62,5 +79,13 @@ jobs:
             "expiration": 1659717556326
           }
           EOF
+      - uses: actions/checkout@v2
+      - uses: dart-lang/setup-dart@v1.3
+
+      - name: "Install Melos"
+        run: dart pub global activate melos
+      - name: "Bootstrap Workspace"
+        run: melos bootstrap --no-private
+
       - name: Publish package
-        run: pub publish -f
+        run: melos publish:force

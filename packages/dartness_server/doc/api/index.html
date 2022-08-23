@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="generator" content="made with love by dartdoc 5.1.0-dev">
+  <meta name="description" content="dartness_server API docs, for the Dart programming language.">
+  <title>dartness_server - Dart API docs</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  
+  <link rel="stylesheet" href="static-assets/github.css?v1">
+  <link rel="stylesheet" href="static-assets/styles.css?v1">
+  <link rel="icon" href="static-assets/favicon.png?v1">
+
+  
+</head>
+
+
+<body data-base-href=""
+      data-using-base-href="false">
+
+<div id="overlay-under-drawer"></div>
+
+<header id="title">
+  <button id="sidenav-left-toggle" type="button">&nbsp;</button>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="https://ricardorb.github.io/dartness/">dartness_server package</a></li>
+  </ol>
+  <div class="self-name">dartness_server</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<main>
+
+
+  <div id="dartdoc-main-content" class="main-content">
+      
+<section class="desc markdown">
+  <p><img src="https://github.com/RicardoRB/dartness/actions/workflows/all.yml/badge.svg" alt="Github Action">
+<img src="https://img.shields.io/github/languages/top/RicardoRB/dartness" alt="Top Language">
+<img src="https://img.shields.io/github/license/RicardoRB/dartness" alt="License">
+<img src="https://img.shields.io/pub/likes/dartness_server" alt="Pub Likes">
+<img src="https://img.shields.io/pub/popularity/dartness_server" alt="Pub popularity">
+<img src="https://img.shields.io/pub/v/dartness_server?include_prereleases" alt="Pub version">
+<img src="https://img.shields.io/github/stars/RicardoRB/dartness?style=social" alt="Stars"></p>
+<h1 id="introduction">Introduction</h1><p align="center">Dartness is a progressive dart framework for building efficient and scalable server-side applications.</p>
+<h2 id="description">Description</h2>
+<p>Dartness is a framework for building efficient, scalable dart server-side applications. It provides an easy and quick
+way to develop modern standalone server.</p>
+<p>Under the hood, Dartness makes use of <a href="https://github.com/dart-lang/shelf">shelf</a>.</p>
+<p>Inspired by <a href="https://github.com/spring-projects/spring-boot">Spring Boot</a> and <a href="https://github.com/nestjs/nest">Nest</a>
+frameworks</p>
+<h2 id="installation">Installation</h2>
+<p>Install <a href="https://dart.dev/get-dart">Dart SDK</a> version &gt;=2.17.0</p>
+<pre class="language-bash"><code class="language-bash">$ dart --version            
+Dart SDK version: 2.17.3 (stable)
+</code></pre>
+<h2 id="creating-a-new-project">Creating a new project</h2>
+<pre class="language-bash"><code class="language-bash">$ dart create -t console your_project_name
+</code></pre>
+<ol>
+<li>Add dartness into the pubspec.yaml</li>
+</ol>
+<pre class="language-yaml"><code class="language-yaml">dependencies:
+  dartness_server: ^0.3.0-alpha
+</code></pre>
+<ol start="2">
+<li>Create the file in "bin/main.dart"</li>
+</ol>
+<pre class="language-dart"><code class="language-dart">void main() async {
+  final app = Dartness(
+    port: 3000,
+  );
+  await app.create();
+}
+
+</code></pre>
+<ol start="3">
+<li>Run the server</li>
+</ol>
+<pre class="language-bash"><code class="language-bash">$ dart run bin/main.dart
+Server listening on port 3000
+</code></pre>
+<h2 id="example">Example</h2>
+<p>You can run the example with the <a href="https://dart.dev/get-dart">Dart SDK</a>
+like this:</p>
+<pre class="language-dart"><code>$ dart run example/main.dart
+Server listening on port 3000
+</code></pre>
+<h2 id="docs-and-more">Docs and more</h2>
+<p>You can check the documentation at <a href="https://ricardorb.github.io/dartness/">dartness docs</a></p>
+<h2 id="todo">TODO</h2>
+<ol>
+<li>HTTP
+<ul>
+<li><del>Controllers</del>
+<ul>
+<li><del>Bind annotations</del></li>
+<li><del>Header</del></li>
+<li><del>Body</del></li>
+<li><del>Param</del></li>
+<li><del>Query</del></li>
+</ul>
+</li>
+<li><del>Middleware</del></li>
+<li><del>Interceptor</del></li>
+<li>Websockets</li>
+</ul>
+</li>
+<li>Exceptions
+<ul>
+<li><del>Exception Handler</del></li>
+</ul>
+</li>
+<li>Security
+<ul>
+<li>Security interceptors(?)</li>
+<li>CORS</li>
+</ul>
+</li>
+<li>Dependency Injection
+<ul>
+<li>Injectable</li>
+</ul>
+</li>
+<li>Scheduling
+<ul>
+<li>Annotation</li>
+</ul>
+</li>
+<li>Database
+<ul>
+<li>ORM</li>
+<li>Repository</li>
+</ul>
+</li>
+<li>Testing</li>
+<li>CLI</li>
+<li>Hot reload</li>
+</ol>
+</section>
+
+
+      <section class="summary">
+          <h2>Libraries</h2>
+        <dl>
+          <dt id="dartness">
+  <span class="name"><a href="dartness/dartness-library.html">dartness</a></span> 
+
+</dt>
+<dd>The core libraries of the Dartness framework.
+</dd>
+
+          <dt id="exception">
+  <span class="name"><a href="exception/exception-library.html">exception</a></span> 
+
+</dt>
+<dd>Library that exposes the API for the exceptions
+</dd>
+
+          <dt id="route">
+  <span class="name"><a href="route/route-library.html">route</a></span> 
+
+</dt>
+<dd>Library that exposes the API for the route
+</dd>
+
+          <dt id="server">
+  <span class="name"><a href="server/server-library.html">server</a></span> 
+
+</dt>
+<dd>Library that exposes the API for the server
+</dd>
+
+        </dl>
+      </section>
+
+  </div> <!-- /.main-content -->
+
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+  <li><a href="https://ricardorb.github.io/dartness/">dartness_server package</a></li>
+</ol>
+
+
+    <h5 class="hidden-xs"><span class="package-name">dartness_server</span> <span class="package-kind">package</span></h5>
+    <ol>
+      <li class="section-title">Libraries</li>
+      <li><a href="dartness/dartness-library.html">dartness</a></li>
+      <li><a href="exception/exception-library.html">exception</a></li>
+      <li><a href="route/route-library.html">route</a></li>
+      <li><a href="server/server-library.html">server</a></li>
+</ol>
+
+  </div>
+
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  </div>
+
+</main>
+
+<footer>
+  <span class="no-break">
+    dartness_server
+      0.3.0-alpha
+  </span>
+
+  
+</footer>
+
+
+
+<script src="static-assets/highlight.pack.js?v1"></script>
+<script src="static-assets/script.js?v1"></script>
+
+
+
+</body>
+
+</html>
+
