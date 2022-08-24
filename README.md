@@ -1,14 +1,6 @@
-![Github Action](https://github.com/RicardoRB/dartness/actions/workflows/all.yml/badge.svg)
-![Top Language](https://img.shields.io/github/languages/top/RicardoRB/dartness)
-![License](https://img.shields.io/github/license/RicardoRB/dartness)
-![Pub Likes](https://img.shields.io/pub/likes/dartness_server)
-![Pub popularity](https://img.shields.io/pub/popularity/dartness_server)
-![Pub version](https://img.shields.io/pub/v/dartness_server?include_prereleases)
-![Stars](https://img.shields.io/github/stars/RicardoRB/dartness?style=social)
-
 # Introduction
 
-Dartness is a progressive dart framework for building efficient and scalable server-side applications.
+Dartness is a dart framework for building efficient and scalable server-side applications.
 
 ## Description
 
@@ -20,11 +12,23 @@ Under the hood, Dartness makes use of [shelf](https://github.com/dart-lang/shelf
 Inspired by [Spring Boot](https://github.com/spring-projects/spring-boot) and [Nest](https://github.com/nestjs/nest)
 frameworks
 
-## Docs and more
+## Goals
 
-You can check the documentation at [dartness docs](https://ricardorb.github.io/dartness/)
+The following goals are the main objectives that Dartness needs to provided and why it was designed for:
 
-## Installation
+* 🛠 **Full stack integration** with flutter or other dart front end frameworks
+* 🤹‍♀️🤹‍♂️ **Easy and understandable** for people coming from other kind of technology
+  as [Spring Boot](https://github.com/spring-projects/spring-boot) and [NestJS](https://github.com/nestjs/nest)
+* ✏ **Simplicity**, it should be easy to know why and how to use every functionality
+* 👨‍💻👩‍💻 **Community empowered**, where the community should be able to understand and maintain the dartness project by
+  their own
+
+## Examples
+
+You can find different examples if you prefer to understand the code by yourself in
+the [/examples folder](https://github.com/RicardoRB/dartness/tree/master/examples).
+
+## Requisites
 
 Install [Dart SDK](https://dart.dev/get-dart) version >=2.17.0
 
@@ -32,6 +36,10 @@ Install [Dart SDK](https://dart.dev/get-dart) version >=2.17.0
 $ dart --version            
 Dart SDK version: 2.17.3 (stable)
 ```
+
+## Docs and more
+
+You can check the documentation at [dartness docs](https://ricardorb.github.io/dartness/)
 
 ## Creating a new project
 
@@ -43,11 +51,11 @@ $ dart create -t console your_project_name
 
 ```yaml
 dependencies:
-   dartness_server: ^0.4.0-alpha
+  dartness_server: ^0.4.0-alpha
 
 dev_dependencies:
-   build_runner: ^2.2.0
-   dartness_generator: ^0.1.0-alpha
+  build_runner: ^2.2.0
+  dartness_generator: ^0.1.0-alpha
 ```
 
 2. Create the file in "bin/main.dart"
@@ -82,7 +90,7 @@ Server listening on port 3000
 ## TODO
 
 1. HTTP
-   - <del>Controllers</del>
+   - Controllers
       - <del>Bind annotations</del>
       - <del>Header</del>
       - <del>Body</del>
@@ -94,7 +102,7 @@ Server listening on port 3000
 2. Exceptions
    - <del>Exception Handler</del>
 3. Security
-   - Security interceptors(?)
+   - Roles
    - CORS
 4. Dependency Injection
    - Injectable
@@ -105,4 +113,3 @@ Server listening on port 3000
    - Repository
 7. Testing
 8. CLI
-9. Hot reload
