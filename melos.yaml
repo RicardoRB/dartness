@@ -1,0 +1,22 @@
+name: dartness
+
+command:
+  bootstrap:
+    usePubspecOverrides: true
+
+packages:
+  - packages/**
+
+
+scripts:
+  get: melos exec --no-private -- dart pub get .
+  analyze: melos exec --no-private -- dart analyze
+
+  format: melos exec --no-private -- dart format .
+  format:check: dart format --set-exit-if-changed .
+
+  test: melos exec --dir-exists=test --no-private -- dart test
+
+  doc: melos exec --no-private -- dart doc .
+
+  publish:force: dart pub publish -f
