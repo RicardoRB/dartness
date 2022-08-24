@@ -1,10 +1,10 @@
 name: dartness_generator
-description: A starting point for Dart libraries or applications.
+description: Dartness generator provides the generator classes that are used to run dartness_server
 version: 1.0.0
-# homepage: https://www.example.com
-
-# TODO temporal, remove when dartness_server is published
-publish_to: none
+homepage: https://ricardorb.github.io/dartness/
+repository: https://github.com/RicardoRB/dartness
+issue_tracker: https://github.com/RicardoRB/dartness/issues
+documentation: https://ricardorb.github.io/dartness/
 
 environment:
   sdk: '>=2.17.0 <3.0.0'
@@ -14,9 +14,7 @@ dependencies:
   source_gen: ^1.2.2
   analyzer: ^4.6.0
   code_builder: ^4.2.0
-  # TODO change it to remote
-  dartness_server:
-    path: ../dartness_server/
+  dartness_server: 0.4.0-alpha
 
 dev_dependencies:
   lints: ^2.0.0

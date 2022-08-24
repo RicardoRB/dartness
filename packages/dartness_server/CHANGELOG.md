@@ -15,3 +15,9 @@
 - Created Body annotation.
 - Created QueryParam annotation.
 - Created PathParam annotation.
+
+## 0.4.0-alpha
+
+- Removed [dart:mirrors](https://api.dart.dev/stable/2.17.6/dart-mirrors/dart-mirrors-library.html) in order to be able
+  to compile and bring stability to the framework
+- Created dartness_generator
