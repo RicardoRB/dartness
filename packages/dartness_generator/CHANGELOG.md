@@ -1,3 +1,4 @@
-## 1.0.0
+## 0.1.0-alpha
 
-- Initial version.
+- First dartness_generator version
+- Generation for @Controller and @ErrorHandler
