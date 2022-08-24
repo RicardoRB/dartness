@@ -14,7 +14,7 @@ frameworks
 
 ## Goals
 
-The following goals are the main objectives that Dartness needs to provided and why it was designed for:
+The following goals are the main objectives that Dartness needs to provide and why it was designed for:
 
 * 🛠 **Full stack integration** with flutter or other dart front end frameworks
 * 🤹‍♀️🤹‍♂️ **Easy and understandable** for people coming from other kind of technology
@@ -90,26 +90,26 @@ Server listening on port 3000
 ## TODO
 
 1. HTTP
-    - Controllers
-        - <del>Bind annotations</del>
-        - <del>Header</del>
-        - <del>Body</del>
-        - <del>Param</del>
-        - <del>Query</del>
-    - <del>Middleware</del>
-    - <del>Interceptor</del>
-    - Websockets
+   - Controllers
+      - <del>Bind annotations</del>
+      - <del>Header</del>
+      - <del>Body</del>
+      - <del>Param</del>
+      - <del>Query</del>
+   - <del>Middleware</del>
+   - <del>Interceptor</del>
+   - Websockets
 2. Exceptions
-    - <del>Exception Handler</del>
+   - <del>Exception Handler</del>
 3. Security
-    - Roles
-    - CORS
+   - Roles
+   - CORS
 4. Dependency Injection
-    - Injectable
+   - Injectable
 5. Scheduling
-    - Annotation
+   - Annotation
 6. Database
-    - ORM
-    - Repository
+   - ORM
+   - Repository
 7. Testing
 8. CLI

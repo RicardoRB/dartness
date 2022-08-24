@@ -14,7 +14,7 @@ frameworks
 
 ## Goals
 
-The following goals are the main objectives that Dartness needs to provided and why it was designed for:
+The following goals are the main objectives that Dartness needs to provide and why it was designed for:
 
 * 🛠 **Full stack integration** with flutter or other dart front end frameworks
 * 🤹‍♀️🤹‍♂️ **Easy and understandable** for people coming from other kind of technology
