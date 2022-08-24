@@ -1,9 +1,11 @@
-import 'package:dartness_server/bind.dart';
+import 'package:dartness_server/route.dart';
+
+part 'example_controller.g.dart';
 
 @Controller("/hello")
 class ExampleController {
   @Get("/world")
-  static String getHelloWorld() {
+  String getHelloWorld() {
     return "Hello Wold";
   }
 }

@@ -5,7 +5,9 @@ import 'example_controller.dart';
 void main() async {
   final app = Dartness(
     port: 3000,
-    controllers: [ExampleController()],
+    controllers: [
+      ExampleDartnessController(ExampleController()),
+    ],
   );
   await app.create();
 }
