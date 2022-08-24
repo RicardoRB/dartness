@@ -8,7 +8,7 @@
 
 # Introduction
 
-<p align="center">Dartness is a progressive dart framework for building efficient and scalable server-side applications.</p>
+Dartness is a progressive dart framework for building efficient and scalable server-side applications.
 
 ## Description
 

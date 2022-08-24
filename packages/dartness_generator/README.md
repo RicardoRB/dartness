@@ -1,39 +1,39 @@
-<!-- 
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# Introduction
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages). 
+dartness_generator is used with dartness_server in order to provide the code generation for some annotations
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages). 
--->
+## Generating code
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+1. Add `dartness_generator` together with `build_runner` in dev_dependencies also add dartness_server in the dependency
+   section in the pubspec.yaml
 
-## Features
+```yaml
+dependencies:
+  dartness_server: ^0.4.0-alpha
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
-
-## Getting started
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
-
-## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
-
-```dart
-const like = 'sample';
+dev_dependencies:
+  build_runner: ^2.2.0
+  dartness_generator: ^0.1.0-alpha
 ```
 
-## Additional information
+2. Add the corresponding `part '.g.dart'` to your classes, otherwise the new code won't be generated, you can find an
+   example in the following code:
 
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
+```dart
+
+part 'city_controller.g.dart';
+
+@Controller('/cities')
+class CitiesController {
+  @Get()
+  String getCities() {
+    return 'This action returns a list of cities';
+  }
+}
+```
+
+3. Go to the root of your project and execute the following command:
+
+```bash
+$ dart run build_runner build
+```
