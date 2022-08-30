@@ -14,7 +14,7 @@ dependencies:
   source_gen: ^1.2.2
   analyzer: ^4.6.0
   code_builder: ^4.2.0
-  dartness_server: ^0.4.0-alpha
+  dartness_server: ^0.41-alpha
 
 dev_dependencies:
   lints: ^2.0.0
