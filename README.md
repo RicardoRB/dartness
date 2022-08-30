@@ -51,7 +51,7 @@ $ dart create -t console your_project_name
 
 ```yaml
 dependencies:
-  dartness_server: ^0.41-alpha
+  dartness_server: ^0.4.1-alpha
 
 dev_dependencies:
   build_runner: ^2.2.0
