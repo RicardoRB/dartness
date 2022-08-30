@@ -9,7 +9,7 @@ dartness_generator is used with dartness_server in order to provide the code gen
 
 ```yaml
 dependencies:
-  dartness_server: ^0.4.1-alpha
+  dartness_server: ^0.4.2-alpha
 
 dev_dependencies:
   build_runner: ^2.2.0
