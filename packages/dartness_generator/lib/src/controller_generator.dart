@@ -38,8 +38,8 @@ class ControllerGenerator extends GeneratorForAnnotation<Controller> {
         ..body = Block(
           (blocBuilder) => blocBuilder
             ..addExpression(
-              refer('<${(ControllerRoute).toString()}>[]')
-                  .assignFinal(_routesVariableName),
+              declareFinal(_routesVariableName)
+                  .assign(refer('<${(ControllerRoute).toString()}>[]')),
             )
             ..statements.addAll(
               elements.map((methodElement) {
