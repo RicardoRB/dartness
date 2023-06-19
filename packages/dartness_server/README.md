@@ -93,6 +93,7 @@ Server listening on port 3000
     - Controllers
         - <del>Bind annotations</del>
         - <del>Header</del>
+        - <del>Headers</del>
         - <del>Body</del>
         - <del>Param</del>
         - <del>Query</del>
