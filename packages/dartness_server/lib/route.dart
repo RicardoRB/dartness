@@ -9,6 +9,7 @@ export 'src/bind/annotation/delete.dart';
 export 'src/bind/annotation/get.dart';
 export 'src/bind/annotation/head.dart';
 export 'src/bind/annotation/header.dart';
+export 'src/bind/annotation/headers.dart';
 export 'src/bind/annotation/http_status.dart';
 export 'src/bind/annotation/options.dart';
 export 'src/bind/annotation/patch.dart';
