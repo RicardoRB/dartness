@@ -6,3 +6,7 @@
 ## 0.1.1-alpha
 
 - Compatibility with @Headers
+- 
+## 0.1.2-alpha
+
+- Updated dart sdk to 3.0.0

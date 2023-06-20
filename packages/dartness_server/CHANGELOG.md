@@ -29,3 +29,7 @@
 ## 0.4.4-alpha
 
 - Updated dependencies
+
+## version: 0.4.5-alpha
+
+- Updated dart sdk to 3.0.0
