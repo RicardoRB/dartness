@@ -1,7 +1,6 @@
 import 'package:analyzer/dart/element/element.dart';
 import 'package:build/build.dart';
 import 'package:code_builder/code_builder.dart';
-import 'package:dartness_server/dartness.dart';
 import 'package:dartness_server/route.dart';
 import 'package:source_gen/source_gen.dart';
 
@@ -14,6 +13,7 @@ class ControllerGenerator extends GeneratorForAnnotation<Controller> {
   static final _bindType = TypeChecker.fromRuntime(Bind);
   static final _httpCodeType = TypeChecker.fromRuntime(HttpCode);
   static final _headerType = TypeChecker.fromRuntime(Header);
+  static final _headersType = TypeChecker.fromRuntime(Headers);
 
   @override
   String? generateForAnnotatedElement(
@@ -38,8 +38,8 @@ class ControllerGenerator extends GeneratorForAnnotation<Controller> {
         ..body = Block(
           (blocBuilder) => blocBuilder
             ..addExpression(
-              refer('<${(ControllerRoute).toString()}>[]')
-                  .assignFinal(_routesVariableName),
+              declareFinal(_routesVariableName)
+                  .assign(refer('<${(ControllerRoute).toString()}>[]')),
             )
             ..statements.addAll(
               elements.map((methodElement) {
@@ -84,15 +84,15 @@ class ControllerGenerator extends GeneratorForAnnotation<Controller> {
         .toString();
   }
 
-  Expression _methodElementToMethodRefer(final ExecutableElement methodElement,
-      final ClassElement element, final String controllerPath) {
+  Expression _methodElementToMethodRefer(
+    final ExecutableElement methodElement,
+    final ClassElement element,
+    final String controllerPath,
+  ) {
     final bindAnnotation = _bindType.firstAnnotationOf(methodElement);
     final httpCodeAnnotation =
         _httpCodeType.firstAnnotationOfExact(methodElement) ??
             _httpCodeType.firstAnnotationOfExact(element);
-    final methodHeaderAnnotation =
-        _headerType.annotationsOfExact(methodElement);
-    final controllerHeaderAnnotation = _headerType.annotationsOfExact(element);
     final path =
         '$controllerPath${bindAnnotation?.getField('(super)')?.getField('path')?.toStringValue() ?? ''}';
     final bindMethod = bindAnnotation
@@ -103,19 +103,11 @@ class ControllerGenerator extends GeneratorForAnnotation<Controller> {
 
     final httpCode = httpCodeAnnotation?.getField('code')?.toIntValue();
 
-    final Map<String, String> headers = <String, String>{};
-
-    for (final methodHeader in methodHeaderAnnotation) {
-      final key = methodHeader.getField('key')?.toStringValue() ?? '';
-      final value = methodHeader.getField('value')?.toStringValue() ?? '';
-      headers[key] = value;
-    }
-
-    for (final controllerHeader in controllerHeaderAnnotation) {
-      final key = controllerHeader.getField('key')?.toStringValue() ?? '';
-      final value = controllerHeader.getField('value')?.toStringValue() ?? '';
-      headers[key] = value;
-    }
+    // Add headers
+    final Map<String, String> headers = _findHeadersByAnnotations(
+      methodElement,
+      element,
+    );
 
     final List<Expression> arguments = [];
 
@@ -133,6 +125,60 @@ class ControllerGenerator extends GeneratorForAnnotation<Controller> {
       'headers': literalMap(headers),
     });
     return methodRef;
+  }
+
+  /// Find the headers given a [ExecutableElement] as method element and
+  /// a [ClassElement] in order to transform the annotations [Header] and [Headers]
+  /// to the corresponding header for shelf
+  Map<String, String> _findHeadersByAnnotations(
+    final ExecutableElement methodElement,
+    final ClassElement element,
+  ) {
+    final methodHeaderAnnotation =
+        _headerType.annotationsOfExact(methodElement);
+    final controllerHeaderAnnotation = _headerType.annotationsOfExact(element);
+    final methodHeadersAnnotation =
+        _headersType.annotationsOfExact(methodElement);
+    final controllerHeadersAnnotation =
+        _headersType.annotationsOfExact(element);
+    final Map<String, String> headers = <String, String>{};
+
+    // Add headers by @Header
+    // Method level
+    for (final methodHeader in methodHeaderAnnotation) {
+      final key = methodHeader.getField('key')?.toStringValue() ?? '';
+      final value = methodHeader.getField('value')?.toStringValue() ?? '';
+      headers[key] = value;
+    }
+
+    //Controller level
+    for (final controllerHeader in controllerHeaderAnnotation) {
+      final key = controllerHeader.getField('key')?.toStringValue() ?? '';
+      final value = controllerHeader.getField('value')?.toStringValue() ?? '';
+      headers[key] = value;
+    }
+
+    // Add headers by @Headers
+    // Method level
+    for (final methodHeader in methodHeadersAnnotation) {
+      final values = methodHeader.getField('values')?.toMapValue() ?? {};
+      values.forEach((key, value) {
+        if (key != null && key.isNull == false) {
+          headers[key.toStringValue()!] = value?.toStringValue() ?? '';
+        }
+      });
+    }
+
+    //Controller level
+    for (final controllerHeader in controllerHeadersAnnotation) {
+      final values = controllerHeader.getField('values')?.toMapValue() ?? {};
+      values.forEach((key, value) {
+        if (key != null && key.isNull == false) {
+          headers[key.toStringValue()!] = value?.toStringValue() ?? '';
+        }
+      });
+    }
+    return headers;
   }
 
   Expression _paramElementToParamRef(final ParameterElement param) {

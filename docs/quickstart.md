@@ -16,7 +16,7 @@ Install [Dart SDK](https://dart.dev/get-dart) version >=2.17.0
 
 ```bash
 $ dart --version            
-Dart SDK version: 2.17.3 (stable)
+Dart SDK version: 3.0.0 (stable)
 ```
 
 ## Creating a new project
@@ -29,7 +29,7 @@ $ dart create -t console your_project_name
 
 ```yaml
 dependencies:
-  dartness_server: ^0.4.0-alpha
+  dartness_server: ^0.4.3-alpha
 ```
 
 2.Create the file in "bin/main.dart"

@@ -114,12 +114,22 @@ String get() {
 
 ## Headers
 
-To specify a custom response header, you can either use a `@Header()` annotation or a library-specific response object
+To specify a custom response header, you can either use a `@Header()` or `@Headers()` annotation or a library-specific response object
 (eg. `return Response(200, headers: {'content-type': 'application/json'})`).
 
 ```dart
 @Get()
 @Header('content-type', 'application/json')
+String get() {
+  return 'This method returns a custom content-type header';
+}
+```
+
+```dart
+@Get()
+@Headers({
+  'content-type': 'application/json',
+})
 String get() {
   return 'This method returns a custom content-type header';
 }

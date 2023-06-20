@@ -21,3 +21,15 @@
 - Removed [dart:mirrors](https://api.dart.dev/stable/2.17.6/dart-mirrors/dart-mirrors-library.html) in order to be able
   to compile and bring stability to the framework
 - Created dartness_generator
+
+## 0.4.3-alpha
+
+- Added @Headers
+
+## 0.4.4-alpha
+
+- Updated dependencies
+
+## version: 0.4.5-alpha
+
+- Updated dart sdk to 3.0.0

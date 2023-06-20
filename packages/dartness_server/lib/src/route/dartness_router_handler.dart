@@ -60,7 +60,9 @@ class DartnessRouterHandler {
     dynamic body;
     if (response is Response) {
       return response;
-    } else if (response is Iterable || response is Map || response is num) {
+    } else if (response is Iterable) {
+      body = jsonEncode(response.toList());
+    } else if (response is Map || response is num) {
       body = jsonEncode(response);
     } else {
       try {

@@ -34,7 +34,7 @@ Install [Dart SDK](https://dart.dev/get-dart) version >=2.17.0
 
 ```bash
 $ dart --version            
-Dart SDK version: 2.17.3 (stable)
+Dart SDK version: 3.0.0 (stable)
 ```
 
 ## Docs and more
@@ -51,7 +51,7 @@ $ dart create -t console your_project_name
 
 ```yaml
 dependencies:
-  dartness_server: ^0.4.0-alpha
+  dartness_server: ^0.4.3-alpha
 
 dev_dependencies:
   build_runner: ^2.2.0
@@ -93,6 +93,7 @@ Server listening on port 3000
     - Controllers
         - <del>Bind annotations</del>
         - <del>Header</del>
+        - <del>Headers</del>
         - <del>Body</del>
         - <del>Param</del>
         - <del>Query</del>

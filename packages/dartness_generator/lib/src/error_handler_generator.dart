@@ -31,8 +31,8 @@ class ErrorHandlerGenerator extends GeneratorForAnnotation<ErrorHandler> {
         ..body = Block(
           (blocBuilder) => blocBuilder
             ..addExpression(
-              refer('<${(DartnessCatchError).toString()}>[]')
-                  .assignFinal(_errorHandlersVariableName),
+              declareFinal(_errorHandlersVariableName)
+                  .assign(refer('<${(DartnessCatchError).toString()}>[]')),
             )
             ..statements.addAll(
               elements.map((methodElement) {
