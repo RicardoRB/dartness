@@ -30,11 +30,11 @@ the [/examples folder](https://github.com/RicardoRB/dartness/tree/master/example
 
 ## Requisites
 
-Install [Dart SDK](https://dart.dev/get-dart) version >=2.17.0
+Install [Dart SDK](https://dart.dev/get-dart) version >=3.0.0
 
 ```bash
 $ dart --version            
-Dart SDK version: 2.17.3 (stable)
+Dart SDK version: 3.0.0 (stable)
 ```
 
 ## Docs and more
@@ -51,11 +51,11 @@ $ dart create -t console your_project_name
 
 ```yaml
 dependencies:
-  dartness_server: ^0.4.3-alpha
+  dartness_server: ^0.4.5-alpha
 
 dev_dependencies:
   build_runner: ^2.2.0
-  dartness_generator: ^0.1.0-alpha
+  dartness_generator: ^0.1.2-alpha
 ```
 
 2. Create the file in "bin/main.dart"
