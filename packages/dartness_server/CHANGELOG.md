@@ -30,6 +30,10 @@
 
 - Updated dependencies
 
-## version: 0.4.5-alpha
+## version: 0.4.6-alpha
 
 - Updated dart sdk to 3.0.0
+
+## version: 0.4.6-alpha
+
+- Updated http dependency to 1.0.0

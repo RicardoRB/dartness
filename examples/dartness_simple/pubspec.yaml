@@ -9,7 +9,7 @@ environment:
   sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
-  dartness_server: ^0.4.4-alpha
+  dartness_server: ^0.4.6-alpha
 
 dev_dependencies:
   lints: ^2.1.1
