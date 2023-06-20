@@ -25,3 +25,7 @@
 ## 0.4.3-alpha
 
 - Added @Headers
+
+## 0.4.4-alpha
+
+- Updated dependencies
