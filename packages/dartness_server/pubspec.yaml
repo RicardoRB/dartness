@@ -2,7 +2,7 @@ name: dartness_server
 description:
   Dartness is a framework for building efficient, scalable dart server-side applications.
   It provides an easy and quick way to develop modern standalone server.
-version: 0.4.2-alpha
+version: 0.4.3-alpha
 homepage: https://ricardorb.github.io/dartness/
 repository: https://github.com/RicardoRB/dartness
 issue_tracker: https://github.com/RicardoRB/dartness/issues
@@ -12,7 +12,7 @@ false_secrets:
   - examples/**
 
 environment:
-  sdk: '>=2.17.0 <3.0.0'
+  sdk: '>=2.17.0 <4.0.0'
 
 dependencies:
   collection: ^1.16.0
