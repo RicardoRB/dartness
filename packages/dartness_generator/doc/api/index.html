@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="generator" content="made with love by dartdoc 6.2.2">
+  <meta name="description" content="dartness_generator API docs, for the Dart programming language.">
+  <title>dartness_generator - Dart API docs</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="static-assets/github.css?v1">
+  <link rel="stylesheet" href="static-assets/styles.css?v1">
+  <link rel="icon" href="static-assets/favicon.png?v1">
+
+  
+</head>
+
+
+<body data-base-href="" data-using-base-href="false" class="light-theme">
+
+<div id="overlay-under-drawer"></div>
+
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="https://ricardorb.github.io/dartness/">dartness_generator package</a></li>
+  </ol>
+  <div class="self-name">dartness_generator</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <div class="toggle" id="theme-button">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        brightness_4
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        brightness_5
+      </span>
+    </label>
+  </div>
+</header>
+<main>
+
+  <div id="dartdoc-main-content" class="main-content">
+      
+<section class="desc markdown">
+  <h1 id="introduction">Introduction</h1>
+<p>dartness_generator is used with dartness_server in order to provide the code generation for some annotations</p>
+<h2 id="generating-code">Generating code</h2>
+<ol>
+<li>Add <code>dartness_generator</code> together with <code>build_runner</code> in dev_dependencies also add dartness_server in the dependency
+section in the pubspec.yaml</li>
+</ol>
+<pre class="language-yaml"><code class="language-yaml">dependencies:
+  dartness_server: ^0.4.2-alpha
+
+dev_dependencies:
+  build_runner: ^2.2.0
+  dartness_generator: ^0.1.0-alpha
+</code></pre>
+<ol start="2">
+<li>Add the corresponding <code>part '.g.dart'</code> to your classes, otherwise the new code won't be generated, you can find an
+example in the following code:</li>
+</ol>
+<pre class="language-dart"><code class="language-dart">
+part 'city_controller.g.dart';
+
+@Controller('/cities')
+class CitiesController {
+  @Get()
+  String getCities() {
+    return 'This action returns a list of cities';
+  }
+}
+</code></pre>
+<ol start="3">
+<li>Go to the root of your project and execute the following command:</li>
+</ol>
+<pre class="language-bash"><code class="language-bash">$ dart run build_runner build
+</code></pre>
+</section>
+
+
+      <section class="summary">
+          <h2>Libraries</h2>
+        <dl>
+          <dt id="dartness_generator">
+  <span class="name"><a href="dartness_generator/dartness_generator-library.html">dartness_generator</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+        </dl>
+      </section>
+
+  </div> <!-- /.main-content -->
+
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+  <li><a href="https://ricardorb.github.io/dartness/">dartness_generator package</a></li>
+</ol>
+
+
+    <h5 class="hidden-xs"><span class="package-name">dartness_generator</span> <span class="package-kind">package</span></h5>
+    <ol>
+      <li class="section-title">Libraries</li>
+      <li><a href="dartness_generator/dartness_generator-library.html">dartness_generator</a></li>
+</ol>
+
+  </div>
+
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  </div>
+
+</main>
+
+<footer>
+  <span class="no-break">
+    dartness_generator
+      0.1.0-alpha
+  </span>
+
+  
+</footer>
+
+
+
+<script src="static-assets/highlight.pack.js?v1"></script>
+<script src="static-assets/docs.dart.js"></script>
+
+
+
+</body>
+
+</html>
+

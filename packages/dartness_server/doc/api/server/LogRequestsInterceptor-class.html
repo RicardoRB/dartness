@@ -11,7 +11,7 @@
   
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet">
   
   <link rel="stylesheet" href="../static-assets/github.css?v1">
   <link rel="stylesheet" href="../static-assets/styles.css?v1">
@@ -21,13 +21,12 @@
 </head>
 
 
-<body data-base-href="../"
-      data-using-base-href="false">
+<body data-base-href="../" data-using-base-href="false" class="light-theme">
 
 <div id="overlay-under-drawer"></div>
 
 <header id="title">
-  <button id="sidenav-left-toggle" type="button">&nbsp;</button>
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
   <ol class="breadcrumbs gt-separated dark hidden-xs">
     <li><a href="../index.html">dartness_server</a></li>
     <li><a href="../server/server-library.html">server</a></li>
@@ -37,15 +36,23 @@
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
+  <div class="toggle" id="theme-button">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        brightness_4
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        brightness_5
+      </span>
+    </label>
+  </div>
 </header>
-
 <main>
-
 
   <div id="dartdoc-main-content" class="main-content">
       <div>
 <h1><span class="kind-class">LogRequestsInterceptor</span> class 
-    <a href="https://dart.dev/null-safety" class="feature feature-null-safety" title="Supports the null safety language feature.">Null safety</a>
  
 </h1></div>
 
@@ -72,6 +79,8 @@ inner handlers, the response's status code and the request URI.</p>
 
 
         
+
+
       </dl>
     </section>
 
@@ -100,7 +109,7 @@ inner handlers, the response's status code and the request URI.</p>
 </dt>
 <dd class="inherited">
   The hash code for this object.
-  <div class="features">read-only, inherited</div>
+  <div class="features"><span class="feature">read-only</span><span class="feature">inherited</span></div>
 
 </dd>
 
@@ -111,7 +120,7 @@ inner handlers, the response's status code and the request URI.</p>
 </dt>
 <dd>
   
-  <div class="features">read / write</div>
+  <div class="features"><span class="feature">read / write</span></div>
 
 </dd>
 
@@ -122,7 +131,7 @@ inner handlers, the response's status code and the request URI.</p>
 </dt>
 <dd class="inherited">
   A representation of the runtime type of the object.
-  <div class="features">read-only, inherited</div>
+  <div class="features"><span class="feature">read-only</span><span class="feature">inherited</span></div>
 
 </dd>
 
@@ -133,7 +142,7 @@ inner handlers, the response's status code and the request URI.</p>
 </dt>
 <dd>
   
-  <div class="features">read / write</div>
+  <div class="features"><span class="feature">read / write</span></div>
 
 </dd>
 
@@ -144,7 +153,7 @@ inner handlers, the response's status code and the request URI.</p>
 </dt>
 <dd>
   
-  <div class="features">read / write</div>
+  <div class="features"><span class="feature">read / write</span></div>
 
 </dd>
 
@@ -155,7 +164,7 @@ inner handlers, the response's status code and the request URI.</p>
 </dt>
 <dd>
   
-  <div class="features">read / write</div>
+  <div class="features"><span class="feature">read / write</span></div>
 
 </dd>
 
@@ -176,8 +185,8 @@ inner handlers, the response's status code and the request URI.</p>
 
 </dt>
 <dd class="inherited">
-  Invoked when a non-existent method or property is accessed.
-  <div class="features">inherited</div>
+  Invoked when a nonexistent method or property is accessed.
+  <div class="features"><span class="feature">inherited</span></div>
 
 </dd>
 
@@ -190,7 +199,7 @@ inner handlers, the response's status code and the request URI.</p>
 </dt>
 <dd>
   This method is called when an error occurs when executing the request.
-  <div class="features">override</div>
+  <div class="features"><span class="feature">override</span></div>
 
 </dd>
 
@@ -203,7 +212,7 @@ inner handlers, the response's status code and the request URI.</p>
 </dt>
 <dd>
   This method is called before the request is executed.
-  <div class="features">override</div>
+  <div class="features"><span class="feature">override</span></div>
 
 </dd>
 
@@ -216,7 +225,7 @@ inner handlers, the response's status code and the request URI.</p>
 </dt>
 <dd>
   This method is called after the request is executed.
-  <div class="features">override</div>
+  <div class="features"><span class="feature">override</span></div>
 
 </dd>
 
@@ -229,7 +238,7 @@ inner handlers, the response's status code and the request URI.</p>
 </dt>
 <dd class="inherited">
   A string representation of this object.
-  <div class="features">inherited</div>
+  <div class="features"><span class="feature">inherited</span></div>
 
 </dd>
 
@@ -250,7 +259,7 @@ inner handlers, the response's status code and the request URI.</p>
 </dt>
 <dd class="inherited">
   The equality operator.
-  <div class="features">inherited</div>
+  <div class="features"><span class="feature">inherited</span></div>
 
 </dd>
 
@@ -279,16 +288,16 @@ inner handlers, the response's status code and the request URI.</p>
 
     <h5>server library</h5>
     <ol>
-  <li class="section-title"><a href="../server/server-library.html#classes">Classes</a></li>
-  <li><a href="../server/DartnessInterceptor-class.html">DartnessInterceptor</a></li>
-  <li><a href="../server/DartnessMiddleware-class.html">DartnessMiddleware</a></li>
-  <li><a href="../server/DartnessPipeline-class.html">DartnessPipeline</a></li>
-  <li><a href="../server/DartnessRequest-class.html">DartnessRequest</a></li>
-  <li><a href="../server/DartnessResponse-class.html">DartnessResponse</a></li>
-  <li><a href="../server/DartnessServer-class.html">DartnessServer</a></li>
-  <li><a href="../server/DefaultDartnessPipeline-class.html">DefaultDartnessPipeline</a></li>
-  <li><a href="../server/DefaultDartnessServer-class.html">DefaultDartnessServer</a></li>
-  <li><a href="../server/LogRequestsInterceptor-class.html">LogRequestsInterceptor</a></li>
+      <li class="section-title"><a href="../server/server-library.html#classes">Classes</a></li>
+        <li><a href="../server/DartnessInterceptor-class.html">DartnessInterceptor</a></li>
+        <li><a href="../server/DartnessMiddleware-class.html">DartnessMiddleware</a></li>
+        <li><a href="../server/DartnessPipeline-class.html">DartnessPipeline</a></li>
+        <li><a href="../server/DartnessRequest-class.html">DartnessRequest</a></li>
+        <li><a href="../server/DartnessResponse-class.html">DartnessResponse</a></li>
+        <li><a href="../server/DartnessServer-class.html">DartnessServer</a></li>
+        <li><a href="../server/DefaultDartnessPipeline-class.html">DefaultDartnessPipeline</a></li>
+        <li><a href="../server/DefaultDartnessServer-class.html">DefaultDartnessServer</a></li>
+        <li><a href="../server/LogRequestsInterceptor-class.html">LogRequestsInterceptor</a></li>
 
 
 
@@ -308,25 +317,25 @@ inner handlers, the response's status code and the request URI.</p>
           <li><a href="../server/LogRequestsInterceptor/LogRequestsInterceptor.html">LogRequestsInterceptor</a></li>
 
 
-    <li class="section-title">
-      <a href="../server/LogRequestsInterceptor-class.html#instance-properties">Properties</a>
-    </li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></li>
-    <li><a href="../server/LogRequestsInterceptor/method.html">method</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></li>
-    <li><a href="../server/LogRequestsInterceptor/startTime.html">startTime</a></li>
-    <li><a href="../server/LogRequestsInterceptor/uri.html">uri</a></li>
-    <li><a href="../server/LogRequestsInterceptor/watch.html">watch</a></li>
+        <li class="section-title">
+          <a href="../server/LogRequestsInterceptor-class.html#instance-properties">Properties</a>
+        </li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></li>
+          <li><a href="../server/LogRequestsInterceptor/method.html">method</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></li>
+          <li><a href="../server/LogRequestsInterceptor/startTime.html">startTime</a></li>
+          <li><a href="../server/LogRequestsInterceptor/uri.html">uri</a></li>
+          <li><a href="../server/LogRequestsInterceptor/watch.html">watch</a></li>
 
-    <li class="section-title"><a href="../server/LogRequestsInterceptor-class.html#instance-methods">Methods</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
-    <li><a href="../server/LogRequestsInterceptor/onError.html">onError</a></li>
-    <li><a href="../server/LogRequestsInterceptor/onRequest.html">onRequest</a></li>
-    <li><a href="../server/LogRequestsInterceptor/onResponse.html">onResponse</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">toString</a></li>
+        <li class="section-title"><a href="../server/LogRequestsInterceptor-class.html#instance-methods">Methods</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
+          <li><a href="../server/LogRequestsInterceptor/onError.html">onError</a></li>
+          <li><a href="../server/LogRequestsInterceptor/onRequest.html">onRequest</a></li>
+          <li><a href="../server/LogRequestsInterceptor/onResponse.html">onResponse</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">toString</a></li>
 
-    <li class="section-title inherited"><a href="../server/LogRequestsInterceptor-class.html#operators">Operators</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html">operator ==</a></li>
+        <li class="section-title inherited"><a href="../server/LogRequestsInterceptor-class.html#operators">Operators</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html">operator ==</a></li>
 
 
 
@@ -340,7 +349,7 @@ inner handlers, the response's status code and the request URI.</p>
 <footer>
   <span class="no-break">
     dartness_server
-      0.4.0-alpha
+      0.4.2-alpha
   </span>
 
   
@@ -349,7 +358,7 @@ inner handlers, the response's status code and the request URI.</p>
 
 
 <script src="../static-assets/highlight.pack.js?v1"></script>
-<script src="../static-assets/script.js?v1"></script>
+<script src="../static-assets/docs.dart.js"></script>
 
 
 

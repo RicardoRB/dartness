@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
-  <meta name="generator" content="made with love by dartdoc 5.1.0-dev">
+  <meta name="generator" content="made with love by dartdoc 6.2.2">
   <meta name="description" content="dartness_server API docs, for the Dart programming language.">
   <title>dartness_server - Dart API docs</title>
 
@@ -12,7 +12,7 @@
   
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet">
   
   <link rel="stylesheet" href="static-assets/github.css?v1">
   <link rel="stylesheet" href="static-assets/styles.css?v1">
@@ -22,13 +22,12 @@
 </head>
 
 
-<body data-base-href=""
-      data-using-base-href="false">
+<body data-base-href="" data-using-base-href="false" class="light-theme">
 
 <div id="overlay-under-drawer"></div>
 
 <header id="title">
-  <button id="sidenav-left-toggle" type="button">&nbsp;</button>
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
   <ol class="breadcrumbs gt-separated dark hidden-xs">
     <li><a href="https://ricardorb.github.io/dartness/">dartness_server package</a></li>
   </ol>
@@ -36,33 +35,51 @@
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
+  <div class="toggle" id="theme-button">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        brightness_4
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        brightness_5
+      </span>
+    </label>
+  </div>
 </header>
-
 <main>
-
 
   <div id="dartdoc-main-content" class="main-content">
       
 <section class="desc markdown">
-  <p><img src="https://github.com/RicardoRB/dartness/actions/workflows/all.yml/badge.svg" alt="Github Action">
-<img src="https://img.shields.io/github/languages/top/RicardoRB/dartness" alt="Top Language">
-<img src="https://img.shields.io/github/license/RicardoRB/dartness" alt="License">
-<img src="https://img.shields.io/pub/likes/dartness_server" alt="Pub Likes">
-<img src="https://img.shields.io/pub/popularity/dartness_server" alt="Pub popularity">
-<img src="https://img.shields.io/pub/v/dartness_server?include_prereleases" alt="Pub version">
-<img src="https://img.shields.io/github/stars/RicardoRB/dartness?style=social" alt="Stars"></p>
-<h1 id="introduction">Introduction</h1><p align="center">Dartness is a progressive dart framework for building efficient and scalable server-side applications.</p>
+  <h1 id="introduction">Introduction</h1>
+<p>Dartness is a dart framework for building efficient and scalable server-side applications.</p>
 <h2 id="description">Description</h2>
 <p>Dartness is a framework for building efficient, scalable dart server-side applications. It provides an easy and quick
 way to develop modern standalone server.</p>
 <p>Under the hood, Dartness makes use of <a href="https://github.com/dart-lang/shelf">shelf</a>.</p>
 <p>Inspired by <a href="https://github.com/spring-projects/spring-boot">Spring Boot</a> and <a href="https://github.com/nestjs/nest">Nest</a>
 frameworks</p>
-<h2 id="installation">Installation</h2>
+<h2 id="goals">Goals</h2>
+<p>The following goals are the main objectives that Dartness needs to provide and why it was designed for:</p>
+<ul>
+<li>🛠 <strong>Full stack integration</strong> with flutter or other dart front end frameworks</li>
+<li>🤹‍♀️🤹‍♂️ <strong>Easy and understandable</strong> for people coming from other kind of technology
+as <a href="https://github.com/spring-projects/spring-boot">Spring Boot</a> and <a href="https://github.com/nestjs/nest">NestJS</a></li>
+<li>✏ <strong>Simplicity</strong>, it should be easy to know why and how to use every functionality</li>
+<li>👨‍💻👩‍💻 <strong>Community empowered</strong>, where the community should be able to understand and maintain the dartness project by
+their own</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<p>You can find different examples if you prefer to understand the code by yourself in
+the <a href="https://github.com/RicardoRB/dartness/tree/master/examples">/examples folder</a>.</p>
+<h2 id="requisites">Requisites</h2>
 <p>Install <a href="https://dart.dev/get-dart">Dart SDK</a> version &gt;=2.17.0</p>
 <pre class="language-bash"><code class="language-bash">$ dart --version            
 Dart SDK version: 2.17.3 (stable)
 </code></pre>
+<h2 id="docs-and-more">Docs and more</h2>
+<p>You can check the documentation at <a href="https://ricardorb.github.io/dartness/">dartness docs</a></p>
 <h2 id="creating-a-new-project">Creating a new project</h2>
 <pre class="language-bash"><code class="language-bash">$ dart create -t console your_project_name
 </code></pre>
@@ -70,11 +87,11 @@ Dart SDK version: 2.17.3 (stable)
 <li>Add dartness into the pubspec.yaml</li>
 </ol>
 <pre class="language-yaml"><code class="language-yaml">dependencies:
-   dartness_server: ^0.4.2-alpha
+  dartness_server: ^0.4.2-alpha
 
 dev_dependencies:
-   build_runner: ^2.2.0
-   dartness_generator: ^0.1.0-alpha
+  build_runner: ^2.2.0
+  dartness_generator: ^0.1.0-alpha
 </code></pre>
 <ol start="2">
 <li>Create the file in "bin/main.dart"</li>
@@ -99,16 +116,15 @@ like this:</p>
 <pre class="language-dart"><code>$ dart run example/main.dart
 Server listening on port 3000
 </code></pre>
-<h2 id="docs-and-more">Docs and more</h2>
-<p>You can check the documentation at <a href="https://ricardorb.github.io/dartness/">dartness docs</a></p>
 <h2 id="todo">TODO</h2>
 <ol>
 <li>HTTP
 <ul>
-<li><del>Controllers</del>
+<li>Controllers
 <ul>
 <li><del>Bind annotations</del></li>
 <li><del>Header</del></li>
+<li><del>Headers</del></li>
 <li><del>Body</del></li>
 <li><del>Param</del></li>
 <li><del>Query</del></li>
@@ -126,7 +142,7 @@ Server listening on port 3000
 </li>
 <li>Security
 <ul>
-<li>Security interceptors(?)</li>
+<li>Roles</li>
 <li>CORS</li>
 </ul>
 </li>
@@ -148,7 +164,6 @@ Server listening on port 3000
 </li>
 <li>Testing</li>
 <li>CLI</li>
-<li>Hot reload</li>
 </ol>
 </section>
 
@@ -220,7 +235,7 @@ Server listening on port 3000
 <footer>
   <span class="no-break">
     dartness_server
-      0.4.0-alpha
+      0.4.2-alpha
   </span>
 
   
@@ -229,7 +244,7 @@ Server listening on port 3000
 
 
 <script src="static-assets/highlight.pack.js?v1"></script>
-<script src="static-assets/script.js?v1"></script>
+<script src="static-assets/docs.dart.js"></script>
 
 
 

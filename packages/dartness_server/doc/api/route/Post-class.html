@@ -11,7 +11,7 @@
   
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet">
   
   <link rel="stylesheet" href="../static-assets/github.css?v1">
   <link rel="stylesheet" href="../static-assets/styles.css?v1">
@@ -21,13 +21,12 @@
 </head>
 
 
-<body data-base-href="../"
-      data-using-base-href="false">
+<body data-base-href="../" data-using-base-href="false" class="light-theme">
 
 <div id="overlay-under-drawer"></div>
 
 <header id="title">
-  <button id="sidenav-left-toggle" type="button">&nbsp;</button>
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
   <ol class="breadcrumbs gt-separated dark hidden-xs">
     <li><a href="../index.html">dartness_server</a></li>
     <li><a href="../route/route-library.html">route</a></li>
@@ -37,15 +36,23 @@
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
+  <div class="toggle" id="theme-button">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        brightness_4
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        brightness_5
+      </span>
+    </label>
+  </div>
 </header>
-
 <main>
-
 
   <div id="dartdoc-main-content" class="main-content">
       <div>
 <h1><span class="kind-class">Post</span> class 
-    <a href="https://dart.dev/null-safety" class="feature feature-null-safety" title="Supports the null safety language feature.">Null safety</a>
  
 </h1></div>
 
@@ -73,6 +80,8 @@
 
 
         
+
+
       </dl>
     </section>
 
@@ -102,7 +111,7 @@
 </dt>
 <dd class="inherited">
   The hash code for this object.
-  <div class="features">read-only, inherited</div>
+  <div class="features"><span class="feature">read-only</span><span class="feature">inherited</span></div>
 
 </dd>
 
@@ -113,7 +122,7 @@
 </dt>
 <dd class="inherited">
   The method to bind the property to.
-  <div class="features">final, inherited</div>
+  <div class="features"><span class="feature">final</span><span class="feature">inherited</span></div>
 
 </dd>
 
@@ -125,7 +134,7 @@
 <dd class="inherited">
   The path to bind the property to.
 If not set, the entire route would be by <a href="../route/Controller-class.html">Controller</a>.
-  <div class="features">final, inherited</div>
+  <div class="features"><span class="feature">final</span><span class="feature">inherited</span></div>
 
 </dd>
 
@@ -136,7 +145,7 @@ If not set, the entire route would be by <a href="../route/Controller-class.html
 </dt>
 <dd class="inherited">
   A representation of the runtime type of the object.
-  <div class="features">read-only, inherited</div>
+  <div class="features"><span class="feature">read-only</span><span class="feature">inherited</span></div>
 
 </dd>
 
@@ -157,8 +166,8 @@ If not set, the entire route would be by <a href="../route/Controller-class.html
 
 </dt>
 <dd class="inherited">
-  Invoked when a non-existent method or property is accessed.
-  <div class="features">inherited</div>
+  Invoked when a nonexistent method or property is accessed.
+  <div class="features"><span class="feature">inherited</span></div>
 
 </dd>
 
@@ -171,7 +180,7 @@ If not set, the entire route would be by <a href="../route/Controller-class.html
 </dt>
 <dd class="inherited">
   A string representation of this object.
-  <div class="features">inherited</div>
+  <div class="features"><span class="feature">inherited</span></div>
 
 </dd>
 
@@ -192,7 +201,7 @@ If not set, the entire route would be by <a href="../route/Controller-class.html
 </dt>
 <dd class="inherited">
   The equality operator.
-  <div class="features">inherited</div>
+  <div class="features"><span class="feature">inherited</span></div>
 
 </dd>
 
@@ -221,29 +230,30 @@ If not set, the entire route would be by <a href="../route/Controller-class.html
 
     <h5>route library</h5>
     <ol>
-  <li class="section-title"><a href="../route/route-library.html#classes">Classes</a></li>
-  <li><a href="../route/Bind-class.html">Bind</a></li>
-  <li><a href="../route/Body-class.html">Body</a></li>
-  <li><a href="../route/Connect-class.html">Connect</a></li>
-  <li><a href="../route/Controller-class.html">Controller</a></li>
-  <li><a href="../route/ControllerRoute-class.html">ControllerRoute</a></li>
-  <li><a href="../route/DartnessController-class.html">DartnessController</a></li>
-  <li><a href="../route/DartnessParam-class.html">DartnessParam</a></li>
-  <li><a href="../route/DartnessRouter-class.html">DartnessRouter</a></li>
-  <li><a href="../route/DartnessRouterHandler-class.html">DartnessRouterHandler</a></li>
-  <li><a href="../route/DefaultDartnessRouter-class.html">DefaultDartnessRouter</a></li>
-  <li><a href="../route/Delete-class.html">Delete</a></li>
-  <li><a href="../route/Get-class.html">Get</a></li>
-  <li><a href="../route/Head-class.html">Head</a></li>
-  <li><a href="../route/Header-class.html">Header</a></li>
-  <li><a href="../route/HttpCode-class.html">HttpCode</a></li>
-  <li><a href="../route/Options-class.html">Options</a></li>
-  <li><a href="../route/Patch-class.html">Patch</a></li>
-  <li><a href="../route/PathParam-class.html">PathParam</a></li>
-  <li><a href="../route/Post-class.html">Post</a></li>
-  <li><a href="../route/Put-class.html">Put</a></li>
-  <li><a href="../route/QueryParam-class.html">QueryParam</a></li>
-  <li><a href="../route/Trace-class.html">Trace</a></li>
+      <li class="section-title"><a href="../route/route-library.html#classes">Classes</a></li>
+        <li><a href="../route/Bind-class.html">Bind</a></li>
+        <li><a href="../route/Body-class.html">Body</a></li>
+        <li><a href="../route/Connect-class.html">Connect</a></li>
+        <li><a href="../route/Controller-class.html">Controller</a></li>
+        <li><a href="../route/ControllerRoute-class.html">ControllerRoute</a></li>
+        <li><a href="../route/DartnessController-class.html">DartnessController</a></li>
+        <li><a href="../route/DartnessParam-class.html">DartnessParam</a></li>
+        <li><a href="../route/DartnessRouter-class.html">DartnessRouter</a></li>
+        <li><a href="../route/DartnessRouterHandler-class.html">DartnessRouterHandler</a></li>
+        <li><a href="../route/DefaultDartnessRouter-class.html">DefaultDartnessRouter</a></li>
+        <li><a href="../route/Delete-class.html">Delete</a></li>
+        <li><a href="../route/Get-class.html">Get</a></li>
+        <li><a href="../route/Head-class.html">Head</a></li>
+        <li><a href="../route/Header-class.html">Header</a></li>
+        <li><a href="../route/Headers-class.html">Headers</a></li>
+        <li><a href="../route/HttpCode-class.html">HttpCode</a></li>
+        <li><a href="../route/Options-class.html">Options</a></li>
+        <li><a href="../route/Patch-class.html">Patch</a></li>
+        <li><a href="../route/PathParam-class.html">PathParam</a></li>
+        <li><a href="../route/Post-class.html">Post</a></li>
+        <li><a href="../route/Put-class.html">Put</a></li>
+        <li><a href="../route/QueryParam-class.html">QueryParam</a></li>
+        <li><a href="../route/Trace-class.html">Trace</a></li>
 
 
 
@@ -263,20 +273,20 @@ If not set, the entire route would be by <a href="../route/Controller-class.html
           <li><a href="../route/Post/Post.html">Post</a></li>
 
 
-    <li class="section-title inherited">
-      <a href="../route/Post-class.html#instance-properties">Properties</a>
-    </li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></li>
-    <li class="inherited"><a href="../route/Bind/method.html">method</a></li>
-    <li class="inherited"><a href="../route/Bind/path.html">path</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></li>
+        <li class="section-title inherited">
+          <a href="../route/Post-class.html#instance-properties">Properties</a>
+        </li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></li>
+          <li class="inherited"><a href="../route/Bind/method.html">method</a></li>
+          <li class="inherited"><a href="../route/Bind/path.html">path</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></li>
 
-    <li class="section-title inherited"><a href="../route/Post-class.html#instance-methods">Methods</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">toString</a></li>
+        <li class="section-title inherited"><a href="../route/Post-class.html#instance-methods">Methods</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">toString</a></li>
 
-    <li class="section-title inherited"><a href="../route/Post-class.html#operators">Operators</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html">operator ==</a></li>
+        <li class="section-title inherited"><a href="../route/Post-class.html#operators">Operators</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html">operator ==</a></li>
 
 
 
@@ -290,7 +300,7 @@ If not set, the entire route would be by <a href="../route/Controller-class.html
 <footer>
   <span class="no-break">
     dartness_server
-      0.4.0-alpha
+      0.4.2-alpha
   </span>
 
   
@@ -299,7 +309,7 @@ If not set, the entire route would be by <a href="../route/Controller-class.html
 
 
 <script src="../static-assets/highlight.pack.js?v1"></script>
-<script src="../static-assets/script.js?v1"></script>
+<script src="../static-assets/docs.dart.js"></script>
 
 
 

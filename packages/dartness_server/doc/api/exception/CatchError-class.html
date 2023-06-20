@@ -11,7 +11,7 @@
   
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet">
   
   <link rel="stylesheet" href="../static-assets/github.css?v1">
   <link rel="stylesheet" href="../static-assets/styles.css?v1">
@@ -21,13 +21,12 @@
 </head>
 
 
-<body data-base-href="../"
-      data-using-base-href="false">
+<body data-base-href="../" data-using-base-href="false" class="light-theme">
 
 <div id="overlay-under-drawer"></div>
 
 <header id="title">
-  <button id="sidenav-left-toggle" type="button">&nbsp;</button>
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
   <ol class="breadcrumbs gt-separated dark hidden-xs">
     <li><a href="../index.html">dartness_server</a></li>
     <li><a href="../exception/exception-library.html">exception</a></li>
@@ -37,15 +36,23 @@
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
+  <div class="toggle" id="theme-button">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        brightness_4
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        brightness_5
+      </span>
+    </label>
+  </div>
 </header>
-
 <main>
-
 
   <div id="dartdoc-main-content" class="main-content">
       <div>
 <h1><span class="kind-class">CatchError</span> class 
-    <a href="https://dart.dev/null-safety" class="feature feature-null-safety" title="Supports the null safety language feature.">Null safety</a>
  
 </h1></div>
 
@@ -88,7 +95,7 @@
 </dt>
 <dd>
   The <a href="../exception/CatchError/errors.html">errors</a> that are handled by the <a href="../exception/CatchError-class.html">CatchError</a>.
-  <div class="features">final</div>
+  <div class="features"><span class="feature">final</span></div>
 
 </dd>
 
@@ -99,7 +106,7 @@
 </dt>
 <dd class="inherited">
   The hash code for this object.
-  <div class="features">read-only, inherited</div>
+  <div class="features"><span class="feature">read-only</span><span class="feature">inherited</span></div>
 
 </dd>
 
@@ -110,7 +117,7 @@
 </dt>
 <dd class="inherited">
   A representation of the runtime type of the object.
-  <div class="features">read-only, inherited</div>
+  <div class="features"><span class="feature">read-only</span><span class="feature">inherited</span></div>
 
 </dd>
 
@@ -131,8 +138,8 @@
 
 </dt>
 <dd class="inherited">
-  Invoked when a non-existent method or property is accessed.
-  <div class="features">inherited</div>
+  Invoked when a nonexistent method or property is accessed.
+  <div class="features"><span class="feature">inherited</span></div>
 
 </dd>
 
@@ -145,7 +152,7 @@
 </dt>
 <dd class="inherited">
   A string representation of this object.
-  <div class="features">inherited</div>
+  <div class="features"><span class="feature">inherited</span></div>
 
 </dd>
 
@@ -166,7 +173,7 @@
 </dt>
 <dd class="inherited">
   The equality operator.
-  <div class="features">inherited</div>
+  <div class="features"><span class="feature">inherited</span></div>
 
 </dd>
 
@@ -195,12 +202,12 @@
 
     <h5>exception library</h5>
     <ol>
-  <li class="section-title"><a href="../exception/exception-library.html#classes">Classes</a></li>
-  <li><a href="../exception/CatchError-class.html">CatchError</a></li>
-  <li><a href="../exception/DartnessCatchError-class.html">DartnessCatchError</a></li>
-  <li><a href="../exception/DartnessCatchErrorRegister-class.html">DartnessCatchErrorRegister</a></li>
-  <li><a href="../exception/DartnessErrorHandler-class.html">DartnessErrorHandler</a></li>
-  <li><a href="../exception/ErrorHandler-class.html">ErrorHandler</a></li>
+      <li class="section-title"><a href="../exception/exception-library.html#classes">Classes</a></li>
+        <li><a href="../exception/CatchError-class.html">CatchError</a></li>
+        <li><a href="../exception/DartnessCatchError-class.html">DartnessCatchError</a></li>
+        <li><a href="../exception/DartnessCatchErrorRegister-class.html">DartnessCatchErrorRegister</a></li>
+        <li><a href="../exception/DartnessErrorHandler-class.html">DartnessErrorHandler</a></li>
+        <li><a href="../exception/ErrorHandler-class.html">ErrorHandler</a></li>
 
 
 
@@ -209,8 +216,8 @@
 
 
 
-  <li class="section-title"><a href="../exception/exception-library.html#exceptions">Exceptions</a></li>
-  <li><a href="../exception/HttpStatusException-class.html">HttpStatusException</a></li>
+      <li class="section-title"><a href="../exception/exception-library.html#exceptions">Exceptions</a></li>
+        <li><a href="../exception/HttpStatusException-class.html">HttpStatusException</a></li>
 </ol>
 
   </div>
@@ -222,19 +229,19 @@
           <li><a href="../exception/CatchError/CatchError.html">CatchError</a></li>
 
 
-    <li class="section-title">
-      <a href="../exception/CatchError-class.html#instance-properties">Properties</a>
-    </li>
-    <li><a href="../exception/CatchError/errors.html">errors</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></li>
+        <li class="section-title">
+          <a href="../exception/CatchError-class.html#instance-properties">Properties</a>
+        </li>
+          <li><a href="../exception/CatchError/errors.html">errors</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></li>
 
-    <li class="section-title inherited"><a href="../exception/CatchError-class.html#instance-methods">Methods</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">toString</a></li>
+        <li class="section-title inherited"><a href="../exception/CatchError-class.html#instance-methods">Methods</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">toString</a></li>
 
-    <li class="section-title inherited"><a href="../exception/CatchError-class.html#operators">Operators</a></li>
-    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html">operator ==</a></li>
+        <li class="section-title inherited"><a href="../exception/CatchError-class.html#operators">Operators</a></li>
+          <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html">operator ==</a></li>
 
 
 
@@ -248,7 +255,7 @@
 <footer>
   <span class="no-break">
     dartness_server
-      0.4.0-alpha
+      0.4.2-alpha
   </span>
 
   
@@ -257,7 +264,7 @@
 
 
 <script src="../static-assets/highlight.pack.js?v1"></script>
-<script src="../static-assets/script.js?v1"></script>
+<script src="../static-assets/docs.dart.js"></script>
 
 
 
