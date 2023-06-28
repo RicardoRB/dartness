@@ -2,9 +2,13 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:dartness_server/dartness.dart';
+import 'package:dartness_server/modules.dart';
 import 'package:dartness_server/route.dart';
+import 'package:dartness_server/server.dart';
+import 'package:dartness_server/src/server/dartness_application_options.dart';
 import 'package:test/test.dart';
 
+import '../../app_module.dart';
 import 'class_controller.dart';
 import 'delete_controller_class.dart';
 import 'get_controller_class.dart';
@@ -47,7 +51,7 @@ void main() {
   });
 
   group('http tests', () {
-    late Dartness dartness;
+    late DartnessServer dartness;
 
     const int port = 1432;
     late HttpClient httpClient;
@@ -60,16 +64,20 @@ void main() {
         PutDartnessControllerClass(PutControllerClass.instance),
         DeleteDartnessControllerClass(DeleteControllerClass.instance),
       ];
+
       httpClient = HttpClient();
-      dartness = Dartness(
-        port: port,
-        controllers: controllers,
+      dartness = await Dartness().create(
+        AppModule(ModuleMetadata(
+          controllers: controllers,
+        )),
+        options: DartnessApplicationOptions(
+          port: port,
+        ),
       );
-      await dartness.create();
     });
 
     tearDown(() async {
-      await dartness.close();
+      await dartness.stop();
     });
 
     group('GET method tests', () {

@@ -1,36 +1,46 @@
 import 'dart:io';
 
 import 'package:dartness_server/dartness.dart';
+import 'package:dartness_server/modules.dart';
 import 'package:dartness_server/server.dart';
+import 'package:dartness_server/src/server/dartness_application_options.dart';
 import 'package:test/test.dart';
 
+import '../app_module.dart';
 import 'test_controller.dart';
 
 void main() {
-  late Dartness dartness;
+  late DartnessServer dartness;
 
   const int port = 1453;
   late HttpClient httpClient;
 
   setUp(() async {
+    final controllers = [
+      TestDartnessController(TestController.instance),
+    ];
+
+    final interceptors = [
+      TestInterceptor(),
+    ];
     TestInterceptor.isOnErrorCalled = false;
     TestInterceptor.isOnRequestCalled = false;
     TestInterceptor.isOnResponseCalled = false;
     httpClient = HttpClient();
-    dartness = Dartness(
-      port: port,
-      controllers: [
-        TestDartnessController(TestController.instance),
-      ],
-      interceptors: [
-        TestInterceptor(),
-      ],
+
+    dartness = await Dartness().create(
+      AppModule(ModuleMetadata(
+        controllers: controllers,
+        providers: interceptors,
+      )),
+      options: DartnessApplicationOptions(
+        port: port,
+      ),
     );
-    await dartness.create();
   });
 
   tearDown(() async {
-    await dartness.close();
+    await dartness.stop();
   });
 
   test(
