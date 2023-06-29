@@ -1,11 +1,13 @@
+import 'package:dartness_server/modules.dart';
 import 'package:dartness_server/route.dart';
 
+/// Module's metadata class
 class ModuleMetadata {
   /// Optional list of imported modules that export the providers which are
   /// required in this module.
-  final Iterable<Object> _imports;
+  final Iterable<Module> _imports;
 
-  Iterable<Object> get imports => _imports;
+  Iterable<Module> get imports => _imports;
 
   /// Optional list of controllers defined in this module which have to be
   /// instantiated.
@@ -26,7 +28,7 @@ class ModuleMetadata {
   Iterable<Object> get exports => _exports;
 
   const ModuleMetadata({
-    final Iterable<Object>? imports,
+    final Iterable<Module>? imports,
     final Iterable<DartnessController>? controllers,
     final Iterable<Object>? providers,
     final Iterable<Object>? exports,

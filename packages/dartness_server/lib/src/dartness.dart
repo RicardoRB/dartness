@@ -32,10 +32,30 @@ class Dartness {
       _options.port,
       internetAddress: _options.internetAddress,
     );
+    _initModule(module);
+
+    if (options?.logRequest == true) {
+      _addInterceptor(LogRequestsInterceptor());
+    }
+    await _server.start();
+    print('Server listening on port ${_server.getPort()}');
+    return _server;
+  }
+
+  /// Initializes the given [module] and its dependencies.
+  void _initModule(final Module module) {
+    for (final import in module.metadata.imports) {
+      _initModule(import);
+    }
+
     for (final controller in module.metadata.controllers) {
       _addController(controller);
     }
 
+    _addProviders(module);
+  }
+
+  void _addProviders(Module module) {
     for (final provider in module.metadata.providers) {
       if (provider is DartnessMiddleware) {
         _addMiddleware(provider);
@@ -49,13 +69,6 @@ class Dartness {
         _addErrorHandler(provider);
       }
     }
-
-    if (options?.logRequest == true) {
-      _addInterceptor(LogRequestsInterceptor());
-    }
-    await _server.start();
-    print('Server listening on port ${_server.getPort()}');
-    return _server;
   }
 
   /// Add [controller] into [Dartness] and handles
