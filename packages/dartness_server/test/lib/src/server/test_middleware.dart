@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:dartness_server/server.dart';
+import 'package:dartness_server/src/server/server.dart';
 
 class TestMiddleware implements DartnessMiddleware {
   @override
