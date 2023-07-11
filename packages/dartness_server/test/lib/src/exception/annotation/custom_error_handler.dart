@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:dartness_server/src/exception/exception.dart';
-import 'package:dartness_server/src/server/server.dart';
+import 'package:dartness_server/exception.dart';
+import 'package:dartness_server/server.dart';
 
 part 'custom_error_handler.g.dart';
 

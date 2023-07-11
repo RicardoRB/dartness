@@ -1,5 +1,5 @@
-import 'package:dartness_server/src/modules/modules.dart';
-import 'package:dartness_server/src/route/route.dart';
+import 'package:dartness_server/modules.dart';
+import 'package:dartness_server/route.dart';
 
 /// Module's metadata class
 class ModuleMetadata {

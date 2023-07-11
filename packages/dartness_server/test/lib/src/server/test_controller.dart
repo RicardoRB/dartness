@@ -1,4 +1,4 @@
-import 'package:dartness_server/src/route/route.dart';
+import 'package:dartness_server/route.dart';
 
 part 'test_controller.g.dart';
 

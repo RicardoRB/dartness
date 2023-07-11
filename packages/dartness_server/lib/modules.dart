@@ -3,5 +3,5 @@
 /// See documentation guides at https://ricardorb.github.io/dartness/#/.
 library modules;
 
-export 'module.dart';
-export 'module_metadata.dart';
+export 'src/modules/module.dart';
+export 'src/modules/module_metadata.dart';

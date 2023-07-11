@@ -1,4 +1,4 @@
-import 'package:dartness_server/src/route/route.dart';
+import 'package:dartness_server/route.dart';
 
 import 'example_custom_http_status_exception.dart';
 
