@@ -9,29 +9,67 @@ part of 'delete_controller_class.dart';
 extension DeleteControllerClassRoutes on DeleteControllerClass {
   List<ControllerRoute> getRoutes() {
     final routes = <ControllerRoute>[];
-    routes.add(ControllerRoute('DELETE', '/delete/double', deleteDouble, [],
-        httpCode: null, headers: {}));
-    routes.add(ControllerRoute('DELETE', '/delete/null', deleteNull, [],
-        httpCode: null, headers: {}));
-    routes.add(ControllerRoute('DELETE', '/delete/class', deleteClass, [],
-        httpCode: null, headers: {}));
-    routes.add(ControllerRoute('DELETE', '/delete/future', deleteFuture, [],
-        httpCode: null, headers: {}));
     routes.add(ControllerRoute(
-        'DELETE',
-        '/delete/ids/<id>',
-        deleteParam,
-        [
-          DartnessParam('id', false, true, false, false, true, false, int,
-              defaultValue: null, fromJson: null)
-        ],
-        httpCode: null,
-        headers: {}));
+      method: 'DELETE',
+      path: '/delete/double',
+      handler: deleteDouble,
+      params: [],
+      httpCode: null,
+      headers: {},
+    ));
+    routes.add(ControllerRoute(
+      method: 'DELETE',
+      path: '/delete/null',
+      handler: deleteNull,
+      params: [],
+      httpCode: null,
+      headers: {},
+    ));
+    routes.add(ControllerRoute(
+      method: 'DELETE',
+      path: '/delete/class',
+      handler: deleteClass,
+      params: [],
+      httpCode: null,
+      headers: {},
+    ));
+    routes.add(ControllerRoute(
+      method: 'DELETE',
+      path: '/delete/future',
+      handler: deleteFuture,
+      params: [],
+      httpCode: null,
+      headers: {},
+    ));
+    routes.add(ControllerRoute(
+      method: 'DELETE',
+      path: '/delete/ids/<id>',
+      handler: deleteParam,
+      params: [
+        DartnessParam(
+          name: 'id',
+          isQuery: false,
+          isPath: true,
+          isBody: false,
+          isNamed: false,
+          isPositional: true,
+          isOptional: false,
+          type: int,
+          defaultValue: null,
+          fromJson: null,
+        )
+      ],
+      httpCode: null,
+      headers: {},
+    ));
     return routes;
   }
 }
 
 class DeleteDartnessControllerClass extends DartnessController {
   DeleteDartnessControllerClass(DeleteControllerClass controller)
-      : super(controller, controller.getRoutes());
+      : super(
+          controller,
+          controller.getRoutes(),
+        );
 }

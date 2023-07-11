@@ -9,29 +9,67 @@ part of 'put_controller_class.dart';
 extension PutControllerClassRoutes on PutControllerClass {
   List<ControllerRoute> getRoutes() {
     final routes = <ControllerRoute>[];
-    routes.add(ControllerRoute('PUT', '/put/double', putDouble, [],
-        httpCode: null, headers: {}));
-    routes.add(ControllerRoute('PUT', '/put/null', putNull, [],
-        httpCode: null, headers: {}));
-    routes.add(ControllerRoute('PUT', '/put/class', putClass, [],
-        httpCode: null, headers: {}));
-    routes.add(ControllerRoute('PUT', '/put/future', putFuture, [],
-        httpCode: null, headers: {}));
     routes.add(ControllerRoute(
-        'PUT',
-        '/put/ids/<id>',
-        putParam,
-        [
-          DartnessParam('id', false, true, false, false, true, false, int,
-              defaultValue: null, fromJson: null)
-        ],
-        httpCode: null,
-        headers: {}));
+      method: 'PUT',
+      path: '/put/double',
+      handler: putDouble,
+      params: [],
+      httpCode: null,
+      headers: {},
+    ));
+    routes.add(ControllerRoute(
+      method: 'PUT',
+      path: '/put/null',
+      handler: putNull,
+      params: [],
+      httpCode: null,
+      headers: {},
+    ));
+    routes.add(ControllerRoute(
+      method: 'PUT',
+      path: '/put/class',
+      handler: putClass,
+      params: [],
+      httpCode: null,
+      headers: {},
+    ));
+    routes.add(ControllerRoute(
+      method: 'PUT',
+      path: '/put/future',
+      handler: putFuture,
+      params: [],
+      httpCode: null,
+      headers: {},
+    ));
+    routes.add(ControllerRoute(
+      method: 'PUT',
+      path: '/put/ids/<id>',
+      handler: putParam,
+      params: [
+        DartnessParam(
+          name: 'id',
+          isQuery: false,
+          isPath: true,
+          isBody: false,
+          isNamed: false,
+          isPositional: true,
+          isOptional: false,
+          type: int,
+          defaultValue: null,
+          fromJson: null,
+        )
+      ],
+      httpCode: null,
+      headers: {},
+    ));
     return routes;
   }
 }
 
 class PutDartnessControllerClass extends DartnessController {
   PutDartnessControllerClass(PutControllerClass controller)
-      : super(controller, controller.getRoutes());
+      : super(
+          controller,
+          controller.getRoutes(),
+        );
 }

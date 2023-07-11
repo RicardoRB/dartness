@@ -10,19 +10,19 @@ extension CityControllerRoutes on CityController {
   List<ControllerRoute> getRoutes() {
     final routes = <ControllerRoute>[];
     routes.add(ControllerRoute(
-      'GET',
-      '/cities',
-      getCities,
-      [
+      method: 'GET',
+      path: '/cities',
+      handler: getCities,
+      params: [
         DartnessParam(
-          'offset',
-          true,
-          false,
-          false,
-          true,
-          false,
-          true,
-          int,
+          name: 'offset',
+          isQuery: true,
+          isPath: false,
+          isBody: false,
+          isNamed: true,
+          isPositional: false,
+          isOptional: true,
+          type: int,
           defaultValue: '100',
           fromJson: null,
         )
@@ -31,19 +31,19 @@ extension CityControllerRoutes on CityController {
       headers: {},
     ));
     routes.add(ControllerRoute(
-      'GET',
-      '/cities/<id>',
-      getCity,
-      [
+      method: 'GET',
+      path: '/cities/<id>',
+      handler: getCity,
+      params: [
         DartnessParam(
-          'id',
-          false,
-          true,
-          false,
-          false,
-          true,
-          false,
-          int,
+          name: 'id',
+          isQuery: false,
+          isPath: true,
+          isBody: false,
+          isNamed: false,
+          isPositional: true,
+          isOptional: false,
+          type: int,
           defaultValue: null,
           fromJson: null,
         )
