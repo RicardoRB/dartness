@@ -1,12 +1,10 @@
 import 'dart:io';
 
 import 'package:dartness_server/dartness.dart';
-import 'package:dartness_server/modules.dart';
 import 'package:dartness_server/server.dart';
 import 'package:dartness_server/src/server/dartness_application_options.dart';
 import 'package:test/test.dart';
 
-import '../app_module.dart';
 import 'test_controller.dart';
 import 'test_middleware.dart';
 
@@ -26,10 +24,12 @@ void main() {
     ];
     httpClient = HttpClient();
     dartness = await Dartness().create(
-      AppModule(ModuleMetadata(
-        controllers: controllers,
-        providers: interceptors,
-      )),
+      // AppModule(
+      //   metadata: ModuleMetadata(
+      //     controllers: controllers,
+      //     providers: interceptors,
+      //   ),
+      // ),
       options: DartnessApplicationOptions(
         port: port,
       ),

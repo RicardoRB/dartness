@@ -1,12 +1,10 @@
 import 'dart:io';
 
 import 'package:dartness_server/dartness.dart';
-import 'package:dartness_server/modules.dart';
 import 'package:dartness_server/server.dart';
 import 'package:dartness_server/src/server/dartness_application_options.dart';
 import 'package:test/test.dart';
 
-import '../app_module.dart';
 
 void main() {
   group('http tests', () {
@@ -18,7 +16,9 @@ void main() {
     setUp(() async {
       httpClient = HttpClient();
       dartness = await Dartness().create(
-        AppModule(ModuleMetadata()),
+        // AppModule(
+        //   metadata: ModuleMetadata(),
+        // ),
         options: DartnessApplicationOptions(
           port: port,
         ),

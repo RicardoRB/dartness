@@ -1,8 +1,8 @@
 import 'module_metadata.dart';
 
 /// Module class that accepts different metadata
-abstract class Module {
+class Module {
   final ModuleMetadata metadata;
 
-  const Module(this.metadata);
+  const Module({required this.metadata});
 }

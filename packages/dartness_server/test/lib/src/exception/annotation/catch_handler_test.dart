@@ -1,17 +1,12 @@
 import 'dart:io';
 
 import 'package:dartness_server/dartness.dart';
-import 'package:dartness_server/modules.dart';
 import 'package:dartness_server/server.dart';
 import 'package:dartness_server/src/server/dartness_application_options.dart';
 import 'package:test/test.dart';
 
 import 'custom_error_handler.dart';
 import 'get_controller_class.dart';
-
-class AppModule extends Module {
-  AppModule(super.metadata);
-}
 
 void main() {
   group('http tests', () {
@@ -31,10 +26,12 @@ void main() {
       httpClient = HttpClient();
 
       dartness = await Dartness().create(
-        AppModule(ModuleMetadata(
-          controllers: controllers,
-          providers: errorHandlers,
-        )),
+        // AppModule(
+        //   metadata: ModuleMetadata(
+        //     controllers: controllers,
+        //     providers: errorHandlers,
+        //   ),
+        // ),
         options: DartnessApplicationOptions(
           port: port,
         ),
