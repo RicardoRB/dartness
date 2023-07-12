@@ -1,6 +1,7 @@
 /// Library that exposes the API for the server
 library server;
 
+export 'src/server/dartness_application_options.dart';
 export 'src/server/dartness_interceptor.dart';
 export 'src/server/dartness_middleware.dart';
 export 'src/server/dartness_pipeline.dart';

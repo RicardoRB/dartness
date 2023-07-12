@@ -16,59 +16,68 @@ class ApplicationGenerator extends GeneratorForAnnotation<Application> {
     if (element is ClassElement) {
       final buffer = StringBuffer();
       buffer.writeln('extension ${element.name}Extension on ${element.name} {');
-      buffer.writeln('initDependencies(){');
 
-      buffer.writeln('final injectRegister = InstanceRegister.instance;');
-      final applicationModule = annotation.read('module').objectValue;
-      final moduleMetadata = applicationModule.getField('metadata');
-      final controllers =
-          moduleMetadata?.getField('controllers')?.toListValue() ?? [];
-      final providers =
-          moduleMetadata?.getField('providers')?.toListValue() ?? [];
-      final List<DartObject> allInstances = [];
-      allInstances.addAll(controllers);
-      allInstances.addAll(providers);
-      final classElementControllers = allInstances
-          .map((e) => e.toTypeValue()?.element)
-          .whereType<ClassElement>()
-          .toList();
+      _createInitDependencies(buffer, annotation);
 
-      final topologicalControllers = _topologicalSort(classElementControllers);
-
-      for (final controllerElement in topologicalControllers) {
-        final constructors = controllerElement.constructors;
-
-        if (constructors.length > 1) {
-          throw Exception(
-              '${controllerElement.name} has more than 1 constructor.'
-              '@$_applicationType do not allow multiple constructors currently');
-        }
-
-        final constructor = constructors.first;
-        if (constructor.isPrivate) {
-          throw Exception('${controllerElement.name}\' constructor is private.'
-              'A public constructor is required in order '
-              'to create an instance of the class');
-        }
-
-        buffer.writeln('injectRegister.register<${controllerElement.name}>(');
-        buffer.writeln('${controllerElement.name}(');
-
-        for (final constructorParam in constructor.parameters) {
-          buffer.writeln('injectRegister.resolve<${constructorParam.type}>(),');
-        }
-
-        buffer.writeln('));');
-      }
-
-      // initDependencies method end
-      buffer.writeln('}');
+      _createMain(buffer, annotation);
       // class end
       buffer.writeln('}');
       return buffer.toString();
     }
 
     return null;
+  }
+
+  void _createInitDependencies(
+    final StringBuffer buffer,
+    final ConstantReader annotation,
+  ) {
+    buffer.writeln('initDependencies(){');
+
+    buffer.writeln('final injectRegister = InstanceRegister.instance;');
+    final applicationModule = annotation.read('module').objectValue;
+    final moduleMetadata = applicationModule.getField('metadata');
+    final controllers =
+        moduleMetadata?.getField('controllers')?.toListValue() ?? [];
+    final providers =
+        moduleMetadata?.getField('providers')?.toListValue() ?? [];
+    final List<DartObject> allInstances = [];
+    allInstances.addAll(controllers);
+    allInstances.addAll(providers);
+    final classElementControllers = allInstances
+        .map((e) => e.toTypeValue()?.element)
+        .whereType<ClassElement>()
+        .toList();
+
+    final topologicalControllers = _topologicalSort(classElementControllers);
+
+    for (final controllerElement in topologicalControllers) {
+      final constructors = controllerElement.constructors;
+
+      if (constructors.length > 1) {
+        throw Exception('${controllerElement.name} has more than 1 constructor.'
+            '@$_applicationType do not allow multiple constructors currently');
+      }
+
+      final constructor = constructors.first;
+      if (constructor.isPrivate) {
+        throw Exception('${controllerElement.name}\' constructor is private.'
+            'A public constructor is required in order '
+            'to create an instance of the class');
+      }
+
+      buffer.writeln('injectRegister.register<${controllerElement.name}>(');
+      buffer.writeln('${controllerElement.name}(');
+
+      for (final constructorParam in constructor.parameters) {
+        buffer.writeln('injectRegister.resolve<${constructorParam.type}>(),');
+      }
+
+      buffer.writeln('));');
+    }
+
+    // initDependencies method end
+    buffer.writeln('}');
   }
 
   List<ClassElement> _topologicalSort(List<ClassElement> dependencies) {
@@ -111,5 +120,37 @@ class ApplicationGenerator extends GeneratorForAnnotation<Application> {
     }
 
     return dependencies;
+  }
+
+  void _createMain(StringBuffer buffer, ConstantReader annotation) {
+    buffer.writeln('Future<void> main() async {');
+    buffer.writeln('final app = Dartness();');
+
+    final applicationOptions = annotation.read('options').objectValue;
+    if (applicationOptions.isNull) {
+      buffer.writeln('await app.create();');
+    } else {
+      final logRequest =
+          applicationOptions.getField('logRequest')?.toBoolValue();
+      final port = applicationOptions.getField('port')?.toIntValue();
+      final internetAddress =
+          applicationOptions.getField('internetAddress')?.toTypeValue();
+      buffer.writeln('await app.create('
+          'options: DartnessApplicationOptions(');
+      if (logRequest != null) {
+        buffer.writeln('logRequest: $logRequest,');
+      }
+      if (port != null) {
+        buffer.writeln('port: $port,');
+      }
+      if (internetAddress != null) {
+        buffer.writeln('internetAddress: $internetAddress,');
+      }
+      buffer.writeln(')');
+      buffer.writeln(');');
+    }
+
+    // main end method
+    buffer.writeln('}');
   }
 }

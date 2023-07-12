@@ -15,4 +15,9 @@ extension AppExtension on App {
     ));
     injectRegister.register<ExampleErrorHandler>(ExampleErrorHandler());
   }
+
+  Future<void> main() async {
+    final app = Dartness();
+    await app.create(options: DartnessApplicationOptions());
+  }
 }

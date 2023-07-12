@@ -1,7 +1,7 @@
 import '../modules/module.dart';
 import '../server/dartness_application_options.dart';
 
-abstract class Application {
+class Application {
   final Module module;
   final DartnessApplicationOptions options;
 
