@@ -23,12 +23,12 @@ extension CityControllerRoutes on CityController {
           isPositional: false,
           isOptional: true,
           type: int,
-          defaultValue: '100',
+          defaultValue: null,
           fromJson: null,
         )
       ],
       httpCode: 202,
-      headers: {},
+      headers: {'content-type': 'application/json'},
     ));
     routes.add(ControllerRoute(
       method: 'GET',

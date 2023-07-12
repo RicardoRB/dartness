@@ -17,7 +17,14 @@ extension AppExtension on App {
   }
 
   Future<void> main() async {
+    initDependencies();
+    final injectRegister = InstanceRegister.instance;
     final app = Dartness();
-    await app.create(options: DartnessApplicationOptions());
+    await app.create(
+      controllers: [
+        CityDartnessController(injectRegister.resolve<CityController>()),
+      ],
+      options: DartnessApplicationOptions(),
+    );
   }
 }

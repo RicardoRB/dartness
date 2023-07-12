@@ -20,6 +20,7 @@ class ApplicationGenerator extends GeneratorForAnnotation<Application> {
       _createInitDependencies(buffer, annotation);
 
       _createMain(buffer, annotation);
+
       // class end
       buffer.writeln('}');
       return buffer.toString();
@@ -124,19 +125,34 @@ class ApplicationGenerator extends GeneratorForAnnotation<Application> {
 
   void _createMain(StringBuffer buffer, ConstantReader annotation) {
     buffer.writeln('Future<void> main() async {');
+
+    buffer.writeln('initDependencies();');
+    buffer.writeln('final injectRegister = InstanceRegister.instance;');
     buffer.writeln('final app = Dartness();');
 
+    final applicationModule = annotation.read('module').objectValue;
+    final moduleMetadata = applicationModule.getField('metadata');
+    final controllers =
+        moduleMetadata?.getField('controllers')?.toListValue() ?? [];
+    final controllerElements = controllers
+        .map((e) => e.toTypeValue()?.element)
+        .whereType<ClassElement>()
+        .toList();
     final applicationOptions = annotation.read('options').objectValue;
+
     if (applicationOptions.isNull) {
-      buffer.writeln('await app.create();');
+      buffer.writeln('await app.create(');
+      _generateControllers(controllerElements, buffer);
+      buffer.writeln(');');
     } else {
       final logRequest =
           applicationOptions.getField('logRequest')?.toBoolValue();
       final port = applicationOptions.getField('port')?.toIntValue();
       final internetAddress =
           applicationOptions.getField('internetAddress')?.toTypeValue();
-      buffer.writeln('await app.create('
-          'options: DartnessApplicationOptions(');
+      buffer.writeln('await app.create(');
+      _generateControllers(controllerElements, buffer);
+      buffer.writeln('options: DartnessApplicationOptions(');
       if (logRequest != null) {
         buffer.writeln('logRequest: $logRequest,');
       }
@@ -146,11 +162,29 @@ class ApplicationGenerator extends GeneratorForAnnotation<Application> {
       if (internetAddress != null) {
         buffer.writeln('internetAddress: $internetAddress,');
       }
-      buffer.writeln(')');
+      buffer.writeln('),');
       buffer.writeln(');');
     }
 
     // main end method
     buffer.writeln('}');
+  }
+
+  void _generateControllers(
+    List<ClassElement> controllerElements,
+    StringBuffer buffer,
+  ) {
+    buffer.writeln('controllers: [');
+    for (final controllerElement in controllerElements) {
+      final className = controllerElement.name.contains('Controller')
+          ? controllerElement.name
+              .replaceAll('Controller', 'DartnessController')
+          : '${controllerElement.name}DartnessController';
+
+      buffer.writeln(
+          '$className(injectRegister.resolve<${controllerElement.name}>()),');
+    }
+
+    buffer.writeln('],');
   }
 }

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:dartness_server/src/string_extension.dart';
 import 'package:shelf_plus/shelf_plus.dart';
 
 import '../exception/http_status_exception.dart';
@@ -40,8 +41,8 @@ class DartnessRouterHandler {
           final value = pathParam.stringToType(param.type);
           namedArguments[Symbol(param.name)] = value;
         } else {
-          final queryParam = _getQueryParam(request, param);
-          final value = queryParam.stringToType(param.type);
+          final String? queryParam = _getQueryParam(request, param);
+          final value = queryParam?.stringToType(param.type);
           namedArguments[Symbol(param.name)] = value;
         }
       }

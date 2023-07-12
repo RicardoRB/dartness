@@ -8,6 +8,7 @@ import '../services/city_service.dart';
 part 'city_controller.g.dart';
 
 @Controller('/cities')
+@Header(HttpHeaders.contentTypeHeader, 'application/json')
 class CityController {
   CityController(this._cityService);
 
@@ -16,12 +17,11 @@ class CityController {
   @HttpCode(202)
   @Get()
   List<String> getCities({
-    @QueryParam() int? offset = 100,
+    @QueryParam() int? offset,
   }) {
     return _cityService.getCities(offset);
   }
 
-  @Header(HttpHeaders.contentTypeHeader, 'application/json')
   @Get('/<id>')
   CityDto getCity(@PathParam() int id) {
     return _cityService.getCity(id);

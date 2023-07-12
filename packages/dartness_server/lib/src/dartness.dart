@@ -1,6 +1,5 @@
 import 'dart:io';
 
-
 import 'exception/dartness_error_handler.dart';
 import 'route/dartness_controller.dart';
 import 'server/dartness_application_options.dart';
@@ -22,6 +21,10 @@ class Dartness {
   /// If [logRequest] is true prints the time of the request, the elapsed time for the
   /// inner handlers, the response's status code and the request URI.
   Future<DartnessServer> create({
+    final Iterable<DartnessController> controllers = const [],
+    final Iterable<DartnessMiddleware> middlewares = const [],
+    final Iterable<DartnessInterceptor> interceptors = const [],
+    final Iterable<DartnessErrorHandler> errorHandlers = const [],
     final DartnessApplicationOptions? options,
   }) async {
     _options = options ?? DartnessApplicationOptions();
@@ -30,7 +33,19 @@ class Dartness {
       _options.port,
       internetAddress: _options.internetAddress,
     );
-    // _initModule(module);
+
+    for (final controller in controllers) {
+      _addController(controller);
+    }
+    for (final middleware in middlewares) {
+      _addMiddleware(middleware);
+    }
+    for (final interceptor in interceptors) {
+      _addInterceptor(interceptor);
+    }
+    for (final errorHandler in errorHandlers) {
+      _addErrorHandler(errorHandler);
+    }
 
     if (options?.logRequest == true) {
       _addInterceptor(LogRequestsInterceptor());
@@ -39,35 +54,6 @@ class Dartness {
     print('Server listening on port ${_server.getPort()}');
     return _server;
   }
-
-  /// Initializes the given [module] and its dependencies.
-  // void _initModule(final Module module) {
-  //   for (final import in module.metadata.imports) {
-  //     _initModule(import);
-  //   }
-  //
-  //   for (final controller in module.metadata.controllers) {
-  //     _addController(controller);
-  //   }
-  //
-  //   _addProviders(module);
-  // }
-  //
-  // void _addProviders(Module module) {
-  //   for (final provider in module.metadata.providers) {
-  //     if (provider is DartnessMiddleware) {
-  //       _addMiddleware(provider);
-  //     }
-  //
-  //     if (provider is DartnessInterceptor) {
-  //       _addInterceptor(provider);
-  //     }
-  //
-  //     if (provider is DartnessErrorHandler) {
-  //       _addErrorHandler(provider);
-  //     }
-  //   }
-  // }
 
   /// Add [controller] into [Dartness] and handles
   /// the methods annotated with [Bind] children to [Controller] and [Bind.method].
