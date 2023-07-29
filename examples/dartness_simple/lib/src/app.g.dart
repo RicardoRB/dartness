@@ -9,11 +9,6 @@ part of 'app.dart';
 extension AppExtension on App {
   initDependencies() {
     final injectRegister = InstanceRegister.instance;
-    injectRegister.register<CityService>(CityService());
-    injectRegister.register<CityController>(CityController(
-      injectRegister.resolve<CityService>(),
-    ));
-    injectRegister.register<ExampleErrorHandler>(ExampleErrorHandler());
   }
 
   Future<void> main() async {
@@ -21,9 +16,7 @@ extension AppExtension on App {
     final injectRegister = InstanceRegister.instance;
     final app = Dartness();
     await app.create(
-      controllers: [
-        CityDartnessController(injectRegister.resolve<CityController>()),
-      ],
+      controllers: [],
       options: DartnessApplicationOptions(),
     );
   }

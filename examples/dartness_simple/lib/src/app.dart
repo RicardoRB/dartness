@@ -12,11 +12,17 @@ part 'app.g.dart';
   module: Module(
     metadata: ModuleMetadata(
       controllers: [
-        CityController,
+        ProviderMetadata(
+          classType: CityController,
+        ),
       ],
       providers: [
-        CityService,
-        ExampleErrorHandler,
+        ProviderMetadata(
+          classType: CityService,
+        ),
+        ProviderMetadata(
+          classType: ExampleErrorHandler,
+        ),
       ],
       exports: [],
       imports: [],

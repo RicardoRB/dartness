@@ -5,8 +5,16 @@ import 'src/controllers/city_controller.dart';
 
 @Module(
   metadata: ModuleMetadata(
-    controllers: [CityController],
-    providers: [CityService],
+    controllers: [
+      ProviderMetadata(
+        classType: CityController,
+      ),
+    ],
+    providers: [
+      ProviderMetadata(
+        classType: CityService,
+      ),
+    ],
   ),
 )
 class AppModule {}

@@ -45,30 +45,30 @@ class ApplicationGenerator extends GeneratorForAnnotation<Application> {
     final List<DartObject> allInstances = [];
     allInstances.addAll(controllers);
     allInstances.addAll(providers);
-    final classElementControllers = allInstances
+    final allProviderElements = allInstances
         .map((e) => e.toTypeValue()?.element)
         .whereType<ClassElement>()
         .toList();
 
-    final topologicalControllers = _topologicalSort(classElementControllers);
+    final topologicalProviderElements = _topologicalSort(allProviderElements);
 
-    for (final controllerElement in topologicalControllers) {
-      final constructors = controllerElement.constructors;
+    for (final providerElement in topologicalProviderElements) {
+      final constructors = providerElement.constructors;
 
       if (constructors.length > 1) {
-        throw Exception('${controllerElement.name} has more than 1 constructor.'
+        throw Exception('${providerElement.name} has more than 1 constructor.'
             '@$_applicationType do not allow multiple constructors currently');
       }
 
       final constructor = constructors.first;
       if (constructor.isPrivate) {
-        throw Exception('${controllerElement.name}\' constructor is private.'
+        throw Exception('${providerElement.name}\' constructor is private.'
             'A public constructor is required in order '
             'to create an instance of the class');
       }
 
-      buffer.writeln('injectRegister.register<${controllerElement.name}>(');
-      buffer.writeln('${controllerElement.name}(');
+      buffer.writeln('injectRegister.register<${providerElement.name}>(');
+      buffer.writeln('${providerElement.name}(');
 
       for (final constructorParam in constructor.parameters) {
         buffer.writeln('injectRegister.resolve<${constructorParam.type}>(),');
@@ -81,12 +81,15 @@ class ApplicationGenerator extends GeneratorForAnnotation<Application> {
     buffer.writeln('}');
   }
 
-  List<ClassElement> _topologicalSort(List<ClassElement> dependencies) {
+  List<ClassElement> _topologicalSort(final List<ClassElement> dependencies) {
     final visited = <ClassElement>{};
     final sorted = <ClassElement>[];
 
     void visit(ClassElement dependency) {
-      if (visited.contains(dependency)) return;
+      if (visited.contains(dependency)) {
+        return;
+      }
+
       visited.add(dependency);
 
       final dependencies = _getDependencies(dependency);
