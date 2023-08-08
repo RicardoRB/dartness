@@ -21,6 +21,9 @@ part 'app.g.dart';
           classType: CityService,
         ),
         ProviderMetadata(
+          classType: CityService,
+        ),
+        ProviderMetadata(
           classType: ExampleErrorHandler,
         ),
       ],
