@@ -4,7 +4,6 @@ import 'package:dartness_server/dartness.dart';
 import 'package:dartness_server/server.dart';
 import 'package:test/test.dart';
 
-
 void main() {
   group('http tests', () {
     late DartnessServer dartness;
