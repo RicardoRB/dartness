@@ -38,12 +38,21 @@ class ApplicationGenerator extends GeneratorForAnnotation<Application> {
     buffer.writeln('final injectRegister = InstanceRegister.instance;');
     final applicationModule = annotation.read('module').objectValue;
     final moduleMetadata = applicationModule.getField('metadata');
-    final controllers =
+    final imports = moduleMetadata?.getField('imports')?.toListValue() ?? [];
+    final List<DartObject> importControllers = imports
+        .map((e) => e.getField('metadata'))
+        .expand(
+            (e) => e?.getField('controllers')?.toListValue() ?? <DartObject>[])
+        .toList();
+    final List<DartObject> controllers =
         moduleMetadata?.getField('controllers')?.toListValue() ?? [];
+
+    final List<DartObject> allControllers = importControllers + controllers;
+
     final providers =
         moduleMetadata?.getField('providers')?.toListValue() ?? [];
     final List<DartObject> allInstances = [];
-    allInstances.addAll(controllers);
+    allInstances.addAll(allControllers);
     allInstances.addAll(providers);
     final allProviderElements = allInstances
         .map((e) => e.getField('classType'))
@@ -130,7 +139,7 @@ class ApplicationGenerator extends GeneratorForAnnotation<Application> {
     return dependencies;
   }
 
-  void _createMain(StringBuffer buffer, ConstantReader annotation) {
+  void _createMain(final StringBuffer buffer, final ConstantReader annotation) {
     buffer.writeln('Future<void> main() async {');
 
     buffer.writeln('initDependencies();');
@@ -139,10 +148,17 @@ class ApplicationGenerator extends GeneratorForAnnotation<Application> {
 
     final applicationModule = annotation.read('module').objectValue;
     final moduleMetadata = applicationModule.getField('metadata');
+    final imports = moduleMetadata?.getField('imports')?.toListValue() ?? [];
+    final importControllers = imports
+        .map((e) => e.getField('metadata'))
+        .expand(
+            (e) => e?.getField('controllers')?.toListValue() ?? <DartObject>[])
+        .toList();
     final controllers =
         moduleMetadata?.getField('controllers')?.toListValue() ?? [];
+    final allControllers = importControllers + controllers;
 
-    final controllerElements = controllers
+    final controllerElements = allControllers
         .map((e) => e.getField('classType'))
         .map((e) => e?.toTypeValue()?.element)
         .whereType<ClassElement>()
@@ -154,29 +170,36 @@ class ApplicationGenerator extends GeneratorForAnnotation<Application> {
       _generateControllers(controllerElements, buffer);
       buffer.writeln(');');
     } else {
-      final logRequest =
-          applicationOptions.getField('_logRequest')?.toBoolValue();
-      final port = applicationOptions.getField('_port')?.toIntValue();
-      final internetAddress =
-          applicationOptions.getField('_internetAddress')?.toTypeValue();
       buffer.writeln('await app.create(');
       _generateControllers(controllerElements, buffer);
-      buffer.writeln('options: DartnessApplicationOptions(');
-      if (logRequest != null) {
-        buffer.writeln('logRequest: $logRequest,');
-      }
-      if (port != null) {
-        buffer.writeln('port: $port,');
-      }
-      if (internetAddress != null) {
-        buffer.writeln('internetAddress: $internetAddress,');
-      }
-      buffer.writeln('),');
+      _generateOptions(applicationOptions, buffer);
       buffer.writeln(');');
     }
 
     // main end method
     buffer.writeln('}');
+  }
+
+  void _generateOptions(
+    final DartObject applicationOptions,
+    final StringBuffer buffer,
+  ) {
+    final logRequest =
+        applicationOptions.getField('_logRequest')?.toBoolValue();
+    final port = applicationOptions.getField('_port')?.toIntValue();
+    final internetAddress =
+        applicationOptions.getField('_internetAddress')?.toTypeValue();
+    buffer.writeln('options: DartnessApplicationOptions(');
+    if (logRequest != null) {
+      buffer.writeln('logRequest: $logRequest,');
+    }
+    if (port != null) {
+      buffer.writeln('port: $port,');
+    }
+    if (internetAddress != null) {
+      buffer.writeln('internetAddress: $internetAddress,');
+    }
+    buffer.writeln('),');
   }
 
   void _generateControllers(

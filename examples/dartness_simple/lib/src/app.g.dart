@@ -9,10 +9,12 @@ part of 'app.dart';
 extension AppExtension on App {
   initDependencies() {
     final injectRegister = InstanceRegister.instance;
+    injectRegister.register<UserController>(UserController());
     injectRegister.register<CityService>(CityService());
     injectRegister.register<CityController>(CityController(
       injectRegister.resolve<CityService>(),
     ));
+    injectRegister.register<HealthController>(HealthController());
     injectRegister.register<ExampleErrorHandler>(ExampleErrorHandler());
   }
 
@@ -22,7 +24,9 @@ extension AppExtension on App {
     final app = Dartness();
     await app.create(
       controllers: [
+        UserDartnessController(injectRegister.resolve<UserController>()),
         CityDartnessController(injectRegister.resolve<CityController>()),
+        HealthDartnessController(injectRegister.resolve<HealthController>()),
       ],
       options: DartnessApplicationOptions(
         logRequest: false,
