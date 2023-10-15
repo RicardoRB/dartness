@@ -21,7 +21,9 @@ extension AppExtension on App {
     final injectRegister = InstanceRegister.instance;
     final app = Dartness();
     await app.create(
-      controllers: [],
+      controllers: [
+        CityDartnessController(injectRegister.resolve<CityController>()),
+      ],
       options: DartnessApplicationOptions(),
     );
   }

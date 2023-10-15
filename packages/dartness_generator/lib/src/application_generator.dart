@@ -141,8 +141,10 @@ class ApplicationGenerator extends GeneratorForAnnotation<Application> {
     final moduleMetadata = applicationModule.getField('metadata');
     final controllers =
         moduleMetadata?.getField('controllers')?.toListValue() ?? [];
+
     final controllerElements = controllers
-        .map((e) => e.toTypeValue()?.element)
+        .map((e) => e.getField('classType'))
+        .map((e) => e?.toTypeValue()?.element)
         .whereType<ClassElement>()
         .toList();
     final applicationOptions = annotation.read('options').objectValue;
@@ -178,8 +180,8 @@ class ApplicationGenerator extends GeneratorForAnnotation<Application> {
   }
 
   void _generateControllers(
-    List<ClassElement> controllerElements,
-    StringBuffer buffer,
+    final List<ClassElement> controllerElements,
+    final StringBuffer buffer,
   ) {
     buffer.writeln('controllers: [');
     for (final controllerElement in controllerElements) {
