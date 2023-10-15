@@ -24,7 +24,10 @@ extension AppExtension on App {
       controllers: [
         CityDartnessController(injectRegister.resolve<CityController>()),
       ],
-      options: DartnessApplicationOptions(),
+      options: DartnessApplicationOptions(
+        logRequest: false,
+        port: 8080,
+      ),
     );
   }
 }

@@ -155,10 +155,10 @@ class ApplicationGenerator extends GeneratorForAnnotation<Application> {
       buffer.writeln(');');
     } else {
       final logRequest =
-          applicationOptions.getField('logRequest')?.toBoolValue();
-      final port = applicationOptions.getField('port')?.toIntValue();
+          applicationOptions.getField('_logRequest')?.toBoolValue();
+      final port = applicationOptions.getField('_port')?.toIntValue();
       final internetAddress =
-          applicationOptions.getField('internetAddress')?.toTypeValue();
+          applicationOptions.getField('_internetAddress')?.toTypeValue();
       buffer.writeln('await app.create(');
       _generateControllers(controllerElements, buffer);
       buffer.writeln('options: DartnessApplicationOptions(');
