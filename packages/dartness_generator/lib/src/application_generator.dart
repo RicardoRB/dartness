@@ -46,7 +46,8 @@ class ApplicationGenerator extends GeneratorForAnnotation<Application> {
     allInstances.addAll(controllers);
     allInstances.addAll(providers);
     final allProviderElements = allInstances
-        .map((e) => e.toTypeValue()?.element)
+        .map((e) => e.getField('classType'))
+        .map((e) => e?.toTypeValue()?.element)
         .whereType<ClassElement>()
         .toList();
 
@@ -71,7 +72,10 @@ class ApplicationGenerator extends GeneratorForAnnotation<Application> {
       buffer.writeln('${providerElement.name}(');
 
       for (final constructorParam in constructor.parameters) {
-        buffer.writeln('injectRegister.resolve<${constructorParam.type}>(),');
+        buffer.writeln(
+            'injectRegister.resolve<${constructorParam.type.getDisplayString(
+          withNullability: false,
+        )}>(),');
       }
 
       buffer.writeln('));');
@@ -85,28 +89,28 @@ class ApplicationGenerator extends GeneratorForAnnotation<Application> {
     final visited = <ClassElement>{};
     final sorted = <ClassElement>[];
 
-    void visit(ClassElement dependency) {
-      if (visited.contains(dependency)) {
-        return;
-      }
-
-      visited.add(dependency);
-
-      final dependencies = _getDependencies(dependency);
-
-      for (final dep in dependencies) {
-        visit(dep);
-      }
-
-      sorted.add(dependency);
-    }
-
     for (final dependency in dependencies) {
-      visit(dependency);
+      _visit(dependency, visited, sorted);
     }
 
-    sorted.reversed.toList();
-    return sorted;
+    return sorted.toList();
+  }
+
+  void _visit(final ClassElement dependency, final Set<ClassElement> visited,
+      final List<ClassElement> sorted) {
+    if (visited.contains(dependency)) {
+      return;
+    }
+
+    visited.add(dependency);
+
+    final dependencies = _getDependencies(dependency);
+
+    for (final dep in dependencies) {
+      _visit(dep, visited, sorted);
+    }
+
+    sorted.add(dependency);
   }
 
   List<ClassElement> _getDependencies(ClassElement dependency) {
