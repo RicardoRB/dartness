@@ -29,6 +29,7 @@ class ApplicationGenerator extends GeneratorForAnnotation<Application> {
     return null;
   }
 
+  /// Creates 'initDependencies' method
   void _createInitDependencies(
     final StringBuffer buffer,
     final ConstantReader annotation,
@@ -38,22 +39,12 @@ class ApplicationGenerator extends GeneratorForAnnotation<Application> {
     buffer.writeln('final injectRegister = InstanceRegister.instance;');
     final applicationModule = annotation.read('module').objectValue;
     final moduleMetadata = applicationModule.getField('metadata');
-    final imports = moduleMetadata?.getField('imports')?.toListValue() ?? [];
-    final List<DartObject> importControllers = imports
-        .map((e) => e.getField('metadata'))
-        .expand(
-            (e) => e?.getField('controllers')?.toListValue() ?? <DartObject>[])
-        .toList();
-    final List<DartObject> controllers =
-        moduleMetadata?.getField('controllers')?.toListValue() ?? [];
+    final List<DartObject> allControllers = _getAllControllers(moduleMetadata);
+    final List<DartObject> allProviders = _getAllProviders(moduleMetadata);
 
-    final List<DartObject> allControllers = importControllers + controllers;
-
-    final providers =
-        moduleMetadata?.getField('providers')?.toListValue() ?? [];
     final List<DartObject> allInstances = [];
     allInstances.addAll(allControllers);
-    allInstances.addAll(providers);
+    allInstances.addAll(allProviders);
     final allProviderElements = allInstances
         .map((e) => e.getField('classType'))
         .map((e) => e?.toTypeValue()?.element)
@@ -94,6 +85,39 @@ class ApplicationGenerator extends GeneratorForAnnotation<Application> {
     buffer.writeln('}');
   }
 
+  /// Obtains all the controllers from [moduleMetadata]
+  List<DartObject> _getAllControllers(final DartObject? moduleMetadata) {
+    return _getAllFieldFromModuleMetadata(moduleMetadata, 'controllers');
+  }
+
+  /// Obtains all the providers from [moduleMetadata]
+  List<DartObject> _getAllProviders(final DartObject? moduleMetadata) {
+    return _getAllFieldFromModuleMetadata(moduleMetadata, 'providers');
+  }
+
+  List<DartObject> _getAllFieldFromModuleMetadata(
+    final DartObject? moduleMetadata,
+    final String field,
+  ) {
+    if (moduleMetadata == null) {
+      return [];
+    }
+
+    final List<DartObject> imports =
+        moduleMetadata.getField('imports')?.toListValue() ?? [];
+    final metadataList = imports
+        .map((e) => e.getField('metadata'))
+        .expand((e) => _getAllFieldFromModuleMetadata(e, field))
+        .toList();
+
+    final List<DartObject> controllers =
+        moduleMetadata.getField(field)?.toListValue() ?? [];
+
+    return metadataList + controllers;
+  }
+
+  /// Sort the dependencies by a topological sort to add the dependencies
+  /// for each class that requires as inversion control
   List<ClassElement> _topologicalSort(final List<ClassElement> dependencies) {
     final visited = <ClassElement>{};
     final sorted = <ClassElement>[];
@@ -105,6 +129,8 @@ class ApplicationGenerator extends GeneratorForAnnotation<Application> {
     return sorted.toList();
   }
 
+  /// Marks the [dependency] as visited in [visited] set and add it also in
+  /// [sorted] list
   void _visit(final ClassElement dependency, final Set<ClassElement> visited,
       final List<ClassElement> sorted) {
     if (visited.contains(dependency)) {
@@ -122,10 +148,11 @@ class ApplicationGenerator extends GeneratorForAnnotation<Application> {
     sorted.add(dependency);
   }
 
-  List<ClassElement> _getDependencies(ClassElement dependency) {
+  /// Obtains the dependencies of a class by his constructor
+  List<ClassElement> _getDependencies(final ClassElement clazz) {
     final dependencies = <ClassElement>[];
 
-    final constructor = dependency.unnamedConstructor;
+    final constructor = clazz.unnamedConstructor;
     if (constructor != null) {
       final parameters = constructor.parameters;
       for (final param in parameters) {
@@ -139,6 +166,8 @@ class ApplicationGenerator extends GeneratorForAnnotation<Application> {
     return dependencies;
   }
 
+  /// Creates the 'main' method into the [buffer] by [annotation] that must be
+  /// [Application]
   void _createMain(final StringBuffer buffer, final ConstantReader annotation) {
     buffer.writeln('Future<void> main() async {');
 
@@ -147,16 +176,8 @@ class ApplicationGenerator extends GeneratorForAnnotation<Application> {
     buffer.writeln('final app = Dartness();');
 
     final applicationModule = annotation.read('module').objectValue;
-    final moduleMetadata = applicationModule.getField('metadata');
-    final imports = moduleMetadata?.getField('imports')?.toListValue() ?? [];
-    final importControllers = imports
-        .map((e) => e.getField('metadata'))
-        .expand(
-            (e) => e?.getField('controllers')?.toListValue() ?? <DartObject>[])
-        .toList();
-    final controllers =
-        moduleMetadata?.getField('controllers')?.toListValue() ?? [];
-    final allControllers = importControllers + controllers;
+    final rootModuleMetadata = applicationModule.getField('metadata');
+    final allControllers = _getAllControllers(rootModuleMetadata);
 
     final controllerElements = allControllers
         .map((e) => e.getField('classType'))
