@@ -26,12 +26,8 @@ void main() {
     httpClient = HttpClient();
 
     dartness = await Dartness().create(
-      // AppModule(
-      //   metadata: ModuleMetadata(
-      //     controllers: controllers,
-      //     providers: interceptors,
-      //   ),
-      // ),
+      controllers: controllers,
+      interceptors: interceptors,
       options: DartnessApplicationOptions(
         port: port,
       ),

@@ -18,17 +18,13 @@ void main() {
       TestDartnessController(TestController.instance),
     ];
 
-    final interceptors = [
+    final middlewares = [
       TestMiddleware(),
     ];
     httpClient = HttpClient();
     dartness = await Dartness().create(
-      // AppModule(
-      //   metadata: ModuleMetadata(
-      //     controllers: controllers,
-      //     providers: interceptors,
-      //   ),
-      // ),
+      controllers: controllers,
+      middlewares: middlewares,
       options: DartnessApplicationOptions(
         port: port,
       ),

@@ -24,12 +24,20 @@ class DartnessRouterHandler {
       if (param.isPositional) {
         if (param.isPath) {
           final pathParam = _getPathParam(request, param);
-          final value = pathParam.stringToType(param.type);
-          positionalArguments.add(value);
+          if (pathParam is String) {
+            final value = pathParam.stringToType(param.type);
+            positionalArguments.add(value);
+          } else {
+            positionalArguments.add(pathParam);
+          }
         } else if (param.isQuery) {
           final queryParam = _getQueryParam(request, param);
-          final value = queryParam.stringToType(param.type);
-          positionalArguments.add(value);
+          if (queryParam is String) {
+            final value = queryParam.stringToType(param.type);
+            positionalArguments.add(value);
+          } else {
+            positionalArguments.add(queryParam);
+          }
         } else {
           final bodyJson = await request.body.asJson;
           final bodyInstance = param.fromJson?.call(bodyJson);
