@@ -2,12 +2,10 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:dartness_server/dartness.dart';
-import 'package:dartness_server/modules.dart';
 import 'package:dartness_server/route.dart';
 import 'package:dartness_server/server.dart';
 import 'package:test/test.dart';
 
-import '../../app_module.dart';
 import 'class_controller.dart';
 import 'delete_controller_class.dart';
 import 'get_controller_class.dart';
