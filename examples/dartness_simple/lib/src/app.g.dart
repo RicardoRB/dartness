@@ -18,7 +18,7 @@ extension AppExtension on App {
     injectRegister.register<ExampleErrorHandler>(ExampleErrorHandler());
   }
 
-  Future<void> main() async {
+  Future<void> init() async {
     initDependencies();
     final injectRegister = InstanceRegister.instance;
     final app = Dartness();
