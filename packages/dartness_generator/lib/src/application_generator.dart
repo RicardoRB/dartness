@@ -169,7 +169,7 @@ class ApplicationGenerator extends GeneratorForAnnotation<Application> {
   /// Creates the 'main' method into the [buffer] by [annotation] that must be
   /// [Application]
   void _createMain(final StringBuffer buffer, final ConstantReader annotation) {
-    buffer.writeln('Future<void> main() async {');
+    buffer.writeln('Future<void> init() async {');
 
     buffer.writeln('initDependencies();');
     buffer.writeln('final injectRegister = InstanceRegister.instance;');
