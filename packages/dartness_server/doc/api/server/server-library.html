@@ -49,8 +49,12 @@
 </header>
 <main>
 
-  <div id="dartdoc-main-content" class="main-content">
-    
+  <div
+      id="dartdoc-main-content"
+      class="main-content"
+      data-above-sidebar=""
+      data-below-sidebar="server&#47;server-library-sidebar.html">
+      
       <div>
 <h1><span class="kind-library">server</span> library 
  
@@ -66,6 +70,14 @@
       <h2>Classes</h2>
 
       <dl>
+        <dt id="DartnessApplicationOptions">
+  <span class="name "><a href="../server/DartnessApplicationOptions-class.html">DartnessApplicationOptions</a></span> 
+
+</dt>
+<dd>
+  
+</dd>
+
         <dt id="DartnessInterceptor">
   <span class="name "><a href="../server/DartnessInterceptor-class.html">DartnessInterceptor</a></span> 
 
@@ -159,15 +171,16 @@ inner handlers, the response's status code and the request URI.
   </div> <!-- /.main-content -->
 
   <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
-    <header id="header-search-sidebar" class="hidden-l">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
   <form class="search-sidebar" role="search">
     <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
 </header>
 
 <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
-  <li><a href="../index.html">dartness_server</a></li>
-  <li class="self-crumb">server library</li>
+    <li><a href="../index.html">dartness_server</a></li>
+    <li class="self-crumb">server library</li>
 </ol>
 
 
@@ -176,6 +189,7 @@ inner handlers, the response's status code and the request URI.
       <li class="section-title">Libraries</li>
       <li><a href="../dartness/dartness-library.html">dartness</a></li>
       <li><a href="../exception/exception-library.html">exception</a></li>
+      <li><a href="../modules/modules-library.html">modules</a></li>
       <li><a href="../route/route-library.html">route</a></li>
       <li><a href="../server/server-library.html">server</a></li>
 </ol>
@@ -184,27 +198,6 @@ inner handlers, the response's status code and the request URI.
 
   <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
     <h5>server library</h5>
-    <ol>
-      <li class="section-title"><a href="../server/server-library.html#classes">Classes</a></li>
-        <li><a href="../server/DartnessInterceptor-class.html">DartnessInterceptor</a></li>
-        <li><a href="../server/DartnessMiddleware-class.html">DartnessMiddleware</a></li>
-        <li><a href="../server/DartnessPipeline-class.html">DartnessPipeline</a></li>
-        <li><a href="../server/DartnessRequest-class.html">DartnessRequest</a></li>
-        <li><a href="../server/DartnessResponse-class.html">DartnessResponse</a></li>
-        <li><a href="../server/DartnessServer-class.html">DartnessServer</a></li>
-        <li><a href="../server/DefaultDartnessPipeline-class.html">DefaultDartnessPipeline</a></li>
-        <li><a href="../server/DefaultDartnessServer-class.html">DefaultDartnessServer</a></li>
-        <li><a href="../server/LogRequestsInterceptor-class.html">LogRequestsInterceptor</a></li>
-
-
-
-
-
-
-
-
-</ol>
-
   </div><!--/sidebar-offcanvas-right-->
 
 </main>
