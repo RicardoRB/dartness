@@ -23,15 +23,28 @@ class MyMiddleware implements DartnessMiddleware {
 
 ## Applying middleware
 
-In order to apply your middleware, you need to add it to the `middleware` list in the `DartnessServer` class.
+In order to apply your middleware, you need to add it to the `middleware` list in the `Module` annotation.
 
 ```dart
-void main() async {
-  final app = Dartness(
-    port: 3000,
-    middlewares: [MyMiddleware()],
-  );
-  // As optional, you can also use app.addMiddleware(MyMiddleware());
-  await app.create();
-}
+@Application(
+  module: Module(
+    metadata: ModuleMetadata(
+      controllers: [],
+      providers: [
+        ProviderMetadata(
+          classType: MyMiddleWare,
+        ),
+      ],
+      exports: [],
+      imports: [],
+    ),
+  ),
+  options: DartnessApplicationOptions(
+    port: int.fromEnvironment(
+      'port',
+      defaultValue: 8080,
+    ),
+  ),
+)
+class App {}
 ```
