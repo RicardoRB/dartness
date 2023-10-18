@@ -1,5 +1,6 @@
 import 'package:dartness_server/modules.dart';
 
+import '../../services/city_service.dart';
 import 'city_controller.dart';
 
 const cityModule = Module(
@@ -7,6 +8,11 @@ const cityModule = Module(
     controllers: [
       ProviderMetadata(
         classType: CityController,
+      ),
+    ],
+    providers: [
+      ProviderMetadata(
+        classType: CityService,
       ),
     ],
   ),

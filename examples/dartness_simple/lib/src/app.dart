@@ -22,12 +22,6 @@ part 'app.g.dart';
       ],
       providers: [
         ProviderMetadata(
-          classType: CityService,
-        ),
-        ProviderMetadata(
-          classType: CityService,
-        ),
-        ProviderMetadata(
           classType: ExampleErrorHandler,
         ),
       ],
