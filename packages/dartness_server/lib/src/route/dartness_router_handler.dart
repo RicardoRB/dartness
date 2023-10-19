@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:dartness_server/src/string_extension.dart';
 import 'package:shelf_plus/shelf_plus.dart';
 
 import '../exception/http_status_exception.dart';
-import '../string_utils.dart';
 import 'controller_route.dart';
 import 'dartness_param.dart';
 
@@ -24,12 +24,20 @@ class DartnessRouterHandler {
       if (param.isPositional) {
         if (param.isPath) {
           final pathParam = _getPathParam(request, param);
-          final value = stringToType(pathParam, param.type);
-          positionalArguments.add(value);
+          if (pathParam is String) {
+            final value = pathParam.stringToType(param.type);
+            positionalArguments.add(value);
+          } else {
+            positionalArguments.add(pathParam);
+          }
         } else if (param.isQuery) {
           final queryParam = _getQueryParam(request, param);
-          final value = stringToType(queryParam, param.type);
-          positionalArguments.add(value);
+          if (queryParam is String) {
+            final value = queryParam.stringToType(param.type);
+            positionalArguments.add(value);
+          } else {
+            positionalArguments.add(queryParam);
+          }
         } else {
           final bodyJson = await request.body.asJson;
           final bodyInstance = param.fromJson?.call(bodyJson);
@@ -38,11 +46,11 @@ class DartnessRouterHandler {
       } else {
         if (param.isPath) {
           final pathParam = _getPathParam(request, param);
-          final value = stringToType(pathParam, param.type);
+          final value = pathParam.stringToType(param.type);
           namedArguments[Symbol(param.name)] = value;
         } else {
-          final queryParam = _getQueryParam(request, param);
-          final value = stringToType(queryParam, param.type);
+          final String? queryParam = _getQueryParam(request, param);
+          final value = queryParam?.stringToType(param.type);
           namedArguments[Symbol(param.name)] = value;
         }
       }

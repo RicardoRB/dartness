@@ -10,3 +10,7 @@
 ## 0.1.2-alpha
 
 - Updated dart sdk to 3.0.0
+
+## 0.5.0-alpha
+
+- Easiest way of creating an app by `@Application` annotation and modules

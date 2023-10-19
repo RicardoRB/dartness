@@ -39,17 +39,30 @@ class MyInterceptor implements DartnessInterceptor {
 
 ## Applying interceptor
 
-In order to apply your interceptor, you need to add it to the `interpcetors` list in the `DartnessServer` class. This
+In order to apply your interceptor, you need to add it to the `interpcetors` list in the `Module` annotation. This
 will create a global interceptors and are used across the whole application, for every controller and every route
 handler.
 
 ```dart
-void main() async {
-  final app = Dartness(
-    port: 3000,
-    interceptors: [MyInterceptor()],
-  );
-  // As optional, you can also use app.addInterceptor(MyInterceptor());
-  await app.create();
-}
+@Application(
+  module: Module(
+    metadata: ModuleMetadata(
+      controllers: [],
+      providers: [
+        ProviderMetadata(
+          classType: MyInterceptor,
+        ),
+      ],
+      exports: [],
+      imports: [],
+    ),
+  ),
+  options: DartnessApplicationOptions(
+    port: int.fromEnvironment(
+      'port',
+      defaultValue: 8080,
+    ),
+  ),
+)
+class App {}
 ```

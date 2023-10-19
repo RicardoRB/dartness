@@ -1,29 +1,38 @@
 import 'dart:io';
 
 import 'package:dartness_server/dartness.dart';
+import 'package:dartness_server/server.dart';
 import 'package:test/test.dart';
 
 import 'test_controller.dart';
 import 'test_middleware.dart';
 
 void main() {
-  late Dartness dartness;
+  late DartnessServer dartness;
 
   const int port = 1243;
   late HttpClient httpClient;
 
   setUp(() async {
+    final controllers = [
+      TestDartnessController(TestController.instance),
+    ];
+
+    final middlewares = [
+      TestMiddleware(),
+    ];
     httpClient = HttpClient();
-    dartness = Dartness(
-      port: port,
-      controllers: [TestDartnessController(TestController.instance)],
-      middlewares: [TestMiddleware()],
+    dartness = await Dartness().create(
+      controllers: controllers,
+      middlewares: middlewares,
+      options: DartnessApplicationOptions(
+        port: port,
+      ),
     );
-    await dartness.create();
   });
 
   tearDown(() async {
-    await dartness.close();
+    await dartness.stop();
   });
 
   test(

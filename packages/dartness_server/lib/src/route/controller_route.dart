@@ -3,11 +3,11 @@ import 'dartness_param.dart';
 /// The data required to handle the class annotated with [Controller]
 /// internally by the Dartness framework.
 class ControllerRoute {
-  const ControllerRoute(
-    this.method,
-    this.path,
-    this.handler,
-    this.params, {
+  const ControllerRoute({
+    required this.method,
+    required this.path,
+    required this.handler,
+    required this.params,
     this.httpCode,
     this.headers,
   });

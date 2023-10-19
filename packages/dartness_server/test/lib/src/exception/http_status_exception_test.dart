@@ -1,29 +1,30 @@
 import 'dart:io';
 
 import 'package:dartness_server/dartness.dart';
+import 'package:dartness_server/server.dart';
 import 'package:test/test.dart';
-
-import 'get_controller_class.dart';
 
 void main() {
   group('http tests', () {
-    late Dartness dartness;
+    late DartnessServer dartness;
 
     const int port = 2314;
     late HttpClient httpClient;
 
     setUp(() async {
       httpClient = HttpClient();
-      dartness = Dartness(
-        port: port,
+      dartness = await Dartness().create(
+        // AppModule(
+        //   metadata: ModuleMetadata(),
+        // ),
+        options: DartnessApplicationOptions(
+          port: port,
+        ),
       );
-      dartness.addController(
-          GetDartnessControllerClass(GetControllerClass.instance));
-      await dartness.create();
     });
 
     tearDown(() async {
-      await dartness.close();
+      await dartness.stop();
     });
 
     test(

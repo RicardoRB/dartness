@@ -7,30 +7,35 @@ import 'package:test/test.dart';
 import 'test_controller.dart';
 
 void main() {
-  late Dartness dartness;
+  late DartnessServer dartness;
 
   const int port = 1453;
   late HttpClient httpClient;
 
   setUp(() async {
+    final controllers = [
+      TestDartnessController(TestController.instance),
+    ];
+
+    final interceptors = [
+      TestInterceptor(),
+    ];
     TestInterceptor.isOnErrorCalled = false;
     TestInterceptor.isOnRequestCalled = false;
     TestInterceptor.isOnResponseCalled = false;
     httpClient = HttpClient();
-    dartness = Dartness(
-      port: port,
-      controllers: [
-        TestDartnessController(TestController.instance),
-      ],
-      interceptors: [
-        TestInterceptor(),
-      ],
+
+    dartness = await Dartness().create(
+      controllers: controllers,
+      interceptors: interceptors,
+      options: DartnessApplicationOptions(
+        port: port,
+      ),
     );
-    await dartness.create();
   });
 
   tearDown(() async {
-    await dartness.close();
+    await dartness.stop();
   });
 
   test(

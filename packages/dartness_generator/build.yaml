@@ -1,17 +1,25 @@
 builders:
   controller:
     target: ":controller_generator"
-    import: "package:dartness_generator/dartness_generator.dart"
+    import: "package:dartness_generator/builder.dart"
     builder_factories: [ "controller" ]
-    build_extensions: { ".dart": [ ".dartness.g.part" ] }
+    build_extensions: { ".dart": [ ".g.part" ] }
     auto_apply: dependents
     build_to: cache
     applies_builders: [ "source_gen|combining_builder" ]
   error_handler:
     target: ":error_handler_generator"
-    import: "package:dartness_generator/dartness_generator.dart"
+    import: "package:dartness_generator/builder.dart"
     builder_factories: [ "errorHandler" ]
-    build_extensions: { ".dart": [ ".dartness.g.part" ] }
+    build_extensions: { ".dart": [ ".g.part" ] }
+    auto_apply: dependents
+    build_to: cache
+    applies_builders: [ "source_gen|combining_builder" ]
+  application:
+    target: ":error_handler_generator"
+    import: "package:dartness_generator/builder.dart"
+    builder_factories: [ "application" ]
+    build_extensions: { ".dart": [ ".g.part" ] }
     auto_apply: dependents
     build_to: cache
     applies_builders: [ "source_gen|combining_builder" ]

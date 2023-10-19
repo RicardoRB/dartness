@@ -94,14 +94,26 @@ This new created class accepts an instance of the class from where have been cre
 must be used in the `errorHandlers` param. You can see an example in the following code:
 
 ```dart
-void main() async {
-  final errorHandlers = [
-    ExampleDartnessErrorHandler(ExampleErrorHandler()),
-  ];
-  final app = Dartness(
-    port: 3000,
-    errorHandlers: errorHandlers,
-  );
-  await app.create();
-}
+
+@Application(
+  module: Module(
+    metadata: ModuleMetadata(
+      controllers: [],
+      providers: [
+        ProviderMetadata(
+          classType: MyException,
+        ),
+      ],
+      exports: [],
+      imports: [],
+    ),
+  ),
+  options: DartnessApplicationOptions(
+    port: int.fromEnvironment(
+      'port',
+      defaultValue: 8080,
+    ),
+  ),
+)
+class App {}
 ```

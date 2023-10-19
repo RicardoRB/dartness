@@ -1,7 +1,8 @@
 import 'dart:io';
 
-import 'route/dartness_controller.dart';
 import 'exception/dartness_error_handler.dart';
+import 'route/dartness_controller.dart';
+import 'server/dartness_application_options.dart';
 import 'server/dartness_interceptor.dart';
 import 'server/dartness_middleware.dart';
 import 'server/dartness_server.dart';
@@ -13,56 +14,45 @@ import 'server/log_requests_interceptor.dart';
 class Dartness {
   /// The [DartnessServer] that is listening for connections and requests.
   late final DartnessServer _server;
-
-  /// Creates a [DefaultDartnessServer] that listens on the specified [port] and
-  /// [internetAddress].
-  ///
-  /// You can also add controllers by using [controllers] optional parameter or
-  /// [middlewares] and [interceptors].
-  Dartness({
-    final int port = 8080,
-    final InternetAddress? internetAddress,
-    final Iterable<DartnessController> controllers = const [],
-    final Iterable<DartnessMiddleware> middlewares = const [],
-    final Iterable<DartnessInterceptor> interceptors = const [],
-    final Iterable<DartnessErrorHandler> errorHandlers = const [],
-  }) {
-    _server = DefaultDartnessServer(port, internetAddress: internetAddress);
-    for (final controller in controllers) {
-      addController(controller);
-    }
-    for (final middleware in middlewares) {
-      addMiddleware(middleware);
-    }
-    for (final interceptor in interceptors) {
-      addInterceptor(interceptor);
-    }
-    for (final errorHandler in errorHandlers) {
-      addErrorHandler(errorHandler);
-    }
-  }
+  late final DartnessApplicationOptions _options;
 
   /// Starts the [_server].
   ///
   /// If [logRequest] is true prints the time of the request, the elapsed time for the
   /// inner handlers, the response's status code and the request URI.
-  Future<void> create({
-    final bool logRequest = false,
+  Future<DartnessServer> create({
+    final Iterable<DartnessController> controllers = const [],
+    final Iterable<DartnessMiddleware> middlewares = const [],
+    final Iterable<DartnessInterceptor> interceptors = const [],
+    final Iterable<DartnessErrorHandler> errorHandlers = const [],
+    final DartnessApplicationOptions? options,
   }) async {
-    if (logRequest) {
-      addInterceptor(LogRequestsInterceptor());
+    _options = options ?? DartnessApplicationOptions();
+
+    _server = DefaultDartnessServer(
+      _options.port,
+      internetAddress: _options.internetAddress,
+    );
+
+    for (final controller in controllers) {
+      _addController(controller);
+    }
+    for (final middleware in middlewares) {
+      _addMiddleware(middleware);
+    }
+    for (final interceptor in interceptors) {
+      _addInterceptor(interceptor);
+    }
+    for (final errorHandler in errorHandlers) {
+      _addErrorHandler(errorHandler);
+    }
+
+    if (options?.logRequest == true) {
+      _addInterceptor(LogRequestsInterceptor());
     }
     await _server.start();
     print('Server listening on port ${_server.getPort()}');
-  }
-
-  /// Permanently stops the [Dartness] server from listening for new
-  /// connections. This closes the [Stream] of [HttpRequest]s with a
-  /// done event.
-  ///
-  /// If [force] is `true`, active connections will be closed immediately.
-  Future? close({bool force = false}) {
-    return _server.stop(force: force);
+    return _server;
   }
 
   /// Add [controller] into [Dartness] and handles
@@ -79,22 +69,22 @@ class Dartness {
   /// implement a [Head] handler the method must be created before the [Get] handler.
   ///
   /// throws [ArgumentError] if [controller] is not annotated with [Controller]
-  void addController(final DartnessController controller) {
+  void _addController(final DartnessController controller) {
     _server.addController(controller);
   }
 
   /// Adds a middleware in order to listen before the http request
-  void addMiddleware(final DartnessMiddleware middleware) {
+  void _addMiddleware(final DartnessMiddleware middleware) {
     _server.addMiddleware(middleware);
   }
 
   /// Adds an interceptor in order to listen between an http request
-  void addInterceptor(final DartnessInterceptor interceptor) {
+  void _addInterceptor(final DartnessInterceptor interceptor) {
     _server.addInterceptor(interceptor);
   }
 
   /// Adds an interceptor in order to listen between an http request
-  void addErrorHandler(final DartnessErrorHandler errorHandler) {
+  void _addErrorHandler(final DartnessErrorHandler errorHandler) {
     _server.addErrorHandler(errorHandler);
   }
 }

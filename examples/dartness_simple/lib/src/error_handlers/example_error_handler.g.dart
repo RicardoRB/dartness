@@ -9,13 +9,18 @@ part of 'example_error_handler.dart';
 extension ExampleErrorHandlerCatchers on ExampleErrorHandler {
   List<DartnessCatchError> getCatchErrors() {
     final catchErrorHandlers = <DartnessCatchError>[];
-    catchErrorHandlers
-        .add(DartnessCatchError([NotFoundException], handleNotFoundException));
+    catchErrorHandlers.add(DartnessCatchError(
+      [NotFoundException],
+      handleNotFoundException,
+    ));
     return catchErrorHandlers;
   }
 }
 
 class ExampleDartnessErrorHandler extends DartnessErrorHandler {
   ExampleDartnessErrorHandler(ExampleErrorHandler errorHandler)
-      : super(errorHandler, errorHandler.getCatchErrors());
+      : super(
+          errorHandler,
+          errorHandler.getCatchErrors(),
+        );
 }

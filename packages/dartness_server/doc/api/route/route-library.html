@@ -49,8 +49,12 @@
 </header>
 <main>
 
-  <div id="dartdoc-main-content" class="main-content">
-    
+  <div
+      id="dartdoc-main-content"
+      class="main-content"
+      data-above-sidebar=""
+      data-below-sidebar="route&#47;route-library-sidebar.html">
+      
       <div>
 <h1><span class="kind-library">route</span> library 
  
@@ -270,15 +274,16 @@ with his metadata and the method <a href="../route/ControllerRoute/handler.html"
   </div> <!-- /.main-content -->
 
   <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
-    <header id="header-search-sidebar" class="hidden-l">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
   <form class="search-sidebar" role="search">
     <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
 </header>
 
 <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
-  <li><a href="../index.html">dartness_server</a></li>
-  <li class="self-crumb">route library</li>
+    <li><a href="../index.html">dartness_server</a></li>
+    <li class="self-crumb">route library</li>
 </ol>
 
 
@@ -287,6 +292,7 @@ with his metadata and the method <a href="../route/ControllerRoute/handler.html"
       <li class="section-title">Libraries</li>
       <li><a href="../dartness/dartness-library.html">dartness</a></li>
       <li><a href="../exception/exception-library.html">exception</a></li>
+      <li><a href="../modules/modules-library.html">modules</a></li>
       <li><a href="../route/route-library.html">route</a></li>
       <li><a href="../server/server-library.html">server</a></li>
 </ol>
@@ -295,41 +301,6 @@ with his metadata and the method <a href="../route/ControllerRoute/handler.html"
 
   <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
     <h5>route library</h5>
-    <ol>
-      <li class="section-title"><a href="../route/route-library.html#classes">Classes</a></li>
-        <li><a href="../route/Bind-class.html">Bind</a></li>
-        <li><a href="../route/Body-class.html">Body</a></li>
-        <li><a href="../route/Connect-class.html">Connect</a></li>
-        <li><a href="../route/Controller-class.html">Controller</a></li>
-        <li><a href="../route/ControllerRoute-class.html">ControllerRoute</a></li>
-        <li><a href="../route/DartnessController-class.html">DartnessController</a></li>
-        <li><a href="../route/DartnessParam-class.html">DartnessParam</a></li>
-        <li><a href="../route/DartnessRouter-class.html">DartnessRouter</a></li>
-        <li><a href="../route/DartnessRouterHandler-class.html">DartnessRouterHandler</a></li>
-        <li><a href="../route/DefaultDartnessRouter-class.html">DefaultDartnessRouter</a></li>
-        <li><a href="../route/Delete-class.html">Delete</a></li>
-        <li><a href="../route/Get-class.html">Get</a></li>
-        <li><a href="../route/Head-class.html">Head</a></li>
-        <li><a href="../route/Header-class.html">Header</a></li>
-        <li><a href="../route/Headers-class.html">Headers</a></li>
-        <li><a href="../route/HttpCode-class.html">HttpCode</a></li>
-        <li><a href="../route/Options-class.html">Options</a></li>
-        <li><a href="../route/Patch-class.html">Patch</a></li>
-        <li><a href="../route/PathParam-class.html">PathParam</a></li>
-        <li><a href="../route/Post-class.html">Post</a></li>
-        <li><a href="../route/Put-class.html">Put</a></li>
-        <li><a href="../route/QueryParam-class.html">QueryParam</a></li>
-        <li><a href="../route/Trace-class.html">Trace</a></li>
-
-
-
-
-
-
-
-
-</ol>
-
   </div><!--/sidebar-offcanvas-right-->
 
 </main>

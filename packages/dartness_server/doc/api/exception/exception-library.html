@@ -49,8 +49,12 @@
 </header>
 <main>
 
-  <div id="dartdoc-main-content" class="main-content">
-    
+  <div
+      id="dartdoc-main-content"
+      class="main-content"
+      data-above-sidebar=""
+      data-below-sidebar="exception&#47;exception-library-sidebar.html">
+      
       <div>
 <h1><span class="kind-library">exception</span> library 
  
@@ -139,15 +143,16 @@ This abstract class is used to create custom exceptions for HTTP status codes.
   </div> <!-- /.main-content -->
 
   <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
-    <header id="header-search-sidebar" class="hidden-l">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
   <form class="search-sidebar" role="search">
     <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
 </header>
 
 <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
-  <li><a href="../index.html">dartness_server</a></li>
-  <li class="self-crumb">exception library</li>
+    <li><a href="../index.html">dartness_server</a></li>
+    <li class="self-crumb">exception library</li>
 </ol>
 
 
@@ -156,6 +161,7 @@ This abstract class is used to create custom exceptions for HTTP status codes.
       <li class="section-title">Libraries</li>
       <li><a href="../dartness/dartness-library.html">dartness</a></li>
       <li><a href="../exception/exception-library.html">exception</a></li>
+      <li><a href="../modules/modules-library.html">modules</a></li>
       <li><a href="../route/route-library.html">route</a></li>
       <li><a href="../server/server-library.html">server</a></li>
 </ol>
@@ -164,25 +170,6 @@ This abstract class is used to create custom exceptions for HTTP status codes.
 
   <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
     <h5>exception library</h5>
-    <ol>
-      <li class="section-title"><a href="../exception/exception-library.html#classes">Classes</a></li>
-        <li><a href="../exception/CatchError-class.html">CatchError</a></li>
-        <li><a href="../exception/DartnessCatchError-class.html">DartnessCatchError</a></li>
-        <li><a href="../exception/DartnessCatchErrorRegister-class.html">DartnessCatchErrorRegister</a></li>
-        <li><a href="../exception/DartnessErrorHandler-class.html">DartnessErrorHandler</a></li>
-        <li><a href="../exception/ErrorHandler-class.html">ErrorHandler</a></li>
-
-
-
-
-
-
-
-
-      <li class="section-title"><a href="../exception/exception-library.html#exceptions">Exceptions</a></li>
-        <li><a href="../exception/HttpStatusException-class.html">HttpStatusException</a></li>
-</ol>
-
   </div><!--/sidebar-offcanvas-right-->
 
 </main>

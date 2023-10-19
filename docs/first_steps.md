@@ -16,29 +16,32 @@ Please make sure that [Dart SDK](https://dart.dev/get-dart) version >=2.17.0 is 
 $ dart create -t console your_project_name
 ```
 
-1. Add dartness into the pubspec.yaml
+### 1. Add dartness into the pubspec.yaml
 
 ```yaml
 dependencies:
-  dartness_server: ^0.4.3-alpha
+  dartness_server: ^0.5.0-alpha
 
 dev_dependencies:
   build_runner: ^2.2.0
-  dartness_generator: ^0.1.0-alpha
+  dartness_generator: ^0.4.6-alpha
 ```
 
-2. Create the file in "bin/main.dart" or whatever file that runs your application.
+### 2. Create the file in "bin/app.dart" or whatever file that you consider that you root application is.
 
 ```dart
-void main() async {
-  final app = Dartness(
-    port: 3000,
-  );
-  await app.create();
-}
+@Application(
+  options: DartnessApplicationOptions(
+    port: int.fromEnvironment(
+      'port',
+      defaultValue: 8080,
+    ),
+  ),
+)
+class App {}
 ```
 
-## Generate the code
+### 3. Generate the code
 
 Dartness uses the code generation feature provided by the package `code_builder`, this is the way that dart is able to
 use reflection since `dart:mirrors` is unstable and not supported in order to compile your package.
@@ -57,7 +60,7 @@ $ dart run build_runner build
 > * [dart:mirrors](https://api.dart.dev/stable/2.17.6/dart-mirrors/dart-mirrors-library.html)
 > * [discontinuing support for dart:mirrors](https://github.com/dart-lang/sdk/issues/44489)
 
-## Adding a controller
+### 4. Adding a controller
 
 In order to create a controller, you need to import it and add it to the `Dartness` app. You can do
 it in two different ways, either adding it when you create the dartness app by the `controllers` param or after
@@ -77,15 +80,36 @@ This new created class accepts an instance of the class from where have been cre
 must be used in the `controllers` param. You can see an example in the following code:
 
 ```dart
-void main() async {
-  final controllers = [
-    CityDartnessController(CityController(CityService())),
-  ];
-  final app = Dartness(
-    port: 3000,
-    controllers: controllers,
-  );
-  await app.create();
+@Application(
+  module: Module(
+    metadata: ModuleMetadata(
+      controllers: [
+        ProviderMetadata(
+          classType: CityController,
+        ),
+      ],
+    ),
+  ),
+  options: DartnessApplicationOptions(
+    port: int.fromEnvironment(
+      'port',
+      defaultValue: 8080,
+    ),
+  ),
+)
+class App {}
+```
+
+### 5. Generate the code
+
+```bash
+$ dart run build_runner build
+```
+
+### 6. Modify "bin/main.dart"
+```dart
+void main(List<String> args) async {
+  await App().init();
 }
 ```
 

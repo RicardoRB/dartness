@@ -115,12 +115,11 @@ class ControllerGenerator extends GeneratorForAnnotation<Controller> {
       final paramRefer = _paramElementToParamRef(param);
       arguments.add(paramRefer);
     }
-    final methodRef = refer((ControllerRoute).toString()).newInstance([
-      literalString(bindMethod),
-      literalString(path),
-      refer(methodElement.name),
-      literalList(arguments),
-    ], {
+    final methodRef = refer((ControllerRoute).toString()).newInstance([], {
+      'method': literalString(bindMethod),
+      'path': literalString(path),
+      'handler': refer(methodElement.name),
+      'params': literalList(arguments),
       'httpCode': literal(httpCode),
       'headers': literalMap(headers),
     });
@@ -216,19 +215,18 @@ class ControllerGenerator extends GeneratorForAnnotation<Controller> {
       name = param.name;
     }
     return refer((DartnessParam).toString()).newInstance(
-      [
-        literalString(name),
-        literalBool(isQuery),
-        literalBool(isPath),
-        literalBool(isBody),
-        literalBool(param.isNamed),
-        literalBool(param.isPositional),
-        literalBool(param.isOptional),
-        CodeExpression(Code(param.type.getDisplayString(
+      [],
+      {
+        'name': literalString(name),
+        'isQuery': literalBool(isQuery),
+        'isPath': literalBool(isPath),
+        'isBody': literalBool(isBody),
+        'isNamed': literalBool(param.isNamed),
+        'isPositional': literalBool(param.isPositional),
+        'isOptional': literalBool(param.isOptional),
+        'type': CodeExpression(Code(param.type.getDisplayString(
           withNullability: false,
         ))),
-      ],
-      {
         'defaultValue': literal(param.defaultValueCode),
         'fromJson': isBody
             ? refer(param.type.getDisplayString(
