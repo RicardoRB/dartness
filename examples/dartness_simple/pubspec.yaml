@@ -9,10 +9,12 @@ environment:
   sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
-  dartness_server: 0.5.0-alpha
+  dartness_server:
+    path: ../../packages/dartness_server
 
 dev_dependencies:
   lints: ^2.1.1
   test: ^1.24.7
   build_runner: ^2.4.6
-  dartness_generator: 0.5.0-alpha
+  dartness_generator:
+    path: ../../packages/dartness_generator

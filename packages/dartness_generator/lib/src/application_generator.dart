@@ -68,21 +68,53 @@ class ApplicationGenerator extends GeneratorForAnnotation<Application> {
             'to create an instance of the class');
       }
 
-      buffer.writeln('injectRegister.register<${providerElement.name}>(');
-      buffer.writeln('${providerElement.name}(');
+      _registerClass(buffer, providerElement);
 
-      for (final constructorParam in constructor.parameters) {
-        buffer.writeln(
-            'injectRegister.resolve<${constructorParam.type.getDisplayString(
-          withNullability: false,
-        )}>(),');
+      final Iterable<DartObject> allClassTypeProviders =
+          allInstances.where((element) {
+        final instanceElement =
+            element.getField('classType')?.toTypeValue()?.element;
+        return instanceElement == providerElement;
+      }).where((element) => element.getField('name')?.toStringValue() != null);
+
+      if (allClassTypeProviders.isNotEmpty) {
+        for (final nameTypeProvider in allClassTypeProviders) {
+          final nameField = nameTypeProvider.getField('name');
+          _registerClass(
+            buffer,
+            providerElement,
+            name: nameField?.toStringValue(),
+          );
+        }
       }
-
-      buffer.writeln('));');
     }
 
     // initDependencies method end
     buffer.writeln('}');
+  }
+
+  void _registerClass(
+    final StringBuffer buffer,
+    final ClassElement providerElement, {
+    final String? name,
+  }) {
+    final constructors = providerElement.constructors;
+    final constructor = constructors.first;
+    buffer.writeln('injectRegister.register<${providerElement.name}>(');
+    buffer.writeln('${providerElement.name}(');
+
+    for (final constructorParam in constructor.parameters) {
+      final String className = constructorParam.type.getDisplayString(
+        withNullability: false,
+      );
+      buffer.writeln('injectRegister.resolve<$className>(),');
+    }
+
+    if (name != null && name.isNotEmpty) {
+      buffer.writeln('), name: "$name");');
+    } else {
+      buffer.writeln('));');
+    }
   }
 
   /// Obtains all the controllers from [moduleMetadata]
@@ -131,8 +163,11 @@ class ApplicationGenerator extends GeneratorForAnnotation<Application> {
 
   /// Marks the [dependency] as visited in [visited] set and add it also in
   /// [sorted] list
-  void _visit(final ClassElement dependency, final Set<ClassElement> visited,
-      final List<ClassElement> sorted) {
+  void _visit(
+    final ClassElement dependency,
+    final Set<ClassElement> visited,
+    final List<ClassElement> sorted,
+  ) {
     if (visited.contains(dependency)) {
       return;
     }

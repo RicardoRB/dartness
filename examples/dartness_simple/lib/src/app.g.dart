@@ -11,6 +11,7 @@ extension AppExtension on App {
     final injectRegister = InstanceRegister.instance;
     injectRegister.register<UserController>(UserController());
     injectRegister.register<CityService>(CityService());
+    injectRegister.register<CityService>(CityService(), name: "CITY_SECOND");
     injectRegister.register<CityController>(CityController(
       injectRegister.resolve<CityService>(),
     ));

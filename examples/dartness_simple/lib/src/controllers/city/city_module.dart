@@ -14,6 +14,10 @@ const cityModule = Module(
       ProviderMetadata(
         classType: CityService,
       ),
+      ProviderMetadata(
+        classType: CityService,
+        name: 'CITY_SECOND',
+      ),
     ],
   ),
 );
