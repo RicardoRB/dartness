@@ -14,4 +14,16 @@ class ProviderMetadata {
     this.name,
     this.useFactory,
   });
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is ProviderMetadata &&
+          runtimeType == other.runtimeType &&
+          classType == other.classType &&
+          name == other.name &&
+          useFactory == other.useFactory;
+
+  @override
+  int get hashCode => classType.hashCode ^ name.hashCode ^ useFactory.hashCode;
 }
