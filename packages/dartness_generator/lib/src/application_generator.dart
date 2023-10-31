@@ -72,10 +72,13 @@ class ApplicationGenerator extends GeneratorForAnnotation<Application> {
 
       final Iterable<DartObject> allClassTypeProviders =
           allInstances.where((element) {
-        final instanceElement =
-            element.getField('classType')?.toTypeValue()?.element;
+        final classType = element.getField('classType');
+        final instanceElement = classType?.toTypeValue()?.element;
         return instanceElement == providerElement;
-      }).where((element) => element.getField('name')?.toStringValue() != null);
+      }).where((element) {
+        final name = element.getField('name')?.toStringValue();
+        return name != null;
+      });
 
       if (allClassTypeProviders.isNotEmpty) {
         for (final nameTypeProvider in allClassTypeProviders) {
