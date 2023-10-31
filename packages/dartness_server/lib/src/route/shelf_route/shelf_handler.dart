@@ -5,6 +5,6 @@ import 'package:shelf_router/shelf_router.dart';
 ///
 /// Since in [Router.add] the handler is a [Function] and not having a logical
 /// representation by code.
-abstract class ShelfHandler {
+abstract interface class ShelfHandler {
   Function get handler;
 }

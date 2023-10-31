@@ -6,7 +6,7 @@ import 'dartness_middleware.dart';
 
 /// A helper that makes it easy to compose a set of [DartnessMiddleware], [DartnessMiddleware] and a
 /// [Handler].
-abstract class DartnessPipeline {
+abstract interface class DartnessPipeline {
   /// Returns a new [DartnessPipeline] with [dartnessMiddleware] added to the existing set of
   /// [DartnessMiddleware].
   DartnessPipeline addMiddleware(final DartnessMiddleware dartnessMiddleware);

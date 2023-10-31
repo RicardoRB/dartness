@@ -1,1 +1,1 @@
-abstract class Provider {}
+abstract interface class Provider {}

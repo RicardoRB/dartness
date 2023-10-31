@@ -1,5 +1,5 @@
 /// Exception for HTTP status code.
-/// This abstract class is used to create custom exceptions for HTTP status codes.
+/// This abstract interface class is used to create custom exceptions for HTTP status codes.
 ///
 ///
 /// Example:

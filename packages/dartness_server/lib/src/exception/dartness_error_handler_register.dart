@@ -3,7 +3,7 @@ import 'package:shelf/shelf.dart';
 import 'dartness_catch_handler.dart';
 
 /// Interface that is used to handle the errors.
-abstract class DartnessCatchErrorRegister {
+abstract interface class DartnessCatchErrorRegister {
   /// Adds an error handler to the error handler.
   void addCatchError(final DartnessCatchError errorHandler);
 

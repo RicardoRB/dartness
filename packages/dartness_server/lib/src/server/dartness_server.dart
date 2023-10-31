@@ -6,7 +6,7 @@ import 'dartness_interceptor.dart';
 import 'dartness_middleware.dart';
 
 /// An interface that defines the methods that a server must implement.
-abstract class DartnessServer {
+abstract interface class DartnessServer {
   /// Starts the server.
   Future<void> start();
 
