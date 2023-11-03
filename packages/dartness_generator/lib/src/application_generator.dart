@@ -7,6 +7,7 @@ import 'package:source_gen/source_gen.dart';
 
 class ApplicationGenerator extends GeneratorForAnnotation<Application> {
   static final _applicationType = TypeChecker.fromRuntime(Application);
+  static final _injectType = TypeChecker.fromRuntime(Inject);
 
   @override
   String? generateForAnnotatedElement(
@@ -77,31 +78,7 @@ class ApplicationGenerator extends GeneratorForAnnotation<Application> {
       final useFactory = providerObject.getField('useFactory');
       final hasUseFactory = useFactory?.isNull == false;
       if (hasUseFactory) {
-        final useFactoryFunc = useFactory?.toFunctionValue();
-        if (useFactoryFunc is FunctionElement) {
-          final variableResult = '${useFactoryFunc.name}Result';
-          buffer.writeln('final $variableResult = ');
-          if (useFactoryFunc.isAsynchronous) {
-            buffer.writeln('await Function.apply(${useFactoryFunc.name},');
-          } else {
-            buffer.writeln('Function.apply(${useFactoryFunc.name},');
-          }
-          final resolves = useFactoryFunc.parameters.map((param) {
-            final String className = param.type.getDisplayString(
-              withNullability: false,
-            );
-            buffer.writeln('injectRegister.resolve<$className>()');
-          }).join(', ');
-          if (resolves.isEmpty) {
-            buffer.write('[]');
-          } else {
-            buffer.write(resolves);
-          }
-          buffer.writeln(');');
-
-          buffer.writeln(
-              'injectRegister.register<${providerElement.name}>($variableResult);');
-        }
+        _registerFactory(useFactory, buffer, providerElement);
       } else {
         _registerClass(buffer, providerElement);
       }
@@ -131,6 +108,47 @@ class ApplicationGenerator extends GeneratorForAnnotation<Application> {
     buffer.writeln('}');
   }
 
+  void _registerFactory(
+    final DartObject? useFactory,
+    final StringBuffer buffer,
+    final ClassElement providerElement,
+  ) {
+    final useFactoryFunc = useFactory?.toFunctionValue();
+    if (useFactoryFunc is FunctionElement) {
+      final variableResult = '${useFactoryFunc.name}Result';
+      buffer.writeln('final $variableResult = ');
+      if (useFactoryFunc.isAsynchronous) {
+        buffer.writeln('await Function.apply(${useFactoryFunc.name},');
+      } else {
+        buffer.writeln('Function.apply(${useFactoryFunc.name},');
+      }
+      final resolves = useFactoryFunc.parameters.map((param) {
+        final String className = param.type.getDisplayString(
+          withNullability: false,
+        );
+        final inject = param.metadata
+            .firstWhereOrNull((element) => element.runtimeType == Inject);
+        final injectName =
+            inject?.computeConstantValue()?.getField('name')?.toStringValue();
+        if (injectName != null && injectName.isNotEmpty) {
+          buffer.writeln(
+              "injectRegister.resolve<$className>(name: '$injectName,')");
+        } else {
+          buffer.writeln('injectRegister.resolve<$className>()');
+        }
+      }).join(', ');
+      if (resolves.isEmpty) {
+        buffer.write('[]');
+      } else {
+        buffer.write(resolves);
+      }
+      buffer.writeln(');');
+
+      buffer.writeln(
+          'injectRegister.register<${providerElement.name}>($variableResult);');
+    }
+  }
+
   void _registerClass(
     final StringBuffer buffer,
     final ClassElement providerElement, {
@@ -141,13 +159,24 @@ class ApplicationGenerator extends GeneratorForAnnotation<Application> {
     buffer.writeln('injectRegister.register<${providerElement.name}>(');
     buffer.writeln('${providerElement.name}(');
 
-    for (final constructorParam in constructor.parameters) {
+    final resolves = constructor.parameters.map((constructorParam) {
       final String className = constructorParam.type.getDisplayString(
         withNullability: false,
       );
-      buffer.writeln('injectRegister.resolve<$className>(),');
-    }
+      String resolve = 'injectRegister.resolve<$className>(';
 
+      final injectType = _injectType.firstAnnotationOfExact(constructorParam);
+      final injectName = injectType?.getField('name')?.toStringValue();
+      if (injectName != null && injectName.isNotEmpty) {
+        resolve += 'name: "$injectName",';
+      }
+      resolve += ')';
+      return resolve;
+    }).join(', ');
+
+    buffer.write(resolves);
+
+    // Name for register
     if (name != null && name.isNotEmpty) {
       buffer.writeln('), name: "$name");');
     } else {
