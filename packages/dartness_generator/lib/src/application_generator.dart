@@ -10,11 +10,9 @@ class ApplicationGenerator extends GeneratorForAnnotation<Application> {
   static final _injectType = TypeChecker.fromRuntime(Inject);
 
   @override
-  String? generateForAnnotatedElement(
-    Element element,
-    ConstantReader annotation,
-    BuildStep buildStep,
-  ) {
+  String? generateForAnnotatedElement(Element element,
+      ConstantReader annotation,
+      BuildStep buildStep,) {
     if (element is ClassElement) {
       final buffer = StringBuffer();
       buffer.writeln('extension ${element.name}Extension on ${element.name} {');
@@ -32,14 +30,14 @@ class ApplicationGenerator extends GeneratorForAnnotation<Application> {
   }
 
   /// Creates 'initDependencies' method
-  void _createInitDependencies(
-    final StringBuffer buffer,
-    final ConstantReader annotation,
-  ) {
+  void _createInitDependencies(final StringBuffer buffer,
+      final ConstantReader annotation,) {
     buffer.writeln('initDependencies(){');
 
     buffer.writeln('final injectRegister = InstanceRegister.instance;');
-    final applicationModule = annotation.read('module').objectValue;
+    final applicationModule = annotation
+        .read('module')
+        .objectValue;
     final moduleMetadata = applicationModule.getField('metadata');
     final List<DartObject> allControllers = _getAllControllers(moduleMetadata);
     final List<DartObject> allProviders = _getAllProviders(moduleMetadata);
@@ -49,12 +47,15 @@ class ApplicationGenerator extends GeneratorForAnnotation<Application> {
     allInstances.addAll(allProviders);
     final allProviderElements = allInstances
         .map((e) => e.getField('classType'))
-        .map((e) => e?.toTypeValue()?.element)
+        .map((e) =>
+    e
+        ?.toTypeValue()
+        ?.element)
         .whereType<ClassElement>()
         .toList();
 
     final topologicalProviderElements =
-        _topologicalSort(allProviderElements, allInstances);
+    _topologicalSort(allProviderElements, allInstances);
 
     for (final providerElement in topologicalProviderElements) {
       final constructors = providerElement.constructors;
@@ -72,7 +73,10 @@ class ApplicationGenerator extends GeneratorForAnnotation<Application> {
       }
 
       final providerObject = allInstances.firstWhere((element) =>
-          element.getField('classType')?.toTypeValue()?.element ==
+      element
+          .getField('classType')
+          ?.toTypeValue()
+          ?.element ==
           providerElement);
 
       final useFactory = providerObject.getField('useFactory');
@@ -83,9 +87,11 @@ class ApplicationGenerator extends GeneratorForAnnotation<Application> {
         _registerClass(buffer, providerElement);
       }
       final Iterable<DartObject> allClassTypeProviders =
-          allInstances.where((element) {
+      allInstances.where((element) {
         final classType = element.getField('classType');
-        final instanceElement = classType?.toTypeValue()?.element;
+        final instanceElement = classType
+            ?.toTypeValue()
+            ?.element;
         return instanceElement == providerElement;
       }).where((element) {
         final name = element.getField('name')?.toStringValue();
@@ -108,11 +114,9 @@ class ApplicationGenerator extends GeneratorForAnnotation<Application> {
     buffer.writeln('}');
   }
 
-  void _registerFactory(
-    final DartObject? useFactory,
-    final StringBuffer buffer,
-    final ClassElement providerElement,
-  ) {
+  void _registerFactory(final DartObject? useFactory,
+      final StringBuffer buffer,
+      final ClassElement providerElement,) {
     final useFactoryFunc = useFactory?.toFunctionValue();
     if (useFactoryFunc is FunctionElement) {
       final variableResult = '${useFactoryFunc.name}Result';
@@ -129,18 +133,16 @@ class ApplicationGenerator extends GeneratorForAnnotation<Application> {
         final inject = param.metadata
             .firstWhereOrNull((element) => element.runtimeType == Inject);
         final injectName =
-            inject?.computeConstantValue()?.getField('name')?.toStringValue();
+        inject?.computeConstantValue()?.getField('name')?.toStringValue();
         if (injectName != null && injectName.isNotEmpty) {
-          buffer.writeln(
-              "injectRegister.resolve<$className>(name: '$injectName,')");
-        } else {
-          buffer.writeln('injectRegister.resolve<$className>()');
+          return "injectRegister.resolve<$className>(name: '$injectName,')";
         }
+        return 'injectRegister.resolve<$className>()';
       }).join(', ');
       if (resolves.isEmpty) {
         buffer.write('[]');
       } else {
-        buffer.write(resolves);
+        buffer.write('[$resolves]');
       }
       buffer.writeln(');');
 
@@ -149,11 +151,10 @@ class ApplicationGenerator extends GeneratorForAnnotation<Application> {
     }
   }
 
-  void _registerClass(
-    final StringBuffer buffer,
-    final ClassElement providerElement, {
-    final String? name,
-  }) {
+  void _registerClass(final StringBuffer buffer,
+      final ClassElement providerElement, {
+        final String? name,
+      }) {
     final constructors = providerElement.constructors;
     final constructor = constructors.first;
     buffer.writeln('injectRegister.register<${providerElement.name}>(');
@@ -169,7 +170,6 @@ class ApplicationGenerator extends GeneratorForAnnotation<Application> {
         return 'injectRegister.resolve<$className>(name: "$injectName",)';
       }
       return 'injectRegister.resolve<$className>()';
-      return resolve;
     }).join(', ');
 
     buffer.write(resolves);
@@ -193,9 +193,8 @@ class ApplicationGenerator extends GeneratorForAnnotation<Application> {
   }
 
   List<DartObject> _getAllFieldFromModuleMetadata(
-    final DartObject? moduleMetadata,
-    final String field,
-  ) {
+      final DartObject? moduleMetadata,
+      final String field,) {
     if (moduleMetadata == null) {
       return [];
     }
@@ -215,10 +214,8 @@ class ApplicationGenerator extends GeneratorForAnnotation<Application> {
 
   /// Sort the dependencies by a topological sort to add the dependencies
   /// for each class that requires as inversion control
-  List<ClassElement> _topologicalSort(
-    final List<ClassElement> dependencies,
-    final List<DartObject> objects,
-  ) {
+  List<ClassElement> _topologicalSort(final List<ClassElement> dependencies,
+      final List<DartObject> objects,) {
     final visited = <ClassElement>{};
     final sorted = <ClassElement>[];
 
@@ -231,12 +228,10 @@ class ApplicationGenerator extends GeneratorForAnnotation<Application> {
 
   /// Marks the [dependency] as visited in [visited] set and add it also in
   /// [sorted] list
-  void _visit(
-    final ClassElement dependency,
-    final Set<ClassElement> visited,
-    final List<ClassElement> sorted,
-    final List<DartObject> allDependencies,
-  ) {
+  void _visit(final ClassElement dependency,
+      final Set<ClassElement> visited,
+      final List<ClassElement> sorted,
+      final List<DartObject> allDependencies,) {
     if (visited.contains(dependency)) {
       return;
     }
@@ -253,13 +248,14 @@ class ApplicationGenerator extends GeneratorForAnnotation<Application> {
   }
 
   /// Obtains the dependencies of a class by his constructor
-  List<ClassElement> _getDependencies(
-    final ClassElement clazz,
-    final List<DartObject> allDependencies,
-  ) {
+  List<ClassElement> _getDependencies(final ClassElement clazz,
+      final List<DartObject> allDependencies,) {
     final dependencies = <ClassElement>[];
     final foundObject = allDependencies.firstWhereOrNull((element) =>
-        element.getField('classType')?.toTypeValue()?.element == clazz);
+    element
+        .getField('classType')
+        ?.toTypeValue()
+        ?.element == clazz);
     if (foundObject == null) {
       throw Exception('${clazz.name} not registered as dependency');
     }
@@ -276,7 +272,7 @@ class ApplicationGenerator extends GeneratorForAnnotation<Application> {
       }
     } else {
       final constructor =
-          clazz.constructors.firstWhereOrNull((element) => !element.isFactory);
+      clazz.constructors.firstWhereOrNull((element) => !element.isFactory);
       if (constructor != null) {
         final parameters = constructor.parameters;
         for (final param in parameters) {
@@ -300,17 +296,27 @@ class ApplicationGenerator extends GeneratorForAnnotation<Application> {
     buffer.writeln('final injectRegister = InstanceRegister.instance;');
     buffer.writeln('final app = Dartness();');
 
-    final applicationModule = annotation.read('module').objectValue;
+    final applicationModule = annotation
+        .read('module')
+        .objectValue;
     final rootModuleMetadata = applicationModule.getField('metadata');
     final allControllers = _getAllControllers(rootModuleMetadata);
 
     final controllerElements = allControllers
-        .where((e) => e.getField('useFactory')?.isNull == true)
+        .where((e) =>
+    e
+        .getField('useFactory')
+        ?.isNull == true)
         .map((e) => e.getField('classType'))
-        .map((e) => e?.toTypeValue()?.element)
+        .map((e) =>
+    e
+        ?.toTypeValue()
+        ?.element)
         .whereType<ClassElement>()
         .toList();
-    final applicationOptions = annotation.read('options').objectValue;
+    final applicationOptions = annotation
+        .read('options')
+        .objectValue;
 
     if (applicationOptions.isNull) {
       buffer.writeln('await app.create(');
@@ -327,15 +333,13 @@ class ApplicationGenerator extends GeneratorForAnnotation<Application> {
     buffer.writeln('}');
   }
 
-  void _generateOptions(
-    final DartObject applicationOptions,
-    final StringBuffer buffer,
-  ) {
+  void _generateOptions(final DartObject applicationOptions,
+      final StringBuffer buffer,) {
     final logRequest =
-        applicationOptions.getField('_logRequest')?.toBoolValue();
+    applicationOptions.getField('_logRequest')?.toBoolValue();
     final port = applicationOptions.getField('_port')?.toIntValue();
     final internetAddress =
-        applicationOptions.getField('_internetAddress')?.toTypeValue();
+    applicationOptions.getField('_internetAddress')?.toTypeValue();
     buffer.writeln('options: DartnessApplicationOptions(');
     if (logRequest != null) {
       buffer.writeln('logRequest: $logRequest,');
@@ -349,15 +353,13 @@ class ApplicationGenerator extends GeneratorForAnnotation<Application> {
     buffer.writeln('),');
   }
 
-  void _generateControllers(
-    final List<ClassElement> controllerElements,
-    final StringBuffer buffer,
-  ) {
+  void _generateControllers(final List<ClassElement> controllerElements,
+      final StringBuffer buffer,) {
     buffer.writeln('controllers: [');
     for (final controllerElement in controllerElements) {
       final className = controllerElement.name.contains('Controller')
           ? controllerElement.name
-              .replaceAll('Controller', 'DartnessController')
+          .replaceAll('Controller', 'DartnessController')
           : '${controllerElement.name}DartnessController';
 
       buffer.writeln(
