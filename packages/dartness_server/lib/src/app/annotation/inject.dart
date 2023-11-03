@@ -4,5 +4,5 @@ abstract class Inject {
   /// Lookup key for the provider to be injected
   final String? name;
 
-  const Inject(this.name);
+  const Inject([this.name]);
 }
