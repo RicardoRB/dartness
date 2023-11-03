@@ -14,3 +14,11 @@
 ## 0.5.0-alpha
 
 - Easiest way of creating an app by `@Application` annotation and modules
+
+
+## 0.5.1-alpha
+
+- Updated code generation in order with the new functionalities
+  - `useFactory`
+  - @Inject
+  - Dependency Injection by name
