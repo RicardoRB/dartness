@@ -163,14 +163,12 @@ class ApplicationGenerator extends GeneratorForAnnotation<Application> {
       final String className = constructorParam.type.getDisplayString(
         withNullability: false,
       );
-      String resolve = 'injectRegister.resolve<$className>(';
-
       final injectType = _injectType.firstAnnotationOfExact(constructorParam);
       final injectName = injectType?.getField('name')?.toStringValue();
       if (injectName != null && injectName.isNotEmpty) {
-        resolve += 'name: "$injectName",';
+        return 'injectRegister.resolve<$className>(name: "$injectName",)';
       }
-      resolve += ')';
+      return 'injectRegister.resolve<$className>()';
       return resolve;
     }).join(', ');
 
