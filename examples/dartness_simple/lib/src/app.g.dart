@@ -12,17 +12,16 @@ extension AppExtension on App {
     injectRegister.register<UserController>(UserController());
     injectRegister.register<CityService>(CityService());
     injectRegister.register<CityService>(CityService(), name: "CITY_SECOND");
-    injectRegister.register<CityController>(CityController(
-      injectRegister.resolve<CityService>(),
-    ));
+    injectRegister.register<CityController>(
+        CityController(injectRegister.resolve<CityService>(
+      name: "CITY_SECOND",
+    )));
     final createDioResult = Function.apply(createDio, []);
     injectRegister.register<Dio>(createDioResult);
-    injectRegister.register<TodosService>(TodosService(
-      injectRegister.resolve<Dio>(),
-    ));
-    injectRegister.register<TodosController>(TodosController(
-      injectRegister.resolve<TodosService>(),
-    ));
+    injectRegister
+        .register<TodosService>(TodosService(injectRegister.resolve<Dio>()));
+    injectRegister.register<TodosController>(
+        TodosController(injectRegister.resolve<TodosService>()));
     injectRegister.register<ExampleErrorHandler>(ExampleErrorHandler());
   }
 
