@@ -38,3 +38,9 @@
 ## 0.5.0-alpha
 
 - Easiest way of creating an app by `@Application` annotation and modules
+
+## 0.5.1-alpha
+
+- Dependency injection by name
+- Custom instance by `useFactory` in `ProviderMetadata`
+- Added `@Inject` annotation
