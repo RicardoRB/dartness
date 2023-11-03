@@ -6,7 +6,8 @@
 ## 0.1.1-alpha
 
 - Compatibility with @Headers
-- 
+-
+
 ## 0.1.2-alpha
 
 - Updated dart sdk to 3.0.0
@@ -15,10 +16,13 @@
 
 - Easiest way of creating an app by `@Application` annotation and modules
 
-
 ## 0.5.1-alpha
 
 - Updated code generation in order with the new functionalities
-  - `useFactory`
-  - @Inject
-  - Dependency Injection by name
+    - `useFactory`
+    - @Inject
+    - Dependency Injection by name
+
+## 0.5.2-alpha
+
+- Fixed error when injecting dependency using `useFactory`
