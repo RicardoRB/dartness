@@ -15,7 +15,7 @@ extension AppExtension on App {
     injectRegister.register<CityController>(CityController(
       injectRegister.resolve<CityService>(),
     ));
-    final createDioResult = createDio.call();
+    final createDioResult = Function.apply(createDio, []);
     injectRegister.register<Dio>(createDioResult);
     injectRegister.register<TodosService>(TodosService(
       injectRegister.resolve<Dio>(),

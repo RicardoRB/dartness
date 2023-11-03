@@ -82,9 +82,9 @@ class ApplicationGenerator extends GeneratorForAnnotation<Application> {
           final variableResult = '${useFactoryFunc.name}Result';
           buffer.writeln('final $variableResult = ');
           if (useFactoryFunc.isAsynchronous) {
-            buffer.writeln('await ${useFactoryFunc.name}.call(');
+            buffer.writeln('await Function.apply(${useFactoryFunc.name},');
           } else {
-            buffer.writeln('${useFactoryFunc.name}.call(');
+            buffer.writeln('Function.apply(${useFactoryFunc.name},');
           }
           final resolves = useFactoryFunc.parameters.map((param) {
             final String className = param.type.getDisplayString(
@@ -92,7 +92,11 @@ class ApplicationGenerator extends GeneratorForAnnotation<Application> {
             );
             buffer.writeln('injectRegister.resolve<$className>()');
           }).join(', ');
-          buffer.write(resolves);
+          if (resolves.isEmpty) {
+            buffer.write('[]');
+          } else {
+            buffer.write(resolves);
+          }
           buffer.writeln(');');
 
           buffer.writeln(
