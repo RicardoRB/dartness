@@ -1,6 +1,7 @@
 import 'package:analyzer/dart/constant/value.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:build/build.dart';
+import 'package:collection/collection.dart';
 import 'package:dartness_server/dartness.dart';
 import 'package:source_gen/source_gen.dart';
 
@@ -51,7 +52,8 @@ class ApplicationGenerator extends GeneratorForAnnotation<Application> {
         .whereType<ClassElement>()
         .toList();
 
-    final topologicalProviderElements = _topologicalSort(allProviderElements);
+    final topologicalProviderElements =
+        _topologicalSort(allProviderElements, allInstances);
 
     for (final providerElement in topologicalProviderElements) {
       final constructors = providerElement.constructors;
@@ -68,8 +70,37 @@ class ApplicationGenerator extends GeneratorForAnnotation<Application> {
             'to create an instance of the class');
       }
 
-      _registerClass(buffer, providerElement);
+      final providerObject = allInstances.firstWhere((element) =>
+          element.getField('classType')?.toTypeValue()?.element ==
+          providerElement);
 
+      final useFactory = providerObject.getField('useFactory');
+      final hasUseFactory = useFactory?.isNull == false;
+      if (hasUseFactory) {
+        final useFactoryFunc = useFactory?.toFunctionValue();
+        if (useFactoryFunc is FunctionElement) {
+          final variableResult = '${useFactoryFunc.name}Result';
+          buffer.writeln('final $variableResult = ');
+          if (useFactoryFunc.isAsynchronous) {
+            buffer.writeln('await ${useFactoryFunc.name}.call(');
+          } else {
+            buffer.writeln('${useFactoryFunc.name}.call(');
+          }
+          final resolves = useFactoryFunc.parameters.map((param) {
+            final String className = param.type.getDisplayString(
+              withNullability: false,
+            );
+            buffer.writeln('injectRegister.resolve<$className>()');
+          }).join(', ');
+          buffer.write(resolves);
+          buffer.writeln(');');
+
+          buffer.writeln(
+              'injectRegister.register<${providerElement.name}>($variableResult);');
+        }
+      } else {
+        _registerClass(buffer, providerElement);
+      }
       final Iterable<DartObject> allClassTypeProviders =
           allInstances.where((element) {
         final classType = element.getField('classType');
@@ -153,15 +184,18 @@ class ApplicationGenerator extends GeneratorForAnnotation<Application> {
 
   /// Sort the dependencies by a topological sort to add the dependencies
   /// for each class that requires as inversion control
-  List<ClassElement> _topologicalSort(final List<ClassElement> dependencies) {
+  List<ClassElement> _topologicalSort(
+    final List<ClassElement> dependencies,
+    final List<DartObject> objects,
+  ) {
     final visited = <ClassElement>{};
     final sorted = <ClassElement>[];
 
     for (final dependency in dependencies) {
-      _visit(dependency, visited, sorted);
+      _visit(dependency, visited, sorted, objects);
     }
 
-    return sorted.toList();
+    return sorted;
   }
 
   /// Marks the [dependency] as visited in [visited] set and add it also in
@@ -170,6 +204,7 @@ class ApplicationGenerator extends GeneratorForAnnotation<Application> {
     final ClassElement dependency,
     final Set<ClassElement> visited,
     final List<ClassElement> sorted,
+    final List<DartObject> allDependencies,
   ) {
     if (visited.contains(dependency)) {
       return;
@@ -177,26 +212,47 @@ class ApplicationGenerator extends GeneratorForAnnotation<Application> {
 
     visited.add(dependency);
 
-    final dependencies = _getDependencies(dependency);
+    final dependencies = _getDependencies(dependency, allDependencies);
 
     for (final dep in dependencies) {
-      _visit(dep, visited, sorted);
+      _visit(dep, visited, sorted, allDependencies);
     }
 
     sorted.add(dependency);
   }
 
   /// Obtains the dependencies of a class by his constructor
-  List<ClassElement> _getDependencies(final ClassElement clazz) {
+  List<ClassElement> _getDependencies(
+    final ClassElement clazz,
+    final List<DartObject> allDependencies,
+  ) {
     final dependencies = <ClassElement>[];
-
-    final constructor = clazz.unnamedConstructor;
-    if (constructor != null) {
-      final parameters = constructor.parameters;
-      for (final param in parameters) {
+    final foundObject = allDependencies.firstWhereOrNull((element) =>
+        element.getField('classType')?.toTypeValue()?.element == clazz);
+    if (foundObject == null) {
+      throw Exception('${clazz.name} not registered as dependency');
+    }
+    final useFeatureField = foundObject.getField('useFeature');
+    final hasUseFeature = useFeatureField?.isNull ?? false;
+    if (hasUseFeature) {
+      final useFeatureFunction = useFeatureField?.toFunctionValue();
+      final params = useFeatureFunction?.parameters ?? [];
+      for (final param in params) {
         final paramElement = param.type.element;
         if (paramElement is ClassElement) {
           dependencies.add(paramElement);
+        }
+      }
+    } else {
+      final constructor =
+          clazz.constructors.firstWhereOrNull((element) => !element.isFactory);
+      if (constructor != null) {
+        final parameters = constructor.parameters;
+        for (final param in parameters) {
+          final paramElement = param.type.element;
+          if (paramElement is ClassElement) {
+            dependencies.add(paramElement);
+          }
         }
       }
     }
@@ -218,6 +274,7 @@ class ApplicationGenerator extends GeneratorForAnnotation<Application> {
     final allControllers = _getAllControllers(rootModuleMetadata);
 
     final controllerElements = allControllers
+        .where((e) => e.getField('useFactory')?.isNull == true)
         .map((e) => e.getField('classType'))
         .map((e) => e?.toTypeValue()?.element)
         .whereType<ClassElement>()
