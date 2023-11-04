@@ -3,6 +3,8 @@
 - Overview
     - [First steps](first_steps.md)
     - [Controllers](controllers.md)
+    - [Providers](providers.md)
+    - [Modules](modules.md)
     - [Middlewares](middleware.md)
     - [Interceptors](interceptor.md)
     - [Exceptions](exceptions.md)

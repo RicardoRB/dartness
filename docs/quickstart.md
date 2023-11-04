@@ -37,22 +37,7 @@ dev_dependencies:
 ### 2.Create the file in "src/app.dart"
 
 ```dart
-@Application(
-  module: Module(
-    metadata: ModuleMetadata(
-      controllers: [],
-      providers: [],
-      exports: [],
-      imports: [],
-    ),
-  ),
-  options: DartnessApplicationOptions(
-    port: int.fromEnvironment(
-      'port',
-      defaultValue: 8080,
-    ),
-  ),
-)
+@Application()
 class App {}
 ```
 
