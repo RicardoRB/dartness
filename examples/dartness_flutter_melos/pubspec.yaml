@@ -1,0 +1,13 @@
+name: dartness_flutter_melos
+description: Dartness flutter melos
+version: 1.0.0
+homepage: https://ricardorb.github.io/dartness/
+repository: https://github.com/RicardoRB/dartness
+issue_tracker: https://github.com/RicardoRB/dartness/issues
+documentation: https://ricardorb.github.io/dartness/
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+dependencies:
+  melos: ^3.2.0
