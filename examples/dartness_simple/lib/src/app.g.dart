@@ -18,8 +18,9 @@ extension AppExtension on App {
     )));
     final createDioResult = Function.apply(createDio, []);
     injectRegister.register<Dio>(createDioResult);
-    injectRegister
-        .register<TodosService>(TodosService(injectRegister.resolve<Dio>()));
+    final createTodosServiceResult =
+        Function.apply(createTodosService, [injectRegister.resolve<Dio>()]);
+    injectRegister.register<TodosService>(createTodosServiceResult);
     injectRegister.register<TodosController>(
         TodosController(injectRegister.resolve<TodosService>()));
     injectRegister.register<ExampleErrorHandler>(ExampleErrorHandler());
