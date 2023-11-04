@@ -51,11 +51,11 @@ $ dart create -t console your_project_name
 
 ```yaml
 dependencies:
-  dartness_server: ^0.5.0-alpha
+  dartness_server: ^0.5.1-alpha
 
 dev_dependencies:
   build_runner: ^2.2.0
-  dartness_generator: ^0.4.6-alpha
+  dartness_generator: ^0.5.2-alpha
 ```
 
 
