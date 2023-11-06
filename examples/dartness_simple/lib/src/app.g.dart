@@ -11,10 +11,18 @@ extension AppExtension on App {
     final injectRegister = InstanceRegister.instance;
     injectRegister.register<UserController>(UserController());
     injectRegister.register<CityService>(CityService());
-    injectRegister.register<CityController>(CityController(
-      injectRegister.resolve<CityService>(),
-    ));
-    injectRegister.register<HealthController>(HealthController());
+    injectRegister.register<CityService>(CityService(), name: "CITY_SECOND");
+    injectRegister.register<CityController>(
+        CityController(injectRegister.resolve<CityService>(
+      name: "CITY_SECOND",
+    )));
+    final createDioResult = Function.apply(createDio, []);
+    injectRegister.register<Dio>(createDioResult);
+    final createTodosServiceResult =
+        Function.apply(createTodosService, [injectRegister.resolve<Dio>()]);
+    injectRegister.register<TodosService>(createTodosServiceResult);
+    injectRegister.register<TodosController>(
+        TodosController(injectRegister.resolve<TodosService>()));
     injectRegister.register<ExampleErrorHandler>(ExampleErrorHandler());
   }
 
@@ -26,7 +34,7 @@ extension AppExtension on App {
       controllers: [
         UserDartnessController(injectRegister.resolve<UserController>()),
         CityDartnessController(injectRegister.resolve<CityController>()),
-        HealthDartnessController(injectRegister.resolve<HealthController>()),
+        TodosDartnessController(injectRegister.resolve<TodosController>()),
       ],
       options: DartnessApplicationOptions(
         logRequest: false,

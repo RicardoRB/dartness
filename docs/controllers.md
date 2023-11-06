@@ -149,7 +149,7 @@ part 'city_controller.g.dart';
 @Controller('/cities')
 class CitiesController {
   @Get('/<id>')
-  String findById(@PathParam() id) {
+  String findById(@PathParam() int id) {
     return 'This action returns a city with id: $id';
   }
 }

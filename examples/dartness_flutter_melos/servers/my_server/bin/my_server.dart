@@ -1,5 +1,5 @@
-import 'package:my_server/main.dart' as my_server;
+import 'package:my_server/app.dart';
 
-void main(List<String> arguments) {
-  my_server.main();
+void main(List<String> arguments) async {
+  await App().init();
 }

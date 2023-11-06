@@ -181,9 +181,9 @@ class ControllerGenerator extends GeneratorForAnnotation<Controller> {
   }
 
   Expression _paramElementToParamRef(final ParameterElement param) {
-    final isQuery = _queryParamType.hasAnnotationOfExact(param);
+    final bool isQuery = _queryParamType.hasAnnotationOfExact(param);
     bool isPath = _pathParamType.hasAnnotationOfExact(param);
-    final isBody = _bodyType.hasAnnotationOfExact(param);
+    final bool isBody = _bodyType.hasAnnotationOfExact(param);
     if (isQuery && isPath) {
       throw InvalidGenerationSourceError(
           'Param `${param.name}` cannot be both @QueryParam and @PathParam');

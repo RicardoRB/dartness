@@ -5,5 +5,5 @@ Flutter app with Dartness as backend example.
 ## Run the app
 
 ```bash
-$ flutter run lib/main.dart
+$ flutter run lib/app.dart
 ```

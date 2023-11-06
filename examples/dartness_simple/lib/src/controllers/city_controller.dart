@@ -1,16 +1,17 @@
 import 'dart:io';
 
+import 'package:dartness_server/dartness.dart';
 import 'package:dartness_server/route.dart';
 
-import '../../dtos/city_dto.dart';
-import '../../services/city_service.dart';
+import '../dtos/city_dto.dart';
+import '../services/city_service.dart';
 
 part 'city_controller.g.dart';
 
 @Controller('/cities')
 @Header(HttpHeaders.contentTypeHeader, 'application/json')
 class CityController {
-  CityController(this._cityService);
+  CityController(@Inject('CITY_SECOND') this._cityService);
 
   final CityService _cityService;
 

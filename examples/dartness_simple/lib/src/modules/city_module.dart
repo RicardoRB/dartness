@@ -1,9 +1,9 @@
 import 'package:dartness_server/modules.dart';
-import 'package:example/src/services/city_service.dart';
 
-import 'src/controllers/city/city_controller.dart';
+import '../controllers/city_controller.dart';
+import '../services/city_service.dart';
 
-@Module(
+const cityModule = Module(
   metadata: ModuleMetadata(
     controllers: [
       ProviderMetadata(
@@ -14,7 +14,10 @@ import 'src/controllers/city/city_controller.dart';
       ProviderMetadata(
         classType: CityService,
       ),
+      ProviderMetadata(
+        classType: CityService,
+        name: 'CITY_SECOND',
+      ),
     ],
   ),
-)
-class AppModule {}
+);

@@ -9,13 +9,22 @@ part of 'example_controller.dart';
 extension ExampleControllerRoutes on ExampleController {
   List<ControllerRoute> getRoutes() {
     final routes = <ControllerRoute>[];
-    routes.add(ControllerRoute('GET', '/hello/world', getHelloWorld, [],
-        httpCode: null, headers: {}));
+    routes.add(ControllerRoute(
+      method: 'GET',
+      path: '/hello/world',
+      handler: getHelloWorld,
+      params: [],
+      httpCode: null,
+      headers: {},
+    ));
     return routes;
   }
 }
 
 class ExampleDartnessController extends DartnessController {
   ExampleDartnessController(ExampleController controller)
-      : super(controller, controller.getRoutes());
+      : super(
+          controller,
+          controller.getRoutes(),
+        );
 }

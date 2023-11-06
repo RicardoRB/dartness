@@ -132,7 +132,7 @@ $ dart run servers/my_server/bin/my_server.dart
 #### Run Flutter
 
 ```bash
-$  flutter run apps/my_app/lib/main.dart
+$  flutter run apps/my_app/lib/app.dart
 ```
 
 ## Conclusion

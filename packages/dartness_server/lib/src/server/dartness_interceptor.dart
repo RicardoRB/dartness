@@ -4,7 +4,7 @@ import 'dartness_response.dart';
 
 /// DartnessInterceptor is an interface in order to handle the request before it is executed
 /// and handle the response after the request is executed.
-abstract class DartnessInterceptor implements Provider {
+abstract interface class DartnessInterceptor implements Provider {
   /// This method is called before the request is executed.
   void onRequest(final DartnessRequest request);
 

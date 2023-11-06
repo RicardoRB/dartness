@@ -29,30 +29,15 @@ $ dart create -t console your_project_name
 
 ```yaml
 dependencies:
-  dartness_server: ^0.5.0-alpha
+  dartness_server: ^0.5.1-alpha
 dev_dependencies:
-  dartness_generator: ^0.4.6-alpha
+  dartness_generator: ^0.5.2-alpha
 ```
 
 ### 2.Create the file in "src/app.dart"
 
 ```dart
-@Application(
-  module: Module(
-    metadata: ModuleMetadata(
-      controllers: [],
-      providers: [],
-      exports: [],
-      imports: [],
-    ),
-  ),
-  options: DartnessApplicationOptions(
-    port: int.fromEnvironment(
-      'port',
-      defaultValue: 8080,
-    ),
-  ),
-)
+@Application()
 class App {}
 ```
 

@@ -1,28 +1,28 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'health_controller.dart';
+part of 'todos_controller.dart';
 
 // **************************************************************************
 // ControllerGenerator
 // **************************************************************************
 
-extension HealthControllerRoutes on HealthController {
+extension TodosControllerRoutes on TodosController {
   List<ControllerRoute> getRoutes() {
     final routes = <ControllerRoute>[];
     routes.add(ControllerRoute(
       method: 'GET',
-      path: '/health',
+      path: '/todos',
       handler: getAlive,
       params: [],
-      httpCode: 202,
+      httpCode: null,
       headers: {'content-type': 'application/json'},
     ));
     return routes;
   }
 }
 
-class HealthDartnessController extends DartnessController {
-  HealthDartnessController(HealthController controller)
+class TodosDartnessController extends DartnessController {
+  TodosDartnessController(TodosController controller)
       : super(
           controller,
           controller.getRoutes(),
