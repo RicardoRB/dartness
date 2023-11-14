@@ -24,7 +24,7 @@ dev_dependencies:
 part 'city_controller.g.dart';
 
 @Controller('/cities')
-class CitiesController {
+class CityController {
   @Get()
   String getCities() {
     return 'This action returns a list of cities';

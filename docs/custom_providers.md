@@ -19,12 +19,12 @@ Let's take a closer look at the `ModuleMetadata` class. In `app.dart`, we declar
     metadata: ModuleMetadata(
       controllers: [
         ProviderMetadata(
-          classType: CitiesController,
+          classType: CityController,
         ),
       ],
       providers: [
         ProviderMetadata(
-          classType: CitiesService,
+          classType: CityService,
         ),
       ],
     ),
@@ -51,14 +51,14 @@ For the latter case, the factory provider syntax has a pair of related mechanism
 
 Dio createDio() => Dio();
 
-CitiesService createCitiesService(Dio dio) => CitiesService(dio);
+CityService createCityService(Dio dio) => CityService(dio);
 
 @Application(
   module: Module(
     metadata: ModuleMetadata(
       controllers: [
         ProviderMetadata(
-          classType: CitiesController,
+          classType: CityController,
         ),
       ],
       providers: [
@@ -67,8 +67,8 @@ CitiesService createCitiesService(Dio dio) => CitiesService(dio);
           useFactory: createDio,
         ),
         ProviderMetadata(
-          classType: CitiesService,
-          useFactory: createCitiesService,
+          classType: CityService,
+          useFactory: createCityService,
         ),
       ],
     ),
@@ -88,7 +88,7 @@ class App {}
     metadata: ModuleMetadata(
       controllers: [
         ProviderMetadata(
-          classType: CitiesController,
+          classType: CityController,
         ),
       ],
       providers: [
@@ -98,9 +98,9 @@ class App {}
           useFactory: () => Dio(),
         ),
         ProviderMetadata(
-          classType: CitiesService,
+          classType: CityService,
           // this is not going to work
-          useFactory: (Dio dio) => CitiesService(dio),
+          useFactory: (Dio dio) => CityService(dio),
         ),
       ],
     ),

@@ -7,11 +7,11 @@ block for organizing and maintaining the components of your application.
 
 ## Services
 
-To begin, we can create a basic `CitiesService` that will handle data storage and retrieval. This service is intended to
-be utilized by the `CitiesController` and is a suitable candidate for registration as a provider.
+To begin, we can create a basic `CityService` that will handle data storage and retrieval. This service is intended to
+be utilized by the `CityController` and is a suitable candidate for registration as a provider.
 
 ```dart
-class CitiesService {
+class CityService {
   final List<City> cities = [];
 
   void create(City city) {
@@ -24,35 +24,35 @@ class CitiesService {
 }
 ```
 
-The `CitiesService` is a straightforward class with a single property and two methods. Currently, there is no need to
+The `CityService` is a straightforward class with a single property and two methods. Currently, there is no need to
 indicate that the class should be injectable.
 
-Now that we have a service class to retrieve cities, let's use it inside the `CitiesController`:
+Now that we have a service class to retrieve cities, let's use it inside the `CityController`:
 
 ```dart
 @Controller('cities')
-class CatsController {
-  final CitiesService _citiesService;
+class CityController {
+  final CityService _cityService;
 
-  CatsController(this._citiesService);
+  CityController(this._cityService);
 
   @Post()
   void create(@Body() City city) {
-    catsService.create(city);
+    _cityService.create(city);
   }
 
   @Get()
   List<City> findAll() {
-    return catsService.findAll();
+    return _cityService.findAll();
   }
 }
 ```
 
-The `CitiesService` is injected through the class constructor.
+The `CityService` is injected through the class constructor.
 
 # Provider registration
 
-Now that we have defined a provider (`CitiesService`), and we have a consumer of that service (`CitiesController`), we
+Now that we have defined a provider (`CityService`), and we have a consumer of that service (`CityController`), we
 need to
 register the service with Dartness so that it can perform the injection. We do this by editing our module file (
 app.dart) and adding the service to the `providers` attribute of the `@Application()` annotation using
@@ -65,12 +65,12 @@ provider.
     metadata: ModuleMetadata(
       controllers: [
         ProviderMetadata(
-          classType: CitiesController,
+          classType: CityController,
         ),
       ],
       providers: [
         ProviderMetadata(
-          classType: CitiesService,
+          classType: CityService,
         ),
       ],
     ),
@@ -79,5 +79,5 @@ provider.
 class App {}
 ```
 
-Dartness will now be able to resolve the dependencies of the `CitiesController` class.
+Dartness will now be able to resolve the dependencies of the `CityController` class.
 
