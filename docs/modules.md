@@ -21,7 +21,7 @@ The `Module` class has properties to describe the module:
 
 ## Feature modules
 
-The `CitiesController` and `CitiesService` belong to the same application domain. As they are closely related, it makes
+The `CityController` and `CityService` belong to the same application domain. As they are closely related, it makes
 sense to move them into a feature module. A feature module simply organizes code relevant for a specific feature,
 keeping code organized and establishing clear boundaries. This helps us manage complexity and develop with SOLID
 principles, especially as the size of the application and/or team grow.

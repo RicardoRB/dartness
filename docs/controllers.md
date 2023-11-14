@@ -36,7 +36,7 @@ path for each route in the file.
 part 'city_controller.g.dart';
 
 @Controller('/cities')
-class CitiesController {
+class CityController {
   @Get()
   String getCities() async {
     return 'This action returns a list of cities';
@@ -82,7 +82,7 @@ that creates new records. For this, let's create the **POST** handler:
 part 'city_controller.g.dart';
 
 @Controller('/cities')
-class CitiesController {
+class CityController {
   @Get()
   String getCities() async {
     return 'This action returns a list of cities';
@@ -147,7 +147,7 @@ and then reference the route parameter directly by name in the method body.
 part 'city_controller.g.dart';
 
 @Controller('/cities')
-class CitiesController {
+class CityController {
   @Get('/<id>')
   String findById(@PathParam() int id) {
     return 'This action returns a city with id: $id';
@@ -166,7 +166,7 @@ as inside the body of the method. In the example below, we can access the query 
 part 'city_controller.g.dart';
 
 @Controller('/cities')
-class CitiesController {
+class CityController {
   @Get()
   String find(@QueryParam() String name) {
     return 'This action returns a the query parameter name: $name';
@@ -182,7 +182,7 @@ cases can be also null, we can use as the follow:
 part 'city_controller.g.dart';
 
 @Controller('/cities')
-class CitiesController {
+class CityController {
   @Get()
   String find({
     @QueryParam() String? name,
@@ -209,7 +209,7 @@ to resolve by itself. Let's see an example of this:
 part 'city_controller.g.dart';
 
 @Controller('/cities')
-class CitiesController {
+class CityController {
   @Get()
   String getCities() {
     return 'This action returns a list of cities';
