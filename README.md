@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://raw.githubusercontent.com/RicardoRB/dartness/master/dartness_logo_small.png" width="350" alt="Dartness"/>
+<br>
+
 # Introduction
 
 Dartness is a dart framework for building efficient and scalable server-side applications.
