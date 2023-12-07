@@ -261,7 +261,7 @@ class ApplicationGenerator extends GeneratorForAnnotation<Application> {
       throw Exception('${clazz.name} not registered as dependency');
     }
     final useFactoryField = foundObject.getField('useFactory');
-    final hasUseFactory = useFactoryField?.isNull ?? false;
+    final hasUseFactory = useFactoryField?.isNull == false ?? false;
     if (hasUseFactory) {
       final useFeatureFunction = useFactoryField?.toFunctionValue();
       final params = useFeatureFunction?.parameters ?? [];
