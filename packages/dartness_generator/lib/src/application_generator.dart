@@ -214,13 +214,13 @@ class ApplicationGenerator extends GeneratorForAnnotation<Application> {
   /// for each class that requires as inversion control
   List<ClassElement> _topologicalSort(
     final List<ClassElement> classElementList,
-    final List<DartObject> instances,
+    final List<DartObject> objects,
   ) {
     final visited = <ClassElement>{};
     final sorted = <ClassElement>[];
 
     for (final dependency in classElementList) {
-      _visit(dependency, visited, sorted, instances);
+      _visit(dependency, visited, sorted, objects);
     }
 
     return sorted;
@@ -260,10 +260,10 @@ class ApplicationGenerator extends GeneratorForAnnotation<Application> {
     if (foundObject == null) {
       throw Exception('${clazz.name} not registered as dependency');
     }
-    final useFeatureField = foundObject.getField('useFeature');
-    final hasUseFeature = useFeatureField?.isNull ?? false;
-    if (hasUseFeature) {
-      final useFeatureFunction = useFeatureField?.toFunctionValue();
+    final useFactoryField = foundObject.getField('useFactory');
+    final hasUseFactory = useFactoryField?.isNull ?? false;
+    if (hasUseFactory) {
+      final useFeatureFunction = useFactoryField?.toFunctionValue();
       final params = useFeatureFunction?.parameters ?? [];
       for (final param in params) {
         final paramElement = param.type.element;

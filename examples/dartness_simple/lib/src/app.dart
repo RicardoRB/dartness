@@ -29,7 +29,6 @@ Dio createDio() => Dio();
           useFactory: createDio,
         ),
       ],
-      exports: [],
       imports: [
         userModule,
         cityModule,
