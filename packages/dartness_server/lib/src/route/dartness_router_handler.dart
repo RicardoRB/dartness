@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:dartness_server/src/string_extension.dart';
 import 'package:shelf_plus/shelf_plus.dart';
 
-import '../exception/http_status_exception.dart';
+import '../exception/http_status_code_exception.dart';
 import 'controller_route.dart';
 import 'dartness_param.dart';
 
@@ -59,7 +59,7 @@ class DartnessRouterHandler {
     try {
       response = await Function.apply(
           _route.handler, positionalArguments, namedArguments);
-    } on HttpStatusException catch (e) {
+    } on HttpStatusCodeException catch (e) {
       return Response(e.statusCode, body: e.message);
     } catch (e) {
       rethrow;

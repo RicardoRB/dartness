@@ -1,15 +1,15 @@
 /// Exception for HTTP status code.
-/// This abstract interface class is used to create custom exceptions for HTTP status codes.
+/// This abstract class is used to create custom exceptions for HTTP status codes.
 ///
 ///
 /// Example:
 /// ```dart
-/// class NotFoundException extends HttpStatusException {
+/// class NotFoundException extends HttpStatusCodeException {
 ///    const NotFoundException(String message) : super(message, HttpStatus.notFound);
 /// }
 /// ```
-abstract class HttpStatusException implements Exception {
-  const HttpStatusException(this.message, this.statusCode);
+abstract class HttpStatusCodeException implements Exception {
+  const HttpStatusCodeException(this.message, this.statusCode);
 
   /// The message of the exception.
   final String message;

@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:shelf/shelf.dart';
 
 import '../../exception/dartness_error_handler_register.dart';
-import '../../exception/http_status_exception.dart';
+import '../../exception/http_status_code_exception.dart';
 import '../dartness_response.dart';
 import 'shelf_middleware.dart';
 
@@ -33,7 +33,7 @@ class DartnessErrorHandlerShelf implements ShelfMiddleware {
               }
               return result;
             }
-            if (error is HttpStatusException) {
+            if (error is HttpStatusCodeException) {
               return Response(
                 error.statusCode,
                 body: error.message,
