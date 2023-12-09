@@ -26,7 +26,7 @@ sense to move them into a feature module. A feature module simply organizes code
 keeping code organized and establishing clear boundaries. This helps us manage complexity and develop with SOLID
 principles, especially as the size of the application and/or team grow.
 
-To demonstrate this, we'll create the `CitiesModule`.
+To demonstrate this, we'll create the `CityModule`.
 
 ```dart
 
@@ -46,7 +46,7 @@ const cityModule = Module(
 );
 ```
 
-Above, we defined the `CitiesModule` in the `cities_module.dart` file, and moved everything related to this module into
+Above, we defined the `CityModule` in the `cities_module.dart` file, and moved everything related to this module into
 the cities' directory. The last thing we need to do is import this module into the root module (the AppModule, defined
 in the `app.dart` file).
 
