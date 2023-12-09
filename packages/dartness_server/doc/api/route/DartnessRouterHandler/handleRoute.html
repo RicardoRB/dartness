@@ -123,7 +123,7 @@
   try {
     response = await Function.apply(
         _route.handler, positionalArguments, namedArguments);
-  } on HttpStatusException catch (e) {
+  } on HttpStatusCodeException catch (e) {
     return Response(e.statusCode, body: e.message);
   } catch (e) {
     rethrow;
@@ -172,6 +172,7 @@
 
 
     <h5>DartnessRouterHandler class</h5>
+    <div id="dartdoc-sidebar-left-content"></div>
   </div><!--/.sidebar-offcanvas-->
 
   <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
@@ -182,7 +183,7 @@
 <footer>
   <span class="no-break">
     dartness_server
-      0.5.1-alpha
+      0.6.0
   </span>
 
   
