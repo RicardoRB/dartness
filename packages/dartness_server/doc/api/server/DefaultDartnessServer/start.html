@@ -89,7 +89,7 @@ Future&lt;void&gt; start() async {
   if (_isStarted) {
     throw Exception(&#39;The server is already listening&#39;);
   }
-  final handler = _pipeline.addHandler(_router.router);
+  final handler = _pipeline.addHandler(_router.router.call);
   _server = await shelf_io.serve(handler, _internetAddress, _port);
   _isStarted = true;
 }</code></pre>
@@ -115,6 +115,7 @@ Future&lt;void&gt; start() async {
 
 
     <h5>DefaultDartnessServer class</h5>
+    <div id="dartdoc-sidebar-left-content"></div>
   </div><!--/.sidebar-offcanvas-->
 
   <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
@@ -125,7 +126,7 @@ Future&lt;void&gt; start() async {
 <footer>
   <span class="no-break">
     dartness_server
-      0.5.1-alpha
+      0.6.0
   </span>
 
   

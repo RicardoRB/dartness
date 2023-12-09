@@ -26,3 +26,8 @@
 ## 0.5.2-alpha
 
 - Fixed error when injecting dependency using `useFactory`
+
+## 0.6.0
+
+- Fixed error with topological sort when using `useFactory`
+- Controller path variable is optional

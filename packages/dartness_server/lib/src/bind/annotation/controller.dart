@@ -15,7 +15,7 @@
 ///  }
 ///  ```
 class Controller {
-  const Controller(this.path);
+  const Controller([this.path = '']);
 
   final String path;
 }

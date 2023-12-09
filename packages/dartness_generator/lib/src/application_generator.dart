@@ -8,6 +8,11 @@ import 'package:source_gen/source_gen.dart';
 class ApplicationGenerator extends GeneratorForAnnotation<Application> {
   static final _applicationType = TypeChecker.fromRuntime(Application);
   static final _injectType = TypeChecker.fromRuntime(Inject);
+  static final _useFactoryName = 'useFactory';
+  static final _moduleName = 'module';
+  static final _metadataName = 'metadata';
+  static final _classTypeName = 'classType';
+  static final _fieldNameName = 'name';
 
   @override
   String? generateForAnnotatedElement(
@@ -39,8 +44,8 @@ class ApplicationGenerator extends GeneratorForAnnotation<Application> {
     buffer.writeln('initDependencies(){');
 
     buffer.writeln('final injectRegister = InstanceRegister.instance;');
-    final applicationModule = annotation.read('module').objectValue;
-    final moduleMetadata = applicationModule.getField('metadata');
+    final applicationModule = annotation.read(_moduleName).objectValue;
+    final moduleMetadata = applicationModule.getField(_metadataName);
     final List<DartObject> allControllers = _getAllControllers(moduleMetadata);
     final List<DartObject> allProviders = _getAllProviders(moduleMetadata);
 
@@ -48,7 +53,7 @@ class ApplicationGenerator extends GeneratorForAnnotation<Application> {
     allInstances.addAll(allControllers);
     allInstances.addAll(allProviders);
     final allProviderElements = allInstances
-        .map((e) => e.getField('classType'))
+        .map((e) => e.getField(_classTypeName))
         .map((e) => e?.toTypeValue()?.element)
         .whereType<ClassElement>()
         .toList();
@@ -72,10 +77,10 @@ class ApplicationGenerator extends GeneratorForAnnotation<Application> {
       }
 
       final providerObject = allInstances.firstWhere((element) =>
-          element.getField('classType')?.toTypeValue()?.element ==
+          element.getField(_classTypeName)?.toTypeValue()?.element ==
           providerElement);
 
-      final useFactory = providerObject.getField('useFactory');
+      final useFactory = providerObject.getField(_useFactoryName);
       final hasUseFactory = useFactory?.isNull == false;
       if (hasUseFactory) {
         _registerFactory(useFactory, buffer, providerElement);
@@ -84,17 +89,17 @@ class ApplicationGenerator extends GeneratorForAnnotation<Application> {
       }
       final Iterable<DartObject> allClassTypeProviders =
           allInstances.where((element) {
-        final classType = element.getField('classType');
+        final classType = element.getField(_classTypeName);
         final instanceElement = classType?.toTypeValue()?.element;
         return instanceElement == providerElement;
       }).where((element) {
-        final name = element.getField('name')?.toStringValue();
+        final name = element.getField(_fieldNameName)?.toStringValue();
         return name != null;
       });
 
       if (allClassTypeProviders.isNotEmpty) {
         for (final nameTypeProvider in allClassTypeProviders) {
-          final nameField = nameTypeProvider.getField('name');
+          final nameField = nameTypeProvider.getField(_fieldNameName);
           _registerClass(
             buffer,
             providerElement,
@@ -128,8 +133,10 @@ class ApplicationGenerator extends GeneratorForAnnotation<Application> {
         );
         final inject = param.metadata
             .firstWhereOrNull((element) => element.runtimeType == Inject);
-        final injectName =
-            inject?.computeConstantValue()?.getField('name')?.toStringValue();
+        final injectName = inject
+            ?.computeConstantValue()
+            ?.getField(_fieldNameName)
+            ?.toStringValue();
         if (injectName != null && injectName.isNotEmpty) {
           return "injectRegister.resolve<$className>(name: '$injectName,')";
         }
@@ -162,7 +169,7 @@ class ApplicationGenerator extends GeneratorForAnnotation<Application> {
         withNullability: false,
       );
       final injectType = _injectType.firstAnnotationOfExact(constructorParam);
-      final injectName = injectType?.getField('name')?.toStringValue();
+      final injectName = injectType?.getField(_fieldNameName)?.toStringValue();
       if (injectName != null && injectName.isNotEmpty) {
         return 'injectRegister.resolve<$className>(name: "$injectName",)';
       }
@@ -200,26 +207,26 @@ class ApplicationGenerator extends GeneratorForAnnotation<Application> {
     final List<DartObject> imports =
         moduleMetadata.getField('imports')?.toListValue() ?? [];
     final metadataList = imports
-        .map((e) => e.getField('metadata'))
+        .map((e) => e.getField(_metadataName))
         .expand((e) => _getAllFieldFromModuleMetadata(e, field))
         .toList();
 
-    final List<DartObject> controllers =
+    final List<DartObject> fieldMetadataList =
         moduleMetadata.getField(field)?.toListValue() ?? [];
 
-    return metadataList + controllers;
+    return metadataList + fieldMetadataList;
   }
 
   /// Sort the dependencies by a topological sort to add the dependencies
   /// for each class that requires as inversion control
   List<ClassElement> _topologicalSort(
-    final List<ClassElement> dependencies,
+    final List<ClassElement> classElementList,
     final List<DartObject> objects,
   ) {
     final visited = <ClassElement>{};
     final sorted = <ClassElement>[];
 
-    for (final dependency in dependencies) {
+    for (final dependency in classElementList) {
       _visit(dependency, visited, sorted, objects);
     }
 
@@ -249,21 +256,22 @@ class ApplicationGenerator extends GeneratorForAnnotation<Application> {
     sorted.add(dependency);
   }
 
-  /// Obtains the dependencies of a class by his constructor
+  /// Obtains the dependencies of a class by his constructor or
+  /// by his params if using _useFactory
   List<ClassElement> _getDependencies(
     final ClassElement clazz,
     final List<DartObject> allDependencies,
   ) {
     final dependencies = <ClassElement>[];
     final foundObject = allDependencies.firstWhereOrNull((element) =>
-        element.getField('classType')?.toTypeValue()?.element == clazz);
+        element.getField(_classTypeName)?.toTypeValue()?.element == clazz);
     if (foundObject == null) {
       throw Exception('${clazz.name} not registered as dependency');
     }
-    final useFeatureField = foundObject.getField('useFeature');
-    final hasUseFeature = useFeatureField?.isNull ?? false;
-    if (hasUseFeature) {
-      final useFeatureFunction = useFeatureField?.toFunctionValue();
+    final useFactoryField = foundObject.getField(_useFactoryName);
+    final hasUseFactory = useFactoryField?.isNull == false;
+    if (hasUseFactory) {
+      final useFeatureFunction = useFactoryField?.toFunctionValue();
       final params = useFeatureFunction?.parameters ?? [];
       for (final param in params) {
         final paramElement = param.type.element;
@@ -297,13 +305,13 @@ class ApplicationGenerator extends GeneratorForAnnotation<Application> {
     buffer.writeln('final injectRegister = InstanceRegister.instance;');
     buffer.writeln('final app = Dartness();');
 
-    final applicationModule = annotation.read('module').objectValue;
-    final rootModuleMetadata = applicationModule.getField('metadata');
+    final applicationModule = annotation.read(_moduleName).objectValue;
+    final rootModuleMetadata = applicationModule.getField(_metadataName);
     final allControllers = _getAllControllers(rootModuleMetadata);
 
     final controllerElements = allControllers
-        .where((e) => e.getField('useFactory')?.isNull == true)
-        .map((e) => e.getField('classType'))
+        .where((e) => e.getField(_useFactoryName)?.isNull == true)
+        .map((e) => e.getField(_classTypeName))
         .map((e) => e?.toTypeValue()?.element)
         .whereType<ClassElement>()
         .toList();

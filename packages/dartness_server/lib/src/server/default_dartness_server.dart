@@ -56,7 +56,7 @@ class DefaultDartnessServer implements DartnessServer {
     if (_isStarted) {
       throw Exception('The server is already listening');
     }
-    final handler = _pipeline.addHandler(_router.router);
+    final handler = _pipeline.addHandler(_router.router.call);
     _server = await shelf_io.serve(handler, _internetAddress, _port);
     _isStarted = true;
   }
