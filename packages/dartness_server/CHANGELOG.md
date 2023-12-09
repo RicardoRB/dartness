@@ -44,3 +44,7 @@
 - Dependency injection by name
 - Custom instance by `useFactory` in `ProviderMetadata`
 - Added `@Inject` annotation
+
+## 0.6.0
+
+- Added https exceptions
