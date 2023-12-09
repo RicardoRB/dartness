@@ -14,7 +14,6 @@ class ApplicationGenerator extends GeneratorForAnnotation<Application> {
   static final _classTypeName = 'classType';
   static final _fieldNameName = 'name';
 
-
   @override
   String? generateForAnnotatedElement(
     Element element,
@@ -134,8 +133,10 @@ class ApplicationGenerator extends GeneratorForAnnotation<Application> {
         );
         final inject = param.metadata
             .firstWhereOrNull((element) => element.runtimeType == Inject);
-        final injectName =
-            inject?.computeConstantValue()?.getField(_fieldNameName)?.toStringValue();
+        final injectName = inject
+            ?.computeConstantValue()
+            ?.getField(_fieldNameName)
+            ?.toStringValue();
         if (injectName != null && injectName.isNotEmpty) {
           return "injectRegister.resolve<$className>(name: '$injectName,')";
         }
