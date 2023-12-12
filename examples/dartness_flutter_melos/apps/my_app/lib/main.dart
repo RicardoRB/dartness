@@ -1,5 +1,6 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+import 'package:my_common/todo_list_response.dart';
 
 void main() {
   runApp(const MyApp());
@@ -37,31 +38,30 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            FutureBuilder<String>(
-              future: fetchHelloWorld(),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  return Text(snapshot.data.toString());
-                } else if (snapshot.hasError) {
-                  return Text("${snapshot.error}");
-                } else {
-                  return const CircularProgressIndicator();
-                }
-              },
-            ),
-          ],
+        child: FutureBuilder<TodoListResponse>(
+          future: fetchTodos(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              final result = snapshot.data!;
+              return ListView(
+                children: result.todos
+                    .map((e) => ListTile(title: Text(e.todo)))
+                    .toList(),
+              );
+            } else if (snapshot.hasError) {
+              return Text("${snapshot.error}");
+            } else {
+              return const CircularProgressIndicator();
+            }
+          },
         ),
       ),
     );
   }
 
-  Future<String> fetchHelloWorld() async {
-    const myPrivateIp = "192.168.184.1";
-    final http.Response response =
-        await http.get(Uri.parse('http://$myPrivateIp:3000/hello/world'));
-    return response.body;
+  Future<TodoListResponse> fetchTodos() async {
+    const myPrivateIp = "192.168.2.31";
+    final response = await Dio().get('http://$myPrivateIp:8080/todos');
+    return TodoListResponse.fromJson(response.data);
   }
 }

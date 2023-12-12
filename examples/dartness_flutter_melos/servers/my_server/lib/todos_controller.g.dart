@@ -1,28 +1,28 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'example_controller.dart';
+part of 'todos_controller.dart';
 
 // **************************************************************************
 // ControllerGenerator
 // **************************************************************************
 
-extension ExampleControllerRoutes on ExampleController {
+extension TodosControllerRoutes on TodosController {
   List<ControllerRoute> getRoutes() {
     final routes = <ControllerRoute>[];
     routes.add(ControllerRoute(
       method: 'GET',
-      path: '/hello/world',
-      handler: getHelloWorld,
+      path: '/todos',
+      handler: getTodos,
       params: [],
       httpCode: null,
-      headers: {},
+      headers: {'content-type': 'application/json'},
     ));
     return routes;
   }
 }
 
-class ExampleDartnessController extends DartnessController {
-  ExampleDartnessController(ExampleController controller)
+class TodosDartnessController extends DartnessController {
+  TodosDartnessController(TodosController controller)
       : super(
           controller,
           controller.getRoutes(),
