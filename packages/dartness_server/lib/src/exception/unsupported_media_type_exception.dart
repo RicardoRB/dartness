@@ -8,10 +8,10 @@ import 'package:dartness_server/src/exception/http_client_error_exception.dart';
 /// that the server understands the content type of the request entity but was
 /// unable to process the contained instructions. It includes a human-readable
 /// [message] and has an HTTP status code of [HttpStatus.unprocessableEntity].
-class UnprocessableEntityException extends HttpClientErrorException {
-  /// Creates an [UnprocessableEntityException] with the specified [message].
+class UnsupportedMediaTypeException extends HttpClientErrorException {
+  /// Creates an [UnsupportedMediaTypeException] with the specified [message].
   ///
   /// The [message] is a human-readable description of the unprocessable entity error.
-  const UnprocessableEntityException(String message)
+  const UnsupportedMediaTypeException(String message)
       : super(message, HttpStatus.unprocessableEntity);
 }
