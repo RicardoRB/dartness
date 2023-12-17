@@ -10,7 +10,7 @@ import 'test_middleware.dart';
 void main() {
   late DartnessServer dartness;
 
-  const int port = 1243;
+  const int port = 1354;
   late HttpClient httpClient;
 
   setUp(() async {

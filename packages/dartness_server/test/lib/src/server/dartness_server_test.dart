@@ -32,8 +32,8 @@ void main() {
 
   test(
       ""
-      "GIVEN a path that do not exists"
-      "WHEN sending a request to the server"
+      "GIVEN a path that do not exists "
+      "WHEN sending a request to the server "
       "THEN throw NotFound http status"
       "", () async {
     final expected = HttpStatus.notFound;

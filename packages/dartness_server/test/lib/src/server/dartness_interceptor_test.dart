@@ -9,7 +9,7 @@ import 'test_controller.dart';
 void main() {
   late DartnessServer dartness;
 
-  const int port = 1453;
+  const int port = 1265;
   late HttpClient httpClient;
 
   setUp(() async {
