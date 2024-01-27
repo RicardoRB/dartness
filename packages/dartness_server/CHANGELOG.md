@@ -48,3 +48,7 @@
 ## 0.6.0
 
 - Added https exceptions
+
+## 0.6.1
+
+- Fixed error with QueryParam as a List
