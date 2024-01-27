@@ -17,6 +17,8 @@ scripts:
 
   test: melos exec --dir-exists=test --no-private -- dart test
 
+  pub:upgrade: melos exec --no-flutter -- dart pub upgrade
+
   doc: melos exec --no-private -- dart doc .
 
   publish:force: dart pub publish -f
