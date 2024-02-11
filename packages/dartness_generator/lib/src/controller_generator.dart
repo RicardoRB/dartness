@@ -64,7 +64,7 @@ class ControllerGenerator extends GeneratorForAnnotation<Controller> {
         : '${element.name}DartnessController';
 
     final dartnessController = Class(
-      (extensionBuilder) => extensionBuilder
+      (classBuilder) => classBuilder
         ..name = className
         ..constructors.add(Constructor(
           (constructorBuilder) => constructorBuilder

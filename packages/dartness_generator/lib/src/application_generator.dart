@@ -41,7 +41,7 @@ class ApplicationGenerator extends GeneratorForAnnotation<Application> {
     final StringBuffer buffer,
     final ConstantReader annotation,
   ) {
-    buffer.writeln('initDependencies(){');
+    buffer.writeln('initDependencies() {');
 
     buffer.writeln('final injectRegister = InstanceRegister.instance;');
     final applicationModule = annotation.read(_moduleName).objectValue;
