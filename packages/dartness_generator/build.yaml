@@ -16,9 +16,17 @@ builders:
     build_to: cache
     applies_builders: [ "source_gen|combining_builder" ]
   application:
-    target: ":error_handler_generator"
+    target: ":application_generator"
     import: "package:dartness_generator/builder.dart"
     builder_factories: [ "application" ]
+    build_extensions: { ".dart": [ ".g.part" ] }
+    auto_apply: dependents
+    build_to: cache
+    applies_builders: [ "source_gen|combining_builder" ]
+  scheduler:
+    target: ":scheduler_generator"
+    import: "package:dartness_generator/builder.dart"
+    builder_factories: [ "scheduler" ]
     build_extensions: { ".dart": [ ".g.part" ] }
     auto_apply: dependents
     build_to: cache

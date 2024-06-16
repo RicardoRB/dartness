@@ -3,11 +3,13 @@ import 'package:analyzer/dart/element/element.dart';
 import 'package:build/build.dart';
 import 'package:collection/collection.dart';
 import 'package:dartness_server/dartness.dart';
+import 'package:dartness_server/schedule.dart';
 import 'package:source_gen/source_gen.dart';
 
 class ApplicationGenerator extends GeneratorForAnnotation<Application> {
   static final _applicationType = TypeChecker.fromRuntime(Application);
   static final _injectType = TypeChecker.fromRuntime(Inject);
+  static final _scheduledType = TypeChecker.fromRuntime(Scheduler);
   static final _useFactoryName = 'useFactory';
   static final _moduleName = 'module';
   static final _metadataName = 'metadata';
@@ -128,9 +130,7 @@ class ApplicationGenerator extends GeneratorForAnnotation<Application> {
         buffer.writeln('Function.apply(${useFactoryFunc.name},');
       }
       final resolves = useFactoryFunc.parameters.map((param) {
-        final String className = param.type.getDisplayString(
-          withNullability: false,
-        );
+        final String className = param.type.getDisplayString();
         final inject = param.metadata
             .firstWhereOrNull((element) => element.runtimeType == Inject);
         final injectName = inject
@@ -165,9 +165,7 @@ class ApplicationGenerator extends GeneratorForAnnotation<Application> {
     buffer.writeln('${providerElement.name}(');
 
     final resolves = constructor.parameters.map((constructorParam) {
-      final String className = constructorParam.type.getDisplayString(
-        withNullability: false,
-      );
+      final String className = constructorParam.type.getDisplayString();
       final injectType = _injectType.firstAnnotationOfExact(constructorParam);
       final injectName = injectType?.getField(_fieldNameName)?.toStringValue();
       if (injectName != null && injectName.isNotEmpty) {
@@ -326,6 +324,19 @@ class ApplicationGenerator extends GeneratorForAnnotation<Application> {
       _generateControllers(controllerElements, buffer);
       _generateOptions(applicationOptions, buffer);
       buffer.writeln(');');
+    }
+
+    final allProviders = _getAllProviders(rootModuleMetadata);
+    final allSchedulers = allProviders
+        .map((e) => e.getField('classType'))
+        .map((e) => e?.toTypeValue())
+        .map((e) => e?.element)
+        .whereNotNull()
+        .where((e) => _scheduledType.hasAnnotationOfExact(e));
+
+    for (final scheduler in allSchedulers) {
+      buffer.writeln(
+          'injectRegister.resolve<${scheduler.displayName}>().initSchedules();');
     }
 
     // main end method

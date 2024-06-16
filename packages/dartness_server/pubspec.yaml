@@ -20,6 +20,7 @@ dependencies:
   shelf_plus: ^1.7.0
   shelf_router: ^1.1.4
   injector: ^3.0.0
+  cron: ^0.6.0
 
 dev_dependencies:
   http: ^1.1.0
