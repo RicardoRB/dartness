@@ -24,6 +24,7 @@ extension AppExtension on App {
     injectRegister.register<TodosController>(
         TodosController(injectRegister.resolve<TodosService>()));
     injectRegister.register<ExampleErrorHandler>(ExampleErrorHandler());
+    injectRegister.register<ExampleScheduler>(ExampleScheduler());
   }
 
   Future<void> init() async {
@@ -41,5 +42,6 @@ extension AppExtension on App {
         port: 8080,
       ),
     );
+    injectRegister.resolve<ExampleScheduler>().initSchedules();
   }
 }

@@ -1,0 +1,42 @@
+{
+  // Use IntelliSense para saber los atributos posibles.
+  // Mantenga el puntero para ver las descripciones de los existentes atributos.
+  // Para más información, visite: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "dartness_flutter_melos",
+      "request": "launch",
+      "type": "dart"
+    },
+    {
+      "name": "my_app",
+      "cwd": "apps\\my_app",
+      "request": "launch",
+      "program": "lib/main.dart",
+      "flutterMode": "debug",
+      "type": "dart"
+    },
+    {
+      "name": "my_app (profile mode)",
+      "cwd": "apps\\my_app",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "profile"
+    },
+    {
+      "name": "my_app (release mode)",
+      "cwd": "apps\\my_app",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "release"
+    },
+    {
+      "name": "my_server",
+      "cwd": "servers\\my_server",
+      "request": "launch",
+      "program": "bin\\my_server.dart",
+      "type": "dart"
+    }
+  ]
+}

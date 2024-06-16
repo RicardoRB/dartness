@@ -2,6 +2,7 @@ import 'package:dartness_server/dartness.dart';
 import 'package:dartness_server/modules.dart';
 import 'package:dartness_server/server.dart';
 import 'package:dio/dio.dart';
+import 'package:example/src/schedulers/example_scheduler.dart';
 
 import 'controllers/city_controller.dart';
 import 'controllers/todos_controller.dart';
@@ -28,6 +29,9 @@ Dio createDio() => Dio();
           classType: Dio,
           useFactory: createDio,
         ),
+        ProviderMetadata(
+          classType: ExampleScheduler,
+        )
       ],
       imports: [
         userModule,
