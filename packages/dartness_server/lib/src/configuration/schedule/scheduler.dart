@@ -1,4 +1,4 @@
-/// Represents an annotation for scheduling tasks with various parameters.
+/// Represents an annotation for classes with scheduling tasks.
 class Scheduler {
   const Scheduler();
 }
