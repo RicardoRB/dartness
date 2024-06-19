@@ -9,11 +9,11 @@ dartness_generator is used with dartness_server in order to provide the code gen
 
 ```yaml
 dependencies:
-  dartness_server: ^0.6.0
+  dartness_server: ^0.7.0
 
 dev_dependencies:
   build_runner: ^2.2.0
-  dartness_generator: ^0.6.0
+  dartness_generator: ^0.7.0
 ```
 
 2. Add the corresponding `part '.g.dart'` to your classes, otherwise the new code won't be generated, you can find an

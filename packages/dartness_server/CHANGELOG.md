@@ -48,3 +48,7 @@
 ## 0.6.0
 
 - Added https exceptions
+
+## 0.7.0
+
+- Added schedulers
