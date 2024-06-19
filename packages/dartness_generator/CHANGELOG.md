@@ -35,3 +35,7 @@
 ## 0.7.0
 
 - Added schedulers
+
+## 0.7.1
+
+- Fixed Dartness server version package

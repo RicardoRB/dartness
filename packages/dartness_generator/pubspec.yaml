@@ -1,6 +1,6 @@
 name: dartness_generator
 description: Dartness generator provides the generator classes that are used to run dartness_server
-version: 0.7.0
+version: 0.7.1
 homepage: https://ricardorb.github.io/dartness/
 repository: https://github.com/RicardoRB/dartness
 issue_tracker: https://github.com/RicardoRB/dartness/issues
@@ -15,8 +15,7 @@ dependencies:
   source_gen: ^1.5.0
   analyzer: ^6.5.0
   code_builder: ^4.10.0
-  dartness_server: 
-    path: ../dartness_server
+  dartness_server: ^0.7.0
 
 dev_dependencies:
   lints: ^4.0.0
