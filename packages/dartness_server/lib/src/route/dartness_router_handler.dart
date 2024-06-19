@@ -46,12 +46,20 @@ class DartnessRouterHandler {
       } else {
         if (param.isPath) {
           final pathParam = _getPathParam(request, param);
-          final value = pathParam.stringToType(param.type);
-          namedArguments[Symbol(param.name)] = value;
+          if (pathParam is String) {
+            final value = pathParam.stringToType(param.type);
+            namedArguments[Symbol(param.name)] = value;
+          } else {
+            namedArguments[Symbol(param.name)] = pathParam;
+          }
         } else {
-          final String? queryParam = _getQueryParam(request, param);
-          final value = queryParam?.stringToType(param.type);
-          namedArguments[Symbol(param.name)] = value;
+          final Object? queryParam = _getQueryParam(request, param);
+          if (queryParam is String) {
+            final value = queryParam.stringToType(param.type);
+            namedArguments[Symbol(param.name)] = value;
+          } else {
+            namedArguments[Symbol(param.name)] = queryParam;
+          }
         }
       }
     }
@@ -87,9 +95,15 @@ class DartnessRouterHandler {
     );
   }
 
-  dynamic _getQueryParam(Request request, DartnessParam param) =>
-      request.url.queryParameters[param.name] ?? param.defaultValue;
+  Object? _getQueryParam(final Request request, final DartnessParam param) {
+    final all = request.url.queryParametersAll;
+    final foundAll = all[param.name];
+    if (foundAll != null && foundAll.length > 1) {
+      return all[param.name];
+    }
+    return request.url.queryParameters[param.name] ?? param.defaultValue;
+  }
 
-  dynamic _getPathParam(Request request, DartnessParam param) =>
+  Object? _getPathParam(final Request request, final DartnessParam param) =>
       request.params[param.name] ?? param.defaultValue;
 }

@@ -32,6 +32,10 @@
 - Fixed error with topological sort when using `useFactory`
 - Controller path variable is optional
 
+## 0.6.1
+
+- Updated dartness_server version
+
 ## 0.7.0
 
 - Added schedulers

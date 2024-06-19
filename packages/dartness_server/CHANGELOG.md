@@ -49,6 +49,11 @@
 
 - Added https exceptions
 
+
+## 0.6.1
+
+- Fixed error with QueryParam as a List
+
 ## 0.7.0
 
 - Added schedulers
