@@ -1,4 +1,4 @@
-/// Represents an annotation for scheduling tasks with various parameters.
+/// Represents an annotation for scheduling task
 class Scheduled {
   /// A cron-like expression defining the triggers for the scheduled method.
   final String cron;

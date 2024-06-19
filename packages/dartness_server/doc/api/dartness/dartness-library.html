@@ -11,7 +11,7 @@
   
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
   
   <link rel="stylesheet" href="../static-assets/github.css?v1">
   <link rel="stylesheet" href="../static-assets/styles.css?v1">
@@ -29,36 +29,42 @@
   <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
   <ol class="breadcrumbs gt-separated dark hidden-xs">
     <li><a href="../index.html">dartness_server</a></li>
-    <li class="self-crumb">dartness library</li>
+    <li class="self-crumb">dartness.dart</li>
   </ol>
   <div class="self-name">dartness</div>
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
-  <div class="toggle" id="theme-button">
+  <div class="toggle" id="theme-button" title="Toggle brightness">
     <label for="theme">
       <input type="checkbox" id="theme" value="light-theme">
       <span id="dark-theme-button" class="material-symbols-outlined">
-        brightness_4
+        dark_mode
       </span>
       <span id="light-theme-button" class="material-symbols-outlined">
-        brightness_5
+        light_mode
       </span>
     </label>
   </div>
 </header>
 <main>
 
-  <div
-      id="dartdoc-main-content"
-      class="main-content"
-      data-above-sidebar=""
-      data-below-sidebar="dartness&#47;dartness-library-sidebar.html">
+<div
+    id="dartdoc-main-content"
+    class="main-content"
+    data-above-sidebar=""
+    data-below-sidebar="dartness&#47;dartness-library-sidebar.html">
+  
+    <div>
       
-      <div>
-<h1><span class="kind-library">dartness</span> library 
+
+      <h1>
+        <span class="kind-library">dartness</span>
+        library 
  
-</h1></div>
+
+      </h1>
+    </div>
 
     
 <section class="desc markdown">
@@ -71,7 +77,7 @@
       <h2>Classes</h2>
 
       <dl>
-        <dt id="Application">
+          <dt id="Application">
   <span class="name "><a href="../dartness/Application-class.html">Application</a></span> 
 
 </dt>
@@ -79,7 +85,7 @@
   App annotation in order to create an application
 </dd>
 
-        <dt id="Dartness">
+          <dt id="Dartness">
   <span class="name "><a href="../dartness/Dartness-class.html">Dartness</a></span> 
 
 </dt>
@@ -88,7 +94,7 @@
 by <a href="https://api.flutter.dev/flutter/dart-io/HttpServer-class.html">HttpServer</a>.
 </dd>
 
-        <dt id="Inject">
+          <dt id="Inject">
   <span class="name "><a href="../dartness/Inject-class.html">Inject</a></span> 
 
 </dt>
@@ -97,7 +103,7 @@ by <a href="https://api.flutter.dev/flutter/dart-io/HttpServer-class.html">HttpS
 dependence injection
 </dd>
 
-        <dt id="InstanceRegister">
+          <dt id="InstanceRegister">
   <span class="name "><a href="../dartness/InstanceRegister-class.html">InstanceRegister</a></span> 
 
 </dt>
@@ -107,6 +113,7 @@ dependence injection
 
       </dl>
     </section>
+
 
 
 
@@ -128,17 +135,19 @@ dependence injection
 
 <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
     <li><a href="../index.html">dartness_server</a></li>
-    <li class="self-crumb">dartness library</li>
+    <li class="self-crumb">dartness.dart</li>
 </ol>
 
 
     <h5><span class="package-name">dartness_server</span> <span class="package-kind">package</span></h5>
     <ol>
       <li class="section-title">Libraries</li>
+      <li><a href="../configuration/configuration-library.html">configuration</a></li>
       <li><a href="../dartness/dartness-library.html">dartness</a></li>
       <li><a href="../exception/exception-library.html">exception</a></li>
       <li><a href="../modules/modules-library.html">modules</a></li>
       <li><a href="../route/route-library.html">route</a></li>
+      <li><a href="../schedule/schedule-library.html">schedule</a></li>
       <li><a href="../server/server-library.html">server</a></li>
 </ol>
 

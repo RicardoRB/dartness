@@ -1,12 +1,11 @@
 import 'package:cron/cron.dart';
 
-/// Scheduler class that uses a [CronExpression] to execute tasks periodically.
+/// SchedulerManager class that uses a [CronExpression] to execute tasks periodically.
 class SchedulerManager {
   final String cronExpression;
   final Cron cron;
 
-  // Constructor accepts a cron expression and an optional custom TimeProvider.
-  // If no TimeProvider is provided, it defaults to the system clock.
+  // Constructor accepts a cron expression.
   SchedulerManager(this.cronExpression) : cron = Cron();
 
   /// Starts the periodic execution of a task based on the cron expression.
