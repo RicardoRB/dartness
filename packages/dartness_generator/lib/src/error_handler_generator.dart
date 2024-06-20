@@ -83,10 +83,7 @@ class ErrorHandlerGenerator extends GeneratorForAnnotation<ErrorHandler> {
 
     final errorTypes = catchErrorAnnotation?.getField('errors');
     final errors = errorTypes?.toListValue()?.map((errorType) {
-          final typeName = errorType
-                  .toTypeValue()
-                  ?.getDisplayString(withNullability: false) ??
-              '';
+          final typeName = errorType.toTypeValue()?.getDisplayString() ?? '';
           final typeCode = Code(typeName);
           return CodeExpression(typeCode);
         }) ??

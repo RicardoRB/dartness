@@ -1,5 +1,3 @@
-import 'package:collection/collection.dart';
-
 extension StringExtension on String {
   /// Generates an [Iterable] of a specified conversion way by [toElement]
   /// from a [String] with a [json array structure](https://www.w3schools.com/js/js_json_arrays.asp)

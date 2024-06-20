@@ -331,7 +331,7 @@ class ApplicationGenerator extends GeneratorForAnnotation<Application> {
         .map((e) => e.getField('classType'))
         .map((e) => e?.toTypeValue())
         .map((e) => e?.element)
-        .whereNotNull()
+        .nonNulls
         .where((e) => _scheduledType.hasAnnotationOfExact(e));
 
     for (final scheduler in allSchedulers) {
