@@ -65,7 +65,7 @@ extension StringExtension on String {
   /// List<bool> list = stringToIterableBool(array).toList();
   /// ```
   Iterable<bool> stringToIterableBool() =>
-      stringToIterable((e) => bool.tryParse(e)).whereNotNull();
+      stringToIterable((e) => bool.tryParse(e)).nonNulls;
 
   /// Returns the [type] with the correct type.
   dynamic stringToType(final Type type) {
