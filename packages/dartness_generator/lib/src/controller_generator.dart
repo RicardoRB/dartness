@@ -224,10 +224,14 @@ class ControllerGenerator extends GeneratorForAnnotation<Controller> {
         'isNamed': literalBool(param.isNamed),
         'isPositional': literalBool(param.isPositional),
         'isOptional': literalBool(param.isOptional),
-        'type': CodeExpression(Code(param.type.getDisplayString())),
+        'type': CodeExpression(Code(param.type.getDisplayString(
+          withNullability: false,
+        ))),
         'defaultValue': literal(param.defaultValueCode),
         'fromJson': isBody
-            ? refer(param.type.getDisplayString()).property('fromJson')
+            ? refer(param.type.getDisplayString(
+                withNullability: false,
+              )).property('fromJson')
             : literalNull,
       },
     );

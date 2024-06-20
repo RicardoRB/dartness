@@ -130,7 +130,9 @@ class ApplicationGenerator extends GeneratorForAnnotation<Application> {
         buffer.writeln('Function.apply(${useFactoryFunc.name},');
       }
       final resolves = useFactoryFunc.parameters.map((param) {
-        final String className = param.type.getDisplayString();
+        final String className = param.type.getDisplayString(
+          withNullability: false,
+        );
         final inject = param.metadata
             .firstWhereOrNull((element) => element.runtimeType == Inject);
         final injectName = inject
@@ -165,7 +167,9 @@ class ApplicationGenerator extends GeneratorForAnnotation<Application> {
     buffer.writeln('${providerElement.name}(');
 
     final resolves = constructor.parameters.map((constructorParam) {
-      final String className = constructorParam.type.getDisplayString();
+      final String className = constructorParam.type.getDisplayString(
+        withNullability: false,
+      );
       final injectType = _injectType.firstAnnotationOfExact(constructorParam);
       final injectName = injectType?.getField(_fieldNameName)?.toStringValue();
       if (injectName != null && injectName.isNotEmpty) {
