@@ -35,3 +35,16 @@
 ## 0.6.1
 
 - Updated dartness_server version
+
+## 0.7.0
+
+- Added schedulers
+
+## 0.7.1
+
+- Fixed Dartness server version package
+
+
+## 0.7.1
+
+- Fixed generating without nulls type

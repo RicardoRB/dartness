@@ -1,5 +1,4 @@
 import 'package:dartness_server/exception.dart';
-import 'package:example/src/error_handlers/not_found_exception.dart';
 
 part 'example_error_handler.g.dart';
 

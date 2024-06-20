@@ -4,7 +4,6 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
-  <meta name="generator" content="made with love by dartdoc 7.0.1-wip">
   <meta name="description" content="dartness_generator API docs, for the Dart programming language.">
   <title>dartness_generator - Dart API docs</title>
 
@@ -12,7 +11,7 @@
   
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
   
   <link rel="stylesheet" href="static-assets/github.css?v1">
   <link rel="stylesheet" href="static-assets/styles.css?v1">
@@ -35,14 +34,14 @@
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
-  <div class="toggle" id="theme-button">
+  <div class="toggle" id="theme-button" title="Toggle brightness">
     <label for="theme">
       <input type="checkbox" id="theme" value="light-theme">
       <span id="dark-theme-button" class="material-symbols-outlined">
-        brightness_4
+        dark_mode
       </span>
       <span id="light-theme-button" class="material-symbols-outlined">
-        brightness_5
+        light_mode
       </span>
     </label>
   </div>
@@ -60,11 +59,11 @@
 section in the pubspec.yaml</li>
 </ol>
 <pre class="language-yaml"><code class="language-yaml">dependencies:
-  dartness_server: ^0.6.0
+  dartness_server: ^0.7.0
 
 dev_dependencies:
   build_runner: ^2.2.0
-  dartness_generator: ^0.6.0
+  dartness_generator: ^0.7.2
 </code></pre>
 <ol start="2">
 <li>Add the corresponding <code>part '.g.dart'</code> to your classes, otherwise the new code won't be generated, you can find an
@@ -141,7 +140,7 @@ class CityController {
 <footer>
   <span class="no-break">
     dartness_generator
-      0.6.0
+      0.7.2
   </span>
 
   

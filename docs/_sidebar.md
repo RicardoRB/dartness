@@ -8,6 +8,7 @@
     - [Middlewares](middleware.md)
     - [Interceptors](interceptor.md)
     - [Exceptions](exceptions.md)
+    - [Schedulers](schedulers.md)
 - Flutter
     - [Dartness with Flutter](flutter.md)
 

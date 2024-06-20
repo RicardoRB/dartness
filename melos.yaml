@@ -11,6 +11,7 @@ packages:
 scripts:
   get: melos exec --no-private -- dart pub get .
   analyze: melos exec --no-private -- dart analyze
+  upgrade: melos exec --no-private -- dart pub upgrade --major-versions
 
   format: melos exec --no-private -- dart format .
   format:check: dart format --set-exit-if-changed .

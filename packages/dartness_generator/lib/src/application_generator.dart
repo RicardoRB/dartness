@@ -3,11 +3,13 @@ import 'package:analyzer/dart/element/element.dart';
 import 'package:build/build.dart';
 import 'package:collection/collection.dart';
 import 'package:dartness_server/dartness.dart';
+import 'package:dartness_server/schedule.dart';
 import 'package:source_gen/source_gen.dart';
 
 class ApplicationGenerator extends GeneratorForAnnotation<Application> {
   static final _applicationType = TypeChecker.fromRuntime(Application);
   static final _injectType = TypeChecker.fromRuntime(Inject);
+  static final _scheduledType = TypeChecker.fromRuntime(Scheduler);
   static final _useFactoryName = 'useFactory';
   static final _moduleName = 'module';
   static final _metadataName = 'metadata';
@@ -41,7 +43,7 @@ class ApplicationGenerator extends GeneratorForAnnotation<Application> {
     final StringBuffer buffer,
     final ConstantReader annotation,
   ) {
-    buffer.writeln('initDependencies(){');
+    buffer.writeln('initDependencies() {');
 
     buffer.writeln('final injectRegister = InstanceRegister.instance;');
     final applicationModule = annotation.read(_moduleName).objectValue;
@@ -326,6 +328,19 @@ class ApplicationGenerator extends GeneratorForAnnotation<Application> {
       _generateControllers(controllerElements, buffer);
       _generateOptions(applicationOptions, buffer);
       buffer.writeln(');');
+    }
+
+    final allProviders = _getAllProviders(rootModuleMetadata);
+    final allSchedulers = allProviders
+        .map((e) => e.getField('classType'))
+        .map((e) => e?.toTypeValue())
+        .map((e) => e?.element)
+        .nonNulls
+        .where((e) => _scheduledType.hasAnnotationOfExact(e));
+
+    for (final scheduler in allSchedulers) {
+      buffer.writeln(
+          'injectRegister.resolve<${scheduler.displayName}>().initSchedules();');
     }
 
     // main end method

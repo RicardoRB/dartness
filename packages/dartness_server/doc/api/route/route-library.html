@@ -11,7 +11,7 @@
   
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
   
   <link rel="stylesheet" href="../static-assets/github.css?v1">
   <link rel="stylesheet" href="../static-assets/styles.css?v1">
@@ -29,36 +29,42 @@
   <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
   <ol class="breadcrumbs gt-separated dark hidden-xs">
     <li><a href="../index.html">dartness_server</a></li>
-    <li class="self-crumb">route library</li>
+    <li class="self-crumb">route.dart</li>
   </ol>
   <div class="self-name">route</div>
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
-  <div class="toggle" id="theme-button">
+  <div class="toggle" id="theme-button" title="Toggle brightness">
     <label for="theme">
       <input type="checkbox" id="theme" value="light-theme">
       <span id="dark-theme-button" class="material-symbols-outlined">
-        brightness_4
+        dark_mode
       </span>
       <span id="light-theme-button" class="material-symbols-outlined">
-        brightness_5
+        light_mode
       </span>
     </label>
   </div>
 </header>
 <main>
 
-  <div
-      id="dartdoc-main-content"
-      class="main-content"
-      data-above-sidebar=""
-      data-below-sidebar="route&#47;route-library-sidebar.html">
+<div
+    id="dartdoc-main-content"
+    class="main-content"
+    data-above-sidebar=""
+    data-below-sidebar="route&#47;route-library-sidebar.html">
+  
+    <div>
       
-      <div>
-<h1><span class="kind-library">route</span> library 
+
+      <h1>
+        <span class="kind-library">route</span>
+        library 
  
-</h1></div>
+
+      </h1>
+    </div>
 
     
 <section class="desc markdown">
@@ -70,7 +76,7 @@
       <h2>Classes</h2>
 
       <dl>
-        <dt id="Bind">
+          <dt id="Bind">
   <span class="name "><a href="../route/Bind-class.html">Bind</a></span> 
 
 </dt>
@@ -78,7 +84,7 @@
   Annotation for a bindable property.
 </dd>
 
-        <dt id="Body">
+          <dt id="Body">
   <span class="name "><a href="../route/Body-class.html">Body</a></span> 
 
 </dt>
@@ -86,7 +92,7 @@
   Annotation indicating a method parameter should be bound to the body of the http request.
 </dd>
 
-        <dt id="Connect">
+          <dt id="Connect">
   <span class="name "><a href="../route/Connect-class.html">Connect</a></span> 
 
 </dt>
@@ -94,7 +100,7 @@
   Route annotation. Routes Put requests to the specified path.
 </dd>
 
-        <dt id="Controller">
+          <dt id="Controller">
   <span class="name "><a href="../route/Controller-class.html">Controller</a></span> 
 
 </dt>
@@ -103,7 +109,7 @@
 A controller is a class that can be used to handle requests.
 </dd>
 
-        <dt id="ControllerRoute">
+          <dt id="ControllerRoute">
   <span class="name "><a href="../route/ControllerRoute-class.html">ControllerRoute</a></span> 
 
 </dt>
@@ -112,7 +118,7 @@ A controller is a class that can be used to handle requests.
 internally by the Dartness framework.
 </dd>
 
-        <dt id="DartnessController">
+          <dt id="DartnessController">
   <span class="name "><a href="../route/DartnessController-class.html">DartnessController</a></span> 
 
 </dt>
@@ -122,7 +128,7 @@ annotation <a href="../route/Controller-class.html">Controller</a> and the data 
 Dartness framework.
 </dd>
 
-        <dt id="DartnessParam">
+          <dt id="DartnessParam">
   <span class="name "><a href="../route/DartnessParam-class.html">DartnessParam</a></span> 
 
 </dt>
@@ -131,7 +137,7 @@ Dartness framework.
 annotated with <a href="../route/Controller-class.html">Controller</a> internally by the Dartness framework.
 </dd>
 
-        <dt id="DartnessRouter">
+          <dt id="DartnessRouter">
   <span class="name "><a href="../route/DartnessRouter-class.html">DartnessRouter</a></span> 
 
 </dt>
@@ -139,7 +145,7 @@ annotated with <a href="../route/Controller-class.html">Controller</a> internall
   A router that can be used to handle requests.
 </dd>
 
-        <dt id="DartnessRouterHandler">
+          <dt id="DartnessRouterHandler">
   <span class="name "><a href="../route/DartnessRouterHandler-class.html">DartnessRouterHandler</a></span> 
 
 </dt>
@@ -148,7 +154,7 @@ annotated with <a href="../route/Controller-class.html">Controller</a> internall
 with his metadata and the method <a href="../route/ControllerRoute/handler.html">ControllerRoute.handler</a> with the metadata.
 </dd>
 
-        <dt id="DefaultDartnessRouter">
+          <dt id="DefaultDartnessRouter">
   <span class="name "><a href="../route/DefaultDartnessRouter-class.html">DefaultDartnessRouter</a></span> 
 
 </dt>
@@ -156,7 +162,7 @@ with his metadata and the method <a href="../route/ControllerRoute/handler.html"
   A router that can be used to handle requests.
 </dd>
 
-        <dt id="Delete">
+          <dt id="Delete">
   <span class="name "><a href="../route/Delete-class.html">Delete</a></span> 
 
 </dt>
@@ -164,7 +170,7 @@ with his metadata and the method <a href="../route/ControllerRoute/handler.html"
   Route annotation for delete request.
 </dd>
 
-        <dt id="Get">
+          <dt id="Get">
   <span class="name "><a href="../route/Get-class.html">Get</a></span> 
 
 </dt>
@@ -172,7 +178,7 @@ with his metadata and the method <a href="../route/ControllerRoute/handler.html"
   Route annotation. Routes Get requests to the specified path.
 </dd>
 
-        <dt id="Head">
+          <dt id="Head">
   <span class="name "><a href="../route/Head-class.html">Head</a></span> 
 
 </dt>
@@ -180,7 +186,7 @@ with his metadata and the method <a href="../route/ControllerRoute/handler.html"
   Route annotation. Routes Head requests to the specified path.
 </dd>
 
-        <dt id="Header">
+          <dt id="Header">
   <span class="name "><a href="../route/Header-class.html">Header</a></span> 
 
 </dt>
@@ -188,7 +194,7 @@ with his metadata and the method <a href="../route/ControllerRoute/handler.html"
   Annotation indication to specify a custom response header
 </dd>
 
-        <dt id="Headers">
+          <dt id="Headers">
   <span class="name "><a href="../route/Headers-class.html">Headers</a></span> 
 
 </dt>
@@ -196,7 +202,7 @@ with his metadata and the method <a href="../route/ControllerRoute/handler.html"
   Annotation indication to specify a custom response headers
 </dd>
 
-        <dt id="HttpCode">
+          <dt id="HttpCode">
   <span class="name "><a href="../route/HttpCode-class.html">HttpCode</a></span> 
 
 </dt>
@@ -204,7 +210,7 @@ with his metadata and the method <a href="../route/ControllerRoute/handler.html"
   An annotation to indicate what HTTP status code must be returned.
 </dd>
 
-        <dt id="Options">
+          <dt id="Options">
   <span class="name "><a href="../route/Options-class.html">Options</a></span> 
 
 </dt>
@@ -212,7 +218,7 @@ with his metadata and the method <a href="../route/ControllerRoute/handler.html"
   Route annotation. Routes Options requests to the specified path.
 </dd>
 
-        <dt id="Patch">
+          <dt id="Patch">
   <span class="name "><a href="../route/Patch-class.html">Patch</a></span> 
 
 </dt>
@@ -220,7 +226,7 @@ with his metadata and the method <a href="../route/ControllerRoute/handler.html"
   Route annotation. Routes Patch requests to the specified path.
 </dd>
 
-        <dt id="PathParam">
+          <dt id="PathParam">
   <span class="name "><a href="../route/PathParam-class.html">PathParam</a></span> 
 
 </dt>
@@ -228,7 +234,7 @@ with his metadata and the method <a href="../route/ControllerRoute/handler.html"
   Annotation to bind a property to a path parameter.
 </dd>
 
-        <dt id="Post">
+          <dt id="Post">
   <span class="name "><a href="../route/Post-class.html">Post</a></span> 
 
 </dt>
@@ -236,7 +242,7 @@ with his metadata and the method <a href="../route/ControllerRoute/handler.html"
   Route annotation. Routes Post requests to the specified path.
 </dd>
 
-        <dt id="Put">
+          <dt id="Put">
   <span class="name "><a href="../route/Put-class.html">Put</a></span> 
 
 </dt>
@@ -244,7 +250,7 @@ with his metadata and the method <a href="../route/ControllerRoute/handler.html"
   Route annotation. Routes Put requests to the specified path.
 </dd>
 
-        <dt id="QueryParam">
+          <dt id="QueryParam">
   <span class="name "><a href="../route/QueryParam-class.html">QueryParam</a></span> 
 
 </dt>
@@ -252,7 +258,7 @@ with his metadata and the method <a href="../route/ControllerRoute/handler.html"
   Annotation to bind a property to a query parameter.
 </dd>
 
-        <dt id="Trace">
+          <dt id="Trace">
   <span class="name "><a href="../route/Trace-class.html">Trace</a></span> 
 
 </dt>
@@ -262,6 +268,7 @@ with his metadata and the method <a href="../route/ControllerRoute/handler.html"
 
       </dl>
     </section>
+
 
 
 
@@ -283,17 +290,19 @@ with his metadata and the method <a href="../route/ControllerRoute/handler.html"
 
 <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
     <li><a href="../index.html">dartness_server</a></li>
-    <li class="self-crumb">route library</li>
+    <li class="self-crumb">route.dart</li>
 </ol>
 
 
     <h5><span class="package-name">dartness_server</span> <span class="package-kind">package</span></h5>
     <ol>
       <li class="section-title">Libraries</li>
+      <li><a href="../configuration/configuration-library.html">configuration</a></li>
       <li><a href="../dartness/dartness-library.html">dartness</a></li>
       <li><a href="../exception/exception-library.html">exception</a></li>
       <li><a href="../modules/modules-library.html">modules</a></li>
       <li><a href="../route/route-library.html">route</a></li>
+      <li><a href="../schedule/schedule-library.html">schedule</a></li>
       <li><a href="../server/server-library.html">server</a></li>
 </ol>
 
@@ -308,7 +317,7 @@ with his metadata and the method <a href="../route/ControllerRoute/handler.html"
 <footer>
   <span class="no-break">
     dartness_server
-      0.6.0
+      0.7.0
   </span>
 
   

@@ -1,5 +1,3 @@
-import 'package:collection/collection.dart';
-
 extension StringExtension on String {
   /// Generates an [Iterable] of a specified conversion way by [toElement]
   /// from a [String] with a [json array structure](https://www.w3schools.com/js/js_json_arrays.asp)
@@ -65,7 +63,7 @@ extension StringExtension on String {
   /// List<bool> list = stringToIterableBool(array).toList();
   /// ```
   Iterable<bool> stringToIterableBool() =>
-      stringToIterable((e) => bool.tryParse(e)).whereNotNull();
+      stringToIterable((e) => bool.tryParse(e)).nonNulls;
 
   /// Returns the [type] with the correct type.
   dynamic stringToType(final Type type) {
