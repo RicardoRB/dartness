@@ -13,7 +13,7 @@ dependencies:
 
 dev_dependencies:
   build_runner: ^2.2.0
-  dartness_generator: ^0.7.0
+  dartness_generator: ^0.7.2
 ```
 
 2. Add the corresponding `part '.g.dart'` to your classes, otherwise the new code won't be generated, you can find an

@@ -43,3 +43,8 @@
 ## 0.7.1
 
 - Fixed Dartness server version package
+
+
+## 0.7.1
+
+- Fixed generating without nulls type

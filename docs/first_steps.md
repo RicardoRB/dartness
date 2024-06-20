@@ -24,7 +24,7 @@ dependencies:
 
 dev_dependencies:
   build_runner: ^2.2.0
-  dartness_generator: ^0.7.0
+  dartness_generator: ^0.7.2
 ```
 
 ### 2. Create the file in "bin/app.dart" or whatever file that you consider that you root application is.

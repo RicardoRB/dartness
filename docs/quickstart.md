@@ -31,7 +31,7 @@ $ dart create -t console your_project_name
 dependencies:
   dartness_server: ^0.7.0
 dev_dependencies:
-  dartness_generator: ^0.7.0
+  dartness_generator: ^0.7.2
 ```
 
 ### 2.Create the file in "src/app.dart"
